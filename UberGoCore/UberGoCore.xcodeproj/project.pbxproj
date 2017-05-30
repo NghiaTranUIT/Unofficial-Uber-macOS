@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5DCDECCB5D68CEA1521EF84A /* Pods_UberGoCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A42638801468E3CC0AC1FBC4 /* Pods_UberGoCore.framework */; };
 		BA037F1A1EDD61E600945C1D /* UberGoCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA037F101EDD61E600945C1D /* UberGoCore.framework */; };
 		BA037F1F1EDD61E600945C1D /* UberGoCoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA037F1E1EDD61E600945C1D /* UberGoCoreTests.swift */; };
 		BA037F211EDD61E600945C1D /* UberGoCore.h in Headers */ = {isa = PBXBuildFile; fileRef = BA037F131EDD61E600945C1D /* UberGoCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -23,12 +24,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		274C372722C9E7B57DC8D2C5 /* Pods-UberGoCore.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UberGoCore.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-UberGoCore/Pods-UberGoCore.debug.xcconfig"; sourceTree = "<group>"; };
+		A42638801468E3CC0AC1FBC4 /* Pods_UberGoCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UberGoCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA037F101EDD61E600945C1D /* UberGoCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = UberGoCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA037F131EDD61E600945C1D /* UberGoCore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UberGoCore.h; sourceTree = "<group>"; };
 		BA037F141EDD61E600945C1D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BA037F191EDD61E600945C1D /* UberGoCoreTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UberGoCoreTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA037F1E1EDD61E600945C1D /* UberGoCoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UberGoCoreTests.swift; sourceTree = "<group>"; };
 		BA037F201EDD61E600945C1D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F22C60C2ED6397769FF42AA8 /* Pods-UberGoCore.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UberGoCore.release.xcconfig"; path = "../Pods/Target Support Files/Pods-UberGoCore/Pods-UberGoCore.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,6 +40,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5DCDECCB5D68CEA1521EF84A /* Pods_UberGoCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -56,6 +61,8 @@
 				BA037F121EDD61E600945C1D /* UberGoCore */,
 				BA037F1D1EDD61E600945C1D /* UberGoCoreTests */,
 				BA037F111EDD61E600945C1D /* Products */,
+				D8F3935E580F5D9359F8D315 /* Pods */,
+				F796236A80B132D79C203C30 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -86,6 +93,23 @@
 			path = UberGoCoreTests;
 			sourceTree = "<group>";
 		};
+		D8F3935E580F5D9359F8D315 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				274C372722C9E7B57DC8D2C5 /* Pods-UberGoCore.debug.xcconfig */,
+				F22C60C2ED6397769FF42AA8 /* Pods-UberGoCore.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		F796236A80B132D79C203C30 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A42638801468E3CC0AC1FBC4 /* Pods_UberGoCore.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -104,10 +128,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = BA037F241EDD61E600945C1D /* Build configuration list for PBXNativeTarget "UberGoCore" */;
 			buildPhases = (
+				E0B7AE62F1D64480BB8E4369 /* [CP] Check Pods Manifest.lock */,
 				BA037F0B1EDD61E600945C1D /* Sources */,
 				BA037F0C1EDD61E600945C1D /* Frameworks */,
 				BA037F0D1EDD61E600945C1D /* Headers */,
 				BA037F0E1EDD61E600945C1D /* Resources */,
+				68FEF8D9D03268C7AABCD19A /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -192,6 +218,39 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		68FEF8D9D03268C7AABCD19A /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-UberGoCore/Pods-UberGoCore-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E0B7AE62F1D64480BB8E4369 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		BA037F0B1EDD61E600945C1D /* Sources */ = {
@@ -320,6 +379,7 @@
 		};
 		BA037F251EDD61E600945C1D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 274C372722C9E7B57DC8D2C5 /* Pods-UberGoCore.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
@@ -341,6 +401,7 @@
 		};
 		BA037F261EDD61E600945C1D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F22C60C2ED6397769FF42AA8 /* Pods-UberGoCore.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
