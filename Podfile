@@ -1,7 +1,6 @@
 #
 #   Created by : Nghia Tran
 #
-#
 source 'https://github.com/CocoaPods/Specs.git'
 platform :osx, '10.12'
 workspace 'UberGoWorkspace.xcworkspace'

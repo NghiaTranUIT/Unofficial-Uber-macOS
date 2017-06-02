@@ -9,10 +9,13 @@
 /* Begin PBXBuildFile section */
 		00CA4DFC1E6657E70B7E8D36 /* Pods_UberGo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8B037DB48A309C9D4EDC5A2 /* Pods_UberGo.framework */; };
 		BA037F371EDD61F800945C1D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA037F361EDD61F800945C1D /* AppDelegate.swift */; };
-		BA037F391EDD61F800945C1D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA037F381EDD61F800945C1D /* ViewController.swift */; };
 		BA037F3B1EDD61F800945C1D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BA037F3A1EDD61F800945C1D /* Assets.xcassets */; };
 		BA037F3E1EDD61F800945C1D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA037F3C1EDD61F800945C1D /* Main.storyboard */; };
 		BA037F491EDD61F800945C1D /* UberGoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA037F481EDD61F800945C1D /* UberGoTests.swift */; };
+		BAF57FB91EE116FB0013090E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF57FB71EE116FB0013090E /* LoginViewController.swift */; };
+		BAF57FBA1EE116FB0013090E /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BAF57FB81EE116FB0013090E /* LoginViewController.xib */; };
+		BAF57FBF1EE117300013090E /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF57FBD1EE117300013090E /* MapViewController.swift */; };
+		BAF57FC01EE117300013090E /* MapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BAF57FBE1EE117300013090E /* MapViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,13 +33,16 @@
 		6D12875DE7461CA1633A4776 /* Pods-UberGo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UberGo.release.xcconfig"; path = "../Pods/Target Support Files/Pods-UberGo/Pods-UberGo.release.xcconfig"; sourceTree = "<group>"; };
 		BA037F331EDD61F800945C1D /* UberGo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UberGo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA037F361EDD61F800945C1D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		BA037F381EDD61F800945C1D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		BA037F3A1EDD61F800945C1D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BA037F3D1EDD61F800945C1D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		BA037F3F1EDD61F800945C1D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BA037F441EDD61F800945C1D /* UberGoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UberGoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA037F481EDD61F800945C1D /* UberGoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UberGoTests.swift; sourceTree = "<group>"; };
 		BA037F4A1EDD61F800945C1D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BAF57FB71EE116FB0013090E /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		BAF57FB81EE116FB0013090E /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
+		BAF57FBD1EE117300013090E /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		BAF57FBE1EE117300013090E /* MapViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MapViewController.xib; sourceTree = "<group>"; };
 		E8B037DB48A309C9D4EDC5A2 /* Pods_UberGo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UberGo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -90,11 +96,10 @@
 		BA037F351EDD61F800945C1D /* UberGo */ = {
 			isa = PBXGroup;
 			children = (
+				BA32E7211EDFC79C0044C017 /* Constants */,
+				BA32E7201EDFC7910044C017 /* Resource */,
+				BA32E71F1EDFC78B0044C017 /* Controller */,
 				BA037F361EDD61F800945C1D /* AppDelegate.swift */,
-				BA037F381EDD61F800945C1D /* ViewController.swift */,
-				BA037F3A1EDD61F800945C1D /* Assets.xcassets */,
-				BA037F3C1EDD61F800945C1D /* Main.storyboard */,
-				BA037F3F1EDD61F800945C1D /* Info.plist */,
 			);
 			path = UberGo;
 			sourceTree = "<group>";
@@ -106,6 +111,50 @@
 				BA037F4A1EDD61F800945C1D /* Info.plist */,
 			);
 			path = UberGoTests;
+			sourceTree = "<group>";
+		};
+		BA32E71F1EDFC78B0044C017 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				BAF57FB71EE116FB0013090E /* LoginViewController.swift */,
+				BAF57FBD1EE117300013090E /* MapViewController.swift */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		BA32E7201EDFC7910044C017 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				BAF57FBC1EE117160013090E /* Assets */,
+				BAF57FBB1EE117000013090E /* Storyboards Xibs */,
+			);
+			name = Resource;
+			sourceTree = "<group>";
+		};
+		BA32E7211EDFC79C0044C017 /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				BA037F3F1EDD61F800945C1D /* Info.plist */,
+			);
+			name = Constants;
+			sourceTree = "<group>";
+		};
+		BAF57FBB1EE117000013090E /* Storyboards Xibs */ = {
+			isa = PBXGroup;
+			children = (
+				BAF57FBE1EE117300013090E /* MapViewController.xib */,
+				BAF57FB81EE116FB0013090E /* LoginViewController.xib */,
+				BA037F3C1EDD61F800945C1D /* Main.storyboard */,
+			);
+			name = "Storyboards Xibs";
+			sourceTree = "<group>";
+		};
+		BAF57FBC1EE117160013090E /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				BA037F3A1EDD61F800945C1D /* Assets.xcassets */,
+			);
+			name = Assets;
 			sourceTree = "<group>";
 		};
 		DB9E6C7D7D233F865E707922 /* Pods */ = {
@@ -207,6 +256,8 @@
 			files = (
 				BA037F3B1EDD61F800945C1D /* Assets.xcassets in Resources */,
 				BA037F3E1EDD61F800945C1D /* Main.storyboard in Resources */,
+				BAF57FBA1EE116FB0013090E /* LoginViewController.xib in Resources */,
+				BAF57FC01EE117300013090E /* MapViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -272,7 +323,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BA037F391EDD61F800945C1D /* ViewController.swift in Sources */,
+				BAF57FB91EE116FB0013090E /* LoginViewController.swift in Sources */,
+				BAF57FBF1EE117300013090E /* MapViewController.swift in Sources */,
 				BA037F371EDD61F800945C1D /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -480,6 +532,7 @@
 				BA037F4F1EDD61F800945C1D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		BA037F501EDD61F800945C1D /* Build configuration list for PBXNativeTarget "UberGoTests" */ = {
 			isa = XCConfigurationList;
@@ -488,6 +541,7 @@
 				BA037F521EDD61F800945C1D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
