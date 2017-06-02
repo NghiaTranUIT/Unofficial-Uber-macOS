@@ -9,7 +9,7 @@
 import Cocoa
 import ObjectMapper
 
-class BaseObj: NSObject, Mappable {
+open class BaseObj: NSObject, Mappable {
     
     // MARK: - Variable
     public var objectId: String?
