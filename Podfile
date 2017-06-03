@@ -6,6 +6,9 @@ platform :osx, '10.12'
 workspace 'UberGoWorkspace.xcworkspace'
 use_frameworks!
 
+# ignore all warnings from all pods
+inhibit_all_warnings!
+
 # Pods
 def important_pods
 

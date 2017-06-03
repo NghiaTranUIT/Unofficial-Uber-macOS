@@ -26,7 +26,7 @@ final class UserObj: BaseObj {
         }
 
         // Critical resource
-        if let _ = Static.instance {
+        if Static.instance != nil {
             return Static.instance
         }
 

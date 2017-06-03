@@ -53,7 +53,6 @@ open class AuthenticationViewModel: BaseViewModel,
 
         // Check authentication
         self.authenticateStateDriver = Observable<AuthenticationState>.create({ (observer) -> Disposable in
-            
             guard let currentUser = UserObj.currentUser else {
                 observer.onNext(.unAuthenticated)
                 return Disposables.create()
@@ -70,9 +69,9 @@ open class AuthenticationViewModel: BaseViewModel,
         }
         .do(onNext: { (credential) in
             print(credential)
-        }).subscribe().addDisposableTo(self.disposeBag)
-
-
+        })
+        .subscribe()
+        .addDisposableTo(self.disposeBag)
     }
 
     fileprivate func lazyOauthUber() -> OAuth2Swift {
@@ -83,8 +82,6 @@ open class AuthenticationViewModel: BaseViewModel,
             accessTokenUrl: "https://login.uber.com/oauth/v2/token",
             responseType:   "code"
         )
-
-
         return oauthswift
     }
 

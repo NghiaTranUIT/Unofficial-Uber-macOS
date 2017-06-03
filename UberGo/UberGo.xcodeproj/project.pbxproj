@@ -219,6 +219,7 @@
 				F20F0C70E7EA8A04910A7D3A /* [CP] Embed Pods Frameworks */,
 				702D69811002A3516F5DB060 /* [CP] Copy Pods Resources */,
 				BA4796981EE2540D00620BB0 /* Embed Frameworks */,
+				BA4796AD1EE2D61100620BB0 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -340,6 +341,19 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-UberGo/Pods-UberGo-resources.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		BA4796AD1EE2D61100620BB0 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
 		};
 		F20F0C70E7EA8A04910A7D3A /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;

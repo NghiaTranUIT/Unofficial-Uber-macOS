@@ -9,7 +9,7 @@
 import Cocoa
 import UberGoCore
 
-class MapViewController: NSViewController {
+class MapViewController: BaseViewController {
 
     // MARK: - Variable
     fileprivate var viewModel: MapViewModel!
@@ -20,5 +20,5 @@ class MapViewController: NSViewController {
 
         self.viewModel = MapViewModel()
     }
-    
+
 }

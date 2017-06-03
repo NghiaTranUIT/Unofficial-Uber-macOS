@@ -9,32 +9,24 @@
 import Cocoa
 import UberGoCore
 
-class LoginViewController: NSViewController {
+class LoginViewController: BaseViewController {
 
     // MARK: - OUTLET
     @IBOutlet weak var loginBtn: NSButton!
 
     // MARK: - Variable
-    fileprivate var viewModel: AuthenticationViewModel!
+    var viewModel: AuthenticationViewModel!
 
     // MARK: - View Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.loginBtn.rx.tap.bind(to: self.viewModel.loginBtnOnTabPublish)
-    }
-
-    public init?<T: BaseViewModel>(nibName nibNameOrNil: String?, viewModel: T) {
-        super.init(nibName: nibNameOrNil, bundle: nil)
-        self.viewModel = viewModel as! AuthenticationViewModel
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        .addDisposableTo(self.disposeBag)
     }
 
     @IBAction func loginBtnOnTap(_ sender: Any) {
-        
+
     }
 }
 

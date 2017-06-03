@@ -14,7 +14,6 @@ import OAuthSwift
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 
-
     // MARK: - Variable
     fileprivate var viewModel: AppViewModel!
     fileprivate var authenticationViewModel: AuthenticationViewModel!
@@ -23,7 +22,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     fileprivate let disposeBag = DisposeBag()
 
     // MARK: - Action
-    
+
     func applicationDidFinishLaunching(_ aNotification: Notification) {
 
         // listen to scheme url
@@ -63,9 +62,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 // MARK: - Private
 extension AppDelegate {
-    
+
     fileprivate func setupPopover(with state: AuthenticationState) {
-        
+
         if let button = statusItem.button {
             button.image = NSImage(named: "StatusBarButtonImage")
             button.imagePosition = .imageLeft
@@ -80,33 +79,34 @@ extension AppDelegate {
         case .authenticated:
             popover.contentViewController = MapViewController(nibName: "MapViewController", bundle: nil)
         case .unAuthenticated:
-            let login = LoginViewController(nibName: "LoginViewController", viewModel: self.authenticationViewModel)
+            let login = LoginViewController(nibName: "LoginViewController", bundle: nil)!
+            login.viewModel = self.authenticationViewModel
             popover.contentViewController = login
 
         }
 
     }
-    
+
     @objc fileprivate func togglePopover() {
         self.viewModel.input.switchPopoverPublish.onNext()
     }
-    
+
     fileprivate func close() {
         if self.popover.isShown {
             return
         }
-        
+
         self.popover.close()
     }
-    
+
     fileprivate func show() {
-        
+
         NSRunningApplication.current().activate(options: NSApplicationActivationOptions.activateIgnoringOtherApps)
-        
+
         guard let button = self.statusItem.button else {
             return
         }
-        
+
         self.popover.show(relativeTo: button.frame, of: button, preferredEdge: .minY)
     }
 
