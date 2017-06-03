@@ -17,6 +17,10 @@ open class BaseObj: NSObject, Mappable {
     public var updatedAt: Date?
 
     // MARK: - Init
+    public override init() {
+        super.init()
+    }
+    
     public required init?(map: Map) {
 
     }

@@ -53,9 +53,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func handleGetURL(event: NSAppleEventDescriptor!, withReplyEvent: NSAppleEventDescriptor!) {
-        if let urlString = event.paramDescriptor(forKeyword: AEKeyword(keyDirectObject))?.stringValue, let url = URL(string: urlString) {
-            applicationHandle(url: url)
-        }
+        self.authenticationViewModel.input.uberCallbackPublish.onNext(event)
     }
 
 }
@@ -108,14 +106,5 @@ extension AppDelegate {
         }
 
         self.popover.show(relativeTo: button.frame, of: button, preferredEdge: .minY)
-    }
-
-    fileprivate func applicationHandle(url: URL) {
-        if (url.host == "oauth-callback") {
-            OAuthSwift.handle(url: url)
-        } else {
-            // Google provider is the only one wuth your.bundle.id url schema.
-            OAuthSwift.handle(url: url)
-        }
     }
 }

@@ -10,6 +10,17 @@ import Cocoa
 
 struct Constants {
 
+    // MARK: - UberApp
+    struct UberApp {
+
+        static let ClientID = "fwjlEcQ945pan5s4rYLPzaVhcrbuFPHB"
+        static let SecretID = "nyViKGlehMn89Wdu0UFJN_flPKi601T4_CHnude8"
+        static let AuthorizeUrl = "https://login.uber.com/oauth/v2/authorize"
+        static let AccessTokenUrl = "https://login.uber.com/oauth/v2/token"
+        static let ResponseType = "code"
+        static let CallBackUrl = "oauth-swift://oauth-callback/uber"
+    }
+
     // MARK: - Uber
     struct UberAPI {
 

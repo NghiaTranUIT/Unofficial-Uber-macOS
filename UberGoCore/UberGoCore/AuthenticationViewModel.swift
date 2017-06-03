@@ -8,8 +8,8 @@
 
 import Foundation
 import RxSwift
-import RxCocoa
 import OAuthSwift
+import RxCocoa
 
 // MARK: - Protocol
 public protocol AuthenticationViewModelProtocol {
@@ -21,6 +21,7 @@ public protocol AuthenticationViewModelProtocol {
 public protocol AuthenticationViewModelInput {
 
     var loginBtnOnTabPublish: PublishSubject<Void> { get }
+    var uberCallbackPublish: PublishSubject<NSAppleEventDescriptor> { get }
 }
 
 public protocol AuthenticationViewModelOutput {
@@ -39,10 +40,13 @@ open class AuthenticationViewModel: BaseViewModel,
     public var output: AuthenticationViewModelOutput { return self }
 
     // MARK: - Variable
-    fileprivate lazy var oauthUber: OAuth2Swift = self.lazyOauthUber()
+    fileprivate lazy var uberOauth: UberOauth = {
+        return UberOauth()
+    }()
 
     // MARK: - Input
     public var loginBtnOnTabPublish = PublishSubject<Void>()
+    public var uberCallbackPublish = PublishSubject<NSAppleEventDescriptor>()
 
     // MARK: - Output
     public var authenticateStateDriver: Driver<AuthenticationState>!
@@ -64,45 +68,18 @@ open class AuthenticationViewModel: BaseViewModel,
         .asDriver(onErrorJustReturn: AuthenticationState.unAuthenticated)
 
         // Login
-        self.loginBtnOnTabPublish.flatMapLatest { _ -> Observable<OAuthSwiftCredential> in
-            return self.loginObserable()
+        self.loginBtnOnTabPublish
+        .flatMapLatest { _ -> Observable<OAuthSwiftCredential> in
+            return self.uberOauth.oauthUberObserable()
         }
-        .do(onNext: { (credential) in
-            print(credential)
+        .map({ (credential) -> UserObj in
+            return UserObj.convertCurrentUser(with: credential)
         })
         .subscribe()
         .addDisposableTo(self.disposeBag)
-    }
 
-    fileprivate func lazyOauthUber() -> OAuth2Swift {
-        let oauthswift = OAuth2Swift(
-            consumerKey:    "fwjlEcQ945pan5s4rYLPzaVhcrbuFPHB",
-            consumerSecret: "nyViKGlehMn89Wdu0UFJN_flPKi601T4_CHnude8",
-            authorizeUrl:   "https://login.uber.com/oauth/v2/authorize",
-            accessTokenUrl: "https://login.uber.com/oauth/v2/token",
-            responseType:   "code"
-        )
-        return oauthswift
-    }
-
-    fileprivate func loginObserable() -> Observable<OAuthSwiftCredential> {
-        return Observable<OAuthSwiftCredential>.create { (observer) -> Disposable in
-
-            let _ = self.oauthUber.authorize(
-                withCallbackURL: URL(string: "oauth-swift://oauth-callback/uber")!,
-                scope: "", state:"UBER",
-                success: { credential, response, parameters in
-                    print(credential.oauthToken)
-                    observer.onNext(credential)
-            },
-                failure: { error in
-                    print(error.localizedDescription)
-                    observer.onError(error)
-            })
-
-            observer.onCompleted()
-            return Disposables.create()
-        }
-
+        // Oauth Callback
+        self.uberCallbackPublish.bind(to: self.uberOauth.callbackObserverPublish)
+        .addDisposableTo(self.disposeBag)
     }
 }

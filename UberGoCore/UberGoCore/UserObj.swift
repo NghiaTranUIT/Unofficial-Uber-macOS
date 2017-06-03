@@ -8,6 +8,7 @@
 
 import Cocoa
 import ObjectMapper
+import OAuthSwift
 
 final class UserObj: BaseObj {
 
@@ -50,7 +51,10 @@ final class UserObj: BaseObj {
     }
 
     // MARK: - Public
-
+    public class func convertCurrentUser(with credential: OAuthSwiftCredential) -> UserObj {
+        let user = UserObj()
+        return user
+    }
 }
 
 // MARK: - Private
