@@ -24,17 +24,18 @@ script:
   - set -o pipefail
   - xcodebuild -version
   - xcodebuild -showsdks
-
+  - xcodebuild -list
+  
     # Build Example in Debug if specified
   - if [ $BUILD_EXAMPLE == "YES" ]; then
-      xcodebuild -workspace "$WORKSPACE" -scheme "$SCHEME" -destination "$DESTINATION" -configuration Debug ONLY_ACTIVE_ARCH=NO build | xcpretty;
+      xcodebuild -workspace "$WORKSPACE" -scheme "$SCHEME" -destination "$DESTINATION" -configuration Debug ONLY_ACTIVE_ARCH=NO build;
     fi
 
     # Build Core in Debug and Run Tests if specified
   - if [ $RUN_TESTS == "YES" ]; then
-      xcodebuild -workspace "$WORKSPACE" -sdk "$SDK" -scheme "$SCHEME" -destination "$DESTINATION" -configuration Debug ONLY_ACTIVE_ARCH=NO ENABLE_TESTABILITY=YES test | xcpretty;
+      xcodebuild -workspace "$WORKSPACE" -sdk "$SDK" -scheme "$SCHEME" -destination "$DESTINATION" -configuration Debug ONLY_ACTIVE_ARCH=NO ENABLE_TESTABILITY=YES test;
     else
-      xcodebuild -workspace "$WORKSPACE" -sdk "$SDK" -scheme "$SCHEME" -destination "$DESTINATION" -configuration Debug ONLY_ACTIVE_ARCH=NO build | xcpretty;
+      xcodebuild -workspace "$WORKSPACE" -sdk "$SDK" -scheme "$SCHEME" -destination "$DESTINATION" -configuration Debug ONLY_ACTIVE_ARCH=NO build;
     fi
 
 after_success:

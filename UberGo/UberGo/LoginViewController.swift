@@ -10,9 +10,22 @@ import Cocoa
 
 class LoginViewController: NSViewController {
 
+    // MARK: - <#Name#>
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do view setup here.
     }
     
+}
+
+// MARK: - Private
+extension LoginViewController {
+
+    fileprivate func initCommon() {
+
+    }
+
+    fileprivate func initAppereance() {
+
+    }
 }
