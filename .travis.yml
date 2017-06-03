@@ -18,7 +18,7 @@ before_install:
   - echo "gem 'cocoapods'" >> Gemfile
   - echo "gem 'slather'" >> Gemfile
   - bundle install
-  - bundle exec pod install
+  - bundle exec pod install --repo-update
 
 script:
   - set -o pipefail
