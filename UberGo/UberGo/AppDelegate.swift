@@ -8,6 +8,7 @@
 
 import Cocoa
 import UberGoCore
+import RxSwift
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
@@ -17,7 +18,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     fileprivate var viewModel: AppViewModel!
     fileprivate let statusItem = NSStatusBar.system().statusItem(withLength: NSVariableStatusItemLength)
     fileprivate let popover = NSPopover()
-    
+    fileprivate let disposeBag = DisposeBag()
+
     // MARK: - Action
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
@@ -26,6 +28,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         // Setup
         self.setupPopover()
+
+        self.viewModel.output.popoverStateVariable.asDriver().drive(onNext: {[unowned self] (state) in
+            switch state {
+            case .close:
+                self.close()
+            case .open:
+                self.show()
+            }
+        }).addDisposableTo(self.disposeBag)
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
@@ -53,11 +64,7 @@ extension AppDelegate {
     }
     
     @objc fileprivate func togglePopover() {
-        if self.popover.isShown {
-            self.close()
-        } else {
-            self.show()
-        }
+        self.viewModel.input.switchPopoverPublish.onNext()
     }
     
     fileprivate func close() {
