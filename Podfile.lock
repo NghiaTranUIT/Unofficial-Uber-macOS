@@ -1,5 +1,6 @@
 PODS:
   - Alamofire (4.4.0)
+  - OAuthSwift (1.1.1)
   - ObjectMapper (2.2.6)
   - RxCocoa (3.4.1):
     - RxSwift (~> 3.4)
@@ -8,6 +9,7 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire (~> 4.4)
+  - OAuthSwift (~> 1.1.0)
   - ObjectMapper (~> 2.2)
   - RxCocoa (~> 3.0)
   - RxSwift (~> 3.0)
@@ -15,11 +17,12 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   Alamofire: dc44b1600b800eb63da6a19039a0083d62a6a62d
+  OAuthSwift: 6e3a103b3e5639411769cc7e199ec7e14bd1547f
   ObjectMapper: 042708195cc46c20871cbcbec0453826398273fd
   RxCocoa: a8a5f1d061d0043e28f56976829f31ce63e8eb09
   RxSwift: 656f8fbeca5bc372121a72d9ebdd3cd3bc0ffade
   SwiftLint: b467d08f5b25dc3b3cfed243d8e1b74b91714c67
 
-PODFILE CHECKSUM: 67ae92f84bc89a60f0f8c2671b9c9467414e1b5c
+PODFILE CHECKSUM: 41f3cbba6b3d7277d4f684e2ff244cb0162feb9f
 
 COCOAPODS: 1.2.1

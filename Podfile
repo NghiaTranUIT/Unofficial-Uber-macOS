@@ -15,6 +15,8 @@ def important_pods
     pod 'RxSwift',    '~> 3.0'
     pod 'RxCocoa',    '~> 3.0'
     pod 'SwiftLint'
+    pod 'OAuthSwift', '~> 1.1.0'
+
 end
 
 # UberGo

@@ -9,6 +9,7 @@
 import Cocoa
 import UberGoCore
 import RxSwift
+import OAuthSwift
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
@@ -24,7 +25,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     // MARK: - Action
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        
+
+        // listen to scheme url
+        NSAppleEventManager.shared().setEventHandler(self, andSelector:#selector(AppDelegate.handleGetURL(event:withReplyEvent:)), forEventClass: AEEventClass(kInternetEventClass), andEventID: AEEventID(kAEGetURL))
+
         self.viewModel = AppViewModel()
         self.authenticationViewModel = AuthenticationViewModel()
 
@@ -47,6 +51,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
+    }
+
+    func handleGetURL(event: NSAppleEventDescriptor!, withReplyEvent: NSAppleEventDescriptor!) {
+        if let urlString = event.paramDescriptor(forKeyword: AEKeyword(keyDirectObject))?.stringValue, let url = URL(string: urlString) {
+            applicationHandle(url: url)
+        }
     }
 
 }
@@ -98,5 +108,14 @@ extension AppDelegate {
         }
         
         self.popover.show(relativeTo: button.frame, of: button, preferredEdge: .minY)
+    }
+
+    fileprivate func applicationHandle(url: URL) {
+        if (url.host == "oauth-callback") {
+            OAuthSwift.handle(url: url)
+        } else {
+            // Google provider is the only one wuth your.bundle.id url schema.
+            OAuthSwift.handle(url: url)
+        }
     }
 }

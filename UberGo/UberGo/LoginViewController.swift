@@ -21,6 +21,7 @@ class LoginViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.loginBtn.rx.tap.bind(to: self.viewModel.loginBtnOnTabPublish)
     }
 
     public init?<T: BaseViewModel>(nibName nibNameOrNil: String?, viewModel: T) {
