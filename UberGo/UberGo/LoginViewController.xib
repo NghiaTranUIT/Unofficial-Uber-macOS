@@ -8,6 +8,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="LoginViewController" customModule="UberGo" customModuleProvider="target">
             <connections>
+                <outlet property="loginBtn" destination="C74-C6-KeO" id="crH-ii-amh"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
         </customObject>
@@ -25,10 +26,22 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="C74-C6-KeO">
+                    <rect key="frame" x="187" y="58" width="107" height="32"/>
+                    <buttonCell key="cell" type="push" title="Login Uber" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="v8r-2D-Qr2">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="loginBtnOnTap:" target="-2" id="8LZ-qg-xdU"/>
+                    </connections>
+                </button>
             </subviews>
             <constraints>
                 <constraint firstItem="DsE-rs-atN" firstAttribute="centerY" secondItem="Hz6-mo-xeY" secondAttribute="centerY" id="3RB-gr-CFs"/>
                 <constraint firstItem="DsE-rs-atN" firstAttribute="centerX" secondItem="Hz6-mo-xeY" secondAttribute="centerX" id="Vwx-Cb-njg"/>
+                <constraint firstItem="C74-C6-KeO" firstAttribute="top" secondItem="DsE-rs-atN" secondAttribute="bottom" constant="41" id="tbE-8A-ExO"/>
+                <constraint firstItem="C74-C6-KeO" firstAttribute="centerX" secondItem="Hz6-mo-xeY" secondAttribute="centerX" id="xjx-Mj-uh3"/>
             </constraints>
         </customView>
     </objects>

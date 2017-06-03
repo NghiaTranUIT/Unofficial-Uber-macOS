@@ -7,15 +7,25 @@
 //
 
 import Cocoa
+import UberGoCore
 
 class LoginViewController: NSViewController {
 
-    // MARK: - <#Name#>
+    // MARK: - OUTLET
+    @IBOutlet weak var loginBtn: NSButton!
+
+    // MARK: - Variable
+    fileprivate var viewModel: AuthenticationViewModel!
+
+    // MARK: - View Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do view setup here.
+
     }
     
+    @IBAction func loginBtnOnTap(_ sender: Any) {
+        
+    }
 }
 
 // MARK: - Private
@@ -25,7 +35,7 @@ extension LoginViewController {
 
     }
 
-    fileprivate func initAppereance() {
+    fileprivate func initModel() {
 
     }
 }

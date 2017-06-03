@@ -46,7 +46,7 @@ final class UserObj: BaseObj {
     override func mapping(map: Map) {
         super.mapping(map: map)
 
-        self.name <- map[Constants.Object.User.name]
+        self.name <- map[Constants.Object.User.Name]
     }
 
     // MARK: - Public

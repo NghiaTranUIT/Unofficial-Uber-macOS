@@ -22,8 +22,8 @@ open class BaseObj: NSObject, Mappable {
     }
 
     public func mapping(map: Map) {
-        self.objectId <- map[Constants.Object.objectId]
-        self.createdAt <- map[Constants.Object.createdAt]
-        self.updatedAt <- map[Constants.Object.updatedAt]
+        self.objectId <- map[Constants.Object.ObjectId]
+        self.createdAt <- map[Constants.Object.CreatedAt]
+        self.updatedAt <- map[Constants.Object.UpdatedAt]
     }
 }

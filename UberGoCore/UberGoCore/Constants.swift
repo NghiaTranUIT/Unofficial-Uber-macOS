@@ -10,16 +10,23 @@ import Cocoa
 
 struct Constants {
 
+    // MARK: - Uber
+    struct UberAPI {
+
+        static let BaseURL = "https://login.uber.com"
+        static let LoginURL = "oauth/v2/authorize"
+    }
+
     // MARK: - Object
     struct Object {
 
-        static let objectId = "objectID"
-        static let createdAt = "createdAt"
-        static let updatedAt = "updatedAt"
+        static let ObjectId = "objectID"
+        static let CreatedAt = "createdAt"
+        static let UpdatedAt = "updatedAt"
 
         // MARK: - User
         struct User {
-            static let name = "name"
+            static let Name = "name"
         }
     }
 }
