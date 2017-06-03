@@ -14,5 +14,5 @@ open class BaseViewModel {
 
     // MARK: - Variable
     public let disposeBag = DisposeBag()
-    
+
 }

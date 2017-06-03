@@ -10,10 +10,10 @@ import Foundation
 
 // MARK: - Authentication State
 public enum AuthenticationState {
-    
+
     // Authenticated successfully and valid token from Uber
     case authenticated
-    
+
     // Otherwise case
     case unAuthenticated
 }

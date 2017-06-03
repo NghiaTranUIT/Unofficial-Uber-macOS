@@ -9,14 +9,14 @@
 import Cocoa
 
 struct Constants {
-    
+
     // MARK: - Object
     struct Object {
-        
+
         static let objectId = "objectID"
         static let createdAt = "createdAt"
         static let updatedAt = "updatedAt"
-        
+
         // MARK: - User
         struct User {
             static let name = "name"

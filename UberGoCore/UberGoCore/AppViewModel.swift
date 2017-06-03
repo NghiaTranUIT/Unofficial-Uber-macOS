@@ -8,6 +8,30 @@
 
 import Foundation
 
-class AppViewModel {
+// MARK: - Protocol 
+public protocol AppViewModelProtocol {
 
+    var input: AppViewModelInput { get }
+    var output: AppViewModelOutput { get }
+}
+
+public protocol AppViewModelInput {
+
+}
+
+public protocol AppViewModelOutput {
+
+}
+
+// MARK: - App ViewModel
+open class AppViewModel: BaseViewModel, AppViewModelProtocol, AppViewModelInput, AppViewModelOutput {
+
+    // MARK: - View model
+    public var input: AppViewModelInput { return self }
+    public var output: AppViewModelOutput { return self }
+
+    // MARK: - Init
+    public override init() {
+
+    }
 }

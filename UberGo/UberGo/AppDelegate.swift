@@ -7,18 +7,22 @@
 //
 
 import Cocoa
+import UberGoCore
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 
 
     // MARK: - Variable
+    fileprivate var viewModel: AppViewModel!
     fileprivate let statusItem = NSStatusBar.system().statusItem(withLength: NSVariableStatusItemLength)
     fileprivate let popover = NSPopover()
     
     // MARK: - Action
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
+        
+        self.viewModel = AppViewModel()
         
         // Setup
         self.setupPopover()

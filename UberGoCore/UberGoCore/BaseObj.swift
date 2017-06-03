@@ -10,17 +10,17 @@ import Cocoa
 import ObjectMapper
 
 open class BaseObj: NSObject, Mappable {
-    
+
     // MARK: - Variable
     public var objectId: String?
     public var createdAt: Date?
     public var updatedAt: Date?
-    
+
     // MARK: - Init
     public required init?(map: Map) {
-        
+
     }
-    
+
     public func mapping(map: Map) {
         self.objectId <- map[Constants.Object.objectId]
         self.createdAt <- map[Constants.Object.createdAt]
