@@ -17,6 +17,7 @@ before_install:
   - bundle init
   - echo "gem 'cocoapods'" >> Gemfile
   - echo "gem 'slather'" >> Gemfile
+  - bundle install
   - bundle exec pod install
 
 script:
