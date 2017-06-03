@@ -14,9 +14,9 @@ env:
     - DESTINATION="arch=x86_64"                      SCHEME="$FRAMEWORK_SCHEME"           SDK="$OSX_SDK"     RUN_TESTS="YES"    BUILD_EXAMPLE="NO"
 
 before_install:
-  - gem install cocoapods --no-rdoc --no-ri --no-document
-  - gem install slather --no-rdoc --no-ri --no-document
-  - bundle exec pod install
+  - sudo gem install cocoapods --no-rdoc --no-ri --no-document
+  - sudo gem install slather --no-rdoc --no-ri --no-document
+  - sudo bundle exec pod install
 
 script:
   - set -o pipefail
