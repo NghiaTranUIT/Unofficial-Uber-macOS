@@ -22,7 +22,16 @@ class LoginViewController: NSViewController {
         super.viewDidLoad()
 
     }
+
+    public init?<T: BaseViewModel>(nibName nibNameOrNil: String?, viewModel: T) {
+        super.init(nibName: nibNameOrNil, bundle: nil)
+        self.viewModel = viewModel as! AuthenticationViewModel
+    }
     
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     @IBAction func loginBtnOnTap(_ sender: Any) {
         
     }

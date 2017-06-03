@@ -16,6 +16,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     // MARK: - Variable
     fileprivate var viewModel: AppViewModel!
+    fileprivate var authenticationViewModel: AuthenticationViewModel!
     fileprivate let statusItem = NSStatusBar.system().statusItem(withLength: NSVariableStatusItemLength)
     fileprivate let popover = NSPopover()
     fileprivate let disposeBag = DisposeBag()
@@ -25,9 +26,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         
         self.viewModel = AppViewModel()
-        
-        // Setup
-        self.setupPopover()
+        self.authenticationViewModel = AuthenticationViewModel()
 
         self.viewModel.output.popoverStateVariable.asDriver().drive(onNext: {[unowned self] (state) in
             switch state {
@@ -37,6 +36,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 self.show()
             }
         }).addDisposableTo(self.disposeBag)
+
+        self.authenticationViewModel.output.authenticateStateDriver.drive(onNext: {[unowned self] state in
+
+            // Setup
+            self.setupPopover(with: state)
+        })
+        .addDisposableTo(self.disposeBag)
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
@@ -48,18 +54,26 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 // MARK: - Private
 extension AppDelegate {
     
-    fileprivate func setupPopover() {
+    fileprivate func setupPopover(with state: AuthenticationState) {
         
         if let button = statusItem.button {
             button.image = NSImage(named: "StatusBarButtonImage")
             button.imagePosition = .imageLeft
             button.action = #selector(togglePopover)
         }
-        
-        popover.contentViewController = LoginViewController(nibName: "LoginViewController", bundle: nil)
+
         popover.appearance = NSAppearance(named: NSAppearanceNameAqua)
         popover.animates = false
         popover.behavior = .transient
+
+        switch state {
+        case .authenticated:
+            popover.contentViewController = MapViewController(nibName: "MapViewController", bundle: nil)
+        case .unAuthenticated:
+            let login = LoginViewController(nibName: "LoginViewController", viewModel: self.authenticationViewModel)
+            popover.contentViewController = login
+
+        }
 
     }
     
@@ -86,4 +100,3 @@ extension AppDelegate {
         self.popover.show(relativeTo: button.frame, of: button, preferredEdge: .minY)
     }
 }
-

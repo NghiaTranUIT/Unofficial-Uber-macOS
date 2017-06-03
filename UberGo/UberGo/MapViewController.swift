@@ -7,12 +7,18 @@
 //
 
 import Cocoa
+import UberGoCore
 
 class MapViewController: NSViewController {
 
+    // MARK: - Variable
+    fileprivate var viewModel: MapViewModel!
+
+    // MARK: - View Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do view setup here.
+
+        self.viewModel = MapViewModel()
     }
     
 }

@@ -16,6 +16,7 @@
 		BA32E7271EDFC84F0044C017 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA32E7261EDFC84F0044C017 /* Constants.swift */; };
 		BA4796A01EE2BD3A00620BB0 /* Requestable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA47969F1EE2BD3A00620BB0 /* Requestable.swift */; };
 		BA4796A31EE2BF0800620BB0 /* NSError+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4796A21EE2BF0800620BB0 /* NSError+Helper.swift */; };
+		BA4796A71EE2C0C700620BB0 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4796A61EE2C0C700620BB0 /* MapViewModel.swift */; };
 		BAF57FA61EE1163A0013090E /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF57FA51EE1163A0013090E /* Environment.swift */; };
 		BAF57FA81EE116490013090E /* UberNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF57FA71EE116490013090E /* UberNetwork.swift */; };
 		BAF57FAA1EE1166A0013090E /* UserObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF57FA91EE1166A0013090E /* UserObj.swift */; };
@@ -52,6 +53,7 @@
 		BA32E7261EDFC84F0044C017 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		BA47969F1EE2BD3A00620BB0 /* Requestable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Requestable.swift; sourceTree = "<group>"; };
 		BA4796A21EE2BF0800620BB0 /* NSError+Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSError+Helper.swift"; sourceTree = "<group>"; };
+		BA4796A61EE2C0C700620BB0 /* MapViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
 		BAF57FA51EE1163A0013090E /* Environment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
 		BAF57FA71EE116490013090E /* UberNetwork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UberNetwork.swift; sourceTree = "<group>"; };
 		BAF57FA91EE1166A0013090E /* UserObj.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserObj.swift; sourceTree = "<group>"; };
@@ -140,6 +142,7 @@
 		BA32E71C1EDFC7550044C017 /* View Models */ = {
 			isa = PBXGroup;
 			children = (
+				BA4796A61EE2C0C700620BB0 /* MapViewModel.swift */,
 				BA32E71D1EDFC76A0044C017 /* AuthenticationViewModel.swift */,
 				BA32E7221EDFC8230044C017 /* AppViewModel.swift */,
 				BAF57FC11EE11A080013090E /* BaseViewModel.swift */,
@@ -396,6 +399,7 @@
 				BAF57FA61EE1163A0013090E /* Environment.swift in Sources */,
 				BAF57FAC1EE116710013090E /* BaseObj.swift in Sources */,
 				BAF57FC21EE11A080013090E /* BaseViewModel.swift in Sources */,
+				BA4796A71EE2C0C700620BB0 /* MapViewModel.swift in Sources */,
 				BAF57FB01EE1168A0013090E /* PlaceObj.swift in Sources */,
 				BA32E71E1EDFC76A0044C017 /* AuthenticationViewModel.swift in Sources */,
 				BA4796A31EE2BF0800620BB0 /* NSError+Helper.swift in Sources */,

@@ -8,6 +8,7 @@
 
 import Foundation
 import RxSwift
+import RxCocoa
 
 // MARK: - Protocol
 public protocol AuthenticationViewModelProtocol {
@@ -22,7 +23,7 @@ public protocol AuthenticationViewModelInput {
 
 public protocol AuthenticationViewModelOutput {
 
-    var authenticateStateObserver: Observable<AuthenticationState> { get }
+    var authenticateStateDriver: Driver<AuthenticationState> { get }
 }
 
 // MARK: - View Model
@@ -40,14 +41,14 @@ open class AuthenticationViewModel: BaseViewModel,
     // MARK: - Input
 
     // MARK: - Output
-    public var authenticateStateObserver: Observable<AuthenticationState>
+    public var authenticateStateDriver: Driver<AuthenticationState>
 
     // MARK: - Init
-    override init() {
+    public override init() {
 
         // Check authentication
-        self.authenticateStateObserver = Observable<AuthenticationState>.create({ (observer) -> Disposable in
-
+        self.authenticateStateDriver = Observable<AuthenticationState>.create({ (observer) -> Disposable in
+            
             guard let currentUser = UserObj.currentUser else {
                 observer.onNext(.unAuthenticated)
                 return Disposables.create()
@@ -56,6 +57,7 @@ open class AuthenticationViewModel: BaseViewModel,
             observer.onNext(currentUser.authenticateState)
             return Disposables.create()
         })
+        .asDriver(onErrorJustReturn: AuthenticationState.unAuthenticated)
 
     }
 }

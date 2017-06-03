@@ -14,6 +14,7 @@
 		BA037F491EDD61F800945C1D /* UberGoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA037F481EDD61F800945C1D /* UberGoTests.swift */; };
 		BA4796961EE2540D00620BB0 /* UberGoCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA4796951EE2540D00620BB0 /* UberGoCore.framework */; };
 		BA4796971EE2540D00620BB0 /* UberGoCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BA4796951EE2540D00620BB0 /* UberGoCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		BA4796A91EE2C49700620BB0 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA4796A81EE2C49700620BB0 /* MapKit.framework */; };
 		BAF57FB91EE116FB0013090E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF57FB71EE116FB0013090E /* LoginViewController.swift */; };
 		BAF57FBA1EE116FB0013090E /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BAF57FB81EE116FB0013090E /* LoginViewController.xib */; };
 		BAF57FBF1EE117300013090E /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF57FBD1EE117300013090E /* MapViewController.swift */; };
@@ -56,6 +57,7 @@
 		BA037F481EDD61F800945C1D /* UberGoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UberGoTests.swift; sourceTree = "<group>"; };
 		BA037F4A1EDD61F800945C1D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BA4796951EE2540D00620BB0 /* UberGoCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = UberGoCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BA4796A81EE2C49700620BB0 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		BAF57FB71EE116FB0013090E /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		BAF57FB81EE116FB0013090E /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
 		BAF57FBD1EE117300013090E /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -68,6 +70,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BA4796A91EE2C49700620BB0 /* MapKit.framework in Frameworks */,
 				00CA4DFC1E6657E70B7E8D36 /* Pods_UberGo.framework in Frameworks */,
 				BA4796961EE2540D00620BB0 /* UberGoCore.framework in Frameworks */,
 			);
@@ -86,6 +89,7 @@
 		0DFF56EB856BA6104A84545D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BA4796A81EE2C49700620BB0 /* MapKit.framework */,
 				BA4796951EE2540D00620BB0 /* UberGoCore.framework */,
 				E8B037DB48A309C9D4EDC5A2 /* Pods_UberGo.framework */,
 			);
