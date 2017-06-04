@@ -120,7 +120,6 @@
 			isa = PBXGroup;
 			children = (
 				BA47969A1EE2598B00620BB0 /* View */,
-				BA4796991EE2598800620BB0 /* New Group */,
 				BA32E7211EDFC79C0044C017 /* Constants */,
 				BA32E7201EDFC7910044C017 /* Resource */,
 				BA32E71F1EDFC78B0044C017 /* Controller */,
@@ -162,13 +161,6 @@
 				BA037F3F1EDD61F800945C1D /* Info.plist */,
 			);
 			name = Constants;
-			sourceTree = "<group>";
-		};
-		BA4796991EE2598800620BB0 /* New Group */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "New Group";
 			sourceTree = "<group>";
 		};
 		BA47969A1EE2598B00620BB0 /* View */ = {
