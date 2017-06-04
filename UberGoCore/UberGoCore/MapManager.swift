@@ -26,6 +26,8 @@ open class MapManager: NSObject {
     public var isLocationServiceEnable: Bool {
         return CLLocationManager.locationServicesEnabled()
     }
+    public var currentLocationVariable = Variable<CLLocation?>(nil)
+
     fileprivate lazy var locationManager: CLLocationManager = self.lazyLocationManager()
     fileprivate var locationBlock: MapAuthenticationBlock?
 
@@ -88,10 +90,10 @@ extension MapManager: CLLocationManagerDelegate {
     }
 
     public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let block = self.locationBlock else { return }
         guard let lastLocation = locations.last else { return }
 
         // Notify
-        block(lastLocation, nil)
+        self.locationBlock?(lastLocation, nil)
+        self.currentLocationVariable.value = lastLocation
     }
 }

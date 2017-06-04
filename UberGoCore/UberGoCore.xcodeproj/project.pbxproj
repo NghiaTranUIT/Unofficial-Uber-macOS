@@ -23,6 +23,7 @@
 		BA4796B31EE3C93900620BB0 /* UUID+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4796B21EE3C93900620BB0 /* UUID+Helper.swift */; };
 		BA4796B51EE3D49300620BB0 /* UserObjTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4796B41EE3D49300620BB0 /* UserObjTests.swift */; };
 		BA7BA9811EE415D10056B0CF /* MapManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7BA9801EE415D10056B0CF /* MapManager.swift */; };
+		BA7BA9851EE42C0C0056B0CF /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA7BA9841EE42C0C0056B0CF /* CoreLocation.framework */; };
 		BAF57FA61EE1163A0013090E /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF57FA51EE1163A0013090E /* Environment.swift */; };
 		BAF57FA81EE116490013090E /* UberNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF57FA71EE116490013090E /* UberNetwork.swift */; };
 		BAF57FAA1EE1166A0013090E /* UserObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF57FA91EE1166A0013090E /* UserObj.swift */; };
@@ -67,6 +68,7 @@
 		BA4796B21EE3C93900620BB0 /* UUID+Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UUID+Helper.swift"; sourceTree = "<group>"; };
 		BA4796B41EE3D49300620BB0 /* UserObjTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserObjTests.swift; sourceTree = "<group>"; };
 		BA7BA9801EE415D10056B0CF /* MapManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapManager.swift; sourceTree = "<group>"; };
+		BA7BA9841EE42C0C0056B0CF /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		BAF57FA51EE1163A0013090E /* Environment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
 		BAF57FA71EE116490013090E /* UberNetwork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UberNetwork.swift; sourceTree = "<group>"; };
 		BAF57FA91EE1166A0013090E /* UserObj.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserObj.swift; sourceTree = "<group>"; };
@@ -86,6 +88,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BA7BA9851EE42C0C0056B0CF /* CoreLocation.framework in Frameworks */,
 				5DCDECCB5D68CEA1521EF84A /* Pods_UberGoCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -271,6 +274,7 @@
 		F796236A80B132D79C203C30 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BA7BA9841EE42C0C0056B0CF /* CoreLocation.framework */,
 				A42638801468E3CC0AC1FBC4 /* Pods_UberGoCore.framework */,
 				6EB477ECAD4DC3251691340D /* Pods_UberGoCoreTests.framework */,
 			);

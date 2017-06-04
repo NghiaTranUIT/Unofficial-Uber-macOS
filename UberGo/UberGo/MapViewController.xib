@@ -9,6 +9,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="MapViewController" customModule="UberGo" customModuleProvider="target">
             <connections>
+                <outlet property="mapView" destination="c5r-vl-wHF" id="ATq-kc-8l7"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
         </customObject>

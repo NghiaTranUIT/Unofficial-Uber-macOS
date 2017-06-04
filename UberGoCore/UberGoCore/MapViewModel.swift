@@ -10,6 +10,7 @@ import Foundation
 import MapKit
 import RxSwift
 import RxOptional
+import RxCocoa
 
 // MARK: - Protocol
 public protocol MapViewModelProtocol {
@@ -25,7 +26,7 @@ public protocol MapViewModelInput {
 
 public protocol MapViewModelOutput {
 
-    var currentLocationVariable: Variable<CLLocation?> { get }
+    var currentLocationDriver: Driver<CLLocation?> { get }
     var errorLocationVariable: Variable<Error?> { get }
 }
 
@@ -46,7 +47,9 @@ open class MapViewModel: BaseViewModel,
     public var getCurrentLocationPublish = PublishSubject<Void>()
 
     // MARK: - Output
-    public var currentLocationVariable = Variable<CLLocation?>(nil)
+    public var currentLocationDriver: Driver<CLLocation?> {
+        return mapManager.currentLocationVariable.asDriver()
+    }
     public var errorLocationVariable = Variable<Error?>(nil)
 
     // MARK: - Init
@@ -75,19 +78,6 @@ open class MapViewModel: BaseViewModel,
             .bind(to: self.errorLocationVariable)
             .addDisposableTo(self.disposeBag)
 
-        mapObser
-            .map({ (result) -> CLLocation? in
-                switch result {
-                case .location(let location):
-                    return location
-                default:
-                    return nil
-                }
-            })
-            .filterNil()
-            .observeOn(MainScheduler.instance)
-            .bind(to: self.currentLocationVariable)
-            .addDisposableTo(self.disposeBag)
 
     }
 }
