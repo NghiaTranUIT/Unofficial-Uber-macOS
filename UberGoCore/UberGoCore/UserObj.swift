@@ -24,7 +24,10 @@ final class UserObj: BaseObj {
     public var oauthTokenSecret: String?
     public var oauthTokenExpiresAt: Date?
     public var authenticateState: AuthenticationState {
-        guard self.oauthToken != nil else {
+        guard let oauthToken = self.oauthToken else {
+            return .unAuthenticated
+        }
+        guard oauthToken != "" else {
             return .unAuthenticated
         }
         return .authenticated
