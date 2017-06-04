@@ -20,9 +20,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     fileprivate let statusItem = NSStatusBar.system().statusItem(withLength: NSVariableStatusItemLength)
     fileprivate let popover = NSPopover()
     fileprivate let disposeBag = DisposeBag()
+    fileprivate var eventMonitor: EventMonitor!
 
     // MARK: - Action
-
     func applicationDidFinishLaunching(_ aNotification: Notification) {
 
         // listen to scheme url
@@ -31,7 +31,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         self.viewModel = AppViewModel()
         self.authenticationViewModel = AuthenticationViewModel()
 
-        self.viewModel.output.popoverStateVariable.asDriver().drive(onNext: {[unowned self] (state) in
+        self.viewModel.output.popoverStateVariable.asDriver()
+            .skip(1)
+            .drive(onNext: {[unowned self] (state) in
             switch state {
             case .close:
                 self.close()
@@ -46,6 +48,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             self.setupPopover(with: state)
         })
         .addDisposableTo(self.disposeBag)
+
+        self.eventMonitor = EventMonitor(mask: [NSEventMask.leftMouseDown,
+                                                NSEventMask.rightMouseDown]) { [unowned self] _ in
+            if self.popover.isShown {
+                self.viewModel.actionPopoverPublish.onNext(.close)
+            }
+        }
+        self.eventMonitor.start()
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
@@ -86,7 +96,11 @@ extension AppDelegate {
     }
 
     @objc fileprivate func togglePopover() {
-        self.viewModel.input.switchPopoverPublish.onNext()
+        if self.popover.isShown {
+            self.viewModel.input.actionPopoverPublish.onNext(.close)
+        } else {
+            self.viewModel.input.actionPopoverPublish.onNext(.open)
+        }
     }
 
     fileprivate func close() {
@@ -95,6 +109,7 @@ extension AppDelegate {
         }
 
         self.popover.close()
+        self.eventMonitor.stop()
     }
 
     fileprivate func show() {
@@ -106,5 +121,6 @@ extension AppDelegate {
         }
 
         self.popover.show(relativeTo: button.frame, of: button, preferredEdge: .minY)
+        self.eventMonitor.start()
     }
 }

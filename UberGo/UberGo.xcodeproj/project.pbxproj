@@ -16,6 +16,7 @@
 		BA7BA9831EE42C060056B0CF /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA7BA9821EE42C060056B0CF /* CoreLocation.framework */; };
 		BAE690271EE4346700A4D876 /* Mapbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BAE690261EE4346700A4D876 /* Mapbox.framework */; };
 		BAE690281EE4346700A4D876 /* Mapbox.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BAE690261EE4346700A4D876 /* Mapbox.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		BAE6902C1EE460EB00A4D876 /* EventMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE6902B1EE460EB00A4D876 /* EventMonitor.swift */; };
 		BAF57FB91EE116FB0013090E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF57FB71EE116FB0013090E /* LoginViewController.swift */; };
 		BAF57FBA1EE116FB0013090E /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BAF57FB81EE116FB0013090E /* LoginViewController.xib */; };
 		BAF57FBF1EE117300013090E /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF57FBD1EE117300013090E /* MapViewController.swift */; };
@@ -61,6 +62,7 @@
 		BA4796A81EE2C49700620BB0 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		BA7BA9821EE42C060056B0CF /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		BAE690261EE4346700A4D876 /* Mapbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Mapbox.framework; sourceTree = "<group>"; };
+		BAE6902B1EE460EB00A4D876 /* EventMonitor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventMonitor.swift; sourceTree = "<group>"; };
 		BAF57FB71EE116FB0013090E /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		BAF57FB81EE116FB0013090E /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
 		BAF57FBD1EE117300013090E /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -93,6 +95,7 @@
 		0DFF56EB856BA6104A84545D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BAE690261EE4346700A4D876 /* Mapbox.framework */,
 				BA7BA9821EE42C060056B0CF /* CoreLocation.framework */,
 				BA4796A81EE2C49700620BB0 /* MapKit.framework */,
 				BA4796951EE2540D00620BB0 /* UberGoCore.framework */,
@@ -104,7 +107,6 @@
 		BA037F2A1EDD61F800945C1D = {
 			isa = PBXGroup;
 			children = (
-				BAE690261EE4346700A4D876 /* Mapbox.framework */,
 				BA037F351EDD61F800945C1D /* UberGo */,
 				BA037F471EDD61F800945C1D /* UberGoTests */,
 				BA037F341EDD61F800945C1D /* Products */,
@@ -125,6 +127,7 @@
 		BA037F351EDD61F800945C1D /* UberGo */ = {
 			isa = PBXGroup;
 			children = (
+				BAE6902A1EE460DF00A4D876 /* Models */,
 				BA47969A1EE2598B00620BB0 /* View */,
 				BA32E7211EDFC79C0044C017 /* Constants */,
 				BA32E7201EDFC7910044C017 /* Resource */,
@@ -174,6 +177,14 @@
 			children = (
 			);
 			name = View;
+			sourceTree = "<group>";
+		};
+		BAE6902A1EE460DF00A4D876 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				BAE6902B1EE460EB00A4D876 /* EventMonitor.swift */,
+			);
+			name = Models;
 			sourceTree = "<group>";
 		};
 		BAF57FBB1EE117000013090E /* Storyboards Xibs */ = {
@@ -378,6 +389,7 @@
 				BAF57FB91EE116FB0013090E /* LoginViewController.swift in Sources */,
 				BAF57FBF1EE117300013090E /* MapViewController.swift in Sources */,
 				BA037F371EDD61F800945C1D /* AppDelegate.swift in Sources */,
+				BAE6902C1EE460EB00A4D876 /* EventMonitor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

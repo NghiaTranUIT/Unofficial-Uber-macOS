@@ -8,7 +8,7 @@
 
 import Cocoa
 import UberGoCore
-import MapKit
+import Mapbox
 import RxSwift
 import CoreLocation
 import RxOptional
@@ -16,7 +16,7 @@ import RxOptional
 class MapViewController: BaseViewController {
 
     // MARK: - OUTLET
-    @IBOutlet weak var mapView: MKMapView!
+    fileprivate var mapView: MGLMapView!
 
     // MARK: - Variable
     fileprivate var viewModel: MapViewModel!
@@ -25,35 +25,34 @@ class MapViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.mapView.delegate = self
+        // Map View
+        self.initMapView()
 
+        // View Model
         self.viewModel = MapViewModel()
-
         self.viewModel.input.getCurrentLocationPublish.onNext()
-
         self.viewModel.output.currentLocationDriver
-            .map({ (location) -> MKCoordinateRegion? in
-                guard let location = location else {
-                    return nil
-                }
-
-                let span = MKCoordinateSpan(latitudeDelta: 0.002, longitudeDelta: 0.005)
-                let region = MKCoordinateRegion(center: location.coordinate, span: span)
-                return region
-
-            })
             .filterNil()
-            .drive(onNext: { (region) in
-                print("Set region = ", region)
-                self.mapView.setRegion(region, animated: true)
+            .drive(onNext: {[weak self] location in
+                guard let `self` = self else {
+                    return
+                }
+                print("setCenter")
+                self.mapView.setCenter(location.coordinate, animated: true)
             })
         .addDisposableTo(self.disposeBag)
     }
+
+    fileprivate func initMapView() {
+        self.mapView = MGLMapView(frame: self.view.bounds)
+        self.mapView.delegate = self
+        self.mapView.zoomLevel = 14
+        self.mapView.styleURL = MGLStyle.darkStyleURL(withVersion: 9)
+        self.mapView.translatesAutoresizingMaskIntoConstraints = true
+        self.view.addSubview(self.mapView)
+    }
 }
 
-extension MapViewController: MKMapViewDelegate {
+extension MapViewController: MGLMapViewDelegate {
 
-    func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
-        print(mapView.region)
-    }
 }
