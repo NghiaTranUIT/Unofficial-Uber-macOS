@@ -4,6 +4,7 @@
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12120"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+        <capability name="system font weights other than Regular or Bold" minToolsVersion="7.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner"/>
@@ -19,12 +20,15 @@
                         <constraint firstAttribute="width" constant="6" id="ula-dl-KSx"/>
                     </constraints>
                 </customView>
-                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6lM-DA-2RR">
-                    <rect key="frame" x="41" y="12" width="367" height="32"/>
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6lM-DA-2RR" customClass="UberButton" customModule="UberGo" customModuleProvider="target">
+                    <rect key="frame" x="41" y="12" width="115" height="32"/>
                     <buttonCell key="cell" type="bevel" title="Where to?" bezelStyle="rounded" alignment="left" imageScaling="proportionallyDown" inset="2" id="7ni-en-QYs">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="system" size="25"/>
+                        <font key="font" metaFont="systemLight" size="25"/>
                     </buttonCell>
+                    <connections>
+                        <action selector="whereToBtnOnTap:" target="IHV-1v-vM8" id="dYr-jr-pA6"/>
+                    </connections>
                 </button>
                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="aRJ-3G-Ijx">
                     <rect key="frame" x="423" y="12" width="1" height="32"/>
@@ -41,6 +45,9 @@
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
+                    <connections>
+                        <action selector="schedulerBtnOnTap:" target="IHV-1v-vM8" id="vLh-8Z-Uwj"/>
+                    </connections>
                 </button>
             </subviews>
             <constraints>
@@ -50,7 +57,6 @@
                 <constraint firstAttribute="height" constant="56" id="EvJ-jg-0rT"/>
                 <constraint firstAttribute="width" constant="480" id="QDx-gt-2gv"/>
                 <constraint firstItem="6lM-DA-2RR" firstAttribute="leading" secondItem="Ekp-Lu-wUt" secondAttribute="trailing" constant="15" id="aGl-Iu-fmq"/>
-                <constraint firstItem="aRJ-3G-Ijx" firstAttribute="leading" secondItem="6lM-DA-2RR" secondAttribute="trailing" constant="15" id="eqU-mt-j86"/>
                 <constraint firstItem="Ekp-Lu-wUt" firstAttribute="leading" secondItem="IHV-1v-vM8" secondAttribute="leading" constant="20" id="hyW-0O-ZIy"/>
                 <constraint firstAttribute="trailing" secondItem="aRJ-3G-Ijx" secondAttribute="trailing" constant="56" id="ibR-Kj-EcG"/>
                 <constraint firstAttribute="trailing" secondItem="rzZ-Qt-n7b" secondAttribute="trailing" constant="16" id="kNr-a0-024"/>
@@ -58,6 +64,12 @@
                 <constraint firstItem="rzZ-Qt-n7b" firstAttribute="leading" secondItem="aRJ-3G-Ijx" secondAttribute="trailing" constant="16" id="sRu-Vc-kWN"/>
                 <constraint firstAttribute="bottom" secondItem="aRJ-3G-Ijx" secondAttribute="bottom" constant="12" id="wXJ-Mk-XL5"/>
             </constraints>
+            <connections>
+                <outlet property="dotSquareView" destination="Ekp-Lu-wUt" id="Tis-Ul-cO6"/>
+                <outlet property="schedulerBtn" destination="rzZ-Qt-n7b" id="cAn-Dn-qir"/>
+                <outlet property="verticalBarView" destination="aRJ-3G-Ijx" id="ym5-BK-EaW"/>
+                <outlet property="whereToBtn" destination="6lM-DA-2RR" id="BkI-9k-VkZ"/>
+            </connections>
         </customView>
     </objects>
     <resources>

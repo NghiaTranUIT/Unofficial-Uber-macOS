@@ -13,12 +13,14 @@ class SearchBarView: NSView {
 
     // MARK: - Variable
     fileprivate var viewModel: SearchBarViewModel?
+    fileprivate var actionSearchView: ActionSearchBarView!
 
     // MARK: - Init
     override func awakeFromNib() {
         super.awakeFromNib()
 
         self.initCommon()
+        self.initActionSearchView()
         self.binding()
     }
 
@@ -36,6 +38,12 @@ extension SearchBarView {
     fileprivate func initCommon() {
         self.wantsLayer = true
         self.layer?.backgroundColor = NSColor.white.cgColor
+    }
+
+    fileprivate func initActionSearchView() {
+        let actionView = ActionSearchBarView.viewFromNib(with: BundleType.app)!
+        actionView.configureView(with: self)
+        self.actionSearchView = actionView
     }
 
     func configureView(with parentView: NSView) {

@@ -20,6 +20,9 @@
 		BADB78521EE5AC86000536F7 /* NSView+Identity.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB78511EE5AC86000536F7 /* NSView+Identity.swift */; };
 		BADB78551EE5B7F0000536F7 /* ActionSearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB78541EE5B7F0000536F7 /* ActionSearchBarView.swift */; };
 		BADB78571EE5B7FB000536F7 /* ActionSearchBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BADB78561EE5B7FB000536F7 /* ActionSearchBarView.xib */; };
+		BADB78591EE5B92B000536F7 /* NSView+BackgroundColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB78581EE5B92B000536F7 /* NSView+BackgroundColor.swift */; };
+		BADB785B1EE5B93D000536F7 /* NSColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB785A1EE5B93D000536F7 /* NSColor+Hex.swift */; };
+		BADB785E1EE5BA0C000536F7 /* UberButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB785D1EE5BA0C000536F7 /* UberButton.swift */; };
 		BAE690271EE4346700A4D876 /* Mapbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BAE690261EE4346700A4D876 /* Mapbox.framework */; };
 		BAE690281EE4346700A4D876 /* Mapbox.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BAE690261EE4346700A4D876 /* Mapbox.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		BAE6902C1EE460EB00A4D876 /* EventMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE6902B1EE460EB00A4D876 /* EventMonitor.swift */; };
@@ -74,6 +77,9 @@
 		BADB78511EE5AC86000536F7 /* NSView+Identity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSView+Identity.swift"; sourceTree = "<group>"; };
 		BADB78541EE5B7F0000536F7 /* ActionSearchBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionSearchBarView.swift; sourceTree = "<group>"; };
 		BADB78561EE5B7FB000536F7 /* ActionSearchBarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActionSearchBarView.xib; sourceTree = "<group>"; };
+		BADB78581EE5B92B000536F7 /* NSView+BackgroundColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSView+BackgroundColor.swift"; sourceTree = "<group>"; };
+		BADB785A1EE5B93D000536F7 /* NSColor+Hex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSColor+Hex.swift"; sourceTree = "<group>"; };
+		BADB785D1EE5BA0C000536F7 /* UberButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UberButton.swift; sourceTree = "<group>"; };
 		BAE690261EE4346700A4D876 /* Mapbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Mapbox.framework; sourceTree = "<group>"; };
 		BAE6902B1EE460EB00A4D876 /* EventMonitor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventMonitor.swift; sourceTree = "<group>"; };
 		BAF57FB71EE116FB0013090E /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -189,6 +195,7 @@
 		BA47969A1EE2598B00620BB0 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				BADB785C1EE5B9F5000536F7 /* UberButton */,
 				BADB78531EE5B7BA000536F7 /* ActionSearchBarView */,
 				BADB78481EE5ABC5000536F7 /* Search Bar */,
 			);
@@ -213,12 +220,22 @@
 			name = ActionSearchBarView;
 			sourceTree = "<group>";
 		};
+		BADB785C1EE5B9F5000536F7 /* UberButton */ = {
+			isa = PBXGroup;
+			children = (
+				BADB785D1EE5BA0C000536F7 /* UberButton.swift */,
+			);
+			name = UberButton;
+			sourceTree = "<group>";
+		};
 		BAE6902A1EE460DF00A4D876 /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				BAE6902B1EE460EB00A4D876 /* EventMonitor.swift */,
 				BADB784F1EE5AC6A000536F7 /* NSView+Xib.swift */,
 				BADB78511EE5AC86000536F7 /* NSView+Identity.swift */,
+				BADB78581EE5B92B000536F7 /* NSView+BackgroundColor.swift */,
+				BADB785A1EE5B93D000536F7 /* NSColor+Hex.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -428,9 +445,12 @@
 				BADB784A1EE5ABD5000536F7 /* SearchBarView.swift in Sources */,
 				BADB78501EE5AC6A000536F7 /* NSView+Xib.swift in Sources */,
 				BAF57FB91EE116FB0013090E /* LoginViewController.swift in Sources */,
+				BADB78591EE5B92B000536F7 /* NSView+BackgroundColor.swift in Sources */,
 				BAF57FBF1EE117300013090E /* MapViewController.swift in Sources */,
+				BADB785B1EE5B93D000536F7 /* NSColor+Hex.swift in Sources */,
 				BA037F371EDD61F800945C1D /* AppDelegate.swift in Sources */,
 				BADB78521EE5AC86000536F7 /* NSView+Identity.swift in Sources */,
+				BADB785E1EE5BA0C000536F7 /* UberButton.swift in Sources */,
 				BAE6902C1EE460EB00A4D876 /* EventMonitor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
