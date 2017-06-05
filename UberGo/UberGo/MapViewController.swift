@@ -7,11 +7,11 @@
 //
 
 import Cocoa
-import UberGoCore
-import Mapbox
-import RxSwift
 import CoreLocation
+import Mapbox
 import RxOptional
+import RxSwift
+import UberGoCore
 
 class MapViewController: BaseViewController {
 
@@ -20,6 +20,7 @@ class MapViewController: BaseViewController {
 
     // MARK: - Variable
     fileprivate var viewModel: MapViewModel!
+    fileprivate var currentLocationPoint: MGLPointAnnotation?
 
     // MARK: - View Cycle
     override func viewDidLoad() {
@@ -38,6 +39,7 @@ class MapViewController: BaseViewController {
                     return
                 }
                 print("setCenter")
+                self.updateCurrentLocation(point: location.coordinate)
                 self.mapView.setCenter(location.coordinate, animated: true)
             })
         .addDisposableTo(self.disposeBag)
@@ -51,8 +53,25 @@ class MapViewController: BaseViewController {
         self.mapView.translatesAutoresizingMaskIntoConstraints = true
         self.view.addSubview(self.mapView)
     }
+
+    fileprivate func updateCurrentLocation(point: CLLocationCoordinate2D) {
+        if self.currentLocationPoint == nil {
+            let location = MGLPointAnnotation()
+            location.coordinate = point
+            location.title = "Here"
+
+            // Add
+            self.currentLocationPoint = location
+            self.mapView.addAnnotation(location)
+        } else {
+            self.currentLocationPoint?.coordinate = point
+        }
+    }
 }
 
 extension MapViewController: MGLMapViewDelegate {
 
+    func mapView(_ mapView: MGLMapView, annotationCanShowCallout annotation: MGLAnnotation) -> Bool {
+        return true
+    }
 }
