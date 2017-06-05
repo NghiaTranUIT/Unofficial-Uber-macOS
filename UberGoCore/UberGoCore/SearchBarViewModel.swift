@@ -11,6 +11,6 @@ import RxCocoa
 import RxSwift
 
 // MARK: - SearchBarViewModel
-class SearchBarViewModel: BaseViewModel {
+open class SearchBarViewModel: BaseViewModel {
 
 }

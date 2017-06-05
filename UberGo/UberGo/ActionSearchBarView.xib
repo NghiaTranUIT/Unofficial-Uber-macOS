@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12120"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner"/>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView translatesAutoresizingMaskIntoConstraints="NO" id="IHV-1v-vM8" customClass="ActionSearchBarView" customModule="UberGo" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="480" height="56"/>
+            <subviews>
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="Ekp-Lu-wUt">
+                    <rect key="frame" x="20" y="25" width="6" height="6"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="6" id="1qw-Qi-4mh"/>
+                        <constraint firstAttribute="width" constant="6" id="ula-dl-KSx"/>
+                    </constraints>
+                </customView>
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6lM-DA-2RR">
+                    <rect key="frame" x="41" y="12" width="367" height="32"/>
+                    <buttonCell key="cell" type="bevel" title="Where to?" bezelStyle="rounded" alignment="left" imageScaling="proportionallyDown" inset="2" id="7ni-en-QYs">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system" size="25"/>
+                    </buttonCell>
+                </button>
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="aRJ-3G-Ijx">
+                    <rect key="frame" x="423" y="12" width="1" height="32"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="1" id="FBL-t2-GcZ"/>
+                    </constraints>
+                </customView>
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="rzZ-Qt-n7b">
+                    <rect key="frame" x="440" y="12" width="24" height="32"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="32" id="WXB-1O-vez"/>
+                    </constraints>
+                    <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="calendar" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="aVa-fg-kSO">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                </button>
+            </subviews>
+            <constraints>
+                <constraint firstItem="rzZ-Qt-n7b" firstAttribute="centerY" secondItem="IHV-1v-vM8" secondAttribute="centerY" id="7Ed-jB-at6"/>
+                <constraint firstItem="Ekp-Lu-wUt" firstAttribute="centerY" secondItem="IHV-1v-vM8" secondAttribute="centerY" id="ACE-4V-qaA"/>
+                <constraint firstItem="6lM-DA-2RR" firstAttribute="centerY" secondItem="IHV-1v-vM8" secondAttribute="centerY" id="EHp-N8-MKC"/>
+                <constraint firstAttribute="height" constant="56" id="EvJ-jg-0rT"/>
+                <constraint firstAttribute="width" constant="480" id="QDx-gt-2gv"/>
+                <constraint firstItem="6lM-DA-2RR" firstAttribute="leading" secondItem="Ekp-Lu-wUt" secondAttribute="trailing" constant="15" id="aGl-Iu-fmq"/>
+                <constraint firstItem="aRJ-3G-Ijx" firstAttribute="leading" secondItem="6lM-DA-2RR" secondAttribute="trailing" constant="15" id="eqU-mt-j86"/>
+                <constraint firstItem="Ekp-Lu-wUt" firstAttribute="leading" secondItem="IHV-1v-vM8" secondAttribute="leading" constant="20" id="hyW-0O-ZIy"/>
+                <constraint firstAttribute="trailing" secondItem="aRJ-3G-Ijx" secondAttribute="trailing" constant="56" id="ibR-Kj-EcG"/>
+                <constraint firstAttribute="trailing" secondItem="rzZ-Qt-n7b" secondAttribute="trailing" constant="16" id="kNr-a0-024"/>
+                <constraint firstItem="aRJ-3G-Ijx" firstAttribute="top" secondItem="IHV-1v-vM8" secondAttribute="top" constant="12" id="lhR-1b-fMd"/>
+                <constraint firstItem="rzZ-Qt-n7b" firstAttribute="leading" secondItem="aRJ-3G-Ijx" secondAttribute="trailing" constant="16" id="sRu-Vc-kWN"/>
+                <constraint firstAttribute="bottom" secondItem="aRJ-3G-Ijx" secondAttribute="bottom" constant="12" id="wXJ-Mk-XL5"/>
+            </constraints>
+        </customView>
+    </objects>
+    <resources>
+        <image name="calendar" width="24" height="24"/>
+    </resources>
+</document>

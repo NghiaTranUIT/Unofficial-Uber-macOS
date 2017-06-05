@@ -13,22 +13,22 @@ import Foundation
 // The ID of view my be same name of view
 public protocol XIBInitializable {
 
-    associatedtype T
+    associatedtype XibType
 
-    static func viewFromNib(with bundle: BundleType) -> T?
+    static func viewFromNib(with bundle: BundleType) -> XibType?
 }
 
 //
 // MARK: - Default Extension
 public extension XIBInitializable where Self: Identifier {
 
-    static func viewFromNib(with bundle: BundleType) -> T? {
+    static func viewFromNib(with bundle: BundleType) -> XibType? {
 
         var topViews: NSArray = []
-        let _ = self.xib(with: bundle)?.instantiate(withOwner: self, topLevelObjects: &topViews)
+        _ = self.xib(with: bundle)?.instantiate(withOwner: self, topLevelObjects: &topViews)
 
         for subView in topViews {
-            if let innerView = subView as? T {
+            if let innerView = subView as? XibType {
                 return innerView
             }
         }

@@ -21,6 +21,7 @@ class MapViewController: BaseViewController {
     // MARK: - Variable
     fileprivate var viewModel: MapViewModel!
     fileprivate var currentLocationPoint: MGLPointAnnotation?
+    fileprivate var searchBarView: SearchBarView!
 
     // MARK: - View Cycle
     override func viewDidLoad() {
@@ -31,6 +32,9 @@ class MapViewController: BaseViewController {
 
         // Map View
         self.initMapView()
+
+        // Search
+        self.initSearchBarView()
 
         // View Model
         self.binding()
@@ -52,12 +56,12 @@ class MapViewController: BaseViewController {
             .addDisposableTo(self.disposeBag)
 
         // Show Product available
-        self.viewModel.output.productsVariable.asDriver().drive(onNext: { [weak self] productObjs in
-            guard let `self` = self else { return }
-            print("Found available products = \(productObjs)")
-            self.addProductObjs(productObjs)
-        })
-        .addDisposableTo(self.disposeBag)
+//        self.viewModel.output.productsVariable.asDriver().drive(onNext: { [weak self] productObjs in
+//            guard let `self` = self else { return }
+//            print("Found available products = \(productObjs)")
+//            self.addProductObjs(productObjs)
+//        })
+//        .addDisposableTo(self.disposeBag)
     }
 
     fileprivate func updateCurrentLocation(point: CLLocationCoordinate2D) {
@@ -94,6 +98,12 @@ extension MapViewController {
         self.mapView.styleURL = MGLStyle.darkStyleURL(withVersion: 9)
         self.mapView.translatesAutoresizingMaskIntoConstraints = true
         self.view.addSubview(self.mapView)
+    }
+
+    fileprivate func initSearchBarView() {
+
+        self.searchBarView = SearchBarView.viewFromNib(with: BundleType.app)!
+        self.searchBarView.configureView(with: self.view)
     }
 }
 
