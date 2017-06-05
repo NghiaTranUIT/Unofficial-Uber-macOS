@@ -25,10 +25,13 @@ class UberProductsRequest: Requestable {
     var endpoint: String { return Constants.UberAPI.UberProducts }
     var httpMethod: HTTPMethod { return .get }
     func decode(data: Any) -> [ProductObj]? {
-        guard let data = data as? [[String: Any]] else {
+        guard let result = data as? [String: Any] else {
             return []
         }
-        return Mapper<ProductObj>().mapArray(JSONArray: data)
+        guard let products = result["products"] as? [[String: Any]] else {
+            return []
+        }
+        return Mapper<ProductObj>().mapArray(JSONArray: products)
     }
     var param: Parameters? { return self._param }
     fileprivate var _param: Parameters

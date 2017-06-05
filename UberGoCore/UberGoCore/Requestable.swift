@@ -60,7 +60,12 @@ extension Requestable {
 
     var url: URL { return URL(string: urlPath)! }
 
-    var parameterEncoding: ParameterEncoding { return JSONEncoding.default }
+    var parameterEncoding: ParameterEncoding {
+        if self.httpMethod == .get {
+            return URLEncoding.default
+        }
+        return JSONEncoding.default
+    }
 
     func toObservable() -> Observable<Element> {
 
