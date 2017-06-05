@@ -22,7 +22,6 @@ class UberOauth {
 
         self.callbackObserverPublish
             .subscribe(onNext: { (event) in
-                print("HERE")
                 if let urlString = event.paramDescriptor(forKeyword: AEKeyword(keyDirectObject))?.stringValue,
                     let url = URL(string: urlString) {
                     UberOauth.applicationHandle(url: url)

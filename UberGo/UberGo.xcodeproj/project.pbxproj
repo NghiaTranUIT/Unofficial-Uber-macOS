@@ -12,9 +12,11 @@
 		BA037F3B1EDD61F800945C1D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BA037F3A1EDD61F800945C1D /* Assets.xcassets */; };
 		BA037F3E1EDD61F800945C1D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA037F3C1EDD61F800945C1D /* Main.storyboard */; };
 		BA037F491EDD61F800945C1D /* UberGoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA037F481EDD61F800945C1D /* UberGoTests.swift */; };
-		BA4796961EE2540D00620BB0 /* UberGoCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA4796951EE2540D00620BB0 /* UberGoCore.framework */; };
-		BA4796971EE2540D00620BB0 /* UberGoCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BA4796951EE2540D00620BB0 /* UberGoCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		BA4796A91EE2C49700620BB0 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA4796A81EE2C49700620BB0 /* MapKit.framework */; };
+		BA7BA9831EE42C060056B0CF /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA7BA9821EE42C060056B0CF /* CoreLocation.framework */; };
+		BAE690271EE4346700A4D876 /* Mapbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BAE690261EE4346700A4D876 /* Mapbox.framework */; };
+		BAE690281EE4346700A4D876 /* Mapbox.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BAE690261EE4346700A4D876 /* Mapbox.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		BAE6902C1EE460EB00A4D876 /* EventMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE6902B1EE460EB00A4D876 /* EventMonitor.swift */; };
 		BAF57FB91EE116FB0013090E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF57FB71EE116FB0013090E /* LoginViewController.swift */; };
 		BAF57FBA1EE116FB0013090E /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BAF57FB81EE116FB0013090E /* LoginViewController.xib */; };
 		BAF57FBF1EE117300013090E /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF57FBD1EE117300013090E /* MapViewController.swift */; };
@@ -32,13 +34,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		BA4796981EE2540D00620BB0 /* Embed Frameworks */ = {
+		BAE690291EE4346700A4D876 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				BA4796971EE2540D00620BB0 /* UberGoCore.framework in Embed Frameworks */,
+				BAE690281EE4346700A4D876 /* Mapbox.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -58,6 +60,9 @@
 		BA037F4A1EDD61F800945C1D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BA4796951EE2540D00620BB0 /* UberGoCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = UberGoCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA4796A81EE2C49700620BB0 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		BA7BA9821EE42C060056B0CF /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		BAE690261EE4346700A4D876 /* Mapbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Mapbox.framework; sourceTree = "<group>"; };
+		BAE6902B1EE460EB00A4D876 /* EventMonitor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventMonitor.swift; sourceTree = "<group>"; };
 		BAF57FB71EE116FB0013090E /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		BAF57FB81EE116FB0013090E /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
 		BAF57FBD1EE117300013090E /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -70,9 +75,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BA7BA9831EE42C060056B0CF /* CoreLocation.framework in Frameworks */,
 				BA4796A91EE2C49700620BB0 /* MapKit.framework in Frameworks */,
 				00CA4DFC1E6657E70B7E8D36 /* Pods_UberGo.framework in Frameworks */,
-				BA4796961EE2540D00620BB0 /* UberGoCore.framework in Frameworks */,
+				BAE690271EE4346700A4D876 /* Mapbox.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -89,6 +95,8 @@
 		0DFF56EB856BA6104A84545D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BAE690261EE4346700A4D876 /* Mapbox.framework */,
+				BA7BA9821EE42C060056B0CF /* CoreLocation.framework */,
 				BA4796A81EE2C49700620BB0 /* MapKit.framework */,
 				BA4796951EE2540D00620BB0 /* UberGoCore.framework */,
 				E8B037DB48A309C9D4EDC5A2 /* Pods_UberGo.framework */,
@@ -119,8 +127,8 @@
 		BA037F351EDD61F800945C1D /* UberGo */ = {
 			isa = PBXGroup;
 			children = (
+				BAE6902A1EE460DF00A4D876 /* Models */,
 				BA47969A1EE2598B00620BB0 /* View */,
-				BA4796991EE2598800620BB0 /* New Group */,
 				BA32E7211EDFC79C0044C017 /* Constants */,
 				BA32E7201EDFC7910044C017 /* Resource */,
 				BA32E71F1EDFC78B0044C017 /* Controller */,
@@ -164,18 +172,19 @@
 			name = Constants;
 			sourceTree = "<group>";
 		};
-		BA4796991EE2598800620BB0 /* New Group */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "New Group";
-			sourceTree = "<group>";
-		};
 		BA47969A1EE2598B00620BB0 /* View */ = {
 			isa = PBXGroup;
 			children = (
 			);
 			name = View;
+			sourceTree = "<group>";
+		};
+		BAE6902A1EE460DF00A4D876 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				BAE6902B1EE460EB00A4D876 /* EventMonitor.swift */,
+			);
+			name = Models;
 			sourceTree = "<group>";
 		};
 		BAF57FBB1EE117000013090E /* Storyboards Xibs */ = {
@@ -218,8 +227,8 @@
 				BA037F311EDD61F800945C1D /* Resources */,
 				F20F0C70E7EA8A04910A7D3A /* [CP] Embed Pods Frameworks */,
 				702D69811002A3516F5DB060 /* [CP] Copy Pods Resources */,
-				BA4796981EE2540D00620BB0 /* Embed Frameworks */,
 				BA4796AD1EE2D61100620BB0 /* ShellScript */,
+				BAE690291EE4346700A4D876 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -380,6 +389,7 @@
 				BAF57FB91EE116FB0013090E /* LoginViewController.swift in Sources */,
 				BAF57FBF1EE117300013090E /* MapViewController.swift in Sources */,
 				BA037F371EDD61F800945C1D /* AppDelegate.swift in Sources */,
+				BAE6902C1EE460EB00A4D876 /* EventMonitor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -510,12 +520,18 @@
 			baseConfigurationReference = 13D868F3FBB4B7EB32B77A66 /* Pods-UberGo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = D54Y88Y9CY;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = UberGo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.fe.UberGo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -525,12 +541,18 @@
 			baseConfigurationReference = 6D12875DE7461CA1633A4776 /* Pods-UberGo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = D54Y88Y9CY;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = UberGo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.fe.UberGo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;

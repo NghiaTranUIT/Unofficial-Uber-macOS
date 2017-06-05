@@ -37,7 +37,12 @@ struct Constants {
 
         // MARK: - User
         struct User {
+
             static let Name = "name"
+            static let OauthToken = "oauthToken"
+            static let OauthRefreshToken = "oauthRefreshToken"
+            static let OauthTokenSecret = "oauthTokenSecret"
+            static let OauthTokenExpiresAt = "oauthTokenExpiresAt"
         }
     }
 }

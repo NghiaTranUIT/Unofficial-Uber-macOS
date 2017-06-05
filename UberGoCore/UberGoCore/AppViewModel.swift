@@ -25,6 +25,7 @@ public protocol AppViewModelProtocol {
 public protocol AppViewModelInput {
 
     var switchPopoverPublish: PublishSubject<Void> { get }
+    var actionPopoverPublish: PublishSubject<PopoverState> { get }
 }
 
 public protocol AppViewModelOutput {
@@ -40,6 +41,7 @@ open class AppViewModel: BaseViewModel, AppViewModelProtocol, AppViewModelInput,
     public var output: AppViewModelOutput { return self }
 
     // MARK: - Variable
+    public var actionPopoverPublish = PublishSubject<PopoverState>()
     public var switchPopoverPublish = PublishSubject<Void>()
     public var popoverStateVariable = Variable<PopoverState>(.close)
 
@@ -55,6 +57,9 @@ open class AppViewModel: BaseViewModel, AppViewModelProtocol, AppViewModelInput,
             }
             return .open
         }.bind(to: popoverStateVariable)
+        .addDisposableTo(self.disposeBag)
+
+        self.actionPopoverPublish.bind(to: self.popoverStateVariable)
         .addDisposableTo(self.disposeBag)
     }
 }
