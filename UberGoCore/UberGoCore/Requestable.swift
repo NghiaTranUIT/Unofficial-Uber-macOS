@@ -54,7 +54,7 @@ extension Requestable {
 
     var addionalHeader: HeaderParameter? { return nil }
 
-    var defaultHeader: HeaderParameter { return ["Accept": "application/json"] }
+    var defaultHeader: HeaderParameter { return ["Accept": "application/json", "Accept-Language": "en_US"] }
 
     var urlPath: String { return basePath + endpoint }
 

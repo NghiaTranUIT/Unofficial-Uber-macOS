@@ -8,9 +8,9 @@
 
 import Foundation
 import MapKit
-import RxSwift
-import RxOptional
 import RxCocoa
+import RxOptional
+import RxSwift
 
 // MARK: - Protocol
 public protocol MapViewModelProtocol {
@@ -28,6 +28,7 @@ public protocol MapViewModelOutput {
 
     var currentLocationDriver: Driver<CLLocation?> { get }
     var errorLocationVariable: Variable<Error?> { get }
+    var productsVariable: Variable<[ProductObj]> { get }
 }
 
 // MARK: - View Model
@@ -51,19 +52,22 @@ open class MapViewModel: BaseViewModel,
         return mapManager.currentLocationVariable.asDriver()
     }
     public var errorLocationVariable = Variable<Error?>(nil)
+    public var productsVariable = Variable<[ProductObj]>([])
 
     // MARK: - Init
     public override init() {
         super.init()
 
         // Get current location
-        let mapObser = self.getCurrentLocationPublish.flatMapLatest {[weak self] _ -> Observable<MapManagerResult> in
+        let mapObser = self.getCurrentLocationPublish
+        .flatMapLatest {[weak self] _ -> Observable<MapManagerResult> in
             guard let `self` = self else {
                 return Observable.empty()
             }
             return self.mapManager.requestLocationObserver()
         }.share()
 
+        // Error
         mapObser
             .map({ (result) -> Error? in
                 switch result {
@@ -78,6 +82,13 @@ open class MapViewModel: BaseViewModel,
             .bind(to: self.errorLocationVariable)
             .addDisposableTo(self.disposeBag)
 
-
+        // Products
+        let location = CLLocationCoordinate2D(latitude: 10.78492533, longitude: 106.70296385)
+        Observable<[ProductObj]>.just([])
+        .flatMapLatest { _ -> Observable<[ProductObj]> in
+            return UberProductsRequest(param: ["latitude": location.latitude, "longitude": location.longitude]).toObservable()
+        }
+        .bind(to: self.productsVariable)
+        .addDisposableTo(self.disposeBag)
     }
 }

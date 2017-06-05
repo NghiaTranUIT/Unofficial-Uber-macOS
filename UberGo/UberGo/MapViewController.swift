@@ -38,10 +38,16 @@ class MapViewController: BaseViewController {
                 guard let `self` = self else {
                     return
                 }
-                print("setCenter")
+                print("setCenter \(location)")
                 self.updateCurrentLocation(point: location.coordinate)
                 self.mapView.setCenter(location.coordinate, animated: true)
             })
+        .addDisposableTo(self.disposeBag)
+
+        // Show Product available
+        self.viewModel.output.productsVariable.asDriver().drive(onNext: { productObjs in
+            print("Found available products = \(productObjs)")
+        })
         .addDisposableTo(self.disposeBag)
     }
 

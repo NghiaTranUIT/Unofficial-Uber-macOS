@@ -9,7 +9,7 @@
 import Cocoa
 import ObjectMapper
 
-class ProductObj: BaseObj {
+open class ProductObj: BaseObj {
 
     // MARK: - Variable
     public var upfrontFareEnabled: Bool?
@@ -23,7 +23,7 @@ class ProductObj: BaseObj {
     public var productGroup: String?
     public var descr: String?
 
-    override func mapping(map: Map) {
+    override public func mapping(map: Map) {
         super.mapping(map: map)
 
         self.upfrontFareEnabled <- map[Constants.Object.Product.UpfrontFareEnabled]
