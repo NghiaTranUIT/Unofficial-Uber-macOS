@@ -26,10 +26,17 @@ class MapViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        // Common
+        self.initCommon()
+
         // Map View
         self.initMapView()
 
         // View Model
+        self.binding()
+    }
+
+    fileprivate func binding() {
         self.viewModel = MapViewModel()
         self.viewModel.input.getCurrentLocationPublish.onNext()
         self.viewModel.output.currentLocationDriver
@@ -42,22 +49,15 @@ class MapViewController: BaseViewController {
                 self.updateCurrentLocation(point: location.coordinate)
                 self.mapView.setCenter(location.coordinate, animated: true)
             })
-        .addDisposableTo(self.disposeBag)
+            .addDisposableTo(self.disposeBag)
 
         // Show Product available
-        self.viewModel.output.productsVariable.asDriver().drive(onNext: { productObjs in
+        self.viewModel.output.productsVariable.asDriver().drive(onNext: { [weak self] productObjs in
+            guard let `self` = self else { return }
             print("Found available products = \(productObjs)")
+            self.addProductObjs(productObjs)
         })
         .addDisposableTo(self.disposeBag)
-    }
-
-    fileprivate func initMapView() {
-        self.mapView = MGLMapView(frame: self.view.bounds)
-        self.mapView.delegate = self
-        self.mapView.zoomLevel = 14
-        self.mapView.styleURL = MGLStyle.darkStyleURL(withVersion: 9)
-        self.mapView.translatesAutoresizingMaskIntoConstraints = true
-        self.view.addSubview(self.mapView)
     }
 
     fileprivate func updateCurrentLocation(point: CLLocationCoordinate2D) {
@@ -72,6 +72,28 @@ class MapViewController: BaseViewController {
         } else {
             self.currentLocationPoint?.coordinate = point
         }
+    }
+
+    fileprivate func addProductObjs(_ productionObjs: [ProductObj]) {
+
+    }
+}
+
+// MARK: - Private
+extension MapViewController {
+
+    fileprivate func initCommon() {
+        self.view.wantsLayer = true
+        self.view.layer?.backgroundColor = NSColor.white.cgColor
+    }
+
+    fileprivate func initMapView() {
+        self.mapView = MGLMapView(frame: self.view.bounds)
+        self.mapView.delegate = self
+        self.mapView.zoomLevel = 14
+        self.mapView.styleURL = MGLStyle.darkStyleURL(withVersion: 9)
+        self.mapView.translatesAutoresizingMaskIntoConstraints = true
+        self.view.addSubview(self.mapView)
     }
 }
 

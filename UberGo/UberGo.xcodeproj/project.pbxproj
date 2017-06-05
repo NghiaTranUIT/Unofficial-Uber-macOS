@@ -14,6 +14,10 @@
 		BA037F491EDD61F800945C1D /* UberGoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA037F481EDD61F800945C1D /* UberGoTests.swift */; };
 		BA4796A91EE2C49700620BB0 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA4796A81EE2C49700620BB0 /* MapKit.framework */; };
 		BA7BA9831EE42C060056B0CF /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA7BA9821EE42C060056B0CF /* CoreLocation.framework */; };
+		BADB784A1EE5ABD5000536F7 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB78491EE5ABD5000536F7 /* SearchBarView.swift */; };
+		BADB784C1EE5ABDE000536F7 /* SearchBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BADB784B1EE5ABDE000536F7 /* SearchBarView.xib */; };
+		BADB78501EE5AC6A000536F7 /* NSView+Xib.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB784F1EE5AC6A000536F7 /* NSView+Xib.swift */; };
+		BADB78521EE5AC86000536F7 /* NSView+Identity.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB78511EE5AC86000536F7 /* NSView+Identity.swift */; };
 		BAE690271EE4346700A4D876 /* Mapbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BAE690261EE4346700A4D876 /* Mapbox.framework */; };
 		BAE690281EE4346700A4D876 /* Mapbox.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BAE690261EE4346700A4D876 /* Mapbox.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		BAE6902C1EE460EB00A4D876 /* EventMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE6902B1EE460EB00A4D876 /* EventMonitor.swift */; };
@@ -62,6 +66,10 @@
 		BA4796951EE2540D00620BB0 /* UberGoCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = UberGoCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA4796A81EE2C49700620BB0 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		BA7BA9821EE42C060056B0CF /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		BADB78491EE5ABD5000536F7 /* SearchBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
+		BADB784B1EE5ABDE000536F7 /* SearchBarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchBarView.xib; sourceTree = "<group>"; };
+		BADB784F1EE5AC6A000536F7 /* NSView+Xib.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSView+Xib.swift"; sourceTree = "<group>"; };
+		BADB78511EE5AC86000536F7 /* NSView+Identity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSView+Identity.swift"; sourceTree = "<group>"; };
 		BAE690261EE4346700A4D876 /* Mapbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Mapbox.framework; sourceTree = "<group>"; };
 		BAE6902B1EE460EB00A4D876 /* EventMonitor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventMonitor.swift; sourceTree = "<group>"; };
 		BAF57FB71EE116FB0013090E /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -177,14 +185,26 @@
 		BA47969A1EE2598B00620BB0 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				BADB78481EE5ABC5000536F7 /* Search Bar */,
 			);
 			name = View;
+			sourceTree = "<group>";
+		};
+		BADB78481EE5ABC5000536F7 /* Search Bar */ = {
+			isa = PBXGroup;
+			children = (
+				BADB78491EE5ABD5000536F7 /* SearchBarView.swift */,
+				BADB784B1EE5ABDE000536F7 /* SearchBarView.xib */,
+			);
+			name = "Search Bar";
 			sourceTree = "<group>";
 		};
 		BAE6902A1EE460DF00A4D876 /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				BAE6902B1EE460EB00A4D876 /* EventMonitor.swift */,
+				BADB784F1EE5AC6A000536F7 /* NSView+Xib.swift */,
+				BADB78511EE5AC86000536F7 /* NSView+Identity.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -307,6 +327,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BA037F3B1EDD61F800945C1D /* Assets.xcassets in Resources */,
+				BADB784C1EE5ABDE000536F7 /* SearchBarView.xib in Resources */,
 				BA037F3E1EDD61F800945C1D /* Main.storyboard in Resources */,
 				BAF57FBA1EE116FB0013090E /* LoginViewController.xib in Resources */,
 				BAF57FC01EE117300013090E /* MapViewController.xib in Resources */,
@@ -388,9 +409,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BADB784A1EE5ABD5000536F7 /* SearchBarView.swift in Sources */,
+				BADB78501EE5AC6A000536F7 /* NSView+Xib.swift in Sources */,
 				BAF57FB91EE116FB0013090E /* LoginViewController.swift in Sources */,
 				BAF57FBF1EE117300013090E /* MapViewController.swift in Sources */,
 				BA037F371EDD61F800945C1D /* AppDelegate.swift in Sources */,
+				BADB78521EE5AC86000536F7 /* NSView+Identity.swift in Sources */,
 				BAE6902C1EE460EB00A4D876 /* EventMonitor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
