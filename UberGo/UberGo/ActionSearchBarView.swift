@@ -8,6 +8,12 @@
 
 import Cocoa
 
+protocol ActionSearchBarViewDelegate: class {
+
+    func shouldOpenFullSearch()
+    func shouldOpenScheduler()
+}
+
 class ActionSearchBarView: NSView {
 
     // MARK: - OUTLET
@@ -17,6 +23,7 @@ class ActionSearchBarView: NSView {
     @IBOutlet fileprivate weak var schedulerBtn: NSButton!
 
     // MARK: - Variable
+    weak var delegate: ActionSearchBarViewDelegate?
 
     // MARK: - Init
     override func awakeFromNib() {
@@ -27,11 +34,11 @@ class ActionSearchBarView: NSView {
 
     // MARK: - Action
     @IBAction func whereToBtnOnTap(_ sender: Any) {
-
+        self.delegate?.shouldOpenFullSearch()
     }
 
     @IBAction func schedulerBtnOnTap(_ sender: Any) {
-
+        self.delegate?.shouldOpenScheduler()
     }
 
     func configureView(with parentView: NSView) {

@@ -11,9 +11,22 @@ import UberGoCore
 
 class SearchBarView: NSView {
 
+    // MARK: - OUTLET
+    @IBOutlet weak var originTxt: NSTextField!
+    @IBOutlet weak var destinationTxt: NSTextField!
+    @IBOutlet weak var roundBarView: NSView!
+    @IBOutlet weak var squareBarView: NSView!
+    @IBOutlet weak var lineVerticalView: NSView!
+    @IBOutlet weak var backBtn: NSButton!
+
     // MARK: - Variable
     fileprivate var viewModel: SearchBarViewModel?
     fileprivate var actionSearchView: ActionSearchBarView!
+
+    // Constraint
+    fileprivate var topConstraint: NSLayoutConstraint!
+    fileprivate var leftConstraint: NSLayoutConstraint!
+    fileprivate var rightConstraint: NSLayoutConstraint!
 
     // MARK: - Init
     override func awakeFromNib() {
@@ -31,6 +44,12 @@ class SearchBarView: NSView {
             self.viewModel = viewModel
         }
     }
+
+    // MARK: - Action
+    @IBAction func backBtnOnTap(_ sender: Any) {
+
+    }
+
 }
 
 extension SearchBarView {
@@ -43,6 +62,7 @@ extension SearchBarView {
     fileprivate func initActionSearchView() {
         let actionView = ActionSearchBarView.viewFromNib(with: BundleType.app)!
         actionView.configureView(with: self)
+        actionView.delegate = self
         self.actionSearchView = actionView
     }
 
@@ -50,37 +70,62 @@ extension SearchBarView {
         self.translatesAutoresizingMaskIntoConstraints = false
 
         parentView.addSubview(self)
-        let top = NSLayoutConstraint(item: self,
+        self.topConstraint = NSLayoutConstraint(item: self,
                                      attribute: .top,
                                      relatedBy: .equal,
                                      toItem: parentView,
                                      attribute: .top,
                                      multiplier: 1,
                                      constant: 28)
-        let left = NSLayoutConstraint(item: self,
+        self.leftConstraint = NSLayoutConstraint(item: self,
                                       attribute: .left,
                                       relatedBy: .equal,
                                       toItem: parentView,
                                       attribute: .left,
                                       multiplier: 1,
                                       constant: 28)
-        let right = NSLayoutConstraint(item: self,
+        self.rightConstraint = NSLayoutConstraint(item: self,
                                        attribute: .right,
                                        relatedBy: .equal,
                                        toItem: parentView,
                                        attribute: .right,
                                        multiplier: 1,
                                        constant: -28)
-        let width = NSLayoutConstraint(item: self,
+        let height = NSLayoutConstraint(item: self,
                                        attribute: .height,
                                        relatedBy: .equal,
                                        toItem: nil, attribute: .notAnAttribute,
                                        multiplier: 1,
                                        constant: 56)
-        parentView.addConstraints([top, left, right, width])
+        parentView.addConstraints([self.topConstraint, self.leftConstraint, self.rightConstraint, height])
     }
 
 }
+
+// MARK: - ActionSearchBarViewDelegate
+extension SearchBarView: ActionSearchBarViewDelegate {
+
+    func shouldOpenScheduler() {
+    }
+
+    func shouldOpenFullSearch() {
+
+        // Animate
+        self.leftConstraint.constant = 0
+        self.topConstraint.constant = 0
+        self.rightConstraint.constant = 0
+
+        NSAnimationContext.runAnimationGroup({ context in
+            context.allowsImplicitAnimation = true
+            context.duration = 0.22
+            context.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
+
+            self.actionSearchView.alphaValue = 0
+            self.superview?.layoutSubtreeIfNeeded()
+        }, completionHandler: nil)
+    }
+}
+
 // MARK: - XIBInitializable
 extension SearchBarView: XIBInitializable {
     typealias XibType = SearchBarView
