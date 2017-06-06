@@ -50,7 +50,8 @@ class MapViewController: BaseViewController {
                     return
                 }
                 print("setCenter \(location)")
-                self.updateCurrentLocation(point: location.coordinate)
+                //self.updateCurrentLocation(point: location.coordinate)
+                self.addPoint(point: location.coordinate)
                 self.mapView.setCenter(location.coordinate, animated: true)
             })
             .addDisposableTo(self.disposeBag)
@@ -62,6 +63,13 @@ class MapViewController: BaseViewController {
 //            self.addProductObjs(productObjs)
 //        })
 //        .addDisposableTo(self.disposeBag)
+
+        self.viewModel.output.humanAddressLocationDriver.drive(onNext: { [weak self] humanAddress in
+            guard let `self` = self else { return }
+            print("Found humanAddress = \(humanAddress)")
+            self.searchBarView.updateCurrentLocation(humanAddress)
+        })
+        .addDisposableTo(self.disposeBag)
     }
 
     fileprivate func updateCurrentLocation(point: CLLocationCoordinate2D) {
@@ -76,6 +84,15 @@ class MapViewController: BaseViewController {
         } else {
             self.currentLocationPoint?.coordinate = point
         }
+    }
+
+    fileprivate func addPoint(point: CLLocationCoordinate2D) {
+        let location = MGLPointAnnotation()
+        location.coordinate = point
+        location.title = "Here"
+
+        // Add
+        self.mapView.addAnnotation(location)
     }
 
     fileprivate func addProductObjs(_ productionObjs: [ProductObj]) {

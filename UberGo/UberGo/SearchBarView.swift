@@ -17,8 +17,8 @@ enum SearchBarViewLayoutState {
 class SearchBarView: NSView {
 
     // MARK: - OUTLET
-    @IBOutlet fileprivate weak var originTxt: NSTextField!
-    @IBOutlet fileprivate weak var destinationTxt: NSTextField!
+    @IBOutlet fileprivate weak var originTxt: UberTextField!
+    @IBOutlet fileprivate weak var destinationTxt: UberTextField!
     @IBOutlet fileprivate weak var roundBarView: NSView!
     @IBOutlet fileprivate weak var squareBarView: NSView!
     @IBOutlet fileprivate weak var lineVerticalView: NSView!
@@ -59,9 +59,12 @@ class SearchBarView: NSView {
     fileprivate func binding() {
         if self.viewModel == nil {
             let viewModel = SearchBarViewModel()
-
             self.viewModel = viewModel
         }
+    }
+
+    func updateCurrentLocation(_ text: String) {
+        self.originTxt.stringValue = text
     }
 
     // MARK: - Action
@@ -74,11 +77,19 @@ class SearchBarView: NSView {
 extension SearchBarView {
 
     fileprivate func initCommon() {
-        self.wantsLayer = true
-        self.layer?.backgroundColor = NSColor.white.cgColor
+
+        // Background
+        self.backgroundColor = NSColor.white
+        self.squareBarView.backgroundColor = NSColor.black
+        self.lineVerticalView.backgroundColor = NSColor(hexString: "#A4A4AC")
+        self.roundBarView.backgroundColor = NSColor(hexString: "#A4A4AC")
+        self.roundBarView.wantsLayer = true
+        self.roundBarView.layer?.masksToBounds = true
+        self.roundBarView.layer?.cornerRadius = 3
 
         // Defaukt
         self.searchContainerView.alphaValue = 0
+
     }
 
     fileprivate func initActionSearchView() {
@@ -130,7 +141,8 @@ extension SearchBarView {
             self.topConstraint.constant = 0
             self.rightConstraint.constant = 0
             self.heightConstraint.constant = 142
-            
+
+            // Animate
             NSAnimationContext.runAnimationGroup({ context in
                 context.allowsImplicitAnimation = true
                 context.duration = 0.22

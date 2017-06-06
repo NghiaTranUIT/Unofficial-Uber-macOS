@@ -27,18 +27,31 @@ open class MapManager: NSObject {
         return CLLocationManager.locationServicesEnabled()
     }
     public var currentLocationVariable = Variable<CLLocation?>(nil)
+    public var humanAddressLocationObverser: Observable<String>!
 
     fileprivate lazy var locationManager: CLLocationManager = self.lazyLocationManager()
     fileprivate var locationBlock: MapAuthenticationBlock?
+    fileprivate var shouldUpdateCurrentLocation = false
+    fileprivate lazy var geoCoder: CLGeocoder = {
+        return CLGeocoder()
+    }()
 
     // MARK: - Init
     public override init() {
         super.init()
+
+        self.humanAddressLocationObverser = self.currentLocationVariable
+            .asObservable()
+            .flatMapLatest({ (location) -> Observable<String> in
+                guard let location = location else { return Observable.empty() }
+            return self.humanDecodingObserver(location)
+        })
     }
 
     // MARK: - Public
     public func requestLocation(with block: MapAuthenticationBlock?) {
         self.locationBlock = block
+        self.shouldUpdateCurrentLocation = true
         self.locationManager.startUpdatingLocation()
     }
 
@@ -59,6 +72,52 @@ open class MapManager: NSObject {
                 }
 
                 // Complete
+                observer.onCompleted()
+            })
+
+            return Disposables.create()
+        }
+    }
+
+    public func humanDecodingObserver(_ location: CLLocation) -> Observable<String> {
+
+        return Observable<String>.create {[unowned self] (observer) -> Disposable in
+
+            var address: String = ""
+            self.geoCoder.reverseGeocodeLocation(location, completionHandler: { (placemarks, _) -> Void in
+
+                // Place details
+                var placeMark: CLPlacemark?
+                placeMark = placemarks?[0]
+
+                // Address dictionary
+                print(placeMark?.addressDictionary ?? "")
+
+                // Location name
+                if let locationName = placeMark?.addressDictionary?["Name"] as? String {
+                    address += locationName + ", "
+                }
+
+                // Street address
+                if let street = placeMark?.addressDictionary?["Thoroughfare"] as? String {
+                    address += street + ", "
+                }
+
+                // District
+                if let district = placeMark?.addressDictionary?["SubAdministrativeArea"] as? String {
+                    address += district + ", "
+                }
+
+                // City
+                if let city = placeMark?.addressDictionary?["State"] as? String {
+                    address += city + ", "
+                }
+
+                // Country
+                if let country = placeMark?.addressDictionary?["Country"] as? String {
+                    address += country
+                }
+                observer.onNext(address)
                 observer.onCompleted()
             })
 
@@ -93,7 +152,11 @@ extension MapManager: CLLocationManagerDelegate {
         guard let lastLocation = locations.last else { return }
 
         // Notify
-        self.locationBlock?(lastLocation, nil)
-        self.currentLocationVariable.value = lastLocation
+        if self.shouldUpdateCurrentLocation {
+            self.shouldUpdateCurrentLocation = false
+
+            self.locationBlock?(lastLocation, nil)
+            self.currentLocationVariable.value = lastLocation
+        }
     }
 }

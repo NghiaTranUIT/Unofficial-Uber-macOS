@@ -24,7 +24,7 @@ class ActionSearchBarView: NSView {
 
     // MARK: - Variable
     weak var delegate: ActionSearchBarViewDelegate?
-
+    
     // MARK: - Init
     override func awakeFromNib() {
         super.awakeFromNib()

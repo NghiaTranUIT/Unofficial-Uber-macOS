@@ -16,7 +16,7 @@
                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="Gom-Qn-lcM">
                     <rect key="frame" x="0.0" y="0.0" width="480" height="142"/>
                     <subviews>
-                        <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2F2-b8-1So">
+                        <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2F2-b8-1So" customClass="UberTextField" customModule="UberGo" customModuleProvider="target">
                             <rect key="frame" x="56" y="48" width="400" height="32"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="32" id="lYl-86-P5Z"/>
@@ -27,7 +27,7 @@
                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
                         </textField>
-                        <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gz4-hL-nZ4">
+                        <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gz4-hL-nZ4" customClass="UberTextField" customModule="UberGo" customModuleProvider="target">
                             <rect key="frame" x="56" y="8" width="400" height="32"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="32" id="aUs-Sv-LbW"/>
@@ -59,8 +59,12 @@
                             </constraints>
                         </customView>
                         <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="WiN-7G-eLH">
-                            <rect key="frame" x="14" y="94" width="81" height="32"/>
-                            <buttonCell key="cell" type="push" title="Button" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="huF-6U-LQT">
+                            <rect key="frame" x="20" y="96" width="21" height="26"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="26" id="HXn-cr-1v7"/>
+                                <constraint firstAttribute="width" constant="21" id="cgV-Dm-ETz"/>
+                            </constraints>
+                            <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="back-btn" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="huF-6U-LQT">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
@@ -106,4 +110,7 @@
             <point key="canvasLocation" x="139" y="125"/>
         </customView>
     </objects>
+    <resources>
+        <image name="back-btn" width="31" height="24"/>
+    </resources>
 </document>

@@ -27,6 +27,7 @@ public protocol MapViewModelInput {
 public protocol MapViewModelOutput {
 
     var currentLocationDriver: Driver<CLLocation?> { get }
+    var humanAddressLocationDriver: Driver<String> { get }
     var errorLocationVariable: Variable<Error?> { get }
     var productsVariable: Variable<[ProductObj]> { get }
 }
@@ -53,6 +54,9 @@ open class MapViewModel: BaseViewModel,
     }
     public var errorLocationVariable = Variable<Error?>(nil)
     public var productsVariable = Variable<[ProductObj]>([])
+    public var humanAddressLocationDriver: Driver<String> {
+        return self.mapManager.humanAddressLocationObverser.asDriver(onErrorJustReturn: "")
+    }
 
     // MARK: - Init
     public override init() {
