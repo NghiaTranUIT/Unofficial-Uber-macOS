@@ -26,8 +26,11 @@ class UberTextField: NSTextField {
         self.isBordered = false
         self.layer?.masksToBounds = true
         self.layer?.borderWidth = 0
-        self.backgroundColor = self.normalColor
 
+        // Hack
+        //FIXME : Upate superview color
+        self.superview?.backgroundColor = self.normalColor
+        self.backgroundColor = self.normalColor
         self.focusRingType = .none
     }
 

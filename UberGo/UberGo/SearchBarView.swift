@@ -67,6 +67,10 @@ class SearchBarView: NSView {
         self.originTxt.stringValue = text
     }
 
+    func makeDestinationFirstResponse() {
+        self.destinationTxt.window?.makeFirstResponder(self.destinationTxt)
+    }
+
     // MARK: - Action
     @IBAction func backBtnOnTap(_ sender: Any) {
         self.layoutState = .shrink
@@ -89,7 +93,6 @@ extension SearchBarView {
 
         // Defaukt
         self.searchContainerView.alphaValue = 0
-
     }
 
     fileprivate func initActionSearchView() {
@@ -137,6 +140,10 @@ extension SearchBarView {
     fileprivate func animateSearchBarState() {
         switch self._layoutState {
         case .expanded:
+
+            // Focus
+            self.makeDestinationFirstResponse()
+
             self.leftConstraint.constant = 0
             self.topConstraint.constant = 0
             self.rightConstraint.constant = 0

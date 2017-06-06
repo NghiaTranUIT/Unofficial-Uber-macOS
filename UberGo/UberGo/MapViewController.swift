@@ -22,6 +22,7 @@ class MapViewController: BaseViewController {
     fileprivate var viewModel: MapViewModel!
     fileprivate var currentLocationPoint: MGLPointAnnotation?
     fileprivate var searchBarView: SearchBarView!
+    fileprivate var isFirstTime = true
 
     // MARK: - View Cycle
     override func viewDidLoad() {
@@ -38,6 +39,10 @@ class MapViewController: BaseViewController {
 
         // View Model
         self.binding()
+    }
+
+    override func viewDidAppear() {
+        super.viewDidAppear()
     }
 
     fileprivate func binding() {

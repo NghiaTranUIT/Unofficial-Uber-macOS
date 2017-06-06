@@ -24,6 +24,7 @@
 		BADB785B1EE5B93D000536F7 /* NSColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB785A1EE5B93D000536F7 /* NSColor+Hex.swift */; };
 		BADB785E1EE5BA0C000536F7 /* UberButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB785D1EE5BA0C000536F7 /* UberButton.swift */; };
 		BADB78611EE661A8000536F7 /* UberTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB78601EE661A8000536F7 /* UberTextField.swift */; };
+		BADB78641EE6EFE1000536F7 /* UberTextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB78631EE6EFE1000536F7 /* UberTextFieldCell.swift */; };
 		BAE690271EE4346700A4D876 /* Mapbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BAE690261EE4346700A4D876 /* Mapbox.framework */; };
 		BAE690281EE4346700A4D876 /* Mapbox.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BAE690261EE4346700A4D876 /* Mapbox.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		BAE6902C1EE460EB00A4D876 /* EventMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE6902B1EE460EB00A4D876 /* EventMonitor.swift */; };
@@ -82,6 +83,7 @@
 		BADB785A1EE5B93D000536F7 /* NSColor+Hex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSColor+Hex.swift"; sourceTree = "<group>"; };
 		BADB785D1EE5BA0C000536F7 /* UberButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UberButton.swift; sourceTree = "<group>"; };
 		BADB78601EE661A8000536F7 /* UberTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UberTextField.swift; sourceTree = "<group>"; };
+		BADB78631EE6EFE1000536F7 /* UberTextFieldCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UberTextFieldCell.swift; sourceTree = "<group>"; };
 		BAE690261EE4346700A4D876 /* Mapbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Mapbox.framework; sourceTree = "<group>"; };
 		BAE6902B1EE460EB00A4D876 /* EventMonitor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventMonitor.swift; sourceTree = "<group>"; };
 		BAF57FB71EE116FB0013090E /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -197,6 +199,7 @@
 		BA47969A1EE2598B00620BB0 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				BADB78621EE6EFAE000536F7 /* Ubse */,
 				BADB785F1EE66190000536F7 /* UberTextField */,
 				BADB785C1EE5B9F5000536F7 /* UberButton */,
 				BADB78531EE5B7BA000536F7 /* ActionSearchBarView */,
@@ -235,8 +238,16 @@
 			isa = PBXGroup;
 			children = (
 				BADB78601EE661A8000536F7 /* UberTextField.swift */,
+				BADB78631EE6EFE1000536F7 /* UberTextFieldCell.swift */,
 			);
 			name = UberTextField;
+			sourceTree = "<group>";
+		};
+		BADB78621EE6EFAE000536F7 /* Ubse */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Ubse;
 			sourceTree = "<group>";
 		};
 		BAE6902A1EE460DF00A4D876 /* Models */ = {
@@ -293,6 +304,7 @@
 				702D69811002A3516F5DB060 /* [CP] Copy Pods Resources */,
 				BA4796AD1EE2D61100620BB0 /* ShellScript */,
 				BAE690291EE4346700A4D876 /* Embed Frameworks */,
+				BADB78651EE6F3FE000536F7 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -430,6 +442,19 @@
 			shellPath = /bin/sh;
 			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
 		};
+		BADB78651EE6F3FE000536F7 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "TAGS=\"TODO:|FIXME:\"\nERRORTAG=\"ERROR:\"\nfind \"${SRCROOT}\" \\( -name \"*.h\" -or -name \"*.m\" -or -name \"*.swift\" -type f\\) -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($TAGS).*\\$|($ERRORTAG).*\\$\" | perl -p -e \"s/($TAGS)/ warning: \\$1/\" | perl -p -e \"s/($ERRORTAG)/ error: \\$1/\"";
+		};
 		F20F0C70E7EA8A04910A7D3A /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -463,6 +488,7 @@
 				BA037F371EDD61F800945C1D /* AppDelegate.swift in Sources */,
 				BADB78521EE5AC86000536F7 /* NSView+Identity.swift in Sources */,
 				BADB785E1EE5BA0C000536F7 /* UberButton.swift in Sources */,
+				BADB78641EE6EFE1000536F7 /* UberTextFieldCell.swift in Sources */,
 				BAE6902C1EE460EB00A4D876 /* EventMonitor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

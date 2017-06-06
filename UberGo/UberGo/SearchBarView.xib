@@ -16,28 +16,47 @@
                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="Gom-Qn-lcM">
                     <rect key="frame" x="0.0" y="0.0" width="480" height="142"/>
                     <subviews>
-                        <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2F2-b8-1So" customClass="UberTextField" customModule="UberGo" customModuleProvider="target">
+                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="E18-mX-1b8">
                             <rect key="frame" x="56" y="48" width="400" height="32"/>
+                            <subviews>
+                                <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2F2-b8-1So" customClass="UberTextField" customModule="UberGo" customModuleProvider="target">
+                                    <rect key="frame" x="4" y="7" width="392" height="19"/>
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" alignment="left" title="Hi" drawsBackground="YES" id="V1s-pr-UhB">
+                                        <font key="font" metaFont="system" size="15"/>
+                                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                            </subviews>
                             <constraints>
-                                <constraint firstAttribute="height" constant="32" id="lYl-86-P5Z"/>
+                                <constraint firstAttribute="trailing" secondItem="2F2-b8-1So" secondAttribute="trailing" constant="4" id="D9F-xb-5a3"/>
+                                <constraint firstAttribute="height" constant="32" id="aVB-iq-F1j"/>
+                                <constraint firstItem="2F2-b8-1So" firstAttribute="leading" secondItem="E18-mX-1b8" secondAttribute="leading" constant="4" id="gMR-9m-Wor"/>
+                                <constraint firstItem="2F2-b8-1So" firstAttribute="centerX" secondItem="E18-mX-1b8" secondAttribute="centerX" id="h7c-2c-q2I"/>
+                                <constraint firstItem="2F2-b8-1So" firstAttribute="centerY" secondItem="E18-mX-1b8" secondAttribute="centerY" id="tab-BI-oXP"/>
                             </constraints>
-                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="V1s-pr-UhB">
-                                <font key="font" metaFont="system"/>
-                                <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                            </textFieldCell>
-                        </textField>
-                        <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gz4-hL-nZ4" customClass="UberTextField" customModule="UberGo" customModuleProvider="target">
+                        </customView>
+                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="tm8-iQ-z1e">
                             <rect key="frame" x="56" y="8" width="400" height="32"/>
+                            <subviews>
+                                <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gz4-hL-nZ4" customClass="UberTextField" customModule="UberGo" customModuleProvider="target">
+                                    <rect key="frame" x="4" y="8" width="392" height="17"/>
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" alignment="left" drawsBackground="YES" id="Sgh-Gp-iAT">
+                                        <font key="font" metaFont="system"/>
+                                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                            </subviews>
                             <constraints>
-                                <constraint firstAttribute="height" constant="32" id="aUs-Sv-LbW"/>
+                                <constraint firstAttribute="height" constant="32" id="7wo-Aq-p7l"/>
+                                <constraint firstItem="Gz4-hL-nZ4" firstAttribute="centerY" secondItem="tm8-iQ-z1e" secondAttribute="centerY" id="8aZ-1j-0Ah"/>
+                                <constraint firstItem="Gz4-hL-nZ4" firstAttribute="leading" secondItem="tm8-iQ-z1e" secondAttribute="leading" constant="4" id="JMF-NC-lG7"/>
+                                <constraint firstAttribute="width" constant="400" id="WhY-Nl-BBe"/>
+                                <constraint firstAttribute="trailing" secondItem="Gz4-hL-nZ4" secondAttribute="trailing" constant="4" id="pN7-kr-Zvw"/>
+                                <constraint firstItem="Gz4-hL-nZ4" firstAttribute="centerX" secondItem="tm8-iQ-z1e" secondAttribute="centerX" id="sTq-OX-AfH"/>
                             </constraints>
-                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="Sgh-Gp-iAT">
-                                <font key="font" metaFont="system"/>
-                                <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                            </textFieldCell>
-                        </textField>
+                        </customView>
                         <customView translatesAutoresizingMaskIntoConstraints="NO" id="vNZ-pl-77W">
                             <rect key="frame" x="25" y="61" width="6" height="6"/>
                             <constraints>
@@ -74,21 +93,20 @@
                         </button>
                     </subviews>
                     <constraints>
-                        <constraint firstItem="QjX-HT-RKP" firstAttribute="centerY" secondItem="Gz4-hL-nZ4" secondAttribute="centerY" id="0na-XG-D2d"/>
                         <constraint firstItem="WiN-7G-eLH" firstAttribute="top" secondItem="Gom-Qn-lcM" secondAttribute="top" constant="20" id="A7O-hJ-Kc6"/>
                         <constraint firstItem="WiN-7G-eLH" firstAttribute="leading" secondItem="Gom-Qn-lcM" secondAttribute="leading" constant="20" id="ABp-2w-MgU"/>
+                        <constraint firstAttribute="bottom" secondItem="tm8-iQ-z1e" secondAttribute="bottom" constant="8" id="F1l-Ad-6Cf"/>
                         <constraint firstItem="QjX-HT-RKP" firstAttribute="top" secondItem="H2Y-HO-oBQ" secondAttribute="bottom" constant="3" id="Hcw-zS-YSn"/>
-                        <constraint firstAttribute="bottom" secondItem="Gz4-hL-nZ4" secondAttribute="bottom" constant="8" id="HnZ-Hg-ajE"/>
-                        <constraint firstItem="Gz4-hL-nZ4" firstAttribute="leading" secondItem="QjX-HT-RKP" secondAttribute="trailing" constant="25" id="OrN-SV-RQc"/>
+                        <constraint firstItem="E18-mX-1b8" firstAttribute="trailing" secondItem="tm8-iQ-z1e" secondAttribute="trailing" id="IDX-eE-cfx"/>
+                        <constraint firstItem="QjX-HT-RKP" firstAttribute="centerY" secondItem="tm8-iQ-z1e" secondAttribute="centerY" id="NeW-gg-7oV"/>
                         <constraint firstItem="H2Y-HO-oBQ" firstAttribute="centerX" secondItem="QjX-HT-RKP" secondAttribute="centerX" id="Q2U-VW-nZa"/>
                         <constraint firstItem="vNZ-pl-77W" firstAttribute="centerX" secondItem="QjX-HT-RKP" secondAttribute="centerX" id="RDH-VZ-k3e"/>
-                        <constraint firstItem="2F2-b8-1So" firstAttribute="leading" secondItem="Gz4-hL-nZ4" secondAttribute="leading" id="ZbB-5Z-rpc"/>
+                        <constraint firstItem="tm8-iQ-z1e" firstAttribute="leading" secondItem="QjX-HT-RKP" secondAttribute="trailing" constant="25" id="ajW-fw-70A"/>
                         <constraint firstItem="H2Y-HO-oBQ" firstAttribute="top" secondItem="vNZ-pl-77W" secondAttribute="bottom" constant="3" id="d0R-ew-Q2M"/>
-                        <constraint firstItem="2F2-b8-1So" firstAttribute="trailing" secondItem="Gz4-hL-nZ4" secondAttribute="trailing" id="kzZ-Ie-8rl"/>
-                        <constraint firstItem="vNZ-pl-77W" firstAttribute="centerY" secondItem="2F2-b8-1So" secondAttribute="centerY" id="qav-1S-jQD"/>
-                        <constraint firstItem="Gz4-hL-nZ4" firstAttribute="leading" secondItem="Gom-Qn-lcM" secondAttribute="leading" constant="56" id="vCf-V9-o7N"/>
-                        <constraint firstAttribute="trailing" secondItem="Gz4-hL-nZ4" secondAttribute="trailing" constant="24" id="vvc-d9-gb1"/>
-                        <constraint firstItem="Gz4-hL-nZ4" firstAttribute="top" secondItem="2F2-b8-1So" secondAttribute="bottom" constant="8" id="wfK-wg-zQN"/>
+                        <constraint firstAttribute="trailing" secondItem="tm8-iQ-z1e" secondAttribute="trailing" constant="24" id="dFT-KN-FSw"/>
+                        <constraint firstItem="E18-mX-1b8" firstAttribute="leading" secondItem="tm8-iQ-z1e" secondAttribute="leading" id="iLg-k9-S69"/>
+                        <constraint firstItem="vNZ-pl-77W" firstAttribute="centerY" secondItem="E18-mX-1b8" secondAttribute="centerY" id="kP5-TL-fKP"/>
+                        <constraint firstItem="tm8-iQ-z1e" firstAttribute="top" secondItem="E18-mX-1b8" secondAttribute="bottom" constant="8" id="xOS-iF-vxl"/>
                     </constraints>
                 </customView>
             </subviews>
