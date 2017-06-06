@@ -1,5 +1,5 @@
 //
-//  GoogleAPITests.swift
+//  UberAPITests.swift
 //  UberGoCore
 //
 //  Created by Nghia Tran on 6/6/17.
@@ -11,7 +11,7 @@ import CoreLocation
 import RxSwift
 @testable import UberGoCore
 
-class GoogleAPITests: XCTestCase {
+class UberAPITests: XCTestCase {
 
     let disposeBag = DisposeBag()
 
@@ -25,18 +25,18 @@ class GoogleAPITests: XCTestCase {
         super.tearDown()
     }
 
-    func testSearchPlaceAPIWorkSuccess() {
+    func testUberProductsRequestAPIWorkSuccess() {
 
         // When
         let location = CLLocationCoordinate2D(latitude: 10.79901740, longitude: 106.75191281)
-        let param = PlaceSearchRequestParam(keyword: "rmit", location: location)
-        let promise = expectation(description: "Place Search API has results")
+        let param = UberProductsRequestParam(location: location)
+        let promise = expectation(description: "Uber Product API")
+        let uberCrendential = FakeUberCrendential.valid()
+        _ = UserObj.convertCurrentUser(with: uberCrendential)
 
         // Then
-        PlaceSearchRequest(param)
-        .toObservable()
-        .subscribe(onNext: { placeObjs in
-            print(placeObjs)
+        UberProductsRequest(param).toObservable()
+        .subscribe(onNext: { (productObjs) in
             promise.fulfill()
         }, onError: { error in
             XCTFail(error.localizedDescription)
