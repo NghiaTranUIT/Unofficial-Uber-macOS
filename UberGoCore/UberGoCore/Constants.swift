@@ -29,6 +29,13 @@ struct Constants {
         static let UberProducts = "/v1.2/products"
     }
 
+    // MARK: - Google
+    struct GoogleAPI {
+
+        static let BaseURL = "https://maps.googleapis.com/maps/api"
+        static let PlaceSearchURL = "/place/nearbysearch/json"
+    }
+
     // MARK: - Object
     struct Object {
 

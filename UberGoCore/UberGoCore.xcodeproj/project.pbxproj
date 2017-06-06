@@ -25,6 +25,7 @@
 		BA7BA9811EE415D10056B0CF /* MapManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7BA9801EE415D10056B0CF /* MapManager.swift */; };
 		BA7BA9851EE42C0C0056B0CF /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA7BA9841EE42C0C0056B0CF /* CoreLocation.framework */; };
 		BADB784E1EE5AC07000536F7 /* SearchBarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB784D1EE5AC07000536F7 /* SearchBarViewModel.swift */; };
+		BADB78671EE70AB0000536F7 /* PlaceSearchRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB78661EE70AB0000536F7 /* PlaceSearchRequest.swift */; };
 		BAE6902F1EE513EF00A4D876 /* UberProductsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE6902E1EE513EF00A4D876 /* UberProductsRequest.swift */; };
 		BAE690311EE5146F00A4D876 /* ProductObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE690301EE5146F00A4D876 /* ProductObj.swift */; };
 		BAF57FA61EE1163A0013090E /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF57FA51EE1163A0013090E /* Environment.swift */; };
@@ -73,6 +74,7 @@
 		BA7BA9801EE415D10056B0CF /* MapManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapManager.swift; sourceTree = "<group>"; };
 		BA7BA9841EE42C0C0056B0CF /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		BADB784D1EE5AC07000536F7 /* SearchBarViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBarViewModel.swift; sourceTree = "<group>"; };
+		BADB78661EE70AB0000536F7 /* PlaceSearchRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceSearchRequest.swift; sourceTree = "<group>"; };
 		BAE6902E1EE513EF00A4D876 /* UberProductsRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UberProductsRequest.swift; sourceTree = "<group>"; };
 		BAE690301EE5146F00A4D876 /* ProductObj.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductObj.swift; sourceTree = "<group>"; };
 		BAF57FA51EE1163A0013090E /* Environment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
@@ -216,6 +218,7 @@
 			children = (
 				BA47969F1EE2BD3A00620BB0 /* Requestable.swift */,
 				BAE6902E1EE513EF00A4D876 /* UberProductsRequest.swift */,
+				BADB78661EE70AB0000536F7 /* PlaceSearchRequest.swift */,
 			);
 			name = Request;
 			sourceTree = "<group>";
@@ -521,6 +524,7 @@
 				BAF57FAE1EE116820013090E /* TripObj.swift in Sources */,
 				BAF57FA61EE1163A0013090E /* Environment.swift in Sources */,
 				BADB784E1EE5AC07000536F7 /* SearchBarViewModel.swift in Sources */,
+				BADB78671EE70AB0000536F7 /* PlaceSearchRequest.swift in Sources */,
 				BAF57FAC1EE116710013090E /* BaseObj.swift in Sources */,
 				BAF57FC21EE11A080013090E /* BaseViewModel.swift in Sources */,
 				BA4796AC1EE2D5BD00620BB0 /* BaseViewController.swift in Sources */,

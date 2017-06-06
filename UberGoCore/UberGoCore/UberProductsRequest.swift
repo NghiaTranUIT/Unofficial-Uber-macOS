@@ -12,8 +12,10 @@ import ObjectMapper
 
 class UberProductsRequest: Requestable {
 
+    // Type
     typealias Element = [ProductObj]
 
+    // Header
     var addionalHeader: Requestable.HeaderParameter? {
         guard let currentUser = UserObj.currentUser else { return nil }
         guard let token = currentUser.oauthToken else {
@@ -22,8 +24,23 @@ class UberProductsRequest: Requestable {
         let tokenStr = "Bearer " + token
         return ["Authorization": tokenStr]
     }
+
+    // Endpoint
     var endpoint: String { return Constants.UberAPI.UberProducts }
+
+    // HTTP
     var httpMethod: HTTPMethod { return .get }
+
+    // Param
+    var param: Parameters? { return self._param }
+    fileprivate var _param: Parameters
+
+    // MARK: - Init
+    init(param: Parameters) {
+        self._param = param
+    }
+
+    // MARK: - Decode
     func decode(data: Any) -> [ProductObj]? {
         guard let result = data as? [String: Any] else {
             return []
@@ -32,11 +49,5 @@ class UberProductsRequest: Requestable {
             return []
         }
         return Mapper<ProductObj>().mapArray(JSONArray: products)
-    }
-    var param: Parameters? { return self._param }
-    fileprivate var _param: Parameters
-
-    init(param: Parameters) {
-        self._param = param
     }
 }
