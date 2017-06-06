@@ -100,6 +100,7 @@
                 <outlet property="lineVerticalView" destination="H2Y-HO-oBQ" id="iHp-lk-vAE"/>
                 <outlet property="originTxt" destination="2F2-b8-1So" id="ksV-t8-pRp"/>
                 <outlet property="roundBarView" destination="vNZ-pl-77W" id="N04-l0-WJj"/>
+                <outlet property="searchContainerView" destination="Gom-Qn-lcM" id="tkF-ix-xmz"/>
                 <outlet property="squareBarView" destination="QjX-HT-RKP" id="6Nz-m3-1AF"/>
             </connections>
             <point key="canvasLocation" x="139" y="125"/>

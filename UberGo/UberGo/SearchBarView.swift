@@ -9,17 +9,35 @@
 import Cocoa
 import UberGoCore
 
+enum SearchBarViewLayoutState {
+    case expanded
+    case shrink
+}
+
 class SearchBarView: NSView {
 
     // MARK: - OUTLET
-    @IBOutlet weak var originTxt: NSTextField!
-    @IBOutlet weak var destinationTxt: NSTextField!
-    @IBOutlet weak var roundBarView: NSView!
-    @IBOutlet weak var squareBarView: NSView!
-    @IBOutlet weak var lineVerticalView: NSView!
-    @IBOutlet weak var backBtn: NSButton!
+    @IBOutlet fileprivate weak var originTxt: NSTextField!
+    @IBOutlet fileprivate weak var destinationTxt: NSTextField!
+    @IBOutlet fileprivate weak var roundBarView: NSView!
+    @IBOutlet fileprivate weak var squareBarView: NSView!
+    @IBOutlet fileprivate weak var lineVerticalView: NSView!
+    @IBOutlet fileprivate weak var backBtn: NSButton!
+    @IBOutlet fileprivate weak var searchContainerView: NSView!
 
     // MARK: - Variable
+    fileprivate var _layoutState = SearchBarViewLayoutState.shrink { didSet { self.animateSearchBarState() } }
+    public fileprivate(set) var layoutState: SearchBarViewLayoutState {
+        get {
+            return self._layoutState
+        }
+        set {
+            if newValue == _layoutState {
+                return
+            }
+            _layoutState = newValue
+        }
+    }
     fileprivate var viewModel: SearchBarViewModel?
     fileprivate var actionSearchView: ActionSearchBarView!
 
@@ -27,6 +45,7 @@ class SearchBarView: NSView {
     fileprivate var topConstraint: NSLayoutConstraint!
     fileprivate var leftConstraint: NSLayoutConstraint!
     fileprivate var rightConstraint: NSLayoutConstraint!
+    fileprivate var heightConstraint: NSLayoutConstraint!
 
     // MARK: - Init
     override func awakeFromNib() {
@@ -47,7 +66,7 @@ class SearchBarView: NSView {
 
     // MARK: - Action
     @IBAction func backBtnOnTap(_ sender: Any) {
-
+        self.layoutState = .shrink
     }
 
 }
@@ -57,6 +76,9 @@ extension SearchBarView {
     fileprivate func initCommon() {
         self.wantsLayer = true
         self.layer?.backgroundColor = NSColor.white.cgColor
+
+        // Defaukt
+        self.searchContainerView.alphaValue = 0
     }
 
     fileprivate func initActionSearchView() {
@@ -91,15 +113,52 @@ extension SearchBarView {
                                        attribute: .right,
                                        multiplier: 1,
                                        constant: -28)
-        let height = NSLayoutConstraint(item: self,
+        self.heightConstraint = NSLayoutConstraint(item: self,
                                        attribute: .height,
                                        relatedBy: .equal,
                                        toItem: nil, attribute: .notAnAttribute,
                                        multiplier: 1,
                                        constant: 56)
-        parentView.addConstraints([self.topConstraint, self.leftConstraint, self.rightConstraint, height])
+        parentView.addConstraints([self.topConstraint, self.leftConstraint,
+                                   self.rightConstraint, self.heightConstraint])
     }
 
+    fileprivate func animateSearchBarState() {
+        switch self._layoutState {
+        case .expanded:
+            self.leftConstraint.constant = 0
+            self.topConstraint.constant = 0
+            self.rightConstraint.constant = 0
+            self.heightConstraint.constant = 142
+            
+            NSAnimationContext.runAnimationGroup({ context in
+                context.allowsImplicitAnimation = true
+                context.duration = 0.22
+                context.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
+
+                self.actionSearchView.alphaValue = 0
+                self.searchContainerView.alphaValue = 1
+
+                self.superview?.layoutSubtreeIfNeeded()
+            }, completionHandler: nil)
+        case .shrink:
+            self.leftConstraint.constant = 28
+            self.topConstraint.constant = 28
+            self.rightConstraint.constant = -28
+            self.heightConstraint.constant = 56
+
+            NSAnimationContext.runAnimationGroup({ context in
+                context.allowsImplicitAnimation = true
+                context.duration = 0.22
+                context.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
+
+                self.actionSearchView.alphaValue = 1
+                self.searchContainerView.alphaValue = 0
+
+                self.superview?.layoutSubtreeIfNeeded()
+            }, completionHandler: nil)
+        }
+    }
 }
 
 // MARK: - ActionSearchBarViewDelegate
@@ -109,20 +168,7 @@ extension SearchBarView: ActionSearchBarViewDelegate {
     }
 
     func shouldOpenFullSearch() {
-
-        // Animate
-        self.leftConstraint.constant = 0
-        self.topConstraint.constant = 0
-        self.rightConstraint.constant = 0
-
-        NSAnimationContext.runAnimationGroup({ context in
-            context.allowsImplicitAnimation = true
-            context.duration = 0.22
-            context.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
-
-            self.actionSearchView.alphaValue = 0
-            self.superview?.layoutSubtreeIfNeeded()
-        }, completionHandler: nil)
+        self.layoutState = .expanded
     }
 }
 
