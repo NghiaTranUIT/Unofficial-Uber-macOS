@@ -90,7 +90,8 @@ open class MapViewModel: BaseViewModel,
         let location = CLLocationCoordinate2D(latitude: 10.78492533, longitude: 106.70296385)
         Observable<[ProductObj]>.just([])
         .flatMapLatest { _ -> Observable<[ProductObj]> in
-            return UberProductsRequest(param: ["latitude": location.latitude, "longitude": location.longitude]).toObservable()
+            let param = UberProductsRequestParam(location: location)
+            return UberProductsRequest(param).toObservable()
         }
         .bind(to: self.productsVariable)
         .addDisposableTo(self.disposeBag)

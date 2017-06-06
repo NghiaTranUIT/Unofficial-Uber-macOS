@@ -7,8 +7,19 @@
 //
 
 import Alamofire
+import CoreLocation
 import Foundation
 import ObjectMapper
+
+struct UberProductsRequestParam: Parameter {
+
+    let location: CLLocationCoordinate2D
+
+    func toDictionary() -> [String : Any] {
+        return ["latitude": "\(self.location.latitude)",
+                "longitude": "\(self.location.longitude)"]
+    }
+}
 
 class UberProductsRequest: Requestable {
 
@@ -32,11 +43,11 @@ class UberProductsRequest: Requestable {
     var httpMethod: HTTPMethod { return .get }
 
     // Param
-    var param: Parameters? { return self._param }
-    fileprivate var _param: Parameters
+    var param: Parameter? { return self._param }
+    fileprivate var _param: UberProductsRequestParam
 
     // MARK: - Init
-    init(param: Parameters) {
+    init(_ param: UberProductsRequestParam) {
         self._param = param
     }
 

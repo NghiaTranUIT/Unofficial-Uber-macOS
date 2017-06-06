@@ -7,8 +7,24 @@
 //
 
 import Alamofire
+import CoreLocation
 import Foundation
 import ObjectMapper
+
+struct PlaceSearchRequestParam: Parameter {
+
+    let keyword: String
+    let radius: String = "20000"
+    let key: String
+    let location: CLLocationCoordinate2D
+
+    func toDictionary() -> [String : Any] {
+        return ["keyword": self.keyword,
+                "radius": self.radius,
+                "key": Constants.GoogleApp.Key,
+                "location": "\(self.location.latitude),\(self.location.longitude)"]
+    }
+}
 
 class PlaceSearchRequest: Requestable {
 
@@ -25,11 +41,11 @@ class PlaceSearchRequest: Requestable {
     var httpMethod: HTTPMethod { return .get }
 
     // Param
-    var param: Parameters? { return self._param }
-    fileprivate var _param: Parameters
+    var param: Parameter? { return self._param }
+    fileprivate var _param: PlaceSearchRequestParam
 
     // MARK: - Init
-    init(param: Parameters) {
+    init(_ param: PlaceSearchRequestParam) {
         self._param = param
     }
 

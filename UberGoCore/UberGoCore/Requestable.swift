@@ -10,8 +10,6 @@ import Alamofire
 import Foundation
 import RxSwift
 
-typealias Parameters = [String: Any]
-
 // MARK: - Request protocol
 protocol Requestable: URLRequestConvertible {
 
@@ -23,7 +21,7 @@ protocol Requestable: URLRequestConvertible {
 
     var httpMethod: HTTPMethod { get }
 
-    var param: Parameters? { get }
+    var param: Parameter? { get }
 
     var addionalHeader: HeaderParameter? { get }
 
@@ -50,7 +48,7 @@ extension Requestable {
 
     var basePath: String { return Constants.UberAPI.BaseURL }
 
-    var param: Parameters? { return nil }
+    var param: Parameter? { return nil }
 
     var addionalHeader: HeaderParameter? { return nil }
 
@@ -116,7 +114,7 @@ extension Requestable {
         urlRequest.timeoutInterval = TimeInterval(10 * 1000)
 
         // Encode param
-        guard var request = try? self.parameterEncoding.encode(urlRequest, with: self.param) else {
+        guard var request = try? self.parameterEncoding.encode(urlRequest, with: self.param?.toDictionary()) else {
             fatalError("Can't handle unknow request")
         }
 

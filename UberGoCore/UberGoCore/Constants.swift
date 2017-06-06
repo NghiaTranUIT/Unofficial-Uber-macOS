@@ -29,6 +29,11 @@ struct Constants {
         static let UberProducts = "/v1.2/products"
     }
 
+    // MARK: - Google App
+    struct GoogleApp {
+        static let Key = "AIzaSyD_WRNqPyKqD9UoVgATUisFbXFF19gcfDU"
+    }
+
     // MARK: - Google
     struct GoogleAPI {
 
