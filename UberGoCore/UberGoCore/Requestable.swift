@@ -35,7 +35,7 @@ protocol Requestable: URLRequestConvertible {
 //
 // MARK: - Conform URLConvitible from Alamofire
 extension Requestable {
-    func asURLRequest() -> URLRequest {
+    public func asURLRequest() -> URLRequest {
         return self.buildURLRequest()
     }
 }

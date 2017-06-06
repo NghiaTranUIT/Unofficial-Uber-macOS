@@ -11,22 +11,20 @@ import CoreLocation
 import Foundation
 import ObjectMapper
 
-struct PlaceSearchRequestParam: Parameter {
+public struct PlaceSearchRequestParam: Parameter {
 
     let keyword: String
-    let radius: String = "20000"
-    let key: String
     let location: CLLocationCoordinate2D
 
     func toDictionary() -> [String : Any] {
         return ["keyword": self.keyword,
-                "radius": self.radius,
+                "radius": "20000",
                 "key": Constants.GoogleApp.Key,
                 "location": "\(self.location.latitude),\(self.location.longitude)"]
     }
 }
 
-class PlaceSearchRequest: Requestable {
+open class PlaceSearchRequest: Requestable {
 
     // Type
     typealias Element = [PlaceObj]

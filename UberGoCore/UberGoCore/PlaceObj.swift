@@ -7,7 +7,16 @@
 //
 
 import Cocoa
+import ObjectMapper
 
-class PlaceObj: BaseObj {
+open class PlaceObj: BaseObj {
 
+    // MARK: - Variable
+    public var name: String?
+
+    override public func mapping(map: Map) {
+        super.mapping(map: map)
+
+        self.name <- map["name"]
+    }
 }

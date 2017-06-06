@@ -11,7 +11,7 @@ import CoreLocation
 import Foundation
 import ObjectMapper
 
-struct UberProductsRequestParam: Parameter {
+public struct UberProductsRequestParam: Parameter {
 
     let location: CLLocationCoordinate2D
 
@@ -21,7 +21,7 @@ struct UberProductsRequestParam: Parameter {
     }
 }
 
-class UberProductsRequest: Requestable {
+public class UberProductsRequest: Requestable {
 
     // Type
     typealias Element = [ProductObj]
