@@ -20,3 +20,12 @@ open class PlaceObj: BaseObj {
         self.name <- map["name"]
     }
 }
+
+extension PlaceObj {
+
+    public static var unknowPlace: PlaceObj {
+        let place = PlaceObj()
+        place.name = "Unknow location"
+        return place
+    }
+}

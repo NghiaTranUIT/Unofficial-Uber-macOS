@@ -69,10 +69,10 @@ class MapViewController: BaseViewController {
 //        })
 //        .addDisposableTo(self.disposeBag)
 
-        self.viewModel.output.humanAddressLocationDriver.drive(onNext: { [weak self] humanAddress in
+        self.viewModel.output.nearestPlaceDriver.drive(onNext: { [weak self] nearestPlaceObj in
             guard let `self` = self else { return }
-            print("Found humanAddress = \(humanAddress)")
-            self.searchBarView.updateCurrentLocation(humanAddress)
+            print("Found Nearst Place = \(nearestPlaceObj)")
+            self.searchBarView.updateNestestPlace(nearestPlaceObj)
         })
         .addDisposableTo(self.disposeBag)
     }

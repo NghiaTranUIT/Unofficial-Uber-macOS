@@ -37,6 +37,8 @@ public struct PlaceSearchRequestParam: Parameter {
         switch self.mode {
         case .nearestPlace:
             return ["key": Constants.GoogleApp.Key,
+                    "rankby": "distance",
+                    "types": "cafe|bank|bar|airport|embassy|school",
                     "location": "\(self.location.latitude),\(self.location.longitude)"]
         case .placeSearchByName:
             return ["keyword": self.keyword,

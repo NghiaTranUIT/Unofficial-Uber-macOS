@@ -63,8 +63,8 @@ class SearchBarView: NSView {
         }
     }
 
-    func updateCurrentLocation(_ text: String) {
-        self.originTxt.stringValue = text
+    func updateNestestPlace(_ place: PlaceObj) {
+        self.originTxt.stringValue = place.name ?? "Unknow position"
     }
 
     func makeDestinationFirstResponse() {
