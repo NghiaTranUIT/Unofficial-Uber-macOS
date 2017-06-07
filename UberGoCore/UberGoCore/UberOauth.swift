@@ -27,7 +27,6 @@ class UberOauth {
                     UberOauth.applicationHandle(url: url)
                 }
             })
-            
             .addDisposableTo(self.disposeBag)
     }
 

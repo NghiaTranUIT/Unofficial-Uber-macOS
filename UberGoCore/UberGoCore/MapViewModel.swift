@@ -43,7 +43,7 @@ open class MapViewModel: BaseViewModel,
     public var output: MapViewModelOutput { return self }
 
     // MARK: - Variable
-    fileprivate var mapManager = MapManager()
+    fileprivate var mapManager = MapService()
 
     // MARK: - Input
     public var getCurrentLocationPublish = PublishSubject<Void>()
@@ -64,7 +64,7 @@ open class MapViewModel: BaseViewModel,
 
         // Get current location
         let mapObser = self.getCurrentLocationPublish
-        .flatMapLatest {[weak self] _ -> Observable<MapManagerResult> in
+        .flatMapLatest {[weak self] _ -> Observable<MapServiceResult> in
             guard let `self` = self else {
                 return Observable.empty()
             }

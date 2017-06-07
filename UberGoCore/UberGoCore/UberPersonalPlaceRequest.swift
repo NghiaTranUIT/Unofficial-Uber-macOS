@@ -28,7 +28,7 @@ public struct UberPersonalPlaceRequestParam: Parameter {
 public class UberPersonalPlaceRequest: Requestable {
 
     // Type
-    typealias Element = ProductObj
+    typealias Element = PlaceObj
 
     // Header
     var addionalHeader: Requestable.HeaderParameter? {
@@ -67,6 +67,6 @@ public class UberPersonalPlaceRequest: Requestable {
         guard let result = data as? [String: Any] else {
             return nil
         }
-        return Mapper<Element>().map(JSON: result)
+        return Mapper<PlaceObj>().map(JSON: result)
     }
 }

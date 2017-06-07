@@ -22,7 +22,7 @@
 		BA4796B01EE2DAFE00620BB0 /* UberOauth.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4796AF1EE2DAFE00620BB0 /* UberOauth.swift */; };
 		BA4796B31EE3C93900620BB0 /* UUID+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4796B21EE3C93900620BB0 /* UUID+Helper.swift */; };
 		BA4796B51EE3D49300620BB0 /* UserObjTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4796B41EE3D49300620BB0 /* UserObjTests.swift */; };
-		BA7BA9811EE415D10056B0CF /* MapManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7BA9801EE415D10056B0CF /* MapManager.swift */; };
+		BA7BA9811EE415D10056B0CF /* MapService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7BA9801EE415D10056B0CF /* MapService.swift */; };
 		BA7BA9851EE42C0C0056B0CF /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA7BA9841EE42C0C0056B0CF /* CoreLocation.framework */; };
 		BADB784E1EE5AC07000536F7 /* SearchBarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB784D1EE5AC07000536F7 /* SearchBarViewModel.swift */; };
 		BADB78671EE70AB0000536F7 /* PlaceSearchRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB78661EE70AB0000536F7 /* PlaceSearchRequest.swift */; };
@@ -33,8 +33,7 @@
 		BADB78711EE7BBA2000536F7 /* UberPersonalPlaceRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB78701EE7BBA2000536F7 /* UberPersonalPlaceRequest.swift */; };
 		BAE6902F1EE513EF00A4D876 /* UberProductsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE6902E1EE513EF00A4D876 /* UberProductsRequest.swift */; };
 		BAE690311EE5146F00A4D876 /* ProductObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE690301EE5146F00A4D876 /* ProductObj.swift */; };
-		BAF57FA61EE1163A0013090E /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF57FA51EE1163A0013090E /* Environment.swift */; };
-		BAF57FA81EE116490013090E /* UberNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF57FA71EE116490013090E /* UberNetwork.swift */; };
+		BAF57FA81EE116490013090E /* UberService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF57FA71EE116490013090E /* UberService.swift */; };
 		BAF57FAA1EE1166A0013090E /* UserObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF57FA91EE1166A0013090E /* UserObj.swift */; };
 		BAF57FAC1EE116710013090E /* BaseObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF57FAB1EE116710013090E /* BaseObj.swift */; };
 		BAF57FAE1EE116820013090E /* TripObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF57FAD1EE116820013090E /* TripObj.swift */; };
@@ -76,7 +75,7 @@
 		BA4796AF1EE2DAFE00620BB0 /* UberOauth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UberOauth.swift; sourceTree = "<group>"; };
 		BA4796B21EE3C93900620BB0 /* UUID+Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UUID+Helper.swift"; sourceTree = "<group>"; };
 		BA4796B41EE3D49300620BB0 /* UserObjTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserObjTests.swift; sourceTree = "<group>"; };
-		BA7BA9801EE415D10056B0CF /* MapManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapManager.swift; sourceTree = "<group>"; };
+		BA7BA9801EE415D10056B0CF /* MapService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapService.swift; sourceTree = "<group>"; };
 		BA7BA9841EE42C0C0056B0CF /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		BADB784D1EE5AC07000536F7 /* SearchBarViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBarViewModel.swift; sourceTree = "<group>"; };
 		BADB78661EE70AB0000536F7 /* PlaceSearchRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceSearchRequest.swift; sourceTree = "<group>"; };
@@ -87,8 +86,7 @@
 		BADB78701EE7BBA2000536F7 /* UberPersonalPlaceRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UberPersonalPlaceRequest.swift; sourceTree = "<group>"; };
 		BAE6902E1EE513EF00A4D876 /* UberProductsRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UberProductsRequest.swift; sourceTree = "<group>"; };
 		BAE690301EE5146F00A4D876 /* ProductObj.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductObj.swift; sourceTree = "<group>"; };
-		BAF57FA51EE1163A0013090E /* Environment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
-		BAF57FA71EE116490013090E /* UberNetwork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UberNetwork.swift; sourceTree = "<group>"; };
+		BAF57FA71EE116490013090E /* UberService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UberService.swift; sourceTree = "<group>"; };
 		BAF57FA91EE1166A0013090E /* UserObj.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserObj.swift; sourceTree = "<group>"; };
 		BAF57FAB1EE116710013090E /* BaseObj.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseObj.swift; sourceTree = "<group>"; };
 		BAF57FAD1EE116820013090E /* TripObj.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripObj.swift; sourceTree = "<group>"; };
@@ -168,7 +166,8 @@
 		BA32E71B1EDFC74C0044C017 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				BA7BA97F1EE415B70056B0CF /* MapManager */,
+				BAED39D31EE85DAE003D9BC3 /* Uber Service */,
+				BA7BA97F1EE415B70056B0CF /* Map Service */,
 				BA4796AE1EE2DAEB00620BB0 /* Oauth */,
 				BA4796AA1EE2D5A400620BB0 /* Base */,
 				BA4796A11EE2BEFF00620BB0 /* Helper */,
@@ -210,9 +209,11 @@
 		BA32E7251EDFC83A0044C017 /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				BA47969E1EE2BD2700620BB0 /* Request */,
-				BAF57FA51EE1163A0013090E /* Environment.swift */,
-				BAF57FA71EE116490013090E /* UberNetwork.swift */,
+				BADB78681EE70CBB000536F7 /* Parameter.swift */,
+				BA47969F1EE2BD3A00620BB0 /* Requestable.swift */,
+				BAE6902E1EE513EF00A4D876 /* UberProductsRequest.swift */,
+				BADB78661EE70AB0000536F7 /* PlaceSearchRequest.swift */,
+				BADB78701EE7BBA2000536F7 /* UberPersonalPlaceRequest.swift */,
 			);
 			name = Network;
 			sourceTree = "<group>";
@@ -224,18 +225,6 @@
 				BA037F141EDD61E600945C1D /* Info.plist */,
 			);
 			name = Resource;
-			sourceTree = "<group>";
-		};
-		BA47969E1EE2BD2700620BB0 /* Request */ = {
-			isa = PBXGroup;
-			children = (
-				BADB78681EE70CBB000536F7 /* Parameter.swift */,
-				BA47969F1EE2BD3A00620BB0 /* Requestable.swift */,
-				BAE6902E1EE513EF00A4D876 /* UberProductsRequest.swift */,
-				BADB78661EE70AB0000536F7 /* PlaceSearchRequest.swift */,
-				BADB78701EE7BBA2000536F7 /* UberPersonalPlaceRequest.swift */,
-			);
-			name = Request;
 			sourceTree = "<group>";
 		};
 		BA4796A11EE2BEFF00620BB0 /* Helper */ = {
@@ -263,12 +252,20 @@
 			name = Oauth;
 			sourceTree = "<group>";
 		};
-		BA7BA97F1EE415B70056B0CF /* MapManager */ = {
+		BA7BA97F1EE415B70056B0CF /* Map Service */ = {
 			isa = PBXGroup;
 			children = (
-				BA7BA9801EE415D10056B0CF /* MapManager.swift */,
+				BA7BA9801EE415D10056B0CF /* MapService.swift */,
 			);
-			name = MapManager;
+			name = "Map Service";
+			sourceTree = "<group>";
+		};
+		BAED39D31EE85DAE003D9BC3 /* Uber Service */ = {
+			isa = PBXGroup;
+			children = (
+				BAF57FA71EE116490013090E /* UberService.swift */,
+			);
+			name = "Uber Service";
 			sourceTree = "<group>";
 		};
 		BAF57FB31EE116C50013090E /* Route */ = {
@@ -539,14 +536,13 @@
 				BA32E7231EDFC8230044C017 /* AppViewModel.swift in Sources */,
 				BA4796B01EE2DAFE00620BB0 /* UberOauth.swift in Sources */,
 				BAF57FAE1EE116820013090E /* TripObj.swift in Sources */,
-				BAF57FA61EE1163A0013090E /* Environment.swift in Sources */,
 				BADB784E1EE5AC07000536F7 /* SearchBarViewModel.swift in Sources */,
 				BADB78671EE70AB0000536F7 /* PlaceSearchRequest.swift in Sources */,
 				BAF57FAC1EE116710013090E /* BaseObj.swift in Sources */,
 				BAF57FC21EE11A080013090E /* BaseViewModel.swift in Sources */,
 				BA4796AC1EE2D5BD00620BB0 /* BaseViewController.swift in Sources */,
 				BA4796A71EE2C0C700620BB0 /* MapViewModel.swift in Sources */,
-				BA7BA9811EE415D10056B0CF /* MapManager.swift in Sources */,
+				BA7BA9811EE415D10056B0CF /* MapService.swift in Sources */,
 				BAE6902F1EE513EF00A4D876 /* UberProductsRequest.swift in Sources */,
 				BAF57FB01EE1168A0013090E /* PlaceObj.swift in Sources */,
 				BA4796B31EE3C93900620BB0 /* UUID+Helper.swift in Sources */,
@@ -556,7 +552,7 @@
 				BAF57FC51EE11AFF0013090E /* AuthenticationState.swift in Sources */,
 				BA32E7271EDFC84F0044C017 /* Constants.swift in Sources */,
 				BAE690311EE5146F00A4D876 /* ProductObj.swift in Sources */,
-				BAF57FA81EE116490013090E /* UberNetwork.swift in Sources */,
+				BAF57FA81EE116490013090E /* UberService.swift in Sources */,
 				BAF57FB21EE116990013090E /* PriceObj.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

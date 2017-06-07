@@ -12,12 +12,12 @@ import RxSwift
 
 public typealias MapAuthenticationBlock = (CLLocation?, Error?) -> Void
 
-public enum MapManagerResult {
+public enum MapServiceResult {
     case location(CLLocation)
     case error(Error)
 }
 
-open class MapManager: NSObject {
+open class MapService: NSObject {
 
     // MARK: - Variable
     public var authenticateState: CLAuthorizationStatus {
@@ -55,19 +55,19 @@ open class MapManager: NSObject {
         self.locationManager.startUpdatingLocation()
     }
 
-    public func requestLocationObserver() -> Observable<MapManagerResult> {
+    public func requestLocationObserver() -> Observable<MapServiceResult> {
 
-        return Observable<MapManagerResult>.create {[unowned self] observer -> Disposable in
+        return Observable<MapServiceResult>.create {[unowned self] observer -> Disposable in
 
             self.requestLocation(with: { (location, error) in
 
                 if let location = location {
-                    let result = MapManagerResult.location(location)
+                    let result = MapServiceResult.location(location)
                     observer.onNext(result)
                 }
 
                 if let error = error {
-                    let result = MapManagerResult.error(error)
+                    let result = MapServiceResult.error(error)
                     observer.onNext(result)
                 }
 
@@ -91,7 +91,7 @@ open class MapManager: NSObject {
     }
 }
 
-extension MapManager {
+extension MapService {
 
     fileprivate func lazyLocationManager() -> CLLocationManager {
         let locationManager = CLLocationManager()
@@ -102,7 +102,7 @@ extension MapManager {
 }
 
 // MARK: - CLLocationManagerDelegate
-extension MapManager: CLLocationManagerDelegate {
+extension MapService: CLLocationManagerDelegate {
 
     public func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("Error \(error)")

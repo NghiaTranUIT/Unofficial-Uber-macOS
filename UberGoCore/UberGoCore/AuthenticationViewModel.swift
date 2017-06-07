@@ -7,8 +7,8 @@
 //
 
 import Foundation
-import RxSwift
 import OAuthSwift
+import RxSwift
 import RxCocoa
 
 // MARK: - Protocol

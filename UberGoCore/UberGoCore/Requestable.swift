@@ -75,12 +75,32 @@ extension Requestable {
             }
 
             Alamofire.request(urlRequest)
-                .validate(statusCode: 200..<300)
                 .validate(contentType: ["application/json"])
                 .responseJSON(completionHandler: { (response) in
 
                     // Check error
                     if let error = response.result.error {
+
+                        //FIXME : Smell code
+                        // https://developer.uber.com/docs/riders/references/api/v1.2/places-place_id-get
+                        // 422 = No personal Place
+                        // Need to refactor all of request which adapt Requestable protocol
+                        //
+                        // HOW TO FIX
+                        //
+                        // convert
+                        // func toObservable() -> Observable<Element>
+                        // to
+                        // func toObservable() -> Observable<Element?>
+                        if response.response?.statusCode == 422 {
+
+                            // Stupid force cast 
+                            // By-pass error
+                            observer.onNext(PlaceObj.invalidPlace as! Element)
+                            observer.on(.completed)
+                            return
+                        }
+
                         observer.onError(error)
                         return
                     }

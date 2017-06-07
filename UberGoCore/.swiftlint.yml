@@ -23,6 +23,7 @@ opt_in_rules:
 
 disabled_rules:
   - nesting
+  - force_cast
 
 file_header:
   required_pattern: |
