@@ -11,16 +11,39 @@ import CoreLocation
 import Foundation
 import ObjectMapper
 
+enum PlaceSearchRequestMode {
+    case nearestPlace
+    case placeSearchByName
+}
+
 public struct PlaceSearchRequestParam: Parameter {
 
-    let keyword: String
+    var keyword: String = ""
     let location: CLLocationCoordinate2D
+    var mode = PlaceSearchRequestMode.placeSearchByName
+
+    init(location: CLLocationCoordinate2D) {
+        self.mode = PlaceSearchRequestMode.nearestPlace
+        self.location = location
+    }
+
+    init(keyword: String, location: CLLocationCoordinate2D) {
+        self.keyword = keyword
+        self.location = location
+    }
 
     func toDictionary() -> [String : Any] {
-        return ["keyword": self.keyword,
-                "radius": "20000",
-                "key": Constants.GoogleApp.Key,
-                "location": "\(self.location.latitude),\(self.location.longitude)"]
+
+        switch self.mode {
+        case .nearestPlace:
+            return ["key": Constants.GoogleApp.Key,
+                    "location": "\(self.location.latitude),\(self.location.longitude)"]
+        case .placeSearchByName:
+            return ["keyword": self.keyword,
+                    "radius": "20000",
+                    "key": Constants.GoogleApp.Key,
+                    "location": "\(self.location.latitude),\(self.location.longitude)"]
+        }
     }
 }
 

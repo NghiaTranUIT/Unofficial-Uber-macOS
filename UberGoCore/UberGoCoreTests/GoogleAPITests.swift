@@ -47,6 +47,28 @@ class GoogleAPITests: XCTestCase {
         waitForExpectations(timeout: 5, handler: nil)
     }
 
+    func testNearestPlaceAPIWorkSuccess() {
+
+        // When
+        let location = CLLocationCoordinate2D(latitude: 10.79901740, longitude: 106.75191281)
+        let param = PlaceSearchRequestParam(location: location)
+        let promise = expectation(description: "Place Search API has results")
+
+        // Then
+        PlaceSearchRequest(param)
+            .toObservable()
+            .subscribe(onN ext: { placeObjs in
+                print(placeObjs)
+                promise.fulfill()
+            }, onError: { error in
+                XCTFail(error.localizedDescription)
+            })
+            .addDisposableTo(self.disposeBag)
+
+        // Expect
+        waitForExpectations(timeout: 5, handler: nil)
+    }
+
     func testPerformanceExample() {
         // This is an example of a performance test case.
         self.measure {
