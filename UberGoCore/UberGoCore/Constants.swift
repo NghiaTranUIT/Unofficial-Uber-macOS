@@ -27,6 +27,8 @@ struct Constants {
         static let BaseURL = "https://api.uber.com"
         static let LoginURL = "oauth/v2/authorize"
         static let UberProducts = "/v1.2/products"
+        static let HomePersonalPlace = "/v1.2/products/home"
+        static let WorkPseronalPlace = "/v1.2/products/work"
     }
 
     // MARK: - Google App

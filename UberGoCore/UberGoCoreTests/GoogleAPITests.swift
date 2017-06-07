@@ -57,7 +57,7 @@ class GoogleAPITests: XCTestCase {
         // Then
         PlaceSearchRequest(param)
             .toObservable()
-            .subscribe(onN ext: { placeObjs in
+            .subscribe(onNext: { placeObjs in
                 print(placeObjs)
                 promise.fulfill()
             }, onError: { error in

@@ -30,6 +30,7 @@
 		BADB786B1EE70FFB000536F7 /* GoogleAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB786A1EE70FFB000536F7 /* GoogleAPITests.swift */; };
 		BADB786D1EE712C9000536F7 /* UberAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB786C1EE712C9000536F7 /* UberAPITests.swift */; };
 		BADB786F1EE7151F000536F7 /* UserObjHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB786E1EE7151F000536F7 /* UserObjHelper.swift */; };
+		BADB78711EE7BBA2000536F7 /* UberPersonalPlaceRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB78701EE7BBA2000536F7 /* UberPersonalPlaceRequest.swift */; };
 		BAE6902F1EE513EF00A4D876 /* UberProductsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE6902E1EE513EF00A4D876 /* UberProductsRequest.swift */; };
 		BAE690311EE5146F00A4D876 /* ProductObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE690301EE5146F00A4D876 /* ProductObj.swift */; };
 		BAF57FA61EE1163A0013090E /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF57FA51EE1163A0013090E /* Environment.swift */; };
@@ -83,6 +84,7 @@
 		BADB786A1EE70FFB000536F7 /* GoogleAPITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleAPITests.swift; sourceTree = "<group>"; };
 		BADB786C1EE712C9000536F7 /* UberAPITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UberAPITests.swift; sourceTree = "<group>"; };
 		BADB786E1EE7151F000536F7 /* UserObjHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserObjHelper.swift; sourceTree = "<group>"; };
+		BADB78701EE7BBA2000536F7 /* UberPersonalPlaceRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UberPersonalPlaceRequest.swift; sourceTree = "<group>"; };
 		BAE6902E1EE513EF00A4D876 /* UberProductsRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UberProductsRequest.swift; sourceTree = "<group>"; };
 		BAE690301EE5146F00A4D876 /* ProductObj.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductObj.swift; sourceTree = "<group>"; };
 		BAF57FA51EE1163A0013090E /* Environment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
@@ -231,6 +233,7 @@
 				BA47969F1EE2BD3A00620BB0 /* Requestable.swift */,
 				BAE6902E1EE513EF00A4D876 /* UberProductsRequest.swift */,
 				BADB78661EE70AB0000536F7 /* PlaceSearchRequest.swift */,
+				BADB78701EE7BBA2000536F7 /* UberPersonalPlaceRequest.swift */,
 			);
 			name = Request;
 			sourceTree = "<group>";
@@ -530,6 +533,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BADB78691EE70CBB000536F7 /* Parameter.swift in Sources */,
+				BADB78711EE7BBA2000536F7 /* UberPersonalPlaceRequest.swift in Sources */,
 				BAF57FAA1EE1166A0013090E /* UserObj.swift in Sources */,
 				BA4796A01EE2BD3A00620BB0 /* Requestable.swift in Sources */,
 				BA32E7231EDFC8230044C017 /* AppViewModel.swift in Sources */,
