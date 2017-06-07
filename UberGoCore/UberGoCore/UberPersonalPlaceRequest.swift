@@ -6,7 +6,6 @@
 //  Copyright © 2017 Nghia Tran. All rights reserved.
 //
 
-import Foundation
 import Alamofire
 import CoreLocation
 import Foundation
@@ -42,17 +41,24 @@ public class UberPersonalPlaceRequest: Requestable {
     }
 
     // Endpoint
-    var endpoint: String { return Constants.UberAPI.UberProducts }
+    var endpoint: String {
+        switch self._param.placeType {
+        case .home:
+            return Constants.UberAPI.HomePersonalPlace
+        case .work:
+            return Constants.UberAPI.WorkPseronalPlace
+        }
+    }
 
     // HTTP
     var httpMethod: HTTPMethod { return .get }
 
     // Param
     var param: Parameter? { return self._param }
-    fileprivate var _param: UberProductsRequestParam
+    fileprivate var _param: UberPersonalPlaceRequestParam
 
     // MARK: - Init
-    init(_ param: UberProductsRequestParam) {
+    init(_ param: UberPersonalPlaceRequestParam) {
         self._param = param
     }
 

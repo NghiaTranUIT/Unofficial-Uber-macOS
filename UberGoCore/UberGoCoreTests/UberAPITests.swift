@@ -23,6 +23,8 @@ class UberAPITests: XCTestCase {
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
+
+        FakeUberCrendential.resetData()
     }
 
     func testUberProductsRequestAPIWorkSuccess() {
@@ -42,6 +44,27 @@ class UberAPITests: XCTestCase {
             XCTFail(error.localizedDescription)
         })
         .addDisposableTo(self.disposeBag)
+
+        // Expect
+        waitForExpectations(timeout: 10, handler: nil)
+    }
+
+    func testUberPersonalRequestAPIWorkSuccess() {
+
+        // When
+        let param = UberPersonalPlaceRequestParam(placeType: .home)
+        let promise = expectation(description: "Personal Home Uber")
+        let uberCrendential = FakeUberCrendential.valid()
+        _ = UserObj.convertCurrentUser(with: uberCrendential)
+
+        // Then
+        UberPersonalPlaceRequest(param).toObservable()
+            .subscribe(onNext: { (productObjs) in
+                promise.fulfill()
+            }, onError: { error in
+                XCTFail(error.localizedDescription)
+            })
+            .addDisposableTo(self.disposeBag)
 
         // Expect
         waitForExpectations(timeout: 10, handler: nil)
