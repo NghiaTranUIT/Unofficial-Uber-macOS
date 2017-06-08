@@ -16,20 +16,6 @@
         <customView wantsLayer="YES" id="Hz6-mo-xeY">
             <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-            <subviews>
-                <customView translatesAutoresizingMaskIntoConstraints="NO" id="j55-na-a1d">
-                    <rect key="frame" x="28" y="396" width="424" height="56"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="56" id="3Ch-aN-rlI"/>
-                    </constraints>
-                </customView>
-            </subviews>
-            <constraints>
-                <constraint firstAttribute="trailing" secondItem="j55-na-a1d" secondAttribute="trailing" constant="28" id="Rgi-x5-xqJ"/>
-                <constraint firstItem="j55-na-a1d" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="28" id="ZgG-cP-zUw"/>
-                <constraint firstItem="j55-na-a1d" firstAttribute="centerX" secondItem="Hz6-mo-xeY" secondAttribute="centerX" id="dGB-b3-z7s"/>
-                <constraint firstItem="j55-na-a1d" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="28" id="u7b-QI-9IR"/>
-            </constraints>
             <point key="canvasLocation" x="139" y="283"/>
         </customView>
     </objects>
