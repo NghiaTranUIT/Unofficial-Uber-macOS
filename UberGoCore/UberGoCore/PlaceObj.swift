@@ -9,12 +9,13 @@
 import Cocoa
 import ObjectMapper
 
+// Google Place
 open class PlaceObj: BaseObj {
 
     // MARK: - Variable
     public var name: String?
-    public fileprivate(set) var invalid = false
 
+    // Map
     override public func mapping(map: Map) {
         super.mapping(map: map)
 
@@ -27,12 +28,6 @@ extension PlaceObj {
     public static var unknowPlace: PlaceObj {
         let place = PlaceObj()
         place.name = "Unknow location"
-        return place
-    }
-
-    public static var invalidPlace: PlaceObj {
-        let place = PlaceObj()
-        place.invalid = true
         return place
     }
 }

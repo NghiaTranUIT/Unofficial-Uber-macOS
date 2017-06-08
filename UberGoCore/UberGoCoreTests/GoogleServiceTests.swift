@@ -11,7 +11,7 @@ import CoreLocation
 import RxSwift
 @testable import UberGoCore
 
-class GoogleAPITests: XCTestCase {
+class GoogleServiceTests: XCTestCase {
 
     let disposeBag = DisposeBag()
 

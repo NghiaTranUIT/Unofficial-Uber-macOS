@@ -96,7 +96,7 @@ extension Requestable {
 
                             // Stupid force cast 
                             // By-pass error
-                            observer.onNext(PlaceObj.invalidPlace as! Element)
+                            observer.onNext(UberPersonalPlaceObj.invalidPlace as! Element)
                             observer.on(.completed)
                             return
                         }

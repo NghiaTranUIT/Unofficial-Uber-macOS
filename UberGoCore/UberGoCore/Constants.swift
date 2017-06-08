@@ -74,5 +74,11 @@ struct Constants {
             static let ProductGroup = "product_group"
             static let Description = "description"
         }
+
+        // MARK: - Uber Personal Place
+        struct UberPersonalPlace {
+
+            static let Address = "address"
+        }
     }
 }

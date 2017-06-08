@@ -11,7 +11,7 @@ import CoreLocation
 import RxSwift
 @testable import UberGoCore
 
-class UberAPITests: XCTestCase {
+class UberServiceTests: XCTestCase {
 
     let disposeBag = DisposeBag()
 
@@ -32,13 +32,12 @@ class UberAPITests: XCTestCase {
         // When
         let location = CLLocationCoordinate2D(latitude: 10.79901740, longitude: 106.75191281)
         let param = UberProductsRequestParam(location: location)
-        let promise = expectation(description: "Uber Product API")
-        let uberCrendential = FakeUberCrendential.valid()
-        _ = UserObj.convertCurrentUser(with: uberCrendential)
+        let promise = expectation(description: "testUberProductsRequestAPIWorkSuccess")
+        FakeUberCrendential.makeCurrentUser()
 
         // Then
         UberProductsRequest(param).toObservable()
-        .subscribe(onNext: { (productObjs) in
+        .subscribe(onNext: { _ in
             promise.fulfill()
         }, onError: { error in
             XCTFail(error.localizedDescription)
@@ -53,13 +52,12 @@ class UberAPITests: XCTestCase {
 
         // When
         let param = UberPersonalPlaceRequestParam(placeType: .home)
-        let promise = expectation(description: "Personal Home Uber")
-        let uberCrendential = FakeUberCrendential.valid()
-        _ = UserObj.convertCurrentUser(with: uberCrendential)
+        let promise = expectation(description: "testUberPersonalRequestAPIWorkSuccess")
+        FakeUberCrendential.makeCurrentUser()
 
         // Then
         UberPersonalPlaceRequest(param).toObservable()
-            .subscribe(onNext: { (productObjs) in
+            .subscribe(onNext: { _ in
                 promise.fulfill()
             }, onError: { error in
                 XCTFail(error.localizedDescription)
@@ -70,11 +68,27 @@ class UberAPITests: XCTestCase {
         waitForExpectations(timeout: 10, handler: nil)
     }
 
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
+    func testGetHomeWorkPersonalPlaceWorkSuceess() {
 
+        let promise = expectation(description: "testGetHomeWorkPersonalPlaceWorkSuceess")
+        FakeUberCrendential.makeCurrentUser()
+
+        // Then 
+        UberService().personalPlaceObserver()
+            .subscribe(onNext: { uberPlaceObjs in
+
+                for obj in uberPlaceObjs {
+                    if obj.address == nil {
+                        XCTFail("Uber Personal Place's adress is invalid")
+                    }
+                }
+                promise.fulfill()
+            }, onError: { error in
+                XCTFail(error.localizedDescription)
+            })
+            .addDisposableTo(self.disposeBag)
+
+        // Expect
+        waitForExpectations(timeout: 10, handler: nil)
+    }
 }

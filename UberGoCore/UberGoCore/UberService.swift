@@ -18,16 +18,16 @@ open class UberService {
     // MARK: - Init
 
     // MARK: - Public
-    public func personalPlaceObserver() -> Observable<[PlaceObj]> {
+    public func personalPlaceObserver() -> Observable<[UberPersonalPlaceObj]> {
         return Observable.zip([self.workPlaceObserver(), self.homePlaceObserver()])
     }
 
-    public func workPlaceObserver() -> Observable<PlaceObj> {
+    public func workPlaceObserver() -> Observable<UberPersonalPlaceObj> {
         let param = UberPersonalPlaceRequestParam(placeType: .work)
         return self.personalPlaceObserable(param)
     }
 
-    public func homePlaceObserver() -> Observable<PlaceObj> {
+    public func homePlaceObserver() -> Observable<UberPersonalPlaceObj> {
         let param = UberPersonalPlaceRequestParam(placeType: .home)
         return self.personalPlaceObserable(param)
     }
@@ -36,14 +36,14 @@ open class UberService {
 // MARK: - Private
 extension UberService {
 
-    fileprivate func personalPlaceObserable(_ param: UberPersonalPlaceRequestParam) -> Observable<PlaceObj> {
+    fileprivate func personalPlaceObserable(_ param: UberPersonalPlaceRequestParam) -> Observable<UberPersonalPlaceObj> {
 
         guard UserObj.currentUser != nil else {
-            return Observable<PlaceObj>.empty()
+            return Observable<UberPersonalPlaceObj>.empty()
         }
 
         return UberPersonalPlaceRequest(param).toObservable()
-            .map({ placeObj -> PlaceObj? in
+            .map({ placeObj -> UberPersonalPlaceObj? in
 
                 //FIXME : // Smell code - Ref Requestable.swift
                 // For further information
@@ -52,13 +52,13 @@ extension UberService {
                 }
                 return placeObj
             })
-            .flatMapLatest({ placeObj -> Observable<PlaceObj> in
+            .flatMapLatest({ placeObj -> Observable<UberPersonalPlaceObj> in
 
                 if let placeObj = placeObj {
-                    return Observable<PlaceObj>.just(placeObj)
+                    return Observable<UberPersonalPlaceObj>.just(placeObj)
                 }
 
-                return Observable<PlaceObj>.empty()
+                return Observable<UberPersonalPlaceObj>.empty()
             })
     }
 }

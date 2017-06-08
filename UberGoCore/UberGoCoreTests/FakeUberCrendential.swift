@@ -42,4 +42,9 @@ class FakeUberCrendential {
         UserDefaults.standard.removeObject(forKey: "currentUser")
         UserDefaults.standard.synchronize()
     }
+
+    class func makeCurrentUser() {
+        let uberCrendential = FakeUberCrendential.valid()
+        _ = UserObj.convertCurrentUser(with: uberCrendential)
+    }
 }

@@ -20,6 +20,7 @@ before_install:
   - echo "gem 'xcpretty'" >> Gemfile
   - bundle install
   - bundle exec pod install --repo-update
+  - bundle exec pod update
 
 script:
   - set -o pipefail
