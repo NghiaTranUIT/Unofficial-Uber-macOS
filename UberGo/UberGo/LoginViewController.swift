@@ -12,7 +12,7 @@ import UberGoCore
 class LoginViewController: BaseViewController {
 
     // MARK: - OUTLET
-    @IBOutlet weak var loginBtn: NSButton!
+    @IBOutlet fileprivate weak var loginBtn: NSButton!
 
     // MARK: - Variable
     var viewModel: AuthenticationViewModel!

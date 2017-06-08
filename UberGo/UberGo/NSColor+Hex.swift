@@ -43,9 +43,9 @@ public extension DynamicColor {
      */
     public convenience init(hexString: String) {
         let hexString = hexString.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
-        let scanner   = Scanner(string: hexString)
+        let scanner = Scanner(string: hexString)
 
-        if (hexString.hasPrefix("#")) {
+        if hexString.hasPrefix("#") {
             scanner.scanLocation = 1
         }
 
@@ -53,8 +53,7 @@ public extension DynamicColor {
 
         if scanner.scanHexInt32(&color) {
             self.init(hex: color)
-        }
-        else {
+        } else {
             self.init(hex: 0x000000)
         }
     }
@@ -71,9 +70,9 @@ public extension DynamicColor {
         let g = Int(hex >> 8) & mask
         let b = Int(hex) & mask
 
-        let red   = CGFloat(r) / 255
+        let red = CGFloat(r) / 255
         let green = CGFloat(g) / 255
-        let blue  = CGFloat(b) / 255
+        let blue = CGFloat(b) / 255
 
         self.init(red:red, green:green, blue:blue, alpha:1)
     }

@@ -77,6 +77,7 @@ class UberServiceTests: XCTestCase {
         UberService().personalPlaceObserver()
             .subscribe(onNext: { uberPlaceObjs in
 
+                // Check if addrees != nil
                 for obj in uberPlaceObjs {
                     if obj.address == nil {
                         XCTFail("Uber Personal Place's adress is invalid")

@@ -7,9 +7,9 @@
 //
 
 import Cocoa
-import UberGoCore
-import RxSwift
 import OAuthSwift
+import RxSwift
+import UberGoCore
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
@@ -90,9 +90,7 @@ extension AppDelegate {
             let login = LoginViewController(nibName: "LoginViewController", bundle: nil)!
             login.viewModel = self.authenticationViewModel
             popover.contentViewController = login
-
         }
-
     }
 
     @objc fileprivate func togglePopover() {

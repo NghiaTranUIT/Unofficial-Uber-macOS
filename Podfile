@@ -13,13 +13,13 @@ inhibit_all_warnings!
 def important_pods
 
     # Core
-    pod 'Alamofire', '4.4.0'
-    pod 'ObjectMapper', '2.2.7'
+    pod 'Alamofire', '~> 4.4'
+    pod 'ObjectMapper', '~> 2.2'
     pod 'RxSwift',    '~> 3.0'
     pod 'RxCocoa',    '~> 3.0'
     pod 'SwiftLint'
-    pod 'OAuthSwift', '1.1.2'
-    pod 'RxOptional', '3.1.3'
+    pod 'OAuthSwift', '~> 1.1.0'
+    pod 'RxOptional'
 end
 
 # Only for mac app

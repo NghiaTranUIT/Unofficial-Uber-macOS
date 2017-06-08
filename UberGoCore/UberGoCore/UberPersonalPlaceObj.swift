@@ -25,7 +25,7 @@ open class UberPersonalPlaceObj: BaseObj {
 
 // MARK: - Public
 extension UberPersonalPlaceObj {
-    
+
     public static var invalidPlace: UberPersonalPlaceObj {
         let place = UberPersonalPlaceObj()
         place.invalid = true

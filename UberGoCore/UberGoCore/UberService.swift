@@ -8,8 +8,8 @@
 
 import Foundation
 import RxCocoa
-import RxSwift
 import RxOptional
+import RxSwift
 
 open class UberService {
 
@@ -36,7 +36,8 @@ open class UberService {
 // MARK: - Private
 extension UberService {
 
-    fileprivate func personalPlaceObserable(_ param: UberPersonalPlaceRequestParam) -> Observable<UberPersonalPlaceObj> {
+    fileprivate func personalPlaceObserable(_ param: UberPersonalPlaceRequestParam)
+        -> Observable<UberPersonalPlaceObj> {
 
         guard UserObj.currentUser != nil else {
             return Observable<UberPersonalPlaceObj>.empty()
