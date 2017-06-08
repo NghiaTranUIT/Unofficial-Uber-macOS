@@ -17,7 +17,7 @@ class MapViewController: BaseViewController {
 
     // MARK: - OUTLET
     fileprivate var mapView: MGLMapView!
-    fileprivate var collectionView: NSCollectionView!
+    fileprivate var collectionView: SearchCollectionView!
 
     // MARK: - Variable
     fileprivate var viewModel: MapViewModel!
@@ -128,50 +128,19 @@ extension MapViewController {
 
     fileprivate func initSearchBarView() {
         self.searchBarView = SearchBarView.viewFromNib(with: BundleType.app)!
+        self.searchBarView.delegate = self
         self.searchBarView.configureView(with: self.view)
     }
 
     fileprivate func initCollectionView() {
-        self.collectionView = NSCollectionView()
-        self.collectionView.translatesAutoresizingMaskIntoConstraints = false
-        self.collectionView.alphaValue = 0
-        self.collectionView.isHidden = true
-        self.collectionView.dataSource = self
+        self.collectionView = SearchCollectionView(defaultValue: true)
         self.collectionView.delegate = self
-
-        self.view.addSubview(self.collectionView)
-        let top = NSLayoutConstraint(item: self.collectionView,
-                                    attribute: .top,
-                                    relatedBy: .equal,
-                                    toItem: self.searchBarView,
-                                    attribute: .bottom,
-                                    multiplier: 1,
-                                    constant: 0)
-        let left = NSLayoutConstraint(item: self.collectionView,
-                                     attribute: .left,
-                                     relatedBy: .equal,
-                                     toItem: self.view,
-                                     attribute: .left,
-                                     multiplier: 1,
-                                     constant: 0)
-        let right = NSLayoutConstraint(item: self.collectionView,
-                                      attribute: .right,
-                                      relatedBy: .equal,
-                                      toItem: self.view,
-                                      attribute: .right,
-                                      multiplier: 1,
-                                      constant: 0)
-        let bottom = NSLayoutConstraint(item: self.collectionView,
-                                          attribute: .bottom,
-                                          relatedBy: .equal,
-                                          toItem: self.view,
-                                          attribute: .bottom,
-                                          multiplier: 1,
-                                          constant: 0)
-        self.view.addConstraints([left, top, bottom, right])
+        self.collectionView.dataSource = self
+        self.collectionView.configureView(parenView: self.view, searchBarView: self.searchBarView)
     }
 }
 
+// MARK: - MGLMapViewDelegate
 extension MapViewController: MGLMapViewDelegate {
 
     func mapView(_ mapView: MGLMapView, annotationCanShowCallout annotation: MGLAnnotation) -> Bool {
@@ -179,6 +148,15 @@ extension MapViewController: MGLMapViewDelegate {
     }
 }
 
+// MARK: - SearchBarViewDelegate
+extension MapViewController: SearchBarViewDelegate  {
+
+    func searchBar(_ sender: SearchBarView, layoutStateDidChanged state: SearchBarViewLayoutState) {
+        self.collectionView.layoutStateChanged(state)
+    }
+}
+
+// MARK: - NSCollectionViewDataSource
 extension MapViewController: NSCollectionViewDataSource {
     func numberOfSections(in collectionView: NSCollectionView) -> Int {
         return 1
@@ -194,6 +172,7 @@ extension MapViewController: NSCollectionViewDataSource {
     }
 }
 
+// MARK: - NSCollectionViewDelegate
 extension MapViewController: NSCollectionViewDelegate {
 
 }

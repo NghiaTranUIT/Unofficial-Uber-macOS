@@ -29,6 +29,7 @@
 		BAE690281EE4346700A4D876 /* Mapbox.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BAE690261EE4346700A4D876 /* Mapbox.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		BAE6902C1EE460EB00A4D876 /* EventMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE6902B1EE460EB00A4D876 /* EventMonitor.swift */; };
 		BAE6902D1EE5139500A4D876 /* UberGoCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA4796951EE2540D00620BB0 /* UberGoCore.framework */; };
+		BAED39DB1EE9A705003D9BC3 /* SearchCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAED39DA1EE9A705003D9BC3 /* SearchCollectionView.swift */; };
 		BAF57FB91EE116FB0013090E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF57FB71EE116FB0013090E /* LoginViewController.swift */; };
 		BAF57FBA1EE116FB0013090E /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BAF57FB81EE116FB0013090E /* LoginViewController.xib */; };
 		BAF57FBF1EE117300013090E /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF57FBD1EE117300013090E /* MapViewController.swift */; };
@@ -86,6 +87,7 @@
 		BADB78631EE6EFE1000536F7 /* UberTextFieldCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UberTextFieldCell.swift; sourceTree = "<group>"; };
 		BAE690261EE4346700A4D876 /* Mapbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Mapbox.framework; sourceTree = "<group>"; };
 		BAE6902B1EE460EB00A4D876 /* EventMonitor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventMonitor.swift; sourceTree = "<group>"; };
+		BAED39DA1EE9A705003D9BC3 /* SearchCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchCollectionView.swift; sourceTree = "<group>"; };
 		BAF57FB71EE116FB0013090E /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		BAF57FB81EE116FB0013090E /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
 		BAF57FBD1EE117300013090E /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -199,6 +201,7 @@
 		BA47969A1EE2598B00620BB0 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				BAED39D91EE9A6EF003D9BC3 /* Search Collection View */,
 				BADB78621EE6EFAE000536F7 /* Ubse */,
 				BADB785F1EE66190000536F7 /* UberTextField */,
 				BADB785C1EE5B9F5000536F7 /* UberButton */,
@@ -260,6 +263,14 @@
 				BADB785A1EE5B93D000536F7 /* NSColor+Hex.swift */,
 			);
 			name = Models;
+			sourceTree = "<group>";
+		};
+		BAED39D91EE9A6EF003D9BC3 /* Search Collection View */ = {
+			isa = PBXGroup;
+			children = (
+				BAED39DA1EE9A705003D9BC3 /* SearchCollectionView.swift */,
+			);
+			name = "Search Collection View";
 			sourceTree = "<group>";
 		};
 		BAF57FBB1EE117000013090E /* Storyboards Xibs */ = {
@@ -487,6 +498,7 @@
 				BADB78611EE661A8000536F7 /* UberTextField.swift in Sources */,
 				BA037F371EDD61F800945C1D /* AppDelegate.swift in Sources */,
 				BADB78521EE5AC86000536F7 /* NSView+Identity.swift in Sources */,
+				BAED39DB1EE9A705003D9BC3 /* SearchCollectionView.swift in Sources */,
 				BADB785E1EE5BA0C000536F7 /* UberButton.swift in Sources */,
 				BADB78641EE6EFE1000536F7 /* UberTextFieldCell.swift in Sources */,
 				BAE6902C1EE460EB00A4D876 /* EventMonitor.swift in Sources */,

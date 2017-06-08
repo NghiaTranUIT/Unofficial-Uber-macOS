@@ -14,6 +14,10 @@ enum SearchBarViewLayoutState {
     case shrink
 }
 
+protocol SearchBarViewDelegate: class {
+    func searchBar(_ sender: SearchBarView, layoutStateDidChanged state: SearchBarViewLayoutState)
+}
+
 class SearchBarView: NSView {
 
     // MARK: - OUTLET
@@ -26,7 +30,13 @@ class SearchBarView: NSView {
     @IBOutlet fileprivate weak var searchContainerView: NSView!
 
     // MARK: - Variable
-    fileprivate var _layoutState = SearchBarViewLayoutState.shrink { didSet { self.animateSearchBarState() } }
+    weak var delegate: SearchBarViewDelegate?
+    fileprivate var _layoutState = SearchBarViewLayoutState.shrink {
+        didSet {
+            self.delegate?.searchBar(self, layoutStateDidChanged: _layoutState)
+            self.animateSearchBarState()
+        }
+    }
     public fileprivate(set) var layoutState: SearchBarViewLayoutState {
         get {
             return self._layoutState
