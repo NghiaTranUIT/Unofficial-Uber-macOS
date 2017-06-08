@@ -85,8 +85,14 @@ class SearchCollectionView: NSCollectionView {
             })
         }
     }
-}
 
+    // MARK: - Override
+    // Flip macOS system coordinate 
+    // to correspond with iOS
+    override open var isFlipped: Bool {
+        return true
+    }
+}
 
 // MARK: - Private
 extension NSCollectionView {
