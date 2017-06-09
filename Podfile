@@ -45,6 +45,12 @@ target "UberGoCoreTests" do
   important_pods
 end
 
+# UberGoTests
+target "UberGoTests" do
+  project 'UberGo/UberGo.xcodeproj'
+  important_pods
+end
+
 # Configuration
 post_install do |installer|
   installer.pods_project.targets.each do |target|

@@ -8,6 +8,7 @@
 
 import Foundation
 import MapKit
+import RxCocoa
 import RxSwift
 
 public typealias MapAuthenticationBlock = (CLLocation?, Error?) -> Void
@@ -28,6 +29,7 @@ open class MapService: NSObject {
     }
     public var currentLocationVariable = Variable<CLLocation?>(nil)
     public var nearestPlaceObverser: Observable<PlaceObj>!
+    public private(set) var authorized: Driver<Bool>!
 
     fileprivate lazy var locationManager: CLLocationManager = self.lazyLocationManager()
     fileprivate var locationBlock: MapAuthenticationBlock?
@@ -46,6 +48,25 @@ open class MapService: NSObject {
             .flatMapLatest({ location -> Observable<PlaceObj> in
             return self.nearestPlaceObverser(location)
         })
+
+        self.authorized = Observable.deferred { [weak locationManager] in
+            let status = CLLocationManager.authorizationStatus()
+            guard let locationManager = locationManager else {
+                return Observable.just(status)
+            }
+            return locationManager
+                .rx.didChangeAuthorizationStatus
+                .startWith(status)
+        }
+            .asDriver(onErrorJustReturn: CLAuthorizationStatus.notDetermined)
+            .map {
+                switch $0 {
+                case .authorizedAlways:
+                    return true
+                default:
+                    return false
+                }
+            }
     }
 
     // MARK: - Public
@@ -96,7 +117,8 @@ extension MapService {
     fileprivate func lazyLocationManager() -> CLLocationManager {
         let locationManager = CLLocationManager()
         locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.distanceFilter = kCLDistanceFilterNone
+        locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
         return locationManager
     }
 }

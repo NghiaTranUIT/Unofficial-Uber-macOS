@@ -33,6 +33,10 @@
 		BAE6902F1EE513EF00A4D876 /* UberProductsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE6902E1EE513EF00A4D876 /* UberProductsRequest.swift */; };
 		BAE690311EE5146F00A4D876 /* ProductObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE690301EE5146F00A4D876 /* ProductObj.swift */; };
 		BAED39D81EE9097C003D9BC3 /* UberPersonalPlaceObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAED39D71EE9097C003D9BC3 /* UberPersonalPlaceObj.swift */; };
+		BAED39E11EE9B67C003D9BC3 /* CLLocationManager+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAED39DF1EE9B67C003D9BC3 /* CLLocationManager+Rx.swift */; };
+		BAED39E21EE9B67C003D9BC3 /* RxCLLocationManagerDelegateProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAED39E01EE9B67C003D9BC3 /* RxCLLocationManagerDelegateProxy.swift */; };
+		BAED39E71EEA5954003D9BC3 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAED39E51EEA5954003D9BC3 /* Reachability.swift */; };
+		BAED39E81EEA5954003D9BC3 /* ReachabilityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAED39E61EEA5954003D9BC3 /* ReachabilityService.swift */; };
 		BAF57FA81EE116490013090E /* UberService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF57FA71EE116490013090E /* UberService.swift */; };
 		BAF57FAA1EE1166A0013090E /* UserObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF57FA91EE1166A0013090E /* UserObj.swift */; };
 		BAF57FAC1EE116710013090E /* BaseObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF57FAB1EE116710013090E /* BaseObj.swift */; };
@@ -86,6 +90,10 @@
 		BAE6902E1EE513EF00A4D876 /* UberProductsRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UberProductsRequest.swift; sourceTree = "<group>"; };
 		BAE690301EE5146F00A4D876 /* ProductObj.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductObj.swift; sourceTree = "<group>"; };
 		BAED39D71EE9097C003D9BC3 /* UberPersonalPlaceObj.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UberPersonalPlaceObj.swift; sourceTree = "<group>"; };
+		BAED39DF1EE9B67C003D9BC3 /* CLLocationManager+Rx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CLLocationManager+Rx.swift"; sourceTree = "<group>"; };
+		BAED39E01EE9B67C003D9BC3 /* RxCLLocationManagerDelegateProxy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RxCLLocationManagerDelegateProxy.swift; sourceTree = "<group>"; };
+		BAED39E51EEA5954003D9BC3 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
+		BAED39E61EEA5954003D9BC3 /* ReachabilityService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReachabilityService.swift; sourceTree = "<group>"; };
 		BAF57FA71EE116490013090E /* UberService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UberService.swift; sourceTree = "<group>"; };
 		BAF57FA91EE1166A0013090E /* UserObj.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserObj.swift; sourceTree = "<group>"; };
 		BAF57FAB1EE116710013090E /* BaseObj.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseObj.swift; sourceTree = "<group>"; };
@@ -164,6 +172,7 @@
 		BA32E71B1EDFC74C0044C017 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				BAED39E41EEA594C003D9BC3 /* Rx Extension */,
 				BAED39D31EE85DAE003D9BC3 /* Uber Service */,
 				BA7BA97F1EE415B70056B0CF /* Map Service */,
 				BA4796AE1EE2DAEB00620BB0 /* Oauth */,
@@ -290,6 +299,17 @@
 				BA4796B41EE3D49300620BB0 /* UserObjTests.swift */,
 			);
 			name = Models;
+			sourceTree = "<group>";
+		};
+		BAED39E41EEA594C003D9BC3 /* Rx Extension */ = {
+			isa = PBXGroup;
+			children = (
+				BAED39DF1EE9B67C003D9BC3 /* CLLocationManager+Rx.swift */,
+				BAED39E01EE9B67C003D9BC3 /* RxCLLocationManagerDelegateProxy.swift */,
+				BAED39E51EEA5954003D9BC3 /* Reachability.swift */,
+				BAED39E61EEA5954003D9BC3 /* ReachabilityService.swift */,
+			);
+			name = "Rx Extension";
 			sourceTree = "<group>";
 		};
 		BAF57FB31EE116C50013090E /* Route */ = {
@@ -560,16 +580,20 @@
 				BA32E7231EDFC8230044C017 /* AppViewModel.swift in Sources */,
 				BAED39D81EE9097C003D9BC3 /* UberPersonalPlaceObj.swift in Sources */,
 				BA4796B01EE2DAFE00620BB0 /* UberOauth.swift in Sources */,
+				BAED39E71EEA5954003D9BC3 /* Reachability.swift in Sources */,
 				BAF57FAE1EE116820013090E /* TripObj.swift in Sources */,
 				BADB784E1EE5AC07000536F7 /* SearchBarViewModel.swift in Sources */,
 				BADB78671EE70AB0000536F7 /* PlaceSearchRequest.swift in Sources */,
 				BAF57FAC1EE116710013090E /* BaseObj.swift in Sources */,
+				BAED39E21EE9B67C003D9BC3 /* RxCLLocationManagerDelegateProxy.swift in Sources */,
 				BAF57FC21EE11A080013090E /* BaseViewModel.swift in Sources */,
 				BA4796AC1EE2D5BD00620BB0 /* BaseViewController.swift in Sources */,
 				BA4796A71EE2C0C700620BB0 /* MapViewModel.swift in Sources */,
 				BA7BA9811EE415D10056B0CF /* MapService.swift in Sources */,
+				BAED39E11EE9B67C003D9BC3 /* CLLocationManager+Rx.swift in Sources */,
 				BAE6902F1EE513EF00A4D876 /* UberProductsRequest.swift in Sources */,
 				BAF57FB01EE1168A0013090E /* PlaceObj.swift in Sources */,
+				BAED39E81EEA5954003D9BC3 /* ReachabilityService.swift in Sources */,
 				BA4796B31EE3C93900620BB0 /* UUID+Helper.swift in Sources */,
 				BA32E71E1EDFC76A0044C017 /* AuthenticationViewModel.swift in Sources */,
 				BA4796A31EE2BF0800620BB0 /* NSError+Helper.swift in Sources */,
