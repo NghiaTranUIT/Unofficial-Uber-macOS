@@ -17,8 +17,10 @@ before_install:
   - bundle init
   - echo "gem 'cocoapods'" >> Gemfile
   - echo "gem 'slather'" >> Gemfile
+  - echo "gem 'xcpretty'" >> Gemfile
   - bundle install
   - bundle exec pod install --repo-update
+  - bundle exec pod update
 
 script:
   - set -o pipefail
@@ -28,14 +30,14 @@ script:
 
     # Build Example in Debug if specified
   - if [ $BUILD_EXAMPLE == "YES" ]; then
-      xcodebuild -workspace "$WORKSPACE" -scheme "$SCHEME" -destination "$DESTINATION" -configuration Debug ONLY_ACTIVE_ARCH=NO CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO build;
+      xcodebuild -workspace "$WORKSPACE" -scheme "$SCHEME" -destination "$DESTINATION" -configuration Debug ONLY_ACTIVE_ARCH=NO CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO build | xcpretty;
     fi
 
     # Build Core in Debug and Run Tests if specified
   - if [ $RUN_TESTS == "YES" ]; then
-      xcodebuild -workspace "$WORKSPACE" -sdk "$SDK" -scheme "$SCHEME" -destination "$DESTINATION" -configuration Debug ONLY_ACTIVE_ARCH=NO ENABLE_TESTABILITY=YES CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO test;
+      xcodebuild -workspace "$WORKSPACE" -sdk "$SDK" -scheme "$SCHEME" -destination "$DESTINATION" -configuration Debug ONLY_ACTIVE_ARCH=NO ENABLE_TESTABILITY=YES CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO test | xcpretty;
     else
-      xcodebuild -workspace "$WORKSPACE" -sdk "$SDK" -scheme "$SCHEME" -destination "$DESTINATION" -configuration Debug ONLY_ACTIVE_ARCH=NO CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO build;
+      xcodebuild -workspace "$WORKSPACE" -sdk "$SDK" -scheme "$SCHEME" -destination "$DESTINATION" -configuration Debug ONLY_ACTIVE_ARCH=NO CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO build | xcpretty;
     fi
 
 after_success:

@@ -19,12 +19,6 @@ def important_pods
     pod 'RxCocoa',    '~> 3.0'
     pod 'SwiftLint'
     pod 'OAuthSwift', '~> 1.1.0'
-    pod 'RxOptional'
-end
-
-# Only for mac app
-def app_pods
-    pod 'Mapbox-macOS-SDK'
 end
 
 # UberGo
@@ -42,6 +36,12 @@ end
 # UberGoCoreTests
 target "UberGoCoreTests" do
   project 'UberGoCore/UberGoCore.xcodeproj'
+  important_pods
+end
+
+# UberGoTests
+target "UberGoTests" do
+  project 'UberGo/UberGo.xcodeproj'
   important_pods
 end
 

@@ -8,9 +8,8 @@
 
 import Foundation
 import MapKit
-import RxSwift
-import RxOptional
 import RxCocoa
+import RxSwift
 
 // MARK: - Protocol
 public protocol MapViewModelProtocol {
@@ -27,7 +26,9 @@ public protocol MapViewModelInput {
 public protocol MapViewModelOutput {
 
     var currentLocationDriver: Driver<CLLocation?> { get }
+    var nearestPlaceDriver: Driver<PlaceObj> { get }
     var errorLocationVariable: Variable<Error?> { get }
+    var productsVariable: Variable<[ProductObj]> { get }
 }
 
 // MARK: - View Model
@@ -41,7 +42,7 @@ open class MapViewModel: BaseViewModel,
     public var output: MapViewModelOutput { return self }
 
     // MARK: - Variable
-    fileprivate var mapManager = MapManager()
+    fileprivate var mapManager = MapService()
 
     // MARK: - Input
     public var getCurrentLocationPublish = PublishSubject<Void>()
@@ -51,19 +52,25 @@ open class MapViewModel: BaseViewModel,
         return mapManager.currentLocationVariable.asDriver()
     }
     public var errorLocationVariable = Variable<Error?>(nil)
+    public var productsVariable = Variable<[ProductObj]>([])
+    public var nearestPlaceDriver: Driver<PlaceObj> {
+        return self.mapManager.nearestPlaceObverser.asDriver(onErrorJustReturn: PlaceObj.unknowPlace)
+    }
 
     // MARK: - Init
     public override init() {
         super.init()
 
         // Get current location
-        let mapObser = self.getCurrentLocationPublish.flatMapLatest {[weak self] _ -> Observable<MapManagerResult> in
+        let mapObser = self.getCurrentLocationPublish
+        .flatMapLatest {[weak self] _ -> Observable<MapServiceResult> in
             guard let `self` = self else {
                 return Observable.empty()
             }
             return self.mapManager.requestLocationObserver()
         }.share()
 
+        // Error
         mapObser
             .map({ (result) -> Error? in
                 switch result {
@@ -78,6 +85,14 @@ open class MapViewModel: BaseViewModel,
             .bind(to: self.errorLocationVariable)
             .addDisposableTo(self.disposeBag)
 
-
+        // Products
+        let location = CLLocationCoordinate2D(latitude: 10.78492533, longitude: 106.70296385)
+        Observable<[ProductObj]>.just([])
+        .flatMapLatest { _ -> Observable<[ProductObj]> in
+            let param = UberProductsRequestParam(location: location)
+            return UberProductsRequest(param).toObservable()
+        }
+        .bind(to: self.productsVariable)
+        .addDisposableTo(self.disposeBag)
     }
 }

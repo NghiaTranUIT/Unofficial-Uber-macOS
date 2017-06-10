@@ -7,9 +7,9 @@
 //
 
 import Foundation
-import RxSwift
 import OAuthSwift
 import RxCocoa
+import RxSwift
 
 // MARK: - Protocol
 public protocol AuthenticationViewModelProtocol {

@@ -2,6 +2,10 @@ included:
   - UberGoCore
 
 excluded:
+  - UberGoCore/RxCLLocationManagerDelegateProxy.swift
+  - UberGoCore/CLLocationManager+Rx.swift
+  - UberGoCore/Reachability.swift
+  - UberGoCore/ReachabilityService.swift
 
 opt_in_rules:
   - empty_count
@@ -23,6 +27,7 @@ opt_in_rules:
 
 disabled_rules:
   - nesting
+  - force_cast
 
 file_header:
   required_pattern: |

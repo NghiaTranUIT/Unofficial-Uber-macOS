@@ -10,8 +10,6 @@ import Alamofire
 import Foundation
 import RxSwift
 
-typealias Parameters = [String: Any]
-
 // MARK: - Request protocol
 protocol Requestable: URLRequestConvertible {
 
@@ -23,7 +21,7 @@ protocol Requestable: URLRequestConvertible {
 
     var httpMethod: HTTPMethod { get }
 
-    var param: Parameters? { get }
+    var param: Parameter? { get }
 
     var addionalHeader: HeaderParameter? { get }
 
@@ -37,7 +35,7 @@ protocol Requestable: URLRequestConvertible {
 //
 // MARK: - Conform URLConvitible from Alamofire
 extension Requestable {
-    func asURLRequest() -> URLRequest {
+    public func asURLRequest() -> URLRequest {
         return self.buildURLRequest()
     }
 }
@@ -50,17 +48,22 @@ extension Requestable {
 
     var basePath: String { return Constants.UberAPI.BaseURL }
 
-    var param: Parameters? { return nil }
+    var param: Parameter? { return nil }
 
     var addionalHeader: HeaderParameter? { return nil }
 
-    var defaultHeader: HeaderParameter { return ["Accept": "application/json"] }
+    var defaultHeader: HeaderParameter { return ["Accept": "application/json", "Accept-Language": "en_US"] }
 
     var urlPath: String { return basePath + endpoint }
 
     var url: URL { return URL(string: urlPath)! }
 
-    var parameterEncoding: ParameterEncoding { return JSONEncoding.default }
+    var parameterEncoding: ParameterEncoding {
+        if self.httpMethod == .get {
+            return URLEncoding.default
+        }
+        return JSONEncoding.default
+    }
 
     func toObservable() -> Observable<Element> {
 
@@ -72,12 +75,32 @@ extension Requestable {
             }
 
             Alamofire.request(urlRequest)
-                .validate(statusCode: 200..<300)
                 .validate(contentType: ["application/json"])
                 .responseJSON(completionHandler: { (response) in
 
                     // Check error
                     if let error = response.result.error {
+
+                        //FIXME : Smell code
+                        // https://developer.uber.com/docs/riders/references/api/v1.2/places-place_id-get
+                        // 422 = No personal Place
+                        // Need to refactor all of request which adapt Requestable protocol
+                        //
+                        // HOW TO FIX
+                        //
+                        // convert
+                        // func toObservable() -> Observable<Element>
+                        // to
+                        // func toObservable() -> Observable<Element?>
+                        if response.response?.statusCode == 422 {
+
+                            // Stupid force cast 
+                            // By-pass error
+                            observer.onNext(UberPersonalPlaceObj.invalidPlace as! Element)
+                            observer.on(.completed)
+                            return
+                        }
+
                         observer.onError(error)
                         return
                     }
@@ -111,7 +134,7 @@ extension Requestable {
         urlRequest.timeoutInterval = TimeInterval(10 * 1000)
 
         // Encode param
-        guard var request = try? self.parameterEncoding.encode(urlRequest, with: self.param) else {
+        guard var request = try? self.parameterEncoding.encode(urlRequest, with: self.param?.toDictionary()) else {
             fatalError("Can't handle unknow request")
         }
 

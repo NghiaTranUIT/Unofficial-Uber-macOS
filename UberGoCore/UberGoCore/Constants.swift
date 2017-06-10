@@ -24,8 +24,23 @@ struct Constants {
     // MARK: - Uber
     struct UberAPI {
 
-        static let BaseURL = "https://login.uber.com"
+        static let BaseURL = "https://api.uber.com"
         static let LoginURL = "oauth/v2/authorize"
+        static let UberProducts = "/v1.2/products"
+        static let HomePersonalPlace = "/v1.2/places/home"
+        static let WorkPseronalPlace = "/v1.2/places/work"
+    }
+
+    // MARK: - Google App
+    struct GoogleApp {
+        static let Key = "AIzaSyD_WRNqPyKqD9UoVgATUisFbXFF19gcfDU"
+    }
+
+    // MARK: - Google
+    struct GoogleAPI {
+
+        static let BaseURL = "https://maps.googleapis.com/maps/api"
+        static let PlaceSearchURL = "/place/nearbysearch/json"
     }
 
     // MARK: - Object
@@ -43,6 +58,27 @@ struct Constants {
             static let OauthRefreshToken = "oauthRefreshToken"
             static let OauthTokenSecret = "oauthTokenSecret"
             static let OauthTokenExpiresAt = "oauthTokenExpiresAt"
+        }
+
+        // MARK: - Product
+        struct Product {
+
+            static let UpfrontFareEnabled = "upfront_fare_enabled"
+            static let Capacity = "capacity"
+            static let ProductId = "product_id"
+            static let Image = "image"
+            static let CashEnabled = "cash_enabled"
+            static let Shared = "shared"
+            static let ShortDescription = "short_description"
+            static let DisplayName = "display_name"
+            static let ProductGroup = "product_group"
+            static let Description = "description"
+        }
+
+        // MARK: - Uber Personal Place
+        struct UberPersonalPlace {
+
+            static let Address = "address"
         }
     }
 }

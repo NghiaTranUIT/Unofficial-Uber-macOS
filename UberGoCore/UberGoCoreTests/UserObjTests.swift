@@ -10,27 +10,6 @@ import XCTest
 import OAuthSwift
 @testable import UberGoCore
 
-class FakeUberCrendential {
-
-    class func valid() -> OAuthSwiftCredential {
-        let uber = OAuthSwiftCredential(consumerKey: "abc", consumerSecret: "secret")
-        uber.oauthToken = "oauthToken"
-        uber.oauthTokenSecret = "oauthTokenSecret"
-        uber.oauthTokenExpiresAt = Date()
-        uber.oauthRefreshToken = "oauthRefreshToken"
-        return uber
-    }
-
-    class func invalid() -> OAuthSwiftCredential {
-        let uber = OAuthSwiftCredential(consumerKey: "abc", consumerSecret: "secret")
-        uber.oauthToken = ""
-        uber.oauthTokenSecret = "oauthTokenSecret"
-        uber.oauthTokenExpiresAt = Date()
-        uber.oauthRefreshToken = "oauthRefreshToken"
-        return uber
-    }
-}
-
 class UserObjTests: XCTestCase {
 
     override func setUp() {
@@ -39,16 +18,10 @@ class UserObjTests: XCTestCase {
     }
     
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
-    }
 
-    fileprivate class func getFromDisk() -> UserObj? {
+        // Remove
 
-        guard let data = UserDefaults.standard.data(forKey: "currentUser") else { return nil }
-        guard let userObj = NSKeyedUnarchiver.unarchiveObject(with: data) as? UserObj else { return nil }
-
-        return userObj
     }
 
     func testCreateUserWithCredentialUber() {
@@ -58,8 +31,7 @@ class UserObjTests: XCTestCase {
 
         // When
         let currentUser = UserObj.convertCurrentUser(with: uberCrendential)
-
-        let savedUser = UserObjTests.getFromDisk()
+        let savedUser = FakeUberCrendential.getFromDisk()
 
         // Then
         XCTAssertEqual(currentUser, UserObj.currentUser, "Current User != UserObj.currentUser is difference")

@@ -7,7 +7,27 @@
 //
 
 import Cocoa
+import ObjectMapper
 
-class PlaceObj: BaseObj {
+// Google Place
+open class PlaceObj: BaseObj {
 
+    // MARK: - Variable
+    public var name: String?
+
+    // Map
+    override public func mapping(map: Map) {
+        super.mapping(map: map)
+
+        self.name <- map["name"]
+    }
+}
+
+extension PlaceObj {
+
+    public static var unknowPlace: PlaceObj {
+        let place = PlaceObj()
+        place.name = "Unknow location"
+        return place
+    }
 }
