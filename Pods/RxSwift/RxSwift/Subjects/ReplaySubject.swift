@@ -39,10 +39,6 @@ public class ReplaySubject<Element>
     }
     fileprivate var _observers = Observers()
 
-    #if DEBUG
-        fileprivate let _synchronizationTracker = SynchronizationTracker()
-    #endif
-
     func unsubscribe(_ key: DisposeKey) {
         rxAbstractMethod()
     }
@@ -115,10 +111,6 @@ fileprivate class ReplayBufferBase<Element>
     }
     
     override func on(_ event: Event<Element>) {
-        #if DEBUG
-            _synchronizationTracker.register(synchronizationErrorMessage: .default)
-            defer { _synchronizationTracker.unregister() }
-        #endif
         dispatch(_synchronized_on(event), event)
     }
 
@@ -204,7 +196,7 @@ fileprivate class ReplayBufferBase<Element>
     }
 }
 
-fileprivate final class ReplayOne<Element> : ReplayBufferBase<Element> {
+final class ReplayOne<Element> : ReplayBufferBase<Element> {
     private var _value: Element?
     
     override init() {
@@ -231,7 +223,7 @@ fileprivate final class ReplayOne<Element> : ReplayBufferBase<Element> {
     }
 }
 
-fileprivate class ReplayManyBase<Element> : ReplayBufferBase<Element> {
+class ReplayManyBase<Element> : ReplayBufferBase<Element> {
     fileprivate var _queue: Queue<Element>
     
     init(queueSize: Int) {
@@ -254,7 +246,7 @@ fileprivate class ReplayManyBase<Element> : ReplayBufferBase<Element> {
     }
 }
 
-fileprivate final class ReplayMany<Element> : ReplayManyBase<Element> {
+final class ReplayMany<Element> : ReplayManyBase<Element> {
     private let _bufferSize: Int
     
     init(bufferSize: Int) {
@@ -270,7 +262,7 @@ fileprivate final class ReplayMany<Element> : ReplayManyBase<Element> {
     }
 }
 
-fileprivate final class ReplayAll<Element> : ReplayManyBase<Element> {
+final class ReplayAll<Element> : ReplayManyBase<Element> {
     init() {
         super.init(queueSize: 0)
     }

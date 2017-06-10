@@ -35,11 +35,7 @@ public final class PublishSubject<Element>
     private var _observers = Observers()
     private var _stopped = false
     private var _stoppedEvent = nil as Event<Element>?
-
-    #if DEBUG
-        fileprivate let _synchronizationTracker = SynchronizationTracker()
-    #endif
-
+    
     /// Indicates whether the subject has been isDisposed.
     public var isDisposed: Bool {
         return _isDisposed
@@ -57,10 +53,6 @@ public final class PublishSubject<Element>
     ///
     /// - parameter event: Event to send to the observers.
     public func on(_ event: Event<Element>) {
-        #if DEBUG
-            _synchronizationTracker.register(synchronizationErrorMessage: .default)
-            defer { _synchronizationTracker.unregister() }
-        #endif
         dispatch(_synchronized_on(event), event)
     }
 

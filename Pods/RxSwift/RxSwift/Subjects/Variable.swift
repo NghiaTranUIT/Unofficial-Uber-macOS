@@ -17,12 +17,12 @@ public final class Variable<Element> {
     private let _subject: BehaviorSubject<Element>
     
     private var _lock = SpinLock()
-
+ 
     // state
     private var _value: E
 
     #if DEBUG
-        fileprivate let _synchronizationTracker = SynchronizationTracker()
+        fileprivate var _numberOfConcurrentCalls: AtomicInt = 0
     #endif
 
     /// Gets or sets current value of variable.
@@ -37,8 +37,13 @@ public final class Variable<Element> {
         }
         set(newValue) {
             #if DEBUG
-                _synchronizationTracker.register(synchronizationErrorMessage: .variable)
-                defer { _synchronizationTracker.unregister() }
+                if AtomicIncrement(&_numberOfConcurrentCalls) > 1 {
+                    rxFatalError("Warning: Recursive call or synchronization error!")
+                }
+
+                defer {
+                    _ = AtomicDecrement(&_numberOfConcurrentCalls)
+                }
             #endif
             _lock.lock()
             _value = newValue

@@ -102,7 +102,7 @@ fileprivate func convertResponseToString(_ response: URLResponse?, _ error: NSEr
 
     if let error = error {
         if error.domain == NSURLErrorDomain && error.code == NSURLErrorCancelled {
-            return "Canceled (\(ms)ms)"
+            return "Cancelled (\(ms)ms)"
         }
         return "Failure (\(ms)ms): NSError > \(error)"
     }

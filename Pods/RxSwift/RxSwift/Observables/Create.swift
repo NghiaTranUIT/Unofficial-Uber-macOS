@@ -30,7 +30,7 @@ final fileprivate class AnonymousObservableSink<O: ObserverType> : Sink<O>, Obse
     private var _isStopped: AtomicInt = 0
 
     #if DEBUG
-        fileprivate let _synchronizationTracker = SynchronizationTracker()
+        fileprivate var _numberOfConcurrentCalls: AtomicInt = 0
     #endif
 
     override init(observer: O, cancel: Cancelable) {
@@ -39,8 +39,13 @@ final fileprivate class AnonymousObservableSink<O: ObserverType> : Sink<O>, Obse
 
     func on(_ event: Event<E>) {
         #if DEBUG
-            _synchronizationTracker.register(synchronizationErrorMessage: .default)
-            defer { _synchronizationTracker.unregister() }
+            if AtomicIncrement(&_numberOfConcurrentCalls) > 1 {
+                rxFatalError("Warning: Recursive call or synchronization error!")
+            }
+
+            defer {
+                _ = AtomicDecrement(&_numberOfConcurrentCalls)
+        }
         #endif
         switch event {
         case .next:

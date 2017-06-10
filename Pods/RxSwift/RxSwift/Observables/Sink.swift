@@ -12,7 +12,7 @@ class Sink<O : ObserverType> : Disposable {
     fileprivate var _disposed: Bool
 
     #if DEBUG
-        fileprivate let _synchronizationTracker = SynchronizationTracker()
+        fileprivate var _numberOfConcurrentCalls: AtomicInt = 0
     #endif
 
     init(observer: O, cancel: Cancelable) {
@@ -26,8 +26,13 @@ class Sink<O : ObserverType> : Disposable {
     
     final func forwardOn(_ event: Event<O.E>) {
         #if DEBUG
-            _synchronizationTracker.register(synchronizationErrorMessage: .default)
-            defer { _synchronizationTracker.unregister() }
+            if AtomicIncrement(&_numberOfConcurrentCalls) > 1 {
+                rxFatalError("Warning: Recursive call or synchronization error!")
+            }
+
+            defer {
+                _ = AtomicDecrement(&_numberOfConcurrentCalls)
+            }
         #endif
         if _disposed {
             return
