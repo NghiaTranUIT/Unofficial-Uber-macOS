@@ -37,6 +37,7 @@
 		BAED39E21EE9B67C003D9BC3 /* RxCLLocationManagerDelegateProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAED39E01EE9B67C003D9BC3 /* RxCLLocationManagerDelegateProxy.swift */; };
 		BAED39E71EEA5954003D9BC3 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAED39E51EEA5954003D9BC3 /* Reachability.swift */; };
 		BAED39E81EEA5954003D9BC3 /* ReachabilityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAED39E61EEA5954003D9BC3 /* ReachabilityService.swift */; };
+		BAED39FA1EEBACD2003D9BC3 /* Rx+Optional.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAED39F91EEBACD2003D9BC3 /* Rx+Optional.swift */; };
 		BAF57FA81EE116490013090E /* UberService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF57FA71EE116490013090E /* UberService.swift */; };
 		BAF57FAA1EE1166A0013090E /* UserObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF57FA91EE1166A0013090E /* UserObj.swift */; };
 		BAF57FAC1EE116710013090E /* BaseObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF57FAB1EE116710013090E /* BaseObj.swift */; };
@@ -94,6 +95,7 @@
 		BAED39E01EE9B67C003D9BC3 /* RxCLLocationManagerDelegateProxy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RxCLLocationManagerDelegateProxy.swift; sourceTree = "<group>"; };
 		BAED39E51EEA5954003D9BC3 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		BAED39E61EEA5954003D9BC3 /* ReachabilityService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReachabilityService.swift; sourceTree = "<group>"; };
+		BAED39F91EEBACD2003D9BC3 /* Rx+Optional.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Rx+Optional.swift"; sourceTree = "<group>"; };
 		BAF57FA71EE116490013090E /* UberService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UberService.swift; sourceTree = "<group>"; };
 		BAF57FA91EE1166A0013090E /* UserObj.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserObj.swift; sourceTree = "<group>"; };
 		BAF57FAB1EE116710013090E /* BaseObj.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseObj.swift; sourceTree = "<group>"; };
@@ -308,6 +310,7 @@
 				BAED39E01EE9B67C003D9BC3 /* RxCLLocationManagerDelegateProxy.swift */,
 				BAED39E51EEA5954003D9BC3 /* Reachability.swift */,
 				BAED39E61EEA5954003D9BC3 /* ReachabilityService.swift */,
+				BAED39F91EEBACD2003D9BC3 /* Rx+Optional.swift */,
 			);
 			name = "Rx Extension";
 			sourceTree = "<group>";
@@ -592,6 +595,7 @@
 				BA7BA9811EE415D10056B0CF /* MapService.swift in Sources */,
 				BAED39E11EE9B67C003D9BC3 /* CLLocationManager+Rx.swift in Sources */,
 				BAE6902F1EE513EF00A4D876 /* UberProductsRequest.swift in Sources */,
+				BAED39FA1EEBACD2003D9BC3 /* Rx+Optional.swift in Sources */,
 				BAF57FB01EE1168A0013090E /* PlaceObj.swift in Sources */,
 				BAED39E81EEA5954003D9BC3 /* ReachabilityService.swift in Sources */,
 				BA4796B31EE3C93900620BB0 /* UUID+Helper.swift in Sources */,

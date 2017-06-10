@@ -19,12 +19,6 @@ def important_pods
     pod 'RxCocoa',    '~> 3.0'
     pod 'SwiftLint'
     pod 'OAuthSwift', '~> 1.1.0'
-    pod 'RxOptional'
-end
-
-# Only for mac app
-def app_pods
-    pod 'Mapbox-macOS-SDK'
 end
 
 # UberGo
