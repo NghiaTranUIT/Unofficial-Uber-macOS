@@ -9,7 +9,6 @@
 import Cocoa
 import CoreLocation
 import Mapbox
-import RxOptional
 import RxSwift
 import UberGoCore
 

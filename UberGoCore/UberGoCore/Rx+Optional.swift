@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import RxCocoa
 import RxSwift
 
 public protocol OptionalType {
@@ -22,17 +23,33 @@ extension Optional: OptionalType {
 }
 
 public extension ObservableType where E: OptionalType {
+
     /**
      Unwraps and filters out `nil` elements.
      - returns: `Observable` of source `Observable`'s elements, with `nil` elements filtered out.
      */
-
     public func filterNil() -> Observable<E.Wrapped> {
         return self.flatMap { element -> Observable<E.Wrapped> in
             guard let value = element.value else {
                 return Observable<E.Wrapped>.empty()
             }
             return Observable<E.Wrapped>.just(value)
+        }
+    }
+}
+
+public extension SharedSequenceConvertibleType where SharingStrategy == DriverSharingStrategy, E: OptionalType {
+
+    /**
+     Unwraps and filters out `nil` elements.
+     - returns: `Driver` of source `Driver`'s elements, with `nil` elements filtered out.
+     */
+    public func filterNil() -> Driver<E.Wrapped> {
+        return self.flatMap { element -> Driver<E.Wrapped> in
+            guard let value = element.value else {
+                return Driver<E.Wrapped>.empty()
+            }
+            return Driver<E.Wrapped>.just(value)
         }
     }
 }
