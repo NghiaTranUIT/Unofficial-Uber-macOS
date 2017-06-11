@@ -38,12 +38,12 @@
                     </textFieldCell>
                 </textField>
                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="v2O-RC-bWw">
-                    <rect key="frame" x="20" y="16" width="24" height="24"/>
+                    <rect key="frame" x="24" y="21" width="16" height="16"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="24" id="GSR-Re-8ch"/>
-                        <constraint firstAttribute="width" constant="24" id="vxJ-G3-EoI"/>
+                        <constraint firstAttribute="height" constant="16" id="GSR-Re-8ch"/>
+                        <constraint firstAttribute="width" constant="16" id="vxJ-G3-EoI"/>
                     </constraints>
-                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="y0c-7Y-ltS"/>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="place" id="y0c-7Y-ltS"/>
                 </imageView>
                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="brG-o2-nAq">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="1"/>
@@ -62,11 +62,14 @@
                 <constraint firstAttribute="bottom" secondItem="brG-o2-nAq" secondAttribute="bottom" id="Nox-pH-gDQ"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="w0c-qx-FJX" secondAttribute="trailing" constant="16" id="UED-ui-O4w"/>
                 <constraint firstItem="WXi-TZ-o2z" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="64" id="WWq-7U-9a4"/>
-                <constraint firstItem="v2O-RC-bWw" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="20" id="qE3-Vk-cui"/>
+                <constraint firstItem="v2O-RC-bWw" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="24" id="qE3-Vk-cui"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="WXi-TZ-o2z" secondAttribute="trailing" constant="16" id="uGD-VE-5Fw"/>
             </constraints>
             <point key="canvasLocation" x="86.5" y="61.5"/>
         </customView>
         <collectionViewItem id="9St-Zw-t6L" customClass="SearchPlaceCell" customModule="UberGo" customModuleProvider="target"/>
     </objects>
+    <resources>
+        <image name="place" width="11" height="16"/>
+    </resources>
 </document>

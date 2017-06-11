@@ -207,14 +207,12 @@ extension MapViewController: NSCollectionViewDataSource {
 
     func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {
 
-        // Show result search
         return self.searchPlaceObjs.count
     }
 
     func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath)
     -> NSCollectionViewItem {
         return self.getSearchCell(with: collectionView, indexPath: indexPath)
-
     }
 
     fileprivate func getSearchCell(with collectionView: NSCollectionView, indexPath: IndexPath)
@@ -227,19 +225,6 @@ extension MapViewController: NSCollectionViewDataSource {
 
         let placeObj = self.searchPlaceObjs[indexPath.item]
         cell.configurePlaceCell(placeObj)
-        return cell
-    }
-
-    fileprivate func getPersonalCell(with collectionView: NSCollectionView, indexPath: IndexPath)
-    -> NSCollectionViewItem {
-
-        guard let cell = collectionView.makeItem(withIdentifier: "SearchPlaceCell", for: indexPath)
-            as? SearchPlaceCell else {
-                return NSCollectionViewItem()
-        }
-
-        let placeObj = self.personPlaceObjs[indexPath.item]
-        cell.configurePersonalPlaceCell(placeObj)
         return cell
     }
 }

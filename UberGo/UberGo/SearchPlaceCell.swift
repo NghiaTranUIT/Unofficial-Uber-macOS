@@ -36,11 +36,8 @@ class SearchPlaceCell: NSCollectionViewItem {
     // MARK: - Public
     func configurePlaceCell(_ placeObj: PlaceObj) {
         self.titleLbl.stringValue = placeObj.name ?? ""
-    }
-
-    func configurePersonalPlaceCell(_ personalPlace: UberPersonalPlaceObj) {
-        self.titleLbl.stringValue = personalPlace.placeType.rawValue
-        self.addressLbl.stringValue = personalPlace.address ?? ""
+        self.addressLbl.stringValue = placeObj.address ?? ""
+        self.avatarImageView.image = NSImage(named: placeObj.placeType.iconName)
     }
 
     override func mouseEntered(with theEvent: NSEvent) {
