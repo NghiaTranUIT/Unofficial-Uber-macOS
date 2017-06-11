@@ -99,7 +99,7 @@ open class MapService: NSObject {
             .filterNil()
             .debounce(0.3, scheduler: MainScheduler.instance)
             .distinctUntilChanged()
-            .flatMapLatest({[unowned self] location -> Observable<PlaceObj> in
+            .flatMapFirst({[unowned self] location -> Observable<PlaceObj> in
                 return self.nearestPlaceObverser(location)
         })
 

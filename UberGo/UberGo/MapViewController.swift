@@ -78,6 +78,22 @@ class MapViewController: BaseViewController {
             self.searchBarView.updateNestestPlace(nearestPlaceObj)
         })
         .addDisposableTo(self.disposeBag)
+
+        // Input search
+        self.searchBarView.textSearchDidChangedDriver
+        .drive(onNext: {[unowned self] text in
+            self.viewModel.input.textSearchPublish.onNext(text)
+        })
+        .addDisposableTo(self.disposeBag)
+
+        // Reload
+        self.viewModel.output.searchPlaceObjsVariable.asObservable()
+        .subscribe(onNext: {[weak self] placeObjs in
+            guard let `self` = self else { return }
+            print("Place Search FOUND = \(placeObjs.count)")
+            self.collectionView.reloadData()
+        })
+        .addDisposableTo(self.disposeBag)
     }
 
     fileprivate func updateCurrentLocation(point: CLLocationCoordinate2D) {
@@ -162,7 +178,7 @@ extension MapViewController: NSCollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 0
+        return self.viewModel.searchPlaceObjsVariable.value.count
     }
 
     func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath)

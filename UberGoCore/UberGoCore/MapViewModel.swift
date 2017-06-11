@@ -29,6 +29,7 @@ public protocol MapViewModelOutput {
     var currentLocationDriver: Driver<CLLocation?> { get }
     var nearestPlaceDriver: Driver<PlaceObj> { get }
     var productsVariable: Variable<[ProductObj]> { get }
+    var searchPlaceObjsVariable: Variable<[PlaceObj]> { get }
 }
 
 // MARK: - View Model
@@ -56,6 +57,7 @@ open class MapViewModel: BaseViewModel,
     public var nearestPlaceDriver: Driver<PlaceObj> {
         return self.mapManager.nearestPlaceObverser.asDriver(onErrorJustReturn: PlaceObj.unknowPlace)
     }
+    public var searchPlaceObjsVariable = Variable<[PlaceObj]>([])
 
     // MARK: - Init
     public override init() {
@@ -75,12 +77,25 @@ open class MapViewModel: BaseViewModel,
             .addDisposableTo(self.disposeBag)
 
         // Search
-//        self.textSearchPublish.asObserver()
-//            .throttle(0.3, scheduler: MainScheduler.instance)
-//            .distinctUntilChanged()
-//            .flatMapLatest { text -> Observable<[PlaceObj]> in
-//
-//                let param = PlaceSearchRequestParam(keyword: text, location: <#T##CLLocationCoordinate2D#>)
-//        }
+        self.textSearchPublish.asObserver()
+            .skip(1)
+            .debounce(0.3, scheduler: MainScheduler.instance)
+            .distinctUntilChanged()
+            .flatMapLatest { text -> Observable<[PlaceObj]> in
+                guard let currentCoordinate = self.mapManager.currentLocationVariable.value?.coordinate else {
+                    return Observable.empty()
+                }
+
+                if text == "" {
+                    return Observable.just([])
+                }
+
+                // Search
+                let param = PlaceSearchRequestParam(keyword: text, location: currentCoordinate)
+                return PlaceSearchRequest(param).toObservable()
+            }
+            .bind(to: self.searchPlaceObjsVariable)
+            .addDisposableTo(self.disposeBag)
+
     }
 }

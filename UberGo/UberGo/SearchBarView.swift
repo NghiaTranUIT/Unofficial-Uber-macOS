@@ -7,6 +7,8 @@
 //
 
 import Cocoa
+import RxCocoa
+import RxSwift
 import UberGoCore
 
 enum SearchBarViewLayoutState {
@@ -47,6 +49,12 @@ class SearchBarView: NSView {
             }
             _layoutState = newValue
         }
+    }
+    public var textSearchDidChangedDriver: Driver<String> {
+        return self.destinationTxt.rx.text
+            .asObservable()
+            .filterNil()
+            .asDriver(onErrorJustReturn: "")
     }
     fileprivate var viewModel: SearchBarViewModel?
     fileprivate var actionSearchView: ActionSearchBarView!
