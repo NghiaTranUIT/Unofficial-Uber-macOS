@@ -15,6 +15,7 @@ class SearchPlaceCell: NSCollectionViewItem {
     @IBOutlet fileprivate weak var titleLbl: NSTextField!
     @IBOutlet fileprivate weak var addressLbl: NSTextField!
     @IBOutlet fileprivate weak var avatarImageView: NSImageView!
+    @IBOutlet fileprivate weak var separateLine: NSView!
 
     // MARK: - View Cycle
     override func viewDidLoad() {
@@ -36,5 +37,6 @@ extension SearchPlaceCell {
         self.view.backgroundColor = NSColor.white
         self.titleLbl.textColor = NSColor.black
         self.addressLbl.textColor = NSColor(hexString: "#A4A4A8")
+        self.separateLine.backgroundColor = NSColor(hexString: "#EDEDED")
     }
 }

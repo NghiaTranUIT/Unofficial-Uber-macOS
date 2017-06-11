@@ -217,7 +217,7 @@
 			isa = PBXGroup;
 			children = (
 				BAED39D91EE9A6EF003D9BC3 /* Search Collection View */,
-				BADB78621EE6EFAE000536F7 /* Ubse */,
+				BADB78621EE6EFAE000536F7 /* Uber */,
 				BADB785F1EE66190000536F7 /* UberTextField */,
 				BADB785C1EE5B9F5000536F7 /* UberButton */,
 				BADB78531EE5B7BA000536F7 /* ActionSearchBarView */,
@@ -261,11 +261,11 @@
 			name = UberTextField;
 			sourceTree = "<group>";
 		};
-		BADB78621EE6EFAE000536F7 /* Ubse */ = {
+		BADB78621EE6EFAE000536F7 /* Uber */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			name = Ubse;
+			name = Uber;
 			sourceTree = "<group>";
 		};
 		BAE6902A1EE460DF00A4D876 /* Models */ = {

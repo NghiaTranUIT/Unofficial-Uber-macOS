@@ -10,6 +10,7 @@
             <connections>
                 <outlet property="addressLbl" destination="w0c-qx-FJX" id="VqM-aT-yu5"/>
                 <outlet property="avatarImageView" destination="v2O-RC-bWw" id="sTp-Pv-ByA"/>
+                <outlet property="separateLine" destination="brG-o2-nAq" id="shc-1U-86B"/>
                 <outlet property="titleLbl" destination="WXi-TZ-o2z" id="Prt-BV-IQr"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
@@ -44,12 +45,21 @@
                     </constraints>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="y0c-7Y-ltS"/>
                 </imageView>
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="brG-o2-nAq">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="1"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="08a-Rc-zdc"/>
+                    </constraints>
+                </customView>
             </subviews>
             <constraints>
+                <constraint firstItem="brG-o2-nAq" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="147-4t-fLg"/>
                 <constraint firstItem="w0c-qx-FJX" firstAttribute="leading" secondItem="WXi-TZ-o2z" secondAttribute="leading" id="1sa-fO-E9n"/>
+                <constraint firstAttribute="trailing" secondItem="brG-o2-nAq" secondAttribute="trailing" id="3gv-O9-Pbk"/>
                 <constraint firstItem="WXi-TZ-o2z" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="11" id="4ZR-cY-hbI"/>
                 <constraint firstItem="v2O-RC-bWw" firstAttribute="centerY" secondItem="Hz6-mo-xeY" secondAttribute="centerY" id="FBz-Wy-fx0"/>
                 <constraint firstItem="w0c-qx-FJX" firstAttribute="top" secondItem="WXi-TZ-o2z" secondAttribute="bottom" constant="-1" id="LT0-Ye-qMT"/>
+                <constraint firstAttribute="bottom" secondItem="brG-o2-nAq" secondAttribute="bottom" id="Nox-pH-gDQ"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="w0c-qx-FJX" secondAttribute="trailing" constant="16" id="UED-ui-O4w"/>
                 <constraint firstItem="WXi-TZ-o2z" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="64" id="WWq-7U-9a4"/>
                 <constraint firstItem="v2O-RC-bWw" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="20" id="qE3-Vk-cui"/>

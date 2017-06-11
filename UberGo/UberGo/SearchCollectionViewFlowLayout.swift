@@ -56,7 +56,7 @@ class SearchCollectionViewFlowLayout: NSCollectionViewFlowLayout {
         for i in 0..<self.itemCount {
 
             let x: CGFloat = 0
-            let y = CGFloat(i) * self.itemSize.height
+            let y = CGFloat(i) * self.sizeCell.height
             let indexPath = IndexPath(item: i, section: 0)
 
             // Create attribute
@@ -102,6 +102,7 @@ class SearchCollectionViewFlowLayout: NSCollectionViewFlowLayout {
     }
 
     override open var collectionViewContentSize: CGSize {
+        print("collectionViewContentSize = \(self.contentSize)")
         return self.contentSize
     }
 }
