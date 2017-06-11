@@ -34,8 +34,13 @@ class SearchPlaceCell: NSCollectionViewItem {
     }
 
     // MARK: - Public
-    func configureCell(with placeObj: PlaceObj) {
+    func configurePlaceCell(_ placeObj: PlaceObj) {
         self.titleLbl.stringValue = placeObj.name ?? ""
+    }
+
+    func configurePersonalPlaceCell(_ personalPlace: UberPersonalPlaceObj) {
+        self.titleLbl.stringValue = personalPlace.placeType.rawValue
+        self.addressLbl.stringValue = personalPlace.address ?? ""
     }
 
     override func mouseEntered(with theEvent: NSEvent) {
@@ -72,7 +77,6 @@ extension SearchPlaceCell {
     }
 
     fileprivate func updateMouseOverUI() {
-        print("mouse \(self.mouseInside)")
         NSAnimationContext.runAnimationGroup({ (context) in
             context.allowsImplicitAnimation = true
             context.duration = 0.11

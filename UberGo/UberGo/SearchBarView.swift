@@ -56,6 +56,10 @@ class SearchBarView: NSView {
             .filterNil()
             .asDriver(onErrorJustReturn: "")
     }
+    public var textSearch: String {
+        return self.destinationTxt.stringValue
+    }
+
     fileprivate var viewModel: SearchBarViewModel?
     fileprivate var actionSearchView: ActionSearchBarView!
 

@@ -24,6 +24,14 @@ class MapViewController: BaseViewController {
     fileprivate var searchBarView: SearchBarView!
     fileprivate var isFirstTime = true
 
+    fileprivate var searchPlaceObjs: [PlaceObj] {
+        return self.viewModel.output.searchPlaceObjsVariable.value
+    }
+
+    fileprivate var personPlaceObjs: [UberPersonalPlaceObj] {
+        return self.viewModel.output.personPlaceVariable.value
+    }
+
     // MARK: - View Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -91,9 +99,21 @@ class MapViewController: BaseViewController {
         .subscribe(onNext: {[weak self] placeObjs in
             guard let `self` = self else { return }
             print("Place Search FOUND = \(placeObjs.count)")
-            self.collectionView.reloadData()
+            if self.searchBarView.textSearch != "" {
+                self.collectionView.reloadData()
+            }
         })
         .addDisposableTo(self.disposeBag)
+
+        self.viewModel.output.personPlaceVariable.asObservable()
+            .subscribe(onNext: {[weak self] placeObjs in
+                guard let `self` = self else { return }
+                print("Personal place FOUND = \(placeObjs.count)")
+                if self.searchBarView.textSearch == "" {
+                    self.collectionView.reloadData()
+                }
+            })
+            .addDisposableTo(self.disposeBag)
     }
 
     fileprivate func updateCurrentLocation(point: CLLocationCoordinate2D) {
@@ -151,6 +171,8 @@ extension MapViewController {
         self.collectionView = SearchCollectionView(defaultValue: true)
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
+        self.collectionView.allowsMultipleSelection = false
+        self.collectionView.allowsEmptySelection = false
         self.collectionView.configureView(parenView: self.view, searchBarView: self.searchBarView)
 
         // Register
@@ -186,18 +208,50 @@ extension MapViewController: NSCollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.viewModel.searchPlaceObjsVariable.value.count
+
+        // Show history + personal
+        if self.searchBarView.textSearch == "" {
+            return self.personPlaceObjs.count
+        }
+
+        // Show result search
+        return self.searchPlaceObjs.count
     }
 
     func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath)
-        -> NSCollectionViewItem {
-        guard let cell = collectionView.makeItem(withIdentifier: "SearchPlaceCell", for: indexPath)
-            as? SearchPlaceCell else {
-            return NSCollectionViewItem()
+    -> NSCollectionViewItem {
+
+        if self.searchBarView.textSearch == "" {
+            return self.getPersonalCell(with: collectionView, indexPath: indexPath)
         }
 
-        let placeObj = self.viewModel.output.searchPlaceObjsVariable.value[indexPath.item]
-        cell.configureCell(with: placeObj)
+        return self.getSearchCell(with: collectionView, indexPath: indexPath)
+
+    }
+
+    fileprivate func getSearchCell(with collectionView: NSCollectionView, indexPath: IndexPath)
+    -> NSCollectionViewItem {
+
+        guard let cell = collectionView.makeItem(withIdentifier: "SearchPlaceCell", for: indexPath)
+            as? SearchPlaceCell else {
+                return NSCollectionViewItem()
+        }
+
+        let placeObj = self.searchPlaceObjs[indexPath.item]
+        cell.configurePlaceCell(placeObj)
+        return cell
+    }
+
+    fileprivate func getPersonalCell(with collectionView: NSCollectionView, indexPath: IndexPath)
+    -> NSCollectionViewItem {
+
+        guard let cell = collectionView.makeItem(withIdentifier: "SearchPlaceCell", for: indexPath)
+            as? SearchPlaceCell else {
+                return NSCollectionViewItem()
+        }
+
+        let placeObj = self.personPlaceObjs[indexPath.item]
+        cell.configurePersonalPlaceCell(placeObj)
         return cell
     }
 }
@@ -205,4 +259,7 @@ extension MapViewController: NSCollectionViewDataSource {
 // MARK: - NSCollectionViewDelegate
 extension MapViewController: NSCollectionViewDelegate, NSCollectionViewDelegateFlowLayout {
 
+    func collectionView(_ collectionView: NSCollectionView, didSelectItemsAt indexPaths: Set<IndexPath>) {
+        print("Did Select cell \(indexPaths)")
+    }
 }

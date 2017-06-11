@@ -9,9 +9,15 @@
 import Foundation
 import ObjectMapper
 
+public enum UberPersonalPlaceType: String {
+    case work = "Work"
+    case home = "Home"
+}
+
 open class UberPersonalPlaceObj: BaseObj {
 
     // MARK: - Variable
+    public var placeType: UberPersonalPlaceType = .work
     public var address: String?
     public fileprivate(set) var invalid = false
 

@@ -30,6 +30,7 @@ public protocol MapViewModelOutput {
     var nearestPlaceDriver: Driver<PlaceObj> { get }
     var productsVariable: Variable<[ProductObj]> { get }
     var searchPlaceObjsVariable: Variable<[PlaceObj]> { get }
+    var personPlaceVariable: Variable<[UberPersonalPlaceObj]> { get }
 }
 
 // MARK: - View Model
@@ -43,7 +44,8 @@ open class MapViewModel: BaseViewModel,
     public var output: MapViewModelOutput { return self }
 
     // MARK: - Variable
-    fileprivate var mapManager = MapService()
+    fileprivate let mapManager = MapService()
+    fileprivate let uberService = UberService()
 
     // MARK: - Input
     public var startUpdateLocationTriggerPublisher = PublishSubject<Bool>()
@@ -58,12 +60,13 @@ open class MapViewModel: BaseViewModel,
         return self.mapManager.nearestPlaceObverser.asDriver(onErrorJustReturn: PlaceObj.unknowPlace)
     }
     public var searchPlaceObjsVariable = Variable<[PlaceObj]>([])
+    public var personPlaceVariable = Variable<[UberPersonalPlaceObj]>([])
 
     // MARK: - Init
     public override init() {
         super.init()
 
-        // Start update
+        // Start update location
         self.startUpdateLocationTriggerPublisher
             .asObserver()
             .distinctUntilChanged()
@@ -82,6 +85,7 @@ open class MapViewModel: BaseViewModel,
             .debounce(0.3, scheduler: MainScheduler.instance)
             .distinctUntilChanged()
             .flatMapLatest { text -> Observable<[PlaceObj]> in
+
                 guard let currentCoordinate = self.mapManager.currentLocationVariable.value?.coordinate else {
                     return Observable.empty()
                 }
@@ -97,5 +101,9 @@ open class MapViewModel: BaseViewModel,
             .bind(to: self.searchPlaceObjsVariable)
             .addDisposableTo(self.disposeBag)
 
+        // Person place
+        self.uberService.personalPlaceObserver()
+            .bind(to: self.personPlaceVariable)
+            .addDisposableTo(self.disposeBag)
     }
 }

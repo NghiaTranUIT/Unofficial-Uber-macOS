@@ -11,6 +11,7 @@
 		5DCDECCB5D68CEA1521EF84A /* Pods_UberGoCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A42638801468E3CC0AC1FBC4 /* Pods_UberGoCore.framework */; };
 		BA037F1A1EDD61E600945C1D /* UberGoCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA037F101EDD61E600945C1D /* UberGoCore.framework */; };
 		BA037F211EDD61E600945C1D /* UberGoCore.h in Headers */ = {isa = PBXBuildFile; fileRef = BA037F131EDD61E600945C1D /* UberGoCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BA2A3A7D1EED26EF002A0343 /* DatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2A3A7C1EED26EF002A0343 /* DatabaseService.swift */; };
 		BA32E71E1EDFC76A0044C017 /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA32E71D1EDFC76A0044C017 /* AuthenticationViewModel.swift */; };
 		BA32E7231EDFC8230044C017 /* AppViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA32E7221EDFC8230044C017 /* AppViewModel.swift */; };
 		BA32E7271EDFC84F0044C017 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA32E7261EDFC84F0044C017 /* Constants.swift */; };
@@ -69,6 +70,7 @@
 		BA037F141EDD61E600945C1D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BA037F191EDD61E600945C1D /* UberGoCoreTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UberGoCoreTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA037F201EDD61E600945C1D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BA2A3A7C1EED26EF002A0343 /* DatabaseService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseService.swift; sourceTree = "<group>"; };
 		BA32E71D1EDFC76A0044C017 /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
 		BA32E7221EDFC8230044C017 /* AppViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppViewModel.swift; sourceTree = "<group>"; };
 		BA32E7261EDFC84F0044C017 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -171,9 +173,18 @@
 			path = UberGoCoreTests;
 			sourceTree = "<group>";
 		};
+		BA2A3A7B1EED26E3002A0343 /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				BA2A3A7C1EED26EF002A0343 /* DatabaseService.swift */,
+			);
+			name = Database;
+			sourceTree = "<group>";
+		};
 		BA32E71B1EDFC74C0044C017 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				BA2A3A7B1EED26E3002A0343 /* Database */,
 				BAED39E41EEA594C003D9BC3 /* Rx Extension */,
 				BAED39D31EE85DAE003D9BC3 /* Uber Service */,
 				BA7BA97F1EE415B70056B0CF /* Map Service */,
@@ -598,6 +609,7 @@
 				BAED39FA1EEBACD2003D9BC3 /* Rx+Optional.swift in Sources */,
 				BAF57FB01EE1168A0013090E /* PlaceObj.swift in Sources */,
 				BAED39E81EEA5954003D9BC3 /* ReachabilityService.swift in Sources */,
+				BA2A3A7D1EED26EF002A0343 /* DatabaseService.swift in Sources */,
 				BA4796B31EE3C93900620BB0 /* UUID+Helper.swift in Sources */,
 				BA32E71E1EDFC76A0044C017 /* AuthenticationViewModel.swift in Sources */,
 				BA4796A31EE2BF0800620BB0 /* NSError+Helper.swift in Sources */,
