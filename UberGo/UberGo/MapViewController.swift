@@ -152,6 +152,14 @@ extension MapViewController {
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
         self.collectionView.configureView(parenView: self.view, searchBarView: self.searchBarView)
+
+        // Register
+        let nib = NSNib(nibNamed: "SearchPlaceCell", bundle: nil)
+        self.collectionView.register(nib, forItemWithIdentifier: "SearchPlaceCell")
+
+        // Flow
+        let flow = SearchCollectionViewFlowLayout()
+        self.collectionView.collectionViewLayout = flow
     }
 }
 
@@ -164,7 +172,7 @@ extension MapViewController: MGLMapViewDelegate {
 }
 
 // MARK: - SearchBarViewDelegate
-extension MapViewController: SearchBarViewDelegate  {
+extension MapViewController: SearchBarViewDelegate {
 
     func searchBar(_ sender: SearchBarView, layoutStateDidChanged state: SearchBarViewLayoutState) {
         self.collectionView.layoutStateChanged(state)
@@ -183,7 +191,14 @@ extension MapViewController: NSCollectionViewDataSource {
 
     func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath)
         -> NSCollectionViewItem {
-        return NSCollectionViewItem()
+            guard let cell = collectionView.makeItem(withIdentifier: "SearchPlaceCell", for: indexPath)
+                as? SearchPlaceCell else {
+                return NSCollectionViewItem()
+            }
+
+            let placeObj = self.viewModel.output.searchPlaceObjsVariable.value[indexPath.item]
+            cell.configureCell(with: placeObj)
+            return cell
     }
 }
 

@@ -16,7 +16,6 @@ class SearchPlaceCell: NSCollectionViewItem {
     @IBOutlet fileprivate weak var addressLbl: NSTextField!
     @IBOutlet fileprivate weak var avatarImageView: NSImageView!
 
-
     // MARK: - View Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,7 +27,6 @@ class SearchPlaceCell: NSCollectionViewItem {
     func configureCell(with placeObj: PlaceObj) {
         self.titleLbl.stringValue = placeObj.name ?? ""
     }
-    
 }
 
 // MARK: - Private
