@@ -50,7 +50,7 @@ class MapViewController: BaseViewController {
 
     fileprivate func binding() {
         self.viewModel = MapViewModel()
-        self.viewModel.input.getCurrentLocationPublish.onNext()
+        self.viewModel.input.startUpdateLocationTriggerPublisher.onNext(true)
         self.viewModel.output.currentLocationDriver
             .filterNil()
             .drive(onNext: {[weak self] location in
@@ -76,6 +76,22 @@ class MapViewController: BaseViewController {
             guard let `self` = self else { return }
             print("Found Nearst Place = \(nearestPlaceObj)")
             self.searchBarView.updateNestestPlace(nearestPlaceObj)
+        })
+        .addDisposableTo(self.disposeBag)
+
+        // Input search
+        self.searchBarView.textSearchDidChangedDriver
+        .drive(onNext: {[unowned self] text in
+            self.viewModel.input.textSearchPublish.onNext(text)
+        })
+        .addDisposableTo(self.disposeBag)
+
+        // Reload
+        self.viewModel.output.searchPlaceObjsVariable.asObservable()
+        .subscribe(onNext: {[weak self] placeObjs in
+            guard let `self` = self else { return }
+            print("Place Search FOUND = \(placeObjs.count)")
+            self.collectionView.reloadData()
         })
         .addDisposableTo(self.disposeBag)
     }
@@ -136,6 +152,14 @@ extension MapViewController {
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
         self.collectionView.configureView(parenView: self.view, searchBarView: self.searchBarView)
+
+        // Register
+        let nib = NSNib(nibNamed: "SearchPlaceCell", bundle: nil)
+        self.collectionView.register(nib, forItemWithIdentifier: "SearchPlaceCell")
+
+        // Flow
+        let flow = SearchCollectionViewFlowLayout()
+        self.collectionView.collectionViewLayout = flow
     }
 }
 
@@ -148,7 +172,7 @@ extension MapViewController: MGLMapViewDelegate {
 }
 
 // MARK: - SearchBarViewDelegate
-extension MapViewController: SearchBarViewDelegate  {
+extension MapViewController: SearchBarViewDelegate {
 
     func searchBar(_ sender: SearchBarView, layoutStateDidChanged state: SearchBarViewLayoutState) {
         self.collectionView.layoutStateChanged(state)
@@ -162,12 +186,19 @@ extension MapViewController: NSCollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 0
+        return self.viewModel.searchPlaceObjsVariable.value.count
     }
 
     func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath)
         -> NSCollectionViewItem {
-        return NSCollectionViewItem()
+            guard let cell = collectionView.makeItem(withIdentifier: "SearchPlaceCell", for: indexPath)
+                as? SearchPlaceCell else {
+                return NSCollectionViewItem()
+            }
+
+            let placeObj = self.viewModel.output.searchPlaceObjsVariable.value[indexPath.item]
+            cell.configureCell(with: placeObj)
+            return cell
     }
 }
 
