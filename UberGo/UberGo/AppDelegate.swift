@@ -26,7 +26,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ aNotification: Notification) {
 
         // listen to scheme url
-        NSAppleEventManager.shared().setEventHandler(self, andSelector:#selector(AppDelegate.handleGetURL(event:withReplyEvent:)), forEventClass: AEEventClass(kInternetEventClass), andEventID: AEEventID(kAEGetURL))
+        let selector = #selector(AppDelegate.handleGetURL(event:withReplyEvent:))
+        NSAppleEventManager.shared().setEventHandler(self, andSelector: selector,
+                                                     forEventClass: AEEventClass(kInternetEventClass),
+                                                     andEventID: AEEventID(kAEGetURL))
 
         self.viewModel = AppViewModel()
         self.authenticationViewModel = AuthenticationViewModel()
@@ -65,7 +68,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func handleGetURL(event: NSAppleEventDescriptor!, withReplyEvent: NSAppleEventDescriptor!) {
         self.authenticationViewModel.input.uberCallbackPublish.onNext(event)
     }
-
 }
 
 // MARK: - Private

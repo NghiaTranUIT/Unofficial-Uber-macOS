@@ -17,16 +17,33 @@ class SearchPlaceCell: NSCollectionViewItem {
     @IBOutlet fileprivate weak var avatarImageView: NSImageView!
     @IBOutlet fileprivate weak var separateLine: NSView!
 
+    // MARK: - Variable
+    fileprivate var trackingArea: NSTrackingArea?
+    fileprivate var mouseInside = false {
+        didSet {
+            updateMouseOverUI()
+        }
+    }
+
     // MARK: - View Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.initCommon()
+        self.createTrackingAreaIfNeeded()
     }
 
     // MARK: - Public
     func configureCell(with placeObj: PlaceObj) {
         self.titleLbl.stringValue = placeObj.name ?? ""
+    }
+
+    override func mouseEntered(with theEvent: NSEvent) {
+        mouseInside = true
+    }
+
+    override func mouseExited(with theEvent: NSEvent) {
+        mouseInside = false
     }
 }
 
@@ -38,5 +55,34 @@ extension SearchPlaceCell {
         self.titleLbl.textColor = NSColor.black
         self.addressLbl.textColor = NSColor(hexString: "#A4A4A8")
         self.separateLine.backgroundColor = NSColor(hexString: "#EDEDED")
+    }
+
+    fileprivate func createTrackingAreaIfNeeded() {
+        if trackingArea == nil {
+                trackingArea = NSTrackingArea(rect: CGRect.zero,
+                                              options: [NSTrackingAreaOptions.inVisibleRect,
+                                                       NSTrackingAreaOptions.mouseEnteredAndExited,
+                                                       NSTrackingAreaOptions.activeAlways],
+                                              owner: self,
+                                              userInfo: nil)
+        }
+        if self.view.trackingAreas.contains(trackingArea!) == false {
+            self.view.addTrackingArea(trackingArea!)
+        }
+    }
+
+    fileprivate func updateMouseOverUI() {
+        print("mouse \(self.mouseInside)")
+        NSAnimationContext.runAnimationGroup({ (context) in
+            context.allowsImplicitAnimation = true
+            context.duration = 0.11
+            context.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
+
+            if self.mouseInside {
+                self.view.backgroundColor = NSColor(hexString: "#EDEDED")
+            } else {
+                self.view.backgroundColor = NSColor.white
+            }
+        }, completionHandler: nil)
     }
 }

@@ -20,7 +20,7 @@ public enum MapServiceResult {
     // MARK: - Helper
     public var isError: Bool {
         switch self {
-        case .error(_):
+        case .error:
             return true
         default:
             return false
@@ -29,7 +29,7 @@ public enum MapServiceResult {
 
     public var isSuccess: Bool {
         switch self {
-        case .location(_):
+        case .location:
             return true
         default:
             return false

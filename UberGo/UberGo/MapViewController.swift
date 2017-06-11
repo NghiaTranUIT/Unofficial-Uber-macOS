@@ -191,18 +191,18 @@ extension MapViewController: NSCollectionViewDataSource {
 
     func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath)
         -> NSCollectionViewItem {
-            guard let cell = collectionView.makeItem(withIdentifier: "SearchPlaceCell", for: indexPath)
-                as? SearchPlaceCell else {
-                return NSCollectionViewItem()
-            }
+        guard let cell = collectionView.makeItem(withIdentifier: "SearchPlaceCell", for: indexPath)
+            as? SearchPlaceCell else {
+            return NSCollectionViewItem()
+        }
 
-            let placeObj = self.viewModel.output.searchPlaceObjsVariable.value[indexPath.item]
-            cell.configureCell(with: placeObj)
-            return cell
+        let placeObj = self.viewModel.output.searchPlaceObjsVariable.value[indexPath.item]
+        cell.configureCell(with: placeObj)
+        return cell
     }
 }
 
 // MARK: - NSCollectionViewDelegate
-extension MapViewController: NSCollectionViewDelegate {
+extension MapViewController: NSCollectionViewDelegate, NSCollectionViewDelegateFlowLayout {
 
 }
