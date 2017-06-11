@@ -79,27 +79,43 @@ open class MapViewModel: BaseViewModel,
             })
             .addDisposableTo(self.disposeBag)
 
-        // Search
-        self.textSearchPublish.asObserver()
-            .skip(1)
-            .debounce(0.3, scheduler: MainScheduler.instance)
-            .distinctUntilChanged()
-            .flatMapLatest { text -> Observable<[PlaceObj]> in
-
-                guard let currentCoordinate = self.mapManager.currentLocationVariable.value?.coordinate else {
-                    return Observable.empty()
-                }
-
-                if text == "" {
-                    return Observable.just([])
-                }
-
-                // Search
-                let param = PlaceSearchRequestParam(keyword: text, location: currentCoordinate)
-                return PlaceSearchRequest(param).toObservable()
+        let shared = self.textSearchPublish.asObservable().share()
+        let searchTextObserver = shared.asObservable()
+        .debounce(0.3, scheduler: MainScheduler.instance)
+        .distinctUntilChanged()
+        .flatMapLatest { (text) -> Observable<[PlaceObj]> in
+            guard let currentCoordinate = self.mapManager.currentLocationVariable.value?.coordinate else {
+                return Observable.empty()
             }
-            .bind(to: self.searchPlaceObjsVariable)
-            .addDisposableTo(self.disposeBag)
+
+            if text == "" {
+                return Observable.empty()
+            }
+
+            // Search
+            let param = PlaceSearchRequestParam(keyword: text, location: currentCoordinate)
+            return PlaceSearchRequest(param).toObservable()
+        }
+
+        let personalObserver = shared.distinctUntilChanged()
+        .flatMapLatest { (text) -> Observable<[PlaceObj]> in
+            guard text == "" else {
+                return Observable.empty()
+            }
+
+            return self.personPlaceVariable.asObservable()
+                .map({ (personObj) -> [PlaceObj] in
+                    return personObj.map({ (personal) -> PlaceObj in
+                        let obj = PlaceObj()
+                        obj.name = personal.address
+                        return obj
+                    })
+                })
+        }
+
+        Observable.merge([searchTextObserver, personalObserver])
+        .bind(to: self.searchPlaceObjsVariable)
+        .addDisposableTo(self.disposeBag)
 
         // Person place
         self.uberService.personalPlaceObserver()

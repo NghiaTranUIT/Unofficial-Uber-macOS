@@ -99,9 +99,7 @@ class MapViewController: BaseViewController {
         .subscribe(onNext: {[weak self] placeObjs in
             guard let `self` = self else { return }
             print("Place Search FOUND = \(placeObjs.count)")
-            if self.searchBarView.textSearch != "" {
-                self.collectionView.reloadData()
-            }
+            self.collectionView.reloadData()
         })
         .addDisposableTo(self.disposeBag)
 
@@ -209,22 +207,12 @@ extension MapViewController: NSCollectionViewDataSource {
 
     func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {
 
-        // Show history + personal
-        if self.searchBarView.textSearch == "" {
-            return self.personPlaceObjs.count
-        }
-
         // Show result search
         return self.searchPlaceObjs.count
     }
 
     func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath)
     -> NSCollectionViewItem {
-
-        if self.searchBarView.textSearch == "" {
-            return self.getPersonalCell(with: collectionView, indexPath: indexPath)
-        }
-
         return self.getSearchCell(with: collectionView, indexPath: indexPath)
 
     }
