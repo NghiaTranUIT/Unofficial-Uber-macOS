@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12120"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="SearchPlaceCell" customModule="UberGo" customModuleProvider="target">
+            <connections>
+                <outlet property="addressLbl" destination="w0c-qx-FJX" id="VqM-aT-yu5"/>
+                <outlet property="avatarImageView" destination="v2O-RC-bWw" id="sTp-Pv-ByA"/>
+                <outlet property="titleLbl" destination="WXi-TZ-o2z" id="Prt-BV-IQr"/>
+                <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="Hz6-mo-xeY">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="57"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WXi-TZ-o2z">
+                    <rect key="frame" x="62" y="27" width="40" height="19"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Work" id="pL8-QZ-nhx">
+                        <font key="font" metaFont="system" size="15"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w0c-qx-FJX">
+                    <rect key="frame" x="62" y="10" width="152" height="18"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="21 Nguyen Trung Ngan" id="hUm-A2-rse">
+                        <font key="font" metaFont="system" size="14"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="v2O-RC-bWw">
+                    <rect key="frame" x="20" y="16" width="24" height="24"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="24" id="GSR-Re-8ch"/>
+                        <constraint firstAttribute="width" constant="24" id="vxJ-G3-EoI"/>
+                    </constraints>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="y0c-7Y-ltS"/>
+                </imageView>
+            </subviews>
+            <constraints>
+                <constraint firstItem="w0c-qx-FJX" firstAttribute="leading" secondItem="WXi-TZ-o2z" secondAttribute="leading" id="1sa-fO-E9n"/>
+                <constraint firstItem="WXi-TZ-o2z" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="11" id="4ZR-cY-hbI"/>
+                <constraint firstItem="v2O-RC-bWw" firstAttribute="centerY" secondItem="Hz6-mo-xeY" secondAttribute="centerY" id="FBz-Wy-fx0"/>
+                <constraint firstItem="w0c-qx-FJX" firstAttribute="top" secondItem="WXi-TZ-o2z" secondAttribute="bottom" constant="-1" id="LT0-Ye-qMT"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="w0c-qx-FJX" secondAttribute="trailing" constant="16" id="UED-ui-O4w"/>
+                <constraint firstItem="WXi-TZ-o2z" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="64" id="WWq-7U-9a4"/>
+                <constraint firstItem="v2O-RC-bWw" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="20" id="qE3-Vk-cui"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="WXi-TZ-o2z" secondAttribute="trailing" constant="16" id="uGD-VE-5Fw"/>
+            </constraints>
+            <point key="canvasLocation" x="86.5" y="61.5"/>
+        </customView>
+        <collectionViewItem id="9St-Zw-t6L" customClass="SearchPlaceCell" customModule="UberGo" customModuleProvider="target"/>
+    </objects>
+</document>
