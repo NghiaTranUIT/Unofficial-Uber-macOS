@@ -50,7 +50,7 @@ class MapViewController: BaseViewController {
 
     fileprivate func binding() {
         self.viewModel = MapViewModel()
-        self.viewModel.input.getCurrentLocationPublish.onNext()
+        self.viewModel.input.startUpdateLocationTriggerPublisher.onNext(true)
         self.viewModel.output.currentLocationDriver
             .filterNil()
             .drive(onNext: {[weak self] location in

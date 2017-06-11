@@ -16,6 +16,60 @@ public typealias MapAuthenticationBlock = (CLLocation?, Error?) -> Void
 public enum MapServiceResult {
     case location(CLLocation)
     case error(Error)
+
+    // MARK: - Helper
+    public var isError: Bool {
+        switch self {
+        case .error(_):
+            return true
+        default:
+            return false
+        }
+    }
+
+    public var isSuccess: Bool {
+        switch self {
+        case .location(_):
+            return true
+        default:
+            return false
+        }
+    }
+
+    public var location: CLLocation? {
+        switch self {
+        case .location(let _location):
+            return _location
+        default:
+            return nil
+        }
+    }
+}
+
+extension MapServiceResult: Equatable {
+
+    public static func ==(lhs: MapServiceResult, rhs: MapServiceResult) -> Bool {
+        if lhs.isError && rhs.isError {
+            return true
+        }
+
+        if lhs.isSuccess && rhs.isSuccess {
+            guard let lhsCoord = lhs.location?.coordinate else {
+                return false
+            }
+            guard let rhsCoord = rhs.location?.coordinate else {
+                return false
+            }
+
+            // Same coordinate
+            if lhsCoord.latitude == rhsCoord.latitude &&
+                lhsCoord.longitude == rhsCoord.longitude {
+                return true
+            }
+        }
+
+        return false
+    }
 }
 
 open class MapService: NSObject {
@@ -32,8 +86,6 @@ open class MapService: NSObject {
     public private(set) var authorized: Driver<Bool>!
 
     fileprivate lazy var locationManager: CLLocationManager = self.lazyLocationManager()
-    fileprivate var locationBlock: MapAuthenticationBlock?
-    fileprivate var shouldUpdateCurrentLocation = false
     fileprivate lazy var geoCoder: CLGeocoder = {
         return CLGeocoder()
     }()
@@ -45,8 +97,10 @@ open class MapService: NSObject {
         self.nearestPlaceObverser = self.currentLocationVariable
             .asObservable()
             .filterNil()
-            .flatMapLatest({ location -> Observable<PlaceObj> in
-            return self.nearestPlaceObverser(location)
+            .debounce(0.3, scheduler: MainScheduler.instance)
+            .distinctUntilChanged()
+            .flatMapLatest({[unowned self] location -> Observable<PlaceObj> in
+                return self.nearestPlaceObverser(location)
         })
 
         self.authorized = Observable.deferred { [weak locationManager] in
@@ -70,37 +124,15 @@ open class MapService: NSObject {
     }
 
     // MARK: - Public
-    public func requestLocation(with block: MapAuthenticationBlock?) {
-        self.locationBlock = block
-        self.shouldUpdateCurrentLocation = true
+    public func startUpdatingLocation() {
         self.locationManager.startUpdatingLocation()
     }
 
-    public func requestLocationObserver() -> Observable<MapServiceResult> {
-
-        return Observable<MapServiceResult>.create {[unowned self] observer -> Disposable in
-
-            self.requestLocation(with: { (location, error) in
-
-                if let location = location {
-                    let result = MapServiceResult.location(location)
-                    observer.onNext(result)
-                }
-
-                if let error = error {
-                    let result = MapServiceResult.error(error)
-                    observer.onNext(result)
-                }
-
-                // Complete
-                observer.onCompleted()
-            })
-
-            return Disposables.create()
-        }
+    public func stopUpdatingLocation() {
+        self.locationManager.stopUpdatingLocation()
     }
 
-    public func nearestPlaceObverser(_ location: CLLocation) -> Observable<PlaceObj> {
+    fileprivate func nearestPlaceObverser(_ location: CLLocation) -> Observable<PlaceObj> {
         let param = PlaceSearchRequestParam(location: location.coordinate)
         return PlaceSearchRequest(param).toObservable()
         .map({ (placeObjs) -> PlaceObj in
@@ -128,7 +160,6 @@ extension MapService: CLLocationManagerDelegate {
 
     public func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("Error \(error)")
-        self.locationBlock?(nil, error)
     }
 
     public func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
@@ -139,11 +170,6 @@ extension MapService: CLLocationManagerDelegate {
         guard let lastLocation = locations.last else { return }
 
         // Notify
-        if self.shouldUpdateCurrentLocation {
-            self.shouldUpdateCurrentLocation = false
-
-            self.locationBlock?(lastLocation, nil)
-            self.currentLocationVariable.value = lastLocation
-        }
+        self.currentLocationVariable.value = lastLocation
     }
 }
