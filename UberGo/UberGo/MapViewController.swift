@@ -16,7 +16,7 @@ class MapViewController: BaseViewController {
 
     // MARK: - OUTLET
     fileprivate var mapView: MGLMapView!
-    fileprivate var collectionView: SearchCollectionView!
+    fileprivate var searchCollectionView: SearchCollectionView!
 
     // MARK: - Variable
     fileprivate var viewModel: MapViewModel!
@@ -46,7 +46,7 @@ class MapViewController: BaseViewController {
         self.initSearchBarView()
 
         // CollectionView
-        self.initCollectionView()
+        self.initSearchCollectionView()
 
         // View Model
         self.binding()
@@ -66,9 +66,7 @@ class MapViewController: BaseViewController {
                     return
                 }
                 print("setCenter \(location)")
-                //self.updateCurrentLocation(point: location.coordinate)
-                self.addPoint(point: location.coordinate)
-                self.mapView.setCenter(location.coordinate, animated: true)
+                self.updateCurrentLocation(point: location.coordinate)
             })
             .addDisposableTo(self.disposeBag)
 
@@ -99,7 +97,7 @@ class MapViewController: BaseViewController {
         .subscribe(onNext: {[weak self] placeObjs in
             guard let `self` = self else { return }
             print("Place Search FOUND = \(placeObjs.count)")
-            self.collectionView.reloadData()
+            self.searchCollectionView.reloadData()
         })
         .addDisposableTo(self.disposeBag)
 
@@ -108,7 +106,7 @@ class MapViewController: BaseViewController {
                 guard let `self` = self else { return }
                 print("Personal place FOUND = \(placeObjs.count)")
                 if self.searchBarView.textSearch == "" {
-                    self.collectionView.reloadData()
+                    self.searchCollectionView.reloadData()
                 }
             })
             .addDisposableTo(self.disposeBag)
@@ -165,21 +163,10 @@ extension MapViewController {
         self.searchBarView.configureView(with: self.view)
     }
 
-    fileprivate func initCollectionView() {
-        self.collectionView = SearchCollectionView(defaultValue: true)
-        self.collectionView.delegate = self
-        self.collectionView.dataSource = self
-        self.collectionView.allowsMultipleSelection = false
-        self.collectionView.allowsEmptySelection = false
-        self.collectionView.configureView(parenView: self.view, searchBarView: self.searchBarView)
-
-        // Register
-        let nib = NSNib(nibNamed: "SearchPlaceCell", bundle: nil)
-        self.collectionView.register(nib, forItemWithIdentifier: "SearchPlaceCell")
-
-        // Flow
-        let flow = SearchCollectionViewFlowLayout()
-        self.collectionView.collectionViewLayout = flow
+    fileprivate func initSearchCollectionView() {
+        self.searchCollectionView = SearchCollectionView.viewFromNib(with: BundleType.app)!
+        self.searchCollectionView.delegate = self
+        self.searchCollectionView.configureView(parenView: self.view, searchBarView: self.searchBarView)
     }
 }
 
@@ -195,44 +182,17 @@ extension MapViewController: MGLMapViewDelegate {
 extension MapViewController: SearchBarViewDelegate {
 
     func searchBar(_ sender: SearchBarView, layoutStateDidChanged state: SearchBarViewLayoutState) {
-        self.collectionView.layoutStateChanged(state)
+        self.searchCollectionView.layoutStateChanged(state)
     }
 }
 
-// MARK: - NSCollectionViewDataSource
-extension MapViewController: NSCollectionViewDataSource {
-    func numberOfSections(in collectionView: NSCollectionView) -> Int {
-        return 1
-    }
-
-    func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {
-
+extension MapViewController: SearchCollectionViewDelegate {
+    func searchCollectionViewNumberOfPlace() -> Int {
         return self.searchPlaceObjs.count
     }
 
-    func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath)
-    -> NSCollectionViewItem {
-        return self.getSearchCell(with: collectionView, indexPath: indexPath)
-    }
-
-    fileprivate func getSearchCell(with collectionView: NSCollectionView, indexPath: IndexPath)
-    -> NSCollectionViewItem {
-
-        guard let cell = collectionView.makeItem(withIdentifier: "SearchPlaceCell", for: indexPath)
-            as? SearchPlaceCell else {
-                return NSCollectionViewItem()
-        }
-
-        let placeObj = self.searchPlaceObjs[indexPath.item]
-        cell.configurePlaceCell(placeObj)
-        return cell
+    func searchCollectionView(_ sender: SearchCollectionView, atIndex: IndexPath) -> PlaceObj {
+        return self.searchPlaceObjs[atIndex.item]
     }
 }
 
-// MARK: - NSCollectionViewDelegate
-extension MapViewController: NSCollectionViewDelegate, NSCollectionViewDelegateFlowLayout {
-
-    func collectionView(_ collectionView: NSCollectionView, didSelectItemsAt indexPaths: Set<IndexPath>) {
-        print("Did Select cell \(indexPaths)")
-    }
-}

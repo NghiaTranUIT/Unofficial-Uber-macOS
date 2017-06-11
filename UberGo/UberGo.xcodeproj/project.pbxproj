@@ -16,6 +16,8 @@
 		BA2A3A751EECFF6E002A0343 /* SearchPlaceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2A3A731EECFF6E002A0343 /* SearchPlaceCell.swift */; };
 		BA2A3A761EECFF6E002A0343 /* SearchPlaceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA2A3A741EECFF6E002A0343 /* SearchPlaceCell.xib */; };
 		BA2A3A781EECFFD6002A0343 /* searchCell@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BA2A3A771EECFFD6002A0343 /* searchCell@2x.jpg */; };
+		BA2A3A831EED4298002A0343 /* SearchCollectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA2A3A821EED4298002A0343 /* SearchCollectionView.xib */; };
+		BA2A3A861EED430D002A0343 /* SearchCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2A3A851EED430D002A0343 /* SearchCollectionView.swift */; };
 		BA4796A91EE2C49700620BB0 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA4796A81EE2C49700620BB0 /* MapKit.framework */; };
 		BA7BA9831EE42C060056B0CF /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA7BA9821EE42C060056B0CF /* CoreLocation.framework */; };
 		BADB784A1EE5ABD5000536F7 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB78491EE5ABD5000536F7 /* SearchBarView.swift */; };
@@ -33,7 +35,7 @@
 		BAE690281EE4346700A4D876 /* Mapbox.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BAE690261EE4346700A4D876 /* Mapbox.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		BAE6902C1EE460EB00A4D876 /* EventMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE6902B1EE460EB00A4D876 /* EventMonitor.swift */; };
 		BAE6902D1EE5139500A4D876 /* UberGoCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA4796951EE2540D00620BB0 /* UberGoCore.framework */; };
-		BAED39DB1EE9A705003D9BC3 /* SearchCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAED39DA1EE9A705003D9BC3 /* SearchCollectionView.swift */; };
+		BAED39DB1EE9A705003D9BC3 /* UberCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAED39DA1EE9A705003D9BC3 /* UberCollectionView.swift */; };
 		BAED39DD1EE9ADB7003D9BC3 /* SearchCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAED39DC1EE9ADB7003D9BC3 /* SearchCollectionViewFlowLayout.swift */; };
 		BAF57FB91EE116FB0013090E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF57FB71EE116FB0013090E /* LoginViewController.swift */; };
 		BAF57FBA1EE116FB0013090E /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BAF57FB81EE116FB0013090E /* LoginViewController.xib */; };
@@ -82,6 +84,8 @@
 		BA2A3A731EECFF6E002A0343 /* SearchPlaceCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchPlaceCell.swift; sourceTree = "<group>"; };
 		BA2A3A741EECFF6E002A0343 /* SearchPlaceCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchPlaceCell.xib; sourceTree = "<group>"; };
 		BA2A3A771EECFFD6002A0343 /* searchCell@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "searchCell@2x.jpg"; sourceTree = "<group>"; };
+		BA2A3A821EED4298002A0343 /* SearchCollectionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchCollectionView.xib; sourceTree = "<group>"; };
+		BA2A3A851EED430D002A0343 /* SearchCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchCollectionView.swift; sourceTree = "<group>"; };
 		BA4796951EE2540D00620BB0 /* UberGoCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = UberGoCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA4796A81EE2C49700620BB0 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		BA7BA9821EE42C060056B0CF /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -98,7 +102,7 @@
 		BADB78631EE6EFE1000536F7 /* UberTextFieldCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UberTextFieldCell.swift; sourceTree = "<group>"; };
 		BAE690261EE4346700A4D876 /* Mapbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Mapbox.framework; sourceTree = "<group>"; };
 		BAE6902B1EE460EB00A4D876 /* EventMonitor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventMonitor.swift; sourceTree = "<group>"; };
-		BAED39DA1EE9A705003D9BC3 /* SearchCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchCollectionView.swift; sourceTree = "<group>"; };
+		BAED39DA1EE9A705003D9BC3 /* UberCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UberCollectionView.swift; sourceTree = "<group>"; };
 		BAED39DC1EE9ADB7003D9BC3 /* SearchCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
 		BAF57FB71EE116FB0013090E /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		BAF57FB81EE116FB0013090E /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
@@ -187,6 +191,15 @@
 			path = UberGoTests;
 			sourceTree = "<group>";
 		};
+		BA2A3A841EED42F2002A0343 /* Container */ = {
+			isa = PBXGroup;
+			children = (
+				BA2A3A851EED430D002A0343 /* SearchCollectionView.swift */,
+				BA2A3A821EED4298002A0343 /* SearchCollectionView.xib */,
+			);
+			name = Container;
+			sourceTree = "<group>";
+		};
 		BA32E71F1EDFC78B0044C017 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
@@ -217,7 +230,6 @@
 			isa = PBXGroup;
 			children = (
 				BAED39D91EE9A6EF003D9BC3 /* Search Collection View */,
-				BADB78621EE6EFAE000536F7 /* Uber */,
 				BADB785F1EE66190000536F7 /* UberTextField */,
 				BADB785C1EE5B9F5000536F7 /* UberButton */,
 				BADB78531EE5B7BA000536F7 /* ActionSearchBarView */,
@@ -261,13 +273,6 @@
 			name = UberTextField;
 			sourceTree = "<group>";
 		};
-		BADB78621EE6EFAE000536F7 /* Uber */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Uber;
-			sourceTree = "<group>";
-		};
 		BAE6902A1EE460DF00A4D876 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -283,7 +288,8 @@
 		BAED39D91EE9A6EF003D9BC3 /* Search Collection View */ = {
 			isa = PBXGroup;
 			children = (
-				BAED39DA1EE9A705003D9BC3 /* SearchCollectionView.swift */,
+				BA2A3A841EED42F2002A0343 /* Container */,
+				BAED39DA1EE9A705003D9BC3 /* UberCollectionView.swift */,
 				BAED39DC1EE9ADB7003D9BC3 /* SearchCollectionViewFlowLayout.swift */,
 				BA2A3A731EECFF6E002A0343 /* SearchPlaceCell.swift */,
 				BA2A3A741EECFF6E002A0343 /* SearchPlaceCell.xib */,
@@ -419,6 +425,7 @@
 				BADB784C1EE5ABDE000536F7 /* SearchBarView.xib in Resources */,
 				BADB78571EE5B7FB000536F7 /* ActionSearchBarView.xib in Resources */,
 				BA037F3E1EDD61F800945C1D /* Main.storyboard in Resources */,
+				BA2A3A831EED4298002A0343 /* SearchCollectionView.xib in Resources */,
 				BAF57FBA1EE116FB0013090E /* LoginViewController.xib in Resources */,
 				BA2A3A761EECFF6E002A0343 /* SearchPlaceCell.xib in Resources */,
 				BAF57FC01EE117300013090E /* MapViewController.xib in Resources */,
@@ -567,10 +574,11 @@
 				BAED39DD1EE9ADB7003D9BC3 /* SearchCollectionViewFlowLayout.swift in Sources */,
 				BADB785B1EE5B93D000536F7 /* NSColor+Hex.swift in Sources */,
 				BADB78611EE661A8000536F7 /* UberTextField.swift in Sources */,
+				BA2A3A861EED430D002A0343 /* SearchCollectionView.swift in Sources */,
 				BA037F371EDD61F800945C1D /* AppDelegate.swift in Sources */,
 				BADB78521EE5AC86000536F7 /* NSView+Identity.swift in Sources */,
 				BA2A3A751EECFF6E002A0343 /* SearchPlaceCell.swift in Sources */,
-				BAED39DB1EE9A705003D9BC3 /* SearchCollectionView.swift in Sources */,
+				BAED39DB1EE9A705003D9BC3 /* UberCollectionView.swift in Sources */,
 				BADB785E1EE5BA0C000536F7 /* UberButton.swift in Sources */,
 				BADB78641EE6EFE1000536F7 /* UberTextFieldCell.swift in Sources */,
 				BAE6902C1EE460EB00A4D876 /* EventMonitor.swift in Sources */,
