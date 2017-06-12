@@ -102,7 +102,6 @@ class SearchCollectionViewFlowLayout: NSCollectionViewFlowLayout {
     }
 
     override open var collectionViewContentSize: CGSize {
-        print("collectionViewContentSize = \(self.contentSize)")
         return self.contentSize
     }
 }

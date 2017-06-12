@@ -28,10 +28,6 @@ class MapViewController: BaseViewController {
         return self.viewModel.output.searchPlaceObjsVariable.value
     }
 
-    fileprivate var personPlaceObjs: [UberPersonalPlaceObj] {
-        return self.viewModel.output.personPlaceVariable.value
-    }
-
     // MARK: - View Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,42 +62,38 @@ class MapViewController: BaseViewController {
                     return
                 }
                 print("setCenter \(location)")
-                self.updateCurrentLocation(point: location.coordinate)
+//                self.updateCurrentLocation(point: location.coordinate)
+                self.addPoint(point: location.coordinate)
+                self.mapView.setCenter(location.coordinate, animated: true)
             })
             .addDisposableTo(self.disposeBag)
 
-        // Show Product available
-//        self.viewModel.output.productsVariable.asDriver().drive(onNext: { [weak self] productObjs in
-//            guard let `self` = self else { return }
-//            print("Found available products = \(productObjs)")
-//            self.addProductObjs(productObjs)
-//        })
-//        .addDisposableTo(self.disposeBag)
-
         self.viewModel.output.nearestPlaceDriver.drive(onNext: { [weak self] nearestPlaceObj in
-            guard let `self` = self else { return }
-            print("Found Nearst Place = \(nearestPlaceObj)")
-            self.searchBarView.updateNestestPlace(nearestPlaceObj)
-        })
-        .addDisposableTo(self.disposeBag)
+                guard let `self` = self else { return }
+                print("Found Nearst Place = \(nearestPlaceObj)")
+                self.searchBarView.updateNestestPlace(nearestPlaceObj)
+            })
+            .addDisposableTo(self.disposeBag)
 
         // Input search
         self.searchBarView.textSearchDidChangedDriver
-        .drive(onNext: {[unowned self] text in
-            self.viewModel.input.textSearchPublish.onNext(text)
-        })
-        .addDisposableTo(self.disposeBag)
+            .drive(onNext: {[unowned self] text in
+                self.viewModel.input.textSearchPublish.onNext(text)
+            })
+            .addDisposableTo(self.disposeBag)
 
         // Reload
-        self.viewModel.output.searchPlaceObjsVariable.asObservable()
-        .subscribe(onNext: {[weak self] placeObjs in
-            guard let `self` = self else { return }
-            print("Place Search FOUND = \(placeObjs.count)")
-            self.searchCollectionView.reloadData()
-        })
-        .addDisposableTo(self.disposeBag)
+        self.viewModel.output.searchPlaceObjsVariable
+            .asObservable()
+            .subscribe(onNext: {[weak self] placeObjs in
+                guard let `self` = self else { return }
+                print("Place Search FOUND = \(placeObjs.count)")
+                self.searchCollectionView.reloadData()
+            })
+            .addDisposableTo(self.disposeBag)
 
-        self.viewModel.output.personPlaceVariable.asObservable()
+        self.viewModel.output.personPlaceObjsVariable
+            .asObservable()
             .subscribe(onNext: {[weak self] placeObjs in
                 guard let `self` = self else { return }
                 print("Personal place FOUND = \(placeObjs.count)")
@@ -110,6 +102,14 @@ class MapViewController: BaseViewController {
                 }
             })
             .addDisposableTo(self.disposeBag)
+
+        // Loader
+        self.viewModel.output.loadingPublisher.subscribe(onNext: {[weak self] isLoading in
+            guard let `self` = self else {
+                return
+            }
+            self.searchBarView.loaderIndicatorView(isLoading)
+        }).addDisposableTo(self.disposeBag)
     }
 
     fileprivate func updateCurrentLocation(point: CLLocationCoordinate2D) {
@@ -195,4 +195,3 @@ extension MapViewController: SearchCollectionViewDelegate {
         return self.searchPlaceObjs[atIndex.item]
     }
 }
-

@@ -168,8 +168,4 @@ extension SearchCollectionView: NSCollectionViewDataSource {
 
 // MARK: - NSCollectionViewDelegate
 extension SearchCollectionView: NSCollectionViewDelegate, NSCollectionViewDelegateFlowLayout {
-
-    func collectionView(_ collectionView: NSCollectionView, didSelectItemsAt indexPaths: Set<IndexPath>) {
-        self.print("Did Select cell \(indexPaths)")
-    }
 }

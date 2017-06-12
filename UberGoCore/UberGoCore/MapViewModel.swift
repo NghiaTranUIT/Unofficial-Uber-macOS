@@ -30,7 +30,8 @@ public protocol MapViewModelOutput {
     var nearestPlaceDriver: Driver<PlaceObj> { get }
     var productsVariable: Variable<[ProductObj]> { get }
     var searchPlaceObjsVariable: Variable<[PlaceObj]> { get }
-    var personPlaceVariable: Variable<[UberPersonalPlaceObj]> { get }
+    var personPlaceObjsVariable: Variable<[PlaceObj]> { get }
+    var loadingPublisher: PublishSubject<Bool> { get }
 }
 
 // MARK: - View Model
@@ -60,7 +61,8 @@ open class MapViewModel: BaseViewModel,
         return self.mapManager.nearestPlaceObverser.asDriver(onErrorJustReturn: PlaceObj.unknowPlace)
     }
     public var searchPlaceObjsVariable = Variable<[PlaceObj]>([])
-    public var personPlaceVariable = Variable<[UberPersonalPlaceObj]>([])
+    public var personPlaceObjsVariable = Variable<[PlaceObj]>([])
+    public var loadingPublisher = PublishSubject<Bool>()
 
     // MARK: - Init
     public override init() {
@@ -83,10 +85,11 @@ open class MapViewModel: BaseViewModel,
             .asObservable()
             .share()
 
-        let searchTextObserver = shared.asObservable()
+        let searchTextObserver = shared
+            .asObservable()
             .debounce(0.3, scheduler: MainScheduler.instance)
             .distinctUntilChanged()
-            .flatMapLatest { (text) -> Observable<[PlaceObj]> in
+            .flatMapLatest {[unowned self] (text) -> Observable<[PlaceObj]> in
                 guard let currentCoordinate = self.mapManager.currentLocationVariable.value?.coordinate else {
                     return Observable.empty()
                 }
@@ -95,30 +98,43 @@ open class MapViewModel: BaseViewModel,
                     return Observable.empty()
                 }
 
+                // Start
+                self.loadingPublisher.onNext(true)
+
                 // Search
                 let param = PlaceSearchRequestParam(keyword: text, location: currentCoordinate)
                 return PlaceSearchRequest(param).toObservable()
             }
 
-        let personalObserver = shared.distinctUntilChanged()
+        let personalObserver = shared
+            .distinctUntilChanged()
             .flatMapLatest { (text) -> Observable<[PlaceObj]> in
                 guard text == "" else {
                     return Observable.empty()
                 }
 
-                return self.personPlaceVariable
-                    .asObservable()
-                    // Map in map: [UberPersonalPlaceObj] -> [PlaceObj]
-                    .map({ $0.map({ PlaceObj(personalPlaceObj: $0) }) })
+                // Start
+                self.loadingPublisher.onNext(true)
+
+                return self.personPlaceObjsVariable.asObservable()
             }
 
         Observable.merge([searchTextObserver, personalObserver])
+            .skip(1)
+            .do(onNext: {[weak self] _ in
+                guard let `self` = self else { return }
+                self.loadingPublisher.onNext(false)
+            })
             .bind(to: self.searchPlaceObjsVariable)
             .addDisposableTo(self.disposeBag)
 
         // Person place
-        self.uberService.personalPlaceObserver()
-            .bind(to: self.personPlaceVariable)
+        self.loadingPublisher.onNext(true)
+        self.uberService
+            .personalPlaceObserver()
+            // Map in map: [UberPersonalPlaceObj] -> [PlaceObj]
+            .map({ $0.map({ PlaceObj(personalPlaceObj: $0) }) })
+            .bind(to: self.personPlaceObjsVariable)
             .addDisposableTo(self.disposeBag)
     }
 }
