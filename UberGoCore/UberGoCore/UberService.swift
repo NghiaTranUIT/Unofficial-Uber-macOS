@@ -42,6 +42,14 @@ open class UberService {
         let param = UberProductsRequestParam(location: location)
         return UberProductsRequest(param).toObservable()
     }
+
+    public func rideEstimatePrice(from originLocation: CLLocationCoordinate2D,
+                                  to destinationLocation: CLLocationCoordinate2D)
+        -> Observable<[PriceObj]> {
+        let param = RideEstimatePriceRequestParam(originLocation: originLocation,
+                                                  destinationLocation: destinationLocation)
+        return RideEstimatePriceRequest(param).toObservable()
+    }
 }
 
 // MARK: - Private

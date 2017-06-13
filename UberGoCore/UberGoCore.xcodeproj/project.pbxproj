@@ -14,6 +14,7 @@
 		BA0C91961EEF8B4E00BA8B4B /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0C91951EEF8B4E00BA8B4B /* Logger.swift */; };
 		BA0C91981EEF919B00BA8B4B /* Coordinate2DTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0C91971EEF919B00BA8B4B /* Coordinate2DTransform.swift */; };
 		BA0C919A1EF031FB00BA8B4B /* RideEstimatePriceRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0C91991EF031FB00BA8B4B /* RideEstimatePriceRequest.swift */; };
+		BA0C919C1EF0420E00BA8B4B /* LocationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0C919B1EF0420E00BA8B4B /* LocationHelper.swift */; };
 		BA2A3A7D1EED26EF002A0343 /* DatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2A3A7C1EED26EF002A0343 /* DatabaseService.swift */; };
 		BA32E71E1EDFC76A0044C017 /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA32E71D1EDFC76A0044C017 /* AuthenticationViewModel.swift */; };
 		BA32E7231EDFC8230044C017 /* AppViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA32E7221EDFC8230044C017 /* AppViewModel.swift */; };
@@ -76,6 +77,7 @@
 		BA0C91951EEF8B4E00BA8B4B /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		BA0C91971EEF919B00BA8B4B /* Coordinate2DTransform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coordinate2DTransform.swift; sourceTree = "<group>"; };
 		BA0C91991EF031FB00BA8B4B /* RideEstimatePriceRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RideEstimatePriceRequest.swift; sourceTree = "<group>"; };
+		BA0C919B1EF0420E00BA8B4B /* LocationHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationHelper.swift; sourceTree = "<group>"; };
 		BA2A3A7C1EED26EF002A0343 /* DatabaseService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseService.swift; sourceTree = "<group>"; };
 		BA32E71D1EDFC76A0044C017 /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
 		BA32E7221EDFC8230044C017 /* AppViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppViewModel.swift; sourceTree = "<group>"; };
@@ -311,6 +313,7 @@
 			isa = PBXGroup;
 			children = (
 				BADB786E1EE7151F000536F7 /* FakeUberCrendential.swift */,
+				BA0C919B1EF0420E00BA8B4B /* LocationHelper.swift */,
 			);
 			name = Helper;
 			sourceTree = "<group>";
@@ -642,6 +645,7 @@
 				BADB786D1EE712C9000536F7 /* UberServiceTests.swift in Sources */,
 				BA4796B51EE3D49300620BB0 /* UserObjTests.swift in Sources */,
 				BADB786B1EE70FFB000536F7 /* GoogleServiceTests.swift in Sources */,
+				BA0C919C1EF0420E00BA8B4B /* LocationHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

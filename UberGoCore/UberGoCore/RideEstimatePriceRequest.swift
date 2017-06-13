@@ -47,10 +47,10 @@ class RideEstimatePriceRequest: Requestable {
 
     // Param
     var param: Parameter? { return self._param }
-    fileprivate var _param: UberProductsRequestParam
+    fileprivate var _param: RideEstimatePriceRequestParam
 
     // MARK: - Init
-    init(_ param: UberProductsRequestParam) {
+    init(_ param: RideEstimatePriceRequestParam) {
         self._param = param
     }
 
@@ -59,7 +59,7 @@ class RideEstimatePriceRequest: Requestable {
         guard let result = data as? [String: Any] else {
             return []
         }
-        guard let products = result["products"] as? [[String: Any]] else {
+        guard let products = result["prices"] as? [[String: Any]] else {
             return []
         }
         return Mapper<PriceObj>().mapArray(JSONArray: products)
