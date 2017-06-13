@@ -15,6 +15,13 @@
 		BA0C91981EEF919B00BA8B4B /* Coordinate2DTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0C91971EEF919B00BA8B4B /* Coordinate2DTransform.swift */; };
 		BA0C919A1EF031FB00BA8B4B /* RideEstimatePriceRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0C91991EF031FB00BA8B4B /* RideEstimatePriceRequest.swift */; };
 		BA0C919C1EF0420E00BA8B4B /* LocationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0C919B1EF0420E00BA8B4B /* LocationHelper.swift */; };
+		BA0C919E1EF047F000BA8B4B /* GetCurrentTripRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0C919D1EF047F000BA8B4B /* GetCurrentTripRequest.swift */; };
+		BA0C91A01EF0480400BA8B4B /* UpdateCurrentTripRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0C919F1EF0480400BA8B4B /* UpdateCurrentTripRequest.swift */; };
+		BA0C91A21EF0481700BA8B4B /* CancelCurerntTripRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0C91A11EF0481700BA8B4B /* CancelCurerntTripRequest.swift */; };
+		BA0C91A41EF0497A00BA8B4B /* RiderObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0C91A31EF0497A00BA8B4B /* RiderObj.swift */; };
+		BA0C91A61EF0499600BA8B4B /* VehicleObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0C91A51EF0499600BA8B4B /* VehicleObj.swift */; };
+		BA0C91A81EF049C300BA8B4B /* WaypointObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0C91A71EF049C300BA8B4B /* WaypointObj.swift */; };
+		BA0C91AA1EF04AA200BA8B4B /* DriverObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0C91A91EF04AA200BA8B4B /* DriverObj.swift */; };
 		BA2A3A7D1EED26EF002A0343 /* DatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2A3A7C1EED26EF002A0343 /* DatabaseService.swift */; };
 		BA32E71E1EDFC76A0044C017 /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA32E71D1EDFC76A0044C017 /* AuthenticationViewModel.swift */; };
 		BA32E7231EDFC8230044C017 /* AppViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA32E7221EDFC8230044C017 /* AppViewModel.swift */; };
@@ -78,6 +85,13 @@
 		BA0C91971EEF919B00BA8B4B /* Coordinate2DTransform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coordinate2DTransform.swift; sourceTree = "<group>"; };
 		BA0C91991EF031FB00BA8B4B /* RideEstimatePriceRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RideEstimatePriceRequest.swift; sourceTree = "<group>"; };
 		BA0C919B1EF0420E00BA8B4B /* LocationHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationHelper.swift; sourceTree = "<group>"; };
+		BA0C919D1EF047F000BA8B4B /* GetCurrentTripRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetCurrentTripRequest.swift; sourceTree = "<group>"; };
+		BA0C919F1EF0480400BA8B4B /* UpdateCurrentTripRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateCurrentTripRequest.swift; sourceTree = "<group>"; };
+		BA0C91A11EF0481700BA8B4B /* CancelCurerntTripRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CancelCurerntTripRequest.swift; sourceTree = "<group>"; };
+		BA0C91A31EF0497A00BA8B4B /* RiderObj.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RiderObj.swift; sourceTree = "<group>"; };
+		BA0C91A51EF0499600BA8B4B /* VehicleObj.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VehicleObj.swift; sourceTree = "<group>"; };
+		BA0C91A71EF049C300BA8B4B /* WaypointObj.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaypointObj.swift; sourceTree = "<group>"; };
+		BA0C91A91EF04AA200BA8B4B /* DriverObj.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DriverObj.swift; sourceTree = "<group>"; };
 		BA2A3A7C1EED26EF002A0343 /* DatabaseService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseService.swift; sourceTree = "<group>"; };
 		BA32E71D1EDFC76A0044C017 /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
 		BA32E7221EDFC8230044C017 /* AppViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppViewModel.swift; sourceTree = "<group>"; };
@@ -231,6 +245,10 @@
 				BAF57FB11EE116990013090E /* PriceObj.swift */,
 				BAE690301EE5146F00A4D876 /* ProductObj.swift */,
 				BAED39D71EE9097C003D9BC3 /* UberPersonalPlaceObj.swift */,
+				BA0C91A31EF0497A00BA8B4B /* RiderObj.swift */,
+				BA0C91A51EF0499600BA8B4B /* VehicleObj.swift */,
+				BA0C91A71EF049C300BA8B4B /* WaypointObj.swift */,
+				BA0C91A91EF04AA200BA8B4B /* DriverObj.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -244,6 +262,9 @@
 				BADB78661EE70AB0000536F7 /* PlaceSearchRequest.swift */,
 				BADB78701EE7BBA2000536F7 /* UberPersonalPlaceRequest.swift */,
 				BA0C91991EF031FB00BA8B4B /* RideEstimatePriceRequest.swift */,
+				BA0C919D1EF047F000BA8B4B /* GetCurrentTripRequest.swift */,
+				BA0C919F1EF0480400BA8B4B /* UpdateCurrentTripRequest.swift */,
+				BA0C91A11EF0481700BA8B4B /* CancelCurerntTripRequest.swift */,
 			);
 			name = Network;
 			sourceTree = "<group>";
@@ -601,12 +622,17 @@
 			files = (
 				BADB78691EE70CBB000536F7 /* Parameter.swift in Sources */,
 				BA0C91961EEF8B4E00BA8B4B /* Logger.swift in Sources */,
+				BA0C91A81EF049C300BA8B4B /* WaypointObj.swift in Sources */,
 				BADB78711EE7BBA2000536F7 /* UberPersonalPlaceRequest.swift in Sources */,
 				BAF57FAA1EE1166A0013090E /* UserObj.swift in Sources */,
 				BA4796A01EE2BD3A00620BB0 /* Requestable.swift in Sources */,
 				BA32E7231EDFC8230044C017 /* AppViewModel.swift in Sources */,
+				BA0C91A61EF0499600BA8B4B /* VehicleObj.swift in Sources */,
 				BAED39D81EE9097C003D9BC3 /* UberPersonalPlaceObj.swift in Sources */,
+				BA0C919E1EF047F000BA8B4B /* GetCurrentTripRequest.swift in Sources */,
+				BA0C91A21EF0481700BA8B4B /* CancelCurerntTripRequest.swift in Sources */,
 				BA4796B01EE2DAFE00620BB0 /* UberOauth.swift in Sources */,
+				BA0C91A01EF0480400BA8B4B /* UpdateCurrentTripRequest.swift in Sources */,
 				BA0C919A1EF031FB00BA8B4B /* RideEstimatePriceRequest.swift in Sources */,
 				BAED39E71EEA5954003D9BC3 /* Reachability.swift in Sources */,
 				BAF57FAE1EE116820013090E /* TripObj.swift in Sources */,
@@ -615,6 +641,7 @@
 				BAF57FAC1EE116710013090E /* BaseObj.swift in Sources */,
 				BAED39E21EE9B67C003D9BC3 /* RxCLLocationManagerDelegateProxy.swift in Sources */,
 				BAF57FC21EE11A080013090E /* BaseViewModel.swift in Sources */,
+				BA0C91AA1EF04AA200BA8B4B /* DriverObj.swift in Sources */,
 				BA4796AC1EE2D5BD00620BB0 /* BaseViewController.swift in Sources */,
 				BA4796A71EE2C0C700620BB0 /* MapViewModel.swift in Sources */,
 				BA7BA9811EE415D10056B0CF /* MapService.swift in Sources */,
@@ -623,6 +650,7 @@
 				BAE6902F1EE513EF00A4D876 /* UberProductsRequest.swift in Sources */,
 				BAED39FA1EEBACD2003D9BC3 /* Rx+Optional.swift in Sources */,
 				BAF57FB01EE1168A0013090E /* PlaceObj.swift in Sources */,
+				BA0C91A41EF0497A00BA8B4B /* RiderObj.swift in Sources */,
 				BAED39E81EEA5954003D9BC3 /* ReachabilityService.swift in Sources */,
 				BA2A3A7D1EED26EF002A0343 /* DatabaseService.swift in Sources */,
 				BA4796B31EE3C93900620BB0 /* UUID+Helper.swift in Sources */,

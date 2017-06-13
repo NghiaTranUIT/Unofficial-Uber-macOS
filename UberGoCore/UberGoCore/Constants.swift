@@ -84,6 +84,7 @@ struct Constants {
 
         // MARK: - Price
         struct Price {
+
             static let LocalizedDisplayName = "localized_display_name"
             static let Distance = "distance"
             static let DisplayName = "display_name"
@@ -93,6 +94,47 @@ struct Constants {
             static let Duration = "duration"
             static let Estimate = "estimate"
             static let CurrencyCode = "currency_code"
+        }
+
+        // MARK: - Trip
+        struct Trip {
+            
+        }
+
+        // MARK: - Waypoint
+        struct Waypoint {
+
+            static let RiderId = "rider_id"
+            static let Latitude = "latitude"
+            static let Longitude = "longitude"
+            static let `Type` = "type"
+        }
+
+        // MARK: - Rider
+        struct Rider {
+
+            static let RiderId = "rider_id"
+            static let FirstName = "first_name"
+            static let Me = "me"
+        }
+
+        // MARK: - Driver
+        struct Driver {
+
+            static let PhoneNumber = "phone_number"
+            static let SmsNumber = "sms_number"
+            static let Rating = "rating"
+            static let PictureUrl = "picture_url"
+            static let Name = "name"
+        }
+
+        // MARK: - Vehicle
+        struct Vehicle {
+
+            static let Make = "make"
+            static let Model = "model"
+            static let LicensePlate = "license_plate"
+            static let PictureUrl = "picture_url"
         }
     }
 }
