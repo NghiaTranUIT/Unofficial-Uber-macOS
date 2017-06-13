@@ -8,6 +8,7 @@
 
 import Cocoa
 import ObjectMapper
+import CoreLocation
 
 // PlaceType
 public enum PlaceType {
@@ -46,6 +47,8 @@ open class PlaceObj: BaseObj {
     public var placeType = PlaceType.place
     public var name: String?
     public var address: String?
+    public var coordinate2D: CLLocationCoordinate2D?
+    public var location: [String: Float]?
 
     // MARK: - Init
     convenience init(personalPlaceObj: UberPersonalPlaceObj) {
@@ -62,6 +65,8 @@ open class PlaceObj: BaseObj {
 
         self.name <- map["name"]
         self.address <- map["vicinity"]
+        self.location <- map["geometry.location"]
+        self.coordinate2D <- (map["geometry.location"], Coordinate2DTransform())
     }
 }
 

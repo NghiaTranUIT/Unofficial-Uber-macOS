@@ -40,7 +40,7 @@ class SearchBarView: NSView {
             self.animateSearchBarState()
         }
     }
-    public fileprivate(set) var layoutState: SearchBarViewLayoutState {
+    public var layoutState: SearchBarViewLayoutState {
         get {
             return self._layoutState
         }

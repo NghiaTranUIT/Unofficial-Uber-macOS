@@ -20,13 +20,19 @@ class MapViewController: BaseViewController {
 
     // MARK: - Variable
     fileprivate var viewModel: MapViewModel!
-    fileprivate var currentLocationPoint: MGLPointAnnotation?
     fileprivate var searchBarView: SearchBarView!
     fileprivate var isFirstTime = true
 
     fileprivate var searchPlaceObjs: [PlaceObj] {
         return self.viewModel.output.searchPlaceObjsVariable.value
     }
+
+    // Origin
+    fileprivate var originPoint: MGLPointAnnotation?
+
+    // Destination
+    fileprivate var destinationPlaceObj: PlaceObj?
+    fileprivate var destinationPoint: MGLPointAnnotation?
 
     // MARK: - View Cycle
     override func viewDidLoad() {
@@ -110,33 +116,53 @@ class MapViewController: BaseViewController {
             }
             self.searchBarView.loaderIndicatorView(isLoading)
         }).addDisposableTo(self.disposeBag)
-    }
 
-    fileprivate func updateCurrentLocation(point: CLLocationCoordinate2D) {
-        if self.currentLocationPoint == nil {
-            let location = MGLPointAnnotation()
-            location.coordinate = point
-            location.title = "Here"
-
-            // Add
-            self.currentLocationPoint = location
-            self.mapView.addAnnotation(location)
-        } else {
-            self.currentLocationPoint?.coordinate = point
-        }
+        // Selected Place
+        self.viewModel.output.selectedPlaceObjDriver.drive(onNext: {[weak self] placeObj in
+            guard let `self` = self else {
+                return
+            }
+            self.addDestinationPlaceObj(placeObj)
+        })
+        .addDisposableTo(self.disposeBag)
     }
 
     fileprivate func addPoint(point: CLLocationCoordinate2D) {
+
+        // Remove if need
+        if let currentPoint = self.originPoint {
+            self.mapView.removeAnnotation(currentPoint)
+        }
+
         let location = MGLPointAnnotation()
         location.coordinate = point
         location.title = "Here"
 
         // Add
         self.mapView.addAnnotation(location)
+        self.originPoint = location
     }
 
     fileprivate func addProductObjs(_ productionObjs: [ProductObj]) {
 
+    }
+
+    fileprivate func addDestinationPlaceObj(_ placeObj: PlaceObj) {
+        self.destinationPlaceObj = placeObj
+
+        // Remove if need
+        if let currentPoint = self.destinationPoint {
+            self.mapView.removeAnnotation(currentPoint)
+        }
+
+        // Add
+        guard let coordinate = placeObj.coordinate2D else {
+            return
+        }
+        self.destinationPoint = MGLPointAnnotation()
+        self.destinationPoint!.coordinate = coordinate
+        self.destinationPoint!.title = placeObj.name
+        self.mapView.addAnnotation(self.destinationPoint!)
     }
 }
 
@@ -193,5 +219,16 @@ extension MapViewController: SearchCollectionViewDelegate {
 
     func searchCollectionView(_ sender: SearchCollectionView, atIndex: IndexPath) -> PlaceObj {
         return self.searchPlaceObjs[atIndex.item]
+    }
+
+    func searchCollectionView(_ sender: SearchCollectionView, didSelectItem atIndex: IndexPath) {
+
+        // Select
+        let placeObj = self.searchPlaceObjs[atIndex.item]
+        self.viewModel.input.didSelectPlaceObjPublisher.onNext(placeObj)
+
+        // Hide map
+        self.searchCollectionView.layoutStateChanged(.shrink)
+        self.searchBarView.layoutState = .shrink
     }
 }

@@ -12,6 +12,7 @@ import UberGoCore
 protocol SearchCollectionViewDelegate: class {
     func searchCollectionViewNumberOfPlace() -> Int
     func searchCollectionView(_ sender: SearchCollectionView, atIndex: IndexPath) -> PlaceObj
+    func searchCollectionView(_ sender: SearchCollectionView, didSelectItem atIndex: IndexPath)
 }
 
 class SearchCollectionView: NSView {
@@ -168,4 +169,11 @@ extension SearchCollectionView: NSCollectionViewDataSource {
 
 // MARK: - NSCollectionViewDelegate
 extension SearchCollectionView: NSCollectionViewDelegate, NSCollectionViewDelegateFlowLayout {
+
+    func collectionView(_ collectionView: NSCollectionView, didSelectItemsAt indexPaths: Set<IndexPath>) {
+        let selection = indexPaths as NSSet
+        guard let selectedIndexPath = selection.allObjects.last as? IndexPath else {return}
+
+        self.delegate?.searchCollectionView(self, didSelectItem: selectedIndexPath)
+    }
 }

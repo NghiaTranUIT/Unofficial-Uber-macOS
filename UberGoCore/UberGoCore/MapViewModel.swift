@@ -22,6 +22,7 @@ public protocol MapViewModelInput {
 
     var startUpdateLocationTriggerPublisher: PublishSubject<Bool> { get }
     var textSearchPublish: PublishSubject<String> { get }
+    var didSelectPlaceObjPublisher: PublishSubject<PlaceObj> { get }
 }
 
 public protocol MapViewModelOutput {
@@ -32,6 +33,9 @@ public protocol MapViewModelOutput {
     var searchPlaceObjsVariable: Variable<[PlaceObj]> { get }
     var personPlaceObjsVariable: Variable<[PlaceObj]> { get }
     var loadingPublisher: PublishSubject<Bool> { get }
+
+    // Destination
+    var selectedPlaceObjDriver: Driver<PlaceObj> { get }
 }
 
 // MARK: - View Model
@@ -51,6 +55,7 @@ open class MapViewModel: BaseViewModel,
     // MARK: - Input
     public var startUpdateLocationTriggerPublisher = PublishSubject<Bool>()
     public var textSearchPublish = PublishSubject<String>()
+    public var didSelectPlaceObjPublisher = PublishSubject<PlaceObj>()
 
     // MARK: - Output
     public var currentLocationDriver: Driver<CLLocation?> {
@@ -63,6 +68,9 @@ open class MapViewModel: BaseViewModel,
     public var searchPlaceObjsVariable = Variable<[PlaceObj]>([])
     public var personPlaceObjsVariable = Variable<[PlaceObj]>([])
     public var loadingPublisher = PublishSubject<Bool>()
+    public var selectedPlaceObjDriver: Driver<PlaceObj> {
+        return self.didSelectPlaceObjPublisher.asObserver().asDriver(onErrorJustReturn: PlaceObj())
+    }
 
     // MARK: - Init
     public override init() {
