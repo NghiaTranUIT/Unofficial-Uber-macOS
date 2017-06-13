@@ -172,8 +172,7 @@ extension SearchCollectionView: NSCollectionViewDelegate, NSCollectionViewDelega
 
     func collectionView(_ collectionView: NSCollectionView, didSelectItemsAt indexPaths: Set<IndexPath>) {
         let selection = indexPaths as NSSet
-        guard let selectedIndexPath = selection.allObjects.last as? IndexPath else {return}
-
+        guard let selectedIndexPath = selection.allObjects.last as? IndexPath else { return }
         self.delegate?.searchCollectionView(self, didSelectItem: selectedIndexPath)
     }
 }

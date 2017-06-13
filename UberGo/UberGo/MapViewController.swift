@@ -141,6 +141,10 @@ class MapViewController: BaseViewController {
         // Add
         self.mapView.addAnnotation(location)
         self.originPoint = location
+
+        // CentralizeMap
+        self.centralizeMap()
+
     }
 
     fileprivate func addProductObjs(_ productionObjs: [ProductObj]) {
@@ -163,6 +167,17 @@ class MapViewController: BaseViewController {
         self.destinationPoint!.coordinate = coordinate
         self.destinationPoint!.title = placeObj.name
         self.mapView.addAnnotation(self.destinationPoint!)
+
+        // CentralizeMap
+        self.centralizeMap()
+    }
+
+    fileprivate func centralizeMap() {
+        guard let annotations = self.mapView.annotations else {
+            return
+        }
+        let edge = EdgeInsets(top: 200, left: 70, bottom: 70, right: 70)
+        self.mapView.showAnnotations(annotations, edgePadding: edge, animated: true)
     }
 }
 
