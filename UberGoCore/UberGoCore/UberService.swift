@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreLocation
 import RxCocoa
 import RxSwift
 
@@ -35,6 +36,11 @@ open class UberService {
             .do(onNext: { (place) in
                 place.placeType = .home
             })
+    }
+
+    public func availableProducts(at location: CLLocationCoordinate2D) -> Observable<[ProductObj]> {
+        let param = UberProductsRequestParam(location: location)
+        return UberProductsRequest(param).toObservable()
     }
 }
 

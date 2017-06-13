@@ -29,6 +29,7 @@ struct Constants {
         static let UberProducts = "/v1.2/products"
         static let HomePersonalPlace = "/v1.2/places/home"
         static let WorkPseronalPlace = "/v1.2/places/work"
+        static let RideEstimatePrice = "/v1.2/estimates/price"
     }
 
     // MARK: - Google App
@@ -79,6 +80,19 @@ struct Constants {
         struct UberPersonalPlace {
 
             static let Address = "address"
+        }
+
+        // MARK: - Price
+        struct Price {
+            static let LocalizedDisplayName = "localized_display_name"
+            static let Distance = "distance"
+            static let DisplayName = "display_name"
+            static let ProductId = "product_id"
+            static let HighEstimate = "high_estimate"
+            static let LowEstimate = "low_estimate"
+            static let Duration = "duration"
+            static let Estimate = "estimate"
+            static let CurrencyCode = "currency_code"
         }
     }
 }
