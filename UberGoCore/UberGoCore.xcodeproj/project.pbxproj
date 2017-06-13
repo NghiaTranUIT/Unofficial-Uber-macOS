@@ -11,6 +11,9 @@
 		5DCDECCB5D68CEA1521EF84A /* Pods_UberGoCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A42638801468E3CC0AC1FBC4 /* Pods_UberGoCore.framework */; };
 		BA037F1A1EDD61E600945C1D /* UberGoCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA037F101EDD61E600945C1D /* UberGoCore.framework */; };
 		BA037F211EDD61E600945C1D /* UberGoCore.h in Headers */ = {isa = PBXBuildFile; fileRef = BA037F131EDD61E600945C1D /* UberGoCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BA0C91961EEF8B4E00BA8B4B /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0C91951EEF8B4E00BA8B4B /* Logger.swift */; };
+		BA0C91981EEF919B00BA8B4B /* Coordinate2DTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0C91971EEF919B00BA8B4B /* Coordinate2DTransform.swift */; };
+		BA2A3A7D1EED26EF002A0343 /* DatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2A3A7C1EED26EF002A0343 /* DatabaseService.swift */; };
 		BA32E71E1EDFC76A0044C017 /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA32E71D1EDFC76A0044C017 /* AuthenticationViewModel.swift */; };
 		BA32E7231EDFC8230044C017 /* AppViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA32E7221EDFC8230044C017 /* AppViewModel.swift */; };
 		BA32E7271EDFC84F0044C017 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA32E7261EDFC84F0044C017 /* Constants.swift */; };
@@ -69,6 +72,9 @@
 		BA037F141EDD61E600945C1D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BA037F191EDD61E600945C1D /* UberGoCoreTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UberGoCoreTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA037F201EDD61E600945C1D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BA0C91951EEF8B4E00BA8B4B /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+		BA0C91971EEF919B00BA8B4B /* Coordinate2DTransform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coordinate2DTransform.swift; sourceTree = "<group>"; };
+		BA2A3A7C1EED26EF002A0343 /* DatabaseService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseService.swift; sourceTree = "<group>"; };
 		BA32E71D1EDFC76A0044C017 /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
 		BA32E7221EDFC8230044C017 /* AppViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppViewModel.swift; sourceTree = "<group>"; };
 		BA32E7261EDFC84F0044C017 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -171,9 +177,18 @@
 			path = UberGoCoreTests;
 			sourceTree = "<group>";
 		};
+		BA2A3A7B1EED26E3002A0343 /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				BA2A3A7C1EED26EF002A0343 /* DatabaseService.swift */,
+			);
+			name = Database;
+			sourceTree = "<group>";
+		};
 		BA32E71B1EDFC74C0044C017 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				BA2A3A7B1EED26E3002A0343 /* Database */,
 				BAED39E41EEA594C003D9BC3 /* Rx Extension */,
 				BAED39D31EE85DAE003D9BC3 /* Uber Service */,
 				BA7BA97F1EE415B70056B0CF /* Map Service */,
@@ -240,8 +255,10 @@
 		BA4796A11EE2BEFF00620BB0 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				BA0C91951EEF8B4E00BA8B4B /* Logger.swift */,
 				BA4796A21EE2BF0800620BB0 /* NSError+Helper.swift */,
 				BA4796B21EE3C93900620BB0 /* UUID+Helper.swift */,
+				BA0C91971EEF919B00BA8B4B /* Coordinate2DTransform.swift */,
 			);
 			name = Helper;
 			sourceTree = "<group>";
@@ -577,6 +594,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BADB78691EE70CBB000536F7 /* Parameter.swift in Sources */,
+				BA0C91961EEF8B4E00BA8B4B /* Logger.swift in Sources */,
 				BADB78711EE7BBA2000536F7 /* UberPersonalPlaceRequest.swift in Sources */,
 				BAF57FAA1EE1166A0013090E /* UserObj.swift in Sources */,
 				BA4796A01EE2BD3A00620BB0 /* Requestable.swift in Sources */,
@@ -593,11 +611,13 @@
 				BA4796AC1EE2D5BD00620BB0 /* BaseViewController.swift in Sources */,
 				BA4796A71EE2C0C700620BB0 /* MapViewModel.swift in Sources */,
 				BA7BA9811EE415D10056B0CF /* MapService.swift in Sources */,
+				BA0C91981EEF919B00BA8B4B /* Coordinate2DTransform.swift in Sources */,
 				BAED39E11EE9B67C003D9BC3 /* CLLocationManager+Rx.swift in Sources */,
 				BAE6902F1EE513EF00A4D876 /* UberProductsRequest.swift in Sources */,
 				BAED39FA1EEBACD2003D9BC3 /* Rx+Optional.swift in Sources */,
 				BAF57FB01EE1168A0013090E /* PlaceObj.swift in Sources */,
 				BAED39E81EEA5954003D9BC3 /* ReachabilityService.swift in Sources */,
+				BA2A3A7D1EED26EF002A0343 /* DatabaseService.swift in Sources */,
 				BA4796B31EE3C93900620BB0 /* UUID+Helper.swift in Sources */,
 				BA32E71E1EDFC76A0044C017 /* AuthenticationViewModel.swift in Sources */,
 				BA4796A31EE2BF0800620BB0 /* NSError+Helper.swift in Sources */,

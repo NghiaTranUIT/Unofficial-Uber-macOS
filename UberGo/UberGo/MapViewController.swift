@@ -16,13 +16,23 @@ class MapViewController: BaseViewController {
 
     // MARK: - OUTLET
     fileprivate var mapView: MGLMapView!
-    fileprivate var collectionView: SearchCollectionView!
+    fileprivate var searchCollectionView: SearchCollectionView!
 
     // MARK: - Variable
     fileprivate var viewModel: MapViewModel!
-    fileprivate var currentLocationPoint: MGLPointAnnotation?
     fileprivate var searchBarView: SearchBarView!
     fileprivate var isFirstTime = true
+
+    fileprivate var searchPlaceObjs: [PlaceObj] {
+        return self.viewModel.output.searchPlaceObjsVariable.value
+    }
+
+    // Origin
+    fileprivate var originPoint: MGLPointAnnotation?
+
+    // Destination
+    fileprivate var destinationPlaceObj: PlaceObj?
+    fileprivate var destinationPoint: MGLPointAnnotation?
 
     // MARK: - View Cycle
     override func viewDidLoad() {
@@ -38,7 +48,7 @@ class MapViewController: BaseViewController {
         self.initSearchBarView()
 
         // CollectionView
-        self.initCollectionView()
+        self.initSearchCollectionView()
 
         // View Model
         self.binding()
@@ -58,69 +68,116 @@ class MapViewController: BaseViewController {
                     return
                 }
                 print("setCenter \(location)")
-                //self.updateCurrentLocation(point: location.coordinate)
+//                self.updateCurrentLocation(point: location.coordinate)
                 self.addPoint(point: location.coordinate)
                 self.mapView.setCenter(location.coordinate, animated: true)
             })
             .addDisposableTo(self.disposeBag)
 
-        // Show Product available
-//        self.viewModel.output.productsVariable.asDriver().drive(onNext: { [weak self] productObjs in
-//            guard let `self` = self else { return }
-//            print("Found available products = \(productObjs)")
-//            self.addProductObjs(productObjs)
-//        })
-//        .addDisposableTo(self.disposeBag)
-
         self.viewModel.output.nearestPlaceDriver.drive(onNext: { [weak self] nearestPlaceObj in
-            guard let `self` = self else { return }
-            print("Found Nearst Place = \(nearestPlaceObj)")
-            self.searchBarView.updateNestestPlace(nearestPlaceObj)
-        })
-        .addDisposableTo(self.disposeBag)
+                guard let `self` = self else { return }
+                print("Found Nearst Place = \(nearestPlaceObj)")
+                self.searchBarView.updateNestestPlace(nearestPlaceObj)
+            })
+            .addDisposableTo(self.disposeBag)
 
         // Input search
         self.searchBarView.textSearchDidChangedDriver
-        .drive(onNext: {[unowned self] text in
-            self.viewModel.input.textSearchPublish.onNext(text)
-        })
-        .addDisposableTo(self.disposeBag)
+            .drive(onNext: {[unowned self] text in
+                self.viewModel.input.textSearchPublish.onNext(text)
+            })
+            .addDisposableTo(self.disposeBag)
 
         // Reload
-        self.viewModel.output.searchPlaceObjsVariable.asObservable()
-        .subscribe(onNext: {[weak self] placeObjs in
-            guard let `self` = self else { return }
-            print("Place Search FOUND = \(placeObjs.count)")
-            self.collectionView.reloadData()
+        self.viewModel.output.searchPlaceObjsVariable
+            .asObservable()
+            .subscribe(onNext: {[weak self] placeObjs in
+                guard let `self` = self else { return }
+                print("Place Search FOUND = \(placeObjs.count)")
+                self.searchCollectionView.reloadData()
+            })
+            .addDisposableTo(self.disposeBag)
+
+        self.viewModel.output.personPlaceObjsVariable
+            .asObservable()
+            .subscribe(onNext: {[weak self] placeObjs in
+                guard let `self` = self else { return }
+                print("Personal place FOUND = \(placeObjs.count)")
+                if self.searchBarView.textSearch == "" {
+                    self.searchCollectionView.reloadData()
+                }
+            })
+            .addDisposableTo(self.disposeBag)
+
+        // Loader
+        self.viewModel.output.loadingPublisher.subscribe(onNext: {[weak self] isLoading in
+            guard let `self` = self else {
+                return
+            }
+            self.searchBarView.loaderIndicatorView(isLoading)
+        }).addDisposableTo(self.disposeBag)
+
+        // Selected Place
+        self.viewModel.output.selectedPlaceObjDriver.drive(onNext: {[weak self] placeObj in
+            guard let `self` = self else {
+                return
+            }
+            self.addDestinationPlaceObj(placeObj)
         })
         .addDisposableTo(self.disposeBag)
-    }
-
-    fileprivate func updateCurrentLocation(point: CLLocationCoordinate2D) {
-        if self.currentLocationPoint == nil {
-            let location = MGLPointAnnotation()
-            location.coordinate = point
-            location.title = "Here"
-
-            // Add
-            self.currentLocationPoint = location
-            self.mapView.addAnnotation(location)
-        } else {
-            self.currentLocationPoint?.coordinate = point
-        }
     }
 
     fileprivate func addPoint(point: CLLocationCoordinate2D) {
+
+        // Remove if need
+        if let currentPoint = self.originPoint {
+            self.mapView.removeAnnotation(currentPoint)
+        }
+
         let location = MGLPointAnnotation()
         location.coordinate = point
         location.title = "Here"
 
         // Add
         self.mapView.addAnnotation(location)
+        self.originPoint = location
+
+        // CentralizeMap
+        self.centralizeMap()
+
     }
 
     fileprivate func addProductObjs(_ productionObjs: [ProductObj]) {
 
+    }
+
+    fileprivate func addDestinationPlaceObj(_ placeObj: PlaceObj) {
+        self.destinationPlaceObj = placeObj
+
+        // Remove if need
+        if let currentPoint = self.destinationPoint {
+            self.mapView.removeAnnotation(currentPoint)
+        }
+
+        // Add
+        guard let coordinate = placeObj.coordinate2D else {
+            return
+        }
+        self.destinationPoint = MGLPointAnnotation()
+        self.destinationPoint!.coordinate = coordinate
+        self.destinationPoint!.title = placeObj.name
+        self.mapView.addAnnotation(self.destinationPoint!)
+
+        // CentralizeMap
+        self.centralizeMap()
+    }
+
+    fileprivate func centralizeMap() {
+        guard let annotations = self.mapView.annotations else {
+            return
+        }
+        let edge = EdgeInsets(top: 200, left: 70, bottom: 70, right: 70)
+        self.mapView.showAnnotations(annotations, edgePadding: edge, animated: true)
     }
 }
 
@@ -147,19 +204,10 @@ extension MapViewController {
         self.searchBarView.configureView(with: self.view)
     }
 
-    fileprivate func initCollectionView() {
-        self.collectionView = SearchCollectionView(defaultValue: true)
-        self.collectionView.delegate = self
-        self.collectionView.dataSource = self
-        self.collectionView.configureView(parenView: self.view, searchBarView: self.searchBarView)
-
-        // Register
-        let nib = NSNib(nibNamed: "SearchPlaceCell", bundle: nil)
-        self.collectionView.register(nib, forItemWithIdentifier: "SearchPlaceCell")
-
-        // Flow
-        let flow = SearchCollectionViewFlowLayout()
-        self.collectionView.collectionViewLayout = flow
+    fileprivate func initSearchCollectionView() {
+        self.searchCollectionView = SearchCollectionView.viewFromNib(with: BundleType.app)!
+        self.searchCollectionView.delegate = self
+        self.searchCollectionView.configureView(parenView: self.view, searchBarView: self.searchBarView)
     }
 }
 
@@ -175,34 +223,27 @@ extension MapViewController: MGLMapViewDelegate {
 extension MapViewController: SearchBarViewDelegate {
 
     func searchBar(_ sender: SearchBarView, layoutStateDidChanged state: SearchBarViewLayoutState) {
-        self.collectionView.layoutStateChanged(state)
+        self.searchCollectionView.layoutStateChanged(state)
     }
 }
 
-// MARK: - NSCollectionViewDataSource
-extension MapViewController: NSCollectionViewDataSource {
-    func numberOfSections(in collectionView: NSCollectionView) -> Int {
-        return 1
+extension MapViewController: SearchCollectionViewDelegate {
+    func searchCollectionViewNumberOfPlace() -> Int {
+        return self.searchPlaceObjs.count
     }
 
-    func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.viewModel.searchPlaceObjsVariable.value.count
+    func searchCollectionView(_ sender: SearchCollectionView, atIndex: IndexPath) -> PlaceObj {
+        return self.searchPlaceObjs[atIndex.item]
     }
 
-    func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath)
-        -> NSCollectionViewItem {
-            guard let cell = collectionView.makeItem(withIdentifier: "SearchPlaceCell", for: indexPath)
-                as? SearchPlaceCell else {
-                return NSCollectionViewItem()
-            }
+    func searchCollectionView(_ sender: SearchCollectionView, didSelectItem atIndex: IndexPath) {
 
-            let placeObj = self.viewModel.output.searchPlaceObjsVariable.value[indexPath.item]
-            cell.configureCell(with: placeObj)
-            return cell
+        // Select
+        let placeObj = self.searchPlaceObjs[atIndex.item]
+        self.viewModel.input.didSelectPlaceObjPublisher.onNext(placeObj)
+
+        // Hide map
+        self.searchCollectionView.layoutStateChanged(.shrink)
+        self.searchBarView.layoutState = .shrink
     }
-}
-
-// MARK: - NSCollectionViewDelegate
-extension MapViewController: NSCollectionViewDelegate {
-
 }

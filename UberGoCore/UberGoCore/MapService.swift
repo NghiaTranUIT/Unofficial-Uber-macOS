@@ -20,7 +20,7 @@ public enum MapServiceResult {
     // MARK: - Helper
     public var isError: Bool {
         switch self {
-        case .error(_):
+        case .error:
             return true
         default:
             return false
@@ -29,7 +29,7 @@ public enum MapServiceResult {
 
     public var isSuccess: Bool {
         switch self {
-        case .location(_):
+        case .location:
             return true
         default:
             return false
@@ -97,7 +97,7 @@ open class MapService: NSObject {
         self.nearestPlaceObverser = self.currentLocationVariable
             .asObservable()
             .filterNil()
-            .debounce(0.3, scheduler: MainScheduler.instance)
+            .throttle(0.3, scheduler: MainScheduler.instance)
             .distinctUntilChanged()
             .flatMapFirst({[unowned self] location -> Observable<PlaceObj> in
                 return self.nearestPlaceObverser(location)

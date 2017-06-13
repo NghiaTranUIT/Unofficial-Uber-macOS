@@ -22,6 +22,7 @@ public protocol MapViewModelInput {
 
     var startUpdateLocationTriggerPublisher: PublishSubject<Bool> { get }
     var textSearchPublish: PublishSubject<String> { get }
+    var didSelectPlaceObjPublisher: PublishSubject<PlaceObj> { get }
 }
 
 public protocol MapViewModelOutput {
@@ -30,6 +31,11 @@ public protocol MapViewModelOutput {
     var nearestPlaceDriver: Driver<PlaceObj> { get }
     var productsVariable: Variable<[ProductObj]> { get }
     var searchPlaceObjsVariable: Variable<[PlaceObj]> { get }
+    var personPlaceObjsVariable: Variable<[PlaceObj]> { get }
+    var loadingPublisher: PublishSubject<Bool> { get }
+
+    // Destination
+    var selectedPlaceObjDriver: Driver<PlaceObj> { get }
 }
 
 // MARK: - View Model
@@ -43,11 +49,13 @@ open class MapViewModel: BaseViewModel,
     public var output: MapViewModelOutput { return self }
 
     // MARK: - Variable
-    fileprivate var mapManager = MapService()
+    fileprivate let mapManager = MapService()
+    fileprivate let uberService = UberService()
 
     // MARK: - Input
     public var startUpdateLocationTriggerPublisher = PublishSubject<Bool>()
     public var textSearchPublish = PublishSubject<String>()
+    public var didSelectPlaceObjPublisher = PublishSubject<PlaceObj>()
 
     // MARK: - Output
     public var currentLocationDriver: Driver<CLLocation?> {
@@ -58,12 +66,17 @@ open class MapViewModel: BaseViewModel,
         return self.mapManager.nearestPlaceObverser.asDriver(onErrorJustReturn: PlaceObj.unknowPlace)
     }
     public var searchPlaceObjsVariable = Variable<[PlaceObj]>([])
+    public var personPlaceObjsVariable = Variable<[PlaceObj]>([])
+    public var loadingPublisher = PublishSubject<Bool>()
+    public var selectedPlaceObjDriver: Driver<PlaceObj> {
+        return self.didSelectPlaceObjPublisher.asObserver().asDriver(onErrorJustReturn: PlaceObj())
+    }
 
     // MARK: - Init
     public override init() {
         super.init()
 
-        // Start update
+        // Start update location
         self.startUpdateLocationTriggerPublisher
             .asObserver()
             .distinctUntilChanged()
@@ -76,26 +89,60 @@ open class MapViewModel: BaseViewModel,
             })
             .addDisposableTo(self.disposeBag)
 
-        // Search
-        self.textSearchPublish.asObserver()
-            .skip(1)
+        let shared = self.textSearchPublish
+            .asObservable()
+            .share()
+
+        let searchTextObserver = shared
+            .asObservable()
             .debounce(0.3, scheduler: MainScheduler.instance)
             .distinctUntilChanged()
-            .flatMapLatest { text -> Observable<[PlaceObj]> in
+            .flatMapLatest {[unowned self] (text) -> Observable<[PlaceObj]> in
                 guard let currentCoordinate = self.mapManager.currentLocationVariable.value?.coordinate else {
                     return Observable.empty()
                 }
 
                 if text == "" {
-                    return Observable.just([])
+                    return Observable.empty()
                 }
+
+                // Start
+                self.loadingPublisher.onNext(true)
 
                 // Search
                 let param = PlaceSearchRequestParam(keyword: text, location: currentCoordinate)
                 return PlaceSearchRequest(param).toObservable()
             }
+
+        let personalObserver = shared
+            .distinctUntilChanged()
+            .flatMapLatest { (text) -> Observable<[PlaceObj]> in
+                guard text == "" else {
+                    return Observable.empty()
+                }
+
+                // Start
+                self.loadingPublisher.onNext(true)
+
+                return self.personPlaceObjsVariable.asObservable()
+            }
+
+        Observable.merge([searchTextObserver, personalObserver])
+            .skip(1)
+            .do(onNext: {[weak self] _ in
+                guard let `self` = self else { return }
+                self.loadingPublisher.onNext(false)
+            })
             .bind(to: self.searchPlaceObjsVariable)
             .addDisposableTo(self.disposeBag)
 
+        // Person place
+        self.loadingPublisher.onNext(true)
+        self.uberService
+            .personalPlaceObserver()
+            // Map in map: [UberPersonalPlaceObj] -> [PlaceObj]
+            .map({ $0.map({ PlaceObj(personalPlaceObj: $0) }) })
+            .bind(to: self.personPlaceObjsVariable)
+            .addDisposableTo(self.disposeBag)
     }
 }

@@ -30,6 +30,7 @@ class SearchBarView: NSView {
     @IBOutlet fileprivate weak var lineVerticalView: NSView!
     @IBOutlet fileprivate weak var backBtn: NSButton!
     @IBOutlet fileprivate weak var searchContainerView: NSView!
+    @IBOutlet fileprivate weak var loaderView: NSProgressIndicator!
 
     // MARK: - Variable
     weak var delegate: SearchBarViewDelegate?
@@ -39,7 +40,7 @@ class SearchBarView: NSView {
             self.animateSearchBarState()
         }
     }
-    public fileprivate(set) var layoutState: SearchBarViewLayoutState {
+    public var layoutState: SearchBarViewLayoutState {
         get {
             return self._layoutState
         }
@@ -56,6 +57,10 @@ class SearchBarView: NSView {
             .filterNil()
             .asDriver(onErrorJustReturn: "")
     }
+    public var textSearch: String {
+        return self.destinationTxt.stringValue
+    }
+
     fileprivate var viewModel: SearchBarViewModel?
     fileprivate var actionSearchView: ActionSearchBarView!
 
@@ -89,6 +94,15 @@ class SearchBarView: NSView {
         self.destinationTxt.window?.makeFirstResponder(self.destinationTxt)
     }
 
+    func loaderIndicatorView(_ isLoading: Bool) {
+        if isLoading {
+            self.loaderView.isHidden = false
+            self.loaderView.startAnimation(nil)
+        } else {
+            self.loaderView.isHidden = true
+            self.loaderView.stopAnimation(nil)
+        }
+    }
     // MARK: - Action
     @IBAction func backBtnOnTap(_ sender: Any) {
         self.layoutState = .shrink

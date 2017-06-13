@@ -24,11 +24,17 @@ open class UberService {
     public func workPlaceObserver() -> Observable<UberPersonalPlaceObj> {
         let param = UberPersonalPlaceRequestParam(placeType: .work)
         return self.personalPlaceObserable(param)
+            .do(onNext: { (place) in
+                place.placeType = .work
+            })
     }
 
     public func homePlaceObserver() -> Observable<UberPersonalPlaceObj> {
         let param = UberPersonalPlaceRequestParam(placeType: .home)
         return self.personalPlaceObserable(param)
+            .do(onNext: { (place) in
+                place.placeType = .home
+            })
     }
 }
 

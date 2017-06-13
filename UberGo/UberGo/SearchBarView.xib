@@ -47,11 +47,16 @@
                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
+                                <progressIndicator wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="2Ee-LJ-Ww8">
+                                    <rect key="frame" x="376" y="8" width="16" height="16"/>
+                                </progressIndicator>
                             </subviews>
                             <constraints>
                                 <constraint firstAttribute="height" constant="32" id="7wo-Aq-p7l"/>
                                 <constraint firstItem="Gz4-hL-nZ4" firstAttribute="centerY" secondItem="tm8-iQ-z1e" secondAttribute="centerY" id="8aZ-1j-0Ah"/>
                                 <constraint firstItem="Gz4-hL-nZ4" firstAttribute="leading" secondItem="tm8-iQ-z1e" secondAttribute="leading" constant="4" id="JMF-NC-lG7"/>
+                                <constraint firstAttribute="trailing" secondItem="2Ee-LJ-Ww8" secondAttribute="trailing" constant="8" id="NXw-gz-QVA"/>
+                                <constraint firstItem="2Ee-LJ-Ww8" firstAttribute="centerY" secondItem="tm8-iQ-z1e" secondAttribute="centerY" id="Wbw-Ft-xNd"/>
                                 <constraint firstAttribute="width" constant="400" id="WhY-Nl-BBe"/>
                                 <constraint firstAttribute="trailing" secondItem="Gz4-hL-nZ4" secondAttribute="trailing" constant="4" id="pN7-kr-Zvw"/>
                                 <constraint firstItem="Gz4-hL-nZ4" firstAttribute="centerX" secondItem="tm8-iQ-z1e" secondAttribute="centerX" id="sTq-OX-AfH"/>
@@ -120,6 +125,7 @@
                 <outlet property="backBtn" destination="WiN-7G-eLH" id="7EK-T3-M8G"/>
                 <outlet property="destinationTxt" destination="Gz4-hL-nZ4" id="I9j-hf-g75"/>
                 <outlet property="lineVerticalView" destination="H2Y-HO-oBQ" id="iHp-lk-vAE"/>
+                <outlet property="loaderView" destination="2Ee-LJ-Ww8" id="qX5-jS-1zc"/>
                 <outlet property="originTxt" destination="2F2-b8-1So" id="ksV-t8-pRp"/>
                 <outlet property="roundBarView" destination="vNZ-pl-77W" id="N04-l0-WJj"/>
                 <outlet property="searchContainerView" destination="Gom-Qn-lcM" id="tkF-ix-xmz"/>
