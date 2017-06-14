@@ -30,6 +30,7 @@ struct Constants {
         static let HomePersonalPlace = "/v1.2/places/home"
         static let WorkPseronalPlace = "/v1.2/places/work"
         static let RideEstimatePrice = "/v1.2/estimates/price"
+        static let GetCurrentTrip = "/v1.2/requests/current"
     }
 
     // MARK: - Google App

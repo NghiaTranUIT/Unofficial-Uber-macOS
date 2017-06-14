@@ -27,7 +27,7 @@ public struct GetCurrentTripRequestParam: Parameter {
 class GetCurrentTripRequest {
 
     // Type
-    typealias Element = [PriceObj]
+    typealias Element = TripObj
 
     // Header
     var addionalHeader: Requestable.HeaderParameter? {
@@ -40,28 +40,25 @@ class GetCurrentTripRequest {
     }
 
     // Endpoint
-    var endpoint: String { return Constants.UberAPI.RideEstimatePrice }
+    var endpoint: String { return Constants.UberAPI.GetCurrentTrip }
 
     // HTTP
     var httpMethod: HTTPMethod { return .get }
 
     // Param
     var param: Parameter? { return self._param }
-    fileprivate var _param: RideEstimatePriceRequestParam
+    fileprivate var _param: Parameter
 
     // MARK: - Init
-    init(_ param: RideEstimatePriceRequestParam) {
+    init(_ param: Parameter) {
         self._param = param
     }
 
     // MARK: - Decode
     func decode(data: Any) -> Element? {
         guard let result = data as? [String: Any] else {
-            return []
+            return nil
         }
-        guard let products = result["prices"] as? [[String: Any]] else {
-            return []
-        }
-        return Mapper<PriceObj>().mapArray(JSONArray: products)
+        return Mapper<TripObj>().map(JSON: result)
     }
 }
