@@ -11,7 +11,7 @@ import CoreLocation
 import Foundation
 import ObjectMapper
 
-enum PersonalPlaceType {
+enum PersonalPlaceType: String {
     case work
     case home
 }

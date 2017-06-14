@@ -50,6 +50,10 @@ open class UberService {
                                                   destinationLocation: destinationLocation)
         return RideEstimatePriceRequest(param).toObservable()
     }
+
+    public func getCurrentRide() -> Observable<TripObj> {
+        return GetCurrentTripRequest().toObservable()
+    }
 }
 
 // MARK: - Private

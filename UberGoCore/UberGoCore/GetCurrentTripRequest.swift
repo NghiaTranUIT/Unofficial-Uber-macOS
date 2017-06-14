@@ -11,20 +11,7 @@ import CoreLocation
 import Foundation
 import ObjectMapper
 
-public struct GetCurrentTripRequestParam: Parameter {
-
-    let originLocation: CLLocationCoordinate2D
-    let destinationLocation: CLLocationCoordinate2D
-
-    func toDictionary() -> [String : Any] {
-        return ["start_latitude": self.originLocation.latitude,
-                "start_longitude": self.originLocation.longitude,
-                "end_latitude": self.destinationLocation.latitude,
-                "end_longitude": self.destinationLocation.longitude]
-    }
-}
-
-class GetCurrentTripRequest {
+class GetCurrentTripRequest: Requestable {
 
     // Type
     typealias Element = TripObj
@@ -46,13 +33,7 @@ class GetCurrentTripRequest {
     var httpMethod: HTTPMethod { return .get }
 
     // Param
-    var param: Parameter? { return self._param }
-    fileprivate var _param: Parameter
-
-    // MARK: - Init
-    init(_ param: Parameter) {
-        self._param = param
-    }
+    var param: Parameter? { return nil }
 
     // MARK: - Decode
     func decode(data: Any) -> Element? {
