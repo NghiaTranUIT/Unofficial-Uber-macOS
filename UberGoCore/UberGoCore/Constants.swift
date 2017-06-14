@@ -98,7 +98,18 @@ struct Constants {
 
         // MARK: - Trip
         struct Trip {
-            
+            static let ProductId = "product_id"
+            static let RequestId = "request_id"
+            static let Status = "status"
+            static let SurgeMultiplier = "surge_multiplier"
+            static let Shared = "shared"
+            static let Driver = "driver"
+            static let Vehicle = "vehicle"
+            static let Location = "location"
+            static let Pickup = "pickup"
+            static let Destination = "destination"
+            static let Waypoints = "waypoints"
+            static let Riders = "riders"
         }
 
         // MARK: - Waypoint
