@@ -9,6 +9,7 @@
 import Cocoa
 import CoreLocation
 import Mapbox
+import MapboxDirections
 import RxSwift
 import UberGoCore
 
@@ -33,6 +34,7 @@ class MapViewController: BaseViewController {
     // Destination
     fileprivate var destinationPlaceObj: PlaceObj?
     fileprivate var destinationPoint: MGLPointAnnotation?
+    fileprivate var directionRoute: MGLPolyline?
 
     // MARK: - View Cycle
     override func viewDidLoad() {
@@ -125,6 +127,15 @@ class MapViewController: BaseViewController {
             self.addDestinationPlaceObj(placeObj)
         })
         .addDisposableTo(self.disposeBag)
+
+        // Draw map
+        self.viewModel.output.selectedDirectionRouteObserver.subscribe(onNext: {[weak self] (route) in
+            guard let `self` = self else {
+                return
+            }
+            self.drawDirectionRoute(route)
+        })
+        .addDisposableTo(self.disposeBag)
     }
 
     fileprivate func addPoint(point: CLLocationCoordinate2D) {
@@ -132,6 +143,7 @@ class MapViewController: BaseViewController {
         // Remove if need
         if let currentPoint = self.originPoint {
             self.mapView.removeAnnotation(currentPoint)
+            self.originPoint = nil
         }
 
         let location = MGLPointAnnotation()
@@ -157,6 +169,7 @@ class MapViewController: BaseViewController {
         // Remove if need
         if let currentPoint = self.destinationPoint {
             self.mapView.removeAnnotation(currentPoint)
+            self.destinationPoint = nil
         }
 
         // Add
@@ -179,6 +192,31 @@ class MapViewController: BaseViewController {
         let edge = EdgeInsets(top: 200, left: 70, bottom: 70, right: 70)
         self.mapView.showAnnotations(annotations, edgePadding: edge, animated: true)
     }
+
+    fileprivate func drawDirectionRoute(_ route: Route) {
+
+        if route.coordinateCount > 0 {
+
+            // Remove if need
+            if let directionRoute = self.directionRoute {
+                self.mapView.removeAnnotation(directionRoute)
+                self.directionRoute = nil
+            }
+
+            // Convert the route’s coordinates into a polyline.
+            var routeCoordinates = route.coordinates!
+            let routeLine = MGLPolyline(coordinates: &routeCoordinates, count: route.coordinateCount)
+
+            // Add the polyline to the map and fit the viewport to the polyline.
+            self.mapView.addAnnotation(routeLine)
+            let edge = EdgeInsets(top: 200, left: 70, bottom: 70, right: 70)
+            self.mapView.showAnnotations(self.mapView.annotations!, edgePadding: edge, animated: true)
+
+            self.directionRoute = routeLine
+        } else {
+            assert(false, "route.coordinateCount == 0")
+        }
+    }
 }
 
 // MARK: - Private
@@ -195,7 +233,7 @@ extension MapViewController {
         self.mapView.zoomLevel = 14
         self.mapView.styleURL = MGLStyle.darkStyleURL(withVersion: 9)
         self.mapView.translatesAutoresizingMaskIntoConstraints = true
-        self.mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        self.mapView.autoresizingMask = [.viewWidthSizable, .viewHeightSizable]
         self.view.addSubview(self.mapView)
     }
 

@@ -8,6 +8,7 @@
 
 import Foundation
 import MapKit
+import MapboxDirections
 import RxCocoa
 import RxSwift
 
@@ -35,7 +36,8 @@ public protocol MapViewModelOutput {
     var loadingPublisher: PublishSubject<Bool> { get }
 
     // Destination
-    var selectedPlaceObjDriver: Driver<PlaceObj> { get }
+    var selectedPlaceObjDriver: Driver<PlaceObj>! { get }
+    var selectedDirectionRouteObserver: Observable<Route>! { get }
 }
 
 // MARK: - View Model
@@ -51,6 +53,7 @@ open class MapViewModel: BaseViewModel,
     // MARK: - Variable
     fileprivate let mapManager = MapService()
     fileprivate let uberService = UberService()
+    fileprivate let directionService = DirectionService()
 
     // MARK: - Input
     public var startUpdateLocationTriggerPublisher = PublishSubject<Bool>()
@@ -68,9 +71,8 @@ open class MapViewModel: BaseViewModel,
     public var searchPlaceObjsVariable = Variable<[PlaceObj]>([])
     public var personPlaceObjsVariable = Variable<[PlaceObj]>([])
     public var loadingPublisher = PublishSubject<Bool>()
-    public var selectedPlaceObjDriver: Driver<PlaceObj> {
-        return self.didSelectPlaceObjPublisher.asObserver().asDriver(onErrorJustReturn: PlaceObj())
-    }
+    public var selectedPlaceObjDriver: Driver<PlaceObj>!
+    public var selectedDirectionRouteObserver: Observable<Route>!
 
     // MARK: - Init
     public override init() {
@@ -144,5 +146,25 @@ open class MapViewModel: BaseViewModel,
             .map({ $0.map({ PlaceObj(personalPlaceObj: $0) }) })
             .bind(to: self.personPlaceObjsVariable)
             .addDisposableTo(self.disposeBag)
+
+        // 
+        let selectedPlaceObserve = self.didSelectPlaceObjPublisher
+            .asObserver()
+            .share()
+        self.selectedPlaceObjDriver = selectedPlaceObserve.asDriver(onErrorJustReturn: PlaceObj())
+        self.selectedDirectionRouteObserver = selectedPlaceObserve
+            .flatMapLatest {[unowned self] (destinationPlaceObj) -> Observable<Route> in
+
+                //FIXME : Temporary get current location
+                // Should refactor currentLocationVariable
+                // is Observable<PlaceObj>
+                // PlaceObj maybe work/home or coordinate or googleplace
+                let current = self.mapManager.currentLocationVariable.value!
+                let place = PlaceObj()
+                place.coordinate2D = current.coordinate
+                place.name = "Current location"
+                return self.directionService.generateDirectionRoute(from: place, to: destinationPlaceObj)
+            }
+            .observeOn(MainScheduler.instance).share()
     }
 }
