@@ -32,6 +32,7 @@ struct Constants {
         static let RideEstimatePrice = "/v1.2/estimates/price"
         static let GetCurrentTrip = "/v1.2/requests/current"
         static let RequestEstimate = "/v1.2/requests/estimate"
+        static let CreateTripRequest = "/v1.2/requests"
     }
 
     // MARK: - Google App

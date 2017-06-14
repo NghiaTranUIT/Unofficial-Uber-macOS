@@ -7,12 +7,69 @@
 //
 
 import Alamofire
+import CoreLocation
 import ObjectMapper
 
-class CreateTripRequest: Requestable {
+public struct CreateTripRequestParam: Parameter {
+
+    let fareID: String
+    let productID: String
+    let surgeConfirmationId: String?
+    let paymentMethodId: String?
+
+    let startLocation: CLLocationCoordinate2D?
+    let endLocation: CLLocationCoordinate2D?
+
+    let startPlaceType: PersonalPlaceType?
+    let endPlaceType: PersonalPlaceType?
+
+    func toDictionary() -> [String : Any] {
+
+        if startLocation != nil && startPlaceType != nil {
+            fatalError("[Error] Either Start or placeType")
+        }
+
+        if endLocation != nil && endPlaceType != nil {
+            fatalError("[Error] Either Start or placeType")
+        }
+
+        // Param
+        var param: [String: Any] = ["fare_id": self.fareID,
+                                    "product_id": self.productID]
+
+        // Start
+        if let placeType = self.startPlaceType {
+            param["start_place_id"] = placeType.rawValue
+        } else if let startLocation = self.startLocation {
+            param["start_latitude"] = startLocation.latitude
+            param["start_longitude"] = startLocation.longitude
+        }
+
+        // Destination
+        if let placeType = self.endPlaceType {
+            param["end_place_id"] = placeType.rawValue
+        } else if let endLocation = self.endLocation {
+            param["end_latitude"] = endLocation.latitude
+            param["end_longitude"] = endLocation.longitude
+        }
+
+        if let surgeConfirmationId = self.surgeConfirmationId {
+            param["surge_confirmation_id"] = surgeConfirmationId
+        }
+
+        if let paymentMethodId = self.paymentMethodId {
+            param["payment_method_id"] = paymentMethodId
+        }
+
+        return param
+    }
+
+}
+
+open class CreateTripRequest: Requestable {
 
     // Type
-    typealias Element = BaseObj
+    typealias Element = CreateTripObj
 
     // Header
     var addionalHeader: Requestable.HeaderParameter? {
@@ -25,23 +82,25 @@ class CreateTripRequest: Requestable {
     }
 
     // Endpoint
-    var endpoint: String { return Constants.UberAPI.GetCurrentTrip }
+    var endpoint: String { return Constants.UberAPI.CreateTripRequest }
 
     // HTTP
-    var httpMethod: HTTPMethod { return .patch }
+    var httpMethod: HTTPMethod { return .post }
 
     // Param
     var param: Parameter? { return self._param }
-    fileprivate var _param: UpdateCurrentTripRequestParam
+    fileprivate var _param: CreateTripRequestParam
 
     // MARK: - Init
-    init(_ param: UpdateCurrentTripRequestParam) {
+    init(_ param: CreateTripRequestParam) {
         self._param = param
     }
 
     // MARK: - Decode
     func decode(data: Any) -> Element? {
-        // This API don't have any response
-        return BaseObj()
+        guard let result = data as? [String: Any] else {
+            return nil
+        }
+        return Mapper<CreateTripObj>().map(JSON: result)
     }
 }
