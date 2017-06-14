@@ -63,7 +63,6 @@ public struct CreateTripRequestParam: Parameter {
 
         return param
     }
-
 }
 
 open class CreateTripRequest: Requestable {
