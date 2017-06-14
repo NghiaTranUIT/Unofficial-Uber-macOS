@@ -6,9 +6,8 @@
 //  Copyright © 2017 Nghia Tran. All rights reserved.
 //
 
-import Cocoa
-import ObjectMapper
 import CoreLocation
+import ObjectMapper
 
 // PlaceType
 public enum PlaceType {

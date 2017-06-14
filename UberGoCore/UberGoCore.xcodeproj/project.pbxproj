@@ -40,6 +40,7 @@
 		BAAC44121EF124E400A9F949 /* CreateTripRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAC44111EF124E400A9F949 /* CreateTripRequest.swift */; };
 		BAAC44141EF12B7D00A9F949 /* EstimateObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAC44131EF12B7D00A9F949 /* EstimateObj.swift */; };
 		BAAC44161EF1340500A9F949 /* CreateTripObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAC44151EF1340500A9F949 /* CreateTripObj.swift */; };
+		BAAC44181EF1456100A9F949 /* DirectionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAC44171EF1456100A9F949 /* DirectionService.swift */; };
 		BADB784E1EE5AC07000536F7 /* SearchBarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB784D1EE5AC07000536F7 /* SearchBarViewModel.swift */; };
 		BADB78671EE70AB0000536F7 /* PlaceSearchRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB78661EE70AB0000536F7 /* PlaceSearchRequest.swift */; };
 		BADB78691EE70CBB000536F7 /* Parameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB78681EE70CBB000536F7 /* Parameter.swift */; };
@@ -115,6 +116,7 @@
 		BAAC44111EF124E400A9F949 /* CreateTripRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateTripRequest.swift; sourceTree = "<group>"; };
 		BAAC44131EF12B7D00A9F949 /* EstimateObj.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EstimateObj.swift; sourceTree = "<group>"; };
 		BAAC44151EF1340500A9F949 /* CreateTripObj.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateTripObj.swift; sourceTree = "<group>"; };
+		BAAC44171EF1456100A9F949 /* DirectionService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectionService.swift; sourceTree = "<group>"; };
 		BADB784D1EE5AC07000536F7 /* SearchBarViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBarViewModel.swift; sourceTree = "<group>"; };
 		BADB78661EE70AB0000536F7 /* PlaceSearchRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceSearchRequest.swift; sourceTree = "<group>"; };
 		BADB78681EE70CBB000536F7 /* Parameter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parameter.swift; sourceTree = "<group>"; };
@@ -332,6 +334,7 @@
 			isa = PBXGroup;
 			children = (
 				BAF57FA71EE116490013090E /* UberService.swift */,
+				BAAC44171EF1456100A9F949 /* DirectionService.swift */,
 			);
 			name = "Uber Service";
 			sourceTree = "<group>";
@@ -670,6 +673,7 @@
 				BAED39FA1EEBACD2003D9BC3 /* Rx+Optional.swift in Sources */,
 				BAF57FB01EE1168A0013090E /* PlaceObj.swift in Sources */,
 				BA0C91A41EF0497A00BA8B4B /* RiderObj.swift in Sources */,
+				BAAC44181EF1456100A9F949 /* DirectionService.swift in Sources */,
 				BAED39E81EEA5954003D9BC3 /* ReachabilityService.swift in Sources */,
 				BA2A3A7D1EED26EF002A0343 /* DatabaseService.swift in Sources */,
 				BA4796B31EE3C93900620BB0 /* UUID+Helper.swift in Sources */,

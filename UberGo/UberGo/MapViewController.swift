@@ -195,6 +195,7 @@ extension MapViewController {
         self.mapView.zoomLevel = 14
         self.mapView.styleURL = MGLStyle.darkStyleURL(withVersion: 9)
         self.mapView.translatesAutoresizingMaskIntoConstraints = true
+        self.mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         self.view.addSubview(self.mapView)
     }
 
