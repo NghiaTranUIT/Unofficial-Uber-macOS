@@ -24,7 +24,9 @@ struct Constants {
     // MARK: - Uber
     struct UberAPI {
 
-        static let BaseURL = "https://api.uber.com"
+        static let BaseProductionURL = "https://api.uber.com"
+        static let BaseSandboxURL = "https://sandbox-api.uber.com"
+
         static let LoginURL = "oauth/v2/authorize"
         static let UberProducts = "/v1.2/products"
         static let HomePersonalPlace = "/v1.2/places/home"
