@@ -36,6 +36,9 @@
 		BA7BA9811EE415D10056B0CF /* MapService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7BA9801EE415D10056B0CF /* MapService.swift */; };
 		BA7BA9851EE42C0C0056B0CF /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA7BA9841EE42C0C0056B0CF /* CoreLocation.framework */; };
 		BAAC440E1EF0E12300A9F949 /* UberCoordinateObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAC440D1EF0E12300A9F949 /* UberCoordinateObj.swift */; };
+		BAAC44101EF1246500A9F949 /* PostEstimateTripRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAC440F1EF1246500A9F949 /* PostEstimateTripRequest.swift */; };
+		BAAC44121EF124E400A9F949 /* CreateTripRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAC44111EF124E400A9F949 /* CreateTripRequest.swift */; };
+		BAAC44141EF12B7D00A9F949 /* EstimateObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAC44131EF12B7D00A9F949 /* EstimateObj.swift */; };
 		BADB784E1EE5AC07000536F7 /* SearchBarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB784D1EE5AC07000536F7 /* SearchBarViewModel.swift */; };
 		BADB78671EE70AB0000536F7 /* PlaceSearchRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB78661EE70AB0000536F7 /* PlaceSearchRequest.swift */; };
 		BADB78691EE70CBB000536F7 /* Parameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB78681EE70CBB000536F7 /* Parameter.swift */; };
@@ -107,6 +110,9 @@
 		BA7BA9801EE415D10056B0CF /* MapService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapService.swift; sourceTree = "<group>"; };
 		BA7BA9841EE42C0C0056B0CF /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		BAAC440D1EF0E12300A9F949 /* UberCoordinateObj.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UberCoordinateObj.swift; sourceTree = "<group>"; };
+		BAAC440F1EF1246500A9F949 /* PostEstimateTripRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostEstimateTripRequest.swift; sourceTree = "<group>"; };
+		BAAC44111EF124E400A9F949 /* CreateTripRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateTripRequest.swift; sourceTree = "<group>"; };
+		BAAC44131EF12B7D00A9F949 /* EstimateObj.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EstimateObj.swift; sourceTree = "<group>"; };
 		BADB784D1EE5AC07000536F7 /* SearchBarViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBarViewModel.swift; sourceTree = "<group>"; };
 		BADB78661EE70AB0000536F7 /* PlaceSearchRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceSearchRequest.swift; sourceTree = "<group>"; };
 		BADB78681EE70CBB000536F7 /* Parameter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parameter.swift; sourceTree = "<group>"; };
@@ -252,6 +258,7 @@
 				BA0C91A71EF049C300BA8B4B /* WaypointObj.swift */,
 				BA0C91A91EF04AA200BA8B4B /* DriverObj.swift */,
 				BAAC440D1EF0E12300A9F949 /* UberCoordinateObj.swift */,
+				BAAC44131EF12B7D00A9F949 /* EstimateObj.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -268,6 +275,8 @@
 				BA0C919D1EF047F000BA8B4B /* GetCurrentTripRequest.swift */,
 				BA0C919F1EF0480400BA8B4B /* UpdateCurrentTripRequest.swift */,
 				BA0C91A11EF0481700BA8B4B /* CancelCurerntTripRequest.swift */,
+				BAAC440F1EF1246500A9F949 /* PostEstimateTripRequest.swift */,
+				BAAC44111EF124E400A9F949 /* CreateTripRequest.swift */,
 			);
 			name = Network;
 			sourceTree = "<group>";
@@ -626,6 +635,7 @@
 				BADB78691EE70CBB000536F7 /* Parameter.swift in Sources */,
 				BA0C91961EEF8B4E00BA8B4B /* Logger.swift in Sources */,
 				BA0C91A81EF049C300BA8B4B /* WaypointObj.swift in Sources */,
+				BAAC44101EF1246500A9F949 /* PostEstimateTripRequest.swift in Sources */,
 				BADB78711EE7BBA2000536F7 /* UberPersonalPlaceRequest.swift in Sources */,
 				BAF57FAA1EE1166A0013090E /* UserObj.swift in Sources */,
 				BA4796A01EE2BD3A00620BB0 /* Requestable.swift in Sources */,
@@ -637,6 +647,8 @@
 				BA4796B01EE2DAFE00620BB0 /* UberOauth.swift in Sources */,
 				BA0C91A01EF0480400BA8B4B /* UpdateCurrentTripRequest.swift in Sources */,
 				BA0C919A1EF031FB00BA8B4B /* RideEstimatePriceRequest.swift in Sources */,
+				BAAC44141EF12B7D00A9F949 /* EstimateObj.swift in Sources */,
+				BAAC44121EF124E400A9F949 /* CreateTripRequest.swift in Sources */,
 				BAED39E71EEA5954003D9BC3 /* Reachability.swift in Sources */,
 				BAF57FAE1EE116820013090E /* TripObj.swift in Sources */,
 				BADB784E1EE5AC07000536F7 /* SearchBarViewModel.swift in Sources */,

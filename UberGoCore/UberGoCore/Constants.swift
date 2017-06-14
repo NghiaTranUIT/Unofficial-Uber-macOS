@@ -31,6 +31,7 @@ struct Constants {
         static let WorkPseronalPlace = "/v1.2/places/work"
         static let RideEstimatePrice = "/v1.2/estimates/price"
         static let GetCurrentTrip = "/v1.2/requests/current"
+        static let RequestEstimate = "/v1.2/requests/estimate"
     }
 
     // MARK: - Google App
@@ -148,5 +149,6 @@ struct Constants {
             static let LicensePlate = "license_plate"
             static let PictureUrl = "picture_url"
         }
+
     }
 }
