@@ -14,8 +14,8 @@ import RxSwift
 open class DirectionService {
 
     // MARK: - Public
-    public func generateDirectionRoute(from originPlace: PlaceObj, to destinationPlace: PlaceObj) -> Observable<Route> {
-        return Observable<Route>.create { (observer) -> Disposable in
+    public func generateDirectionRoute(from originPlace: PlaceObj, to destinationPlace: PlaceObj) -> Observable<Route?> {
+        return Observable<Route?>.create { (observer) -> Disposable in
 
             // Create option
             let options = RouteOptions(waypoints: [

@@ -37,7 +37,7 @@ public protocol MapViewModelOutput {
 
     // Destination
     var selectedPlaceObjDriver: Driver<PlaceObj>! { get }
-    var selectedDirectionRouteObserver: Observable<Route>! { get }
+    var selectedDirectionRouteObserver: Observable<Route?>! { get }
 }
 
 // MARK: - View Model
@@ -72,7 +72,7 @@ open class MapViewModel: BaseViewModel,
     public var personPlaceObjsVariable = Variable<[PlaceObj]>([])
     public var loadingPublisher = PublishSubject<Bool>()
     public var selectedPlaceObjDriver: Driver<PlaceObj>!
-    public var selectedDirectionRouteObserver: Observable<Route>!
+    public var selectedDirectionRouteObserver: Observable<Route?>!
 
     // MARK: - Init
     public override init() {
@@ -96,7 +96,6 @@ open class MapViewModel: BaseViewModel,
             .share()
 
         let searchTextObserver = shared
-            .asObservable()
             .debounce(0.3, scheduler: MainScheduler.instance)
             .distinctUntilChanged()
             .flatMapLatest {[unowned self] (text) -> Observable<[PlaceObj]> in
@@ -152,8 +151,9 @@ open class MapViewModel: BaseViewModel,
             .asObserver()
             .share()
         self.selectedPlaceObjDriver = selectedPlaceObserve.asDriver(onErrorJustReturn: PlaceObj())
-        self.selectedDirectionRouteObserver = selectedPlaceObserve
-            .flatMapLatest {[unowned self] (destinationPlaceObj) -> Observable<Route> in
+        let clearCurrentDirectionRoute = selectedPlaceObserve.map { _ -> Route? in return nil }
+        let getDirection = selectedPlaceObserve
+            .flatMapLatest {[unowned self] (destinationPlaceObj) -> Observable<Route?> in
 
                 //FIXME : Temporary get current location
                 // Should refactor currentLocationVariable
@@ -165,6 +165,8 @@ open class MapViewModel: BaseViewModel,
                 place.name = "Current location"
                 return self.directionService.generateDirectionRoute(from: place, to: destinationPlaceObj)
             }
-            .observeOn(MainScheduler.instance).share()
+            .observeOn(MainScheduler.instance)
+
+        self.selectedDirectionRouteObserver = Observable.merge([getDirection, clearCurrentDirectionRoute])
     }
 }

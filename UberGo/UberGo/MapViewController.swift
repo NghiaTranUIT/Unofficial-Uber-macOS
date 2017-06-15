@@ -193,7 +193,15 @@ class MapViewController: BaseViewController {
         self.mapView.showAnnotations(annotations, edgePadding: edge, animated: true)
     }
 
-    fileprivate func drawDirectionRoute(_ route: Route) {
+    fileprivate func drawDirectionRoute(_ route: Route?) {
+        guard let route = route else {
+            // Remove if need
+            if let directionRoute = self.directionRoute {
+                self.mapView.removeAnnotation(directionRoute)
+                self.directionRoute = nil
+            }
+            return
+        }
 
         if route.coordinateCount > 0 {
 
@@ -209,10 +217,10 @@ class MapViewController: BaseViewController {
 
             // Add the polyline to the map and fit the viewport to the polyline.
             self.mapView.addAnnotation(routeLine)
-            let edge = EdgeInsets(top: 200, left: 70, bottom: 70, right: 70)
-            self.mapView.showAnnotations(self.mapView.annotations!, edgePadding: edge, animated: true)
-
             self.directionRoute = routeLine
+
+            // Centerizal
+            self.centralizeMap()
         } else {
             assert(false, "route.coordinateCount == 0")
         }
