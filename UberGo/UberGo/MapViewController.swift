@@ -100,17 +100,6 @@ class MapViewController: BaseViewController {
             })
             .addDisposableTo(self.disposeBag)
 
-        self.viewModel.output.personPlaceObjsVariable
-            .asObservable()
-            .subscribe(onNext: {[weak self] placeObjs in
-                guard let `self` = self else { return }
-                print("Personal place FOUND = \(placeObjs.count)")
-                if self.searchBarView.textSearch == "" {
-                    self.searchCollectionView.reloadData()
-                }
-            })
-            .addDisposableTo(self.disposeBag)
-
         // Loader
         self.viewModel.output.loadingPublisher.subscribe(onNext: {[weak self] isLoading in
             guard let `self` = self else {
@@ -121,9 +110,10 @@ class MapViewController: BaseViewController {
 
         // Selected Place
         self.viewModel.output.selectedPlaceObjDriver.drive(onNext: {[weak self] placeObj in
-            guard let `self` = self else {
-                return
-            }
+            guard let `self` = self else { return }
+
+            // Layout
+            self.handleLayoutState(placeObj)
             self.addDestinationPlaceObj(placeObj)
         })
         .addDisposableTo(self.disposeBag)
@@ -163,13 +153,18 @@ class MapViewController: BaseViewController {
 
     }
 
-    fileprivate func addDestinationPlaceObj(_ placeObj: PlaceObj) {
+    fileprivate func addDestinationPlaceObj(_ placeObj: PlaceObj?) {
         self.destinationPlaceObj = placeObj
 
         // Remove if need
         if let currentPoint = self.destinationPoint {
             self.mapView.removeAnnotation(currentPoint)
             self.destinationPoint = nil
+        }
+
+        // Remove
+        guard let placeObj = placeObj else {
+            return
         }
 
         // Add
@@ -224,6 +219,13 @@ class MapViewController: BaseViewController {
         } else {
             assert(false, "route.coordinateCount == 0")
         }
+    }
+
+    fileprivate func handleLayoutState(_ placeObj: PlaceObj?) {
+        let state = placeObj != nil ? SearchBarViewLayoutState.shrink :
+                                        SearchBarViewLayoutState.expanded
+        self.searchCollectionView.layoutStateChanged(state)
+        self.searchBarView.layoutState = state
     }
 }
 
@@ -288,9 +290,5 @@ extension MapViewController: SearchCollectionViewDelegate {
         // Select
         let placeObj = self.searchPlaceObjs[atIndex.item]
         self.viewModel.input.didSelectPlaceObjPublisher.onNext(placeObj)
-
-        // Hide map
-        self.searchCollectionView.layoutStateChanged(.shrink)
-        self.searchBarView.layoutState = .shrink
     }
 }
