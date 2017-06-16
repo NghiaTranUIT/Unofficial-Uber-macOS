@@ -8,6 +8,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="MapViewController" customModule="UberGo" customModuleProvider="target">
             <connections>
+                <outlet property="exitNavigateBtn" destination="R7e-uc-ZRU" id="eRD-dF-TvI"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
         </customObject>
@@ -16,7 +17,30 @@
         <customView wantsLayer="YES" id="Hz6-mo-xeY">
             <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="R7e-uc-ZRU">
+                    <rect key="frame" x="20" y="434" width="21" height="26"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="26" id="TOG-6T-3ij"/>
+                        <constraint firstAttribute="width" constant="21" id="Xu9-Wf-pfe"/>
+                    </constraints>
+                    <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="back-btn-white" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="H1D-il-Kj2">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="exitNavigateBtnOnTapped:" target="-2" id="8L0-ZA-TdP"/>
+                    </connections>
+                </button>
+            </subviews>
+            <constraints>
+                <constraint firstItem="R7e-uc-ZRU" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="20" id="guX-Wr-JkM"/>
+                <constraint firstItem="R7e-uc-ZRU" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="20" id="tGh-u8-HZW"/>
+            </constraints>
             <point key="canvasLocation" x="139" y="283"/>
         </customView>
     </objects>
+    <resources>
+        <image name="back-btn-white" width="31" height="23"/>
+    </resources>
 </document>

@@ -37,7 +37,7 @@ class SearchCollectionView: NSView {
     }
 
     func configureView(parenView: NSView, searchBarView: SearchBarView) {
-        parenView.addSubview(self)
+        self.translatesAutoresizingMaskIntoConstraints = false
         let top = NSLayoutConstraint(item: self,
                                      attribute: .top,
                                      relatedBy: .equal,
@@ -69,9 +69,9 @@ class SearchCollectionView: NSView {
         parenView.addConstraints([left, top, bottom, right])
     }
 
-    func layoutStateChanged(_ newState: SearchBarViewLayoutState) {
+    func layoutStateChanged(_ newState: MapViewLayoutState) {
         switch newState {
-        case .expanded:
+        case .expand:
             self.isHidden = false
             self.alphaValue = 0
 
@@ -83,7 +83,9 @@ class SearchCollectionView: NSView {
 
                 self.alphaValue = 1
             }, completionHandler: nil)
-        case .shrink:
+        case .minimal:
+            fallthrough
+        case .navigate:
             self.isHidden = false
             self.alphaValue = 1
 

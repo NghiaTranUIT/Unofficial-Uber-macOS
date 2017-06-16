@@ -13,11 +13,18 @@ import MapboxDirections
 import RxSwift
 import UberGoCore
 
+enum MapViewLayoutState {
+    case expand
+    case minimal
+    case navigate
+}
+
 class MapViewController: BaseViewController {
 
     // MARK: - OUTLET
     fileprivate var mapView: MGLMapView!
     fileprivate var searchCollectionView: SearchCollectionView!
+    @IBOutlet fileprivate weak var exitNavigateBtn: NSButton!
 
     // MARK: - Variable
     fileprivate var viewModel: MapViewModel!
@@ -112,8 +119,11 @@ class MapViewController: BaseViewController {
         self.viewModel.output.selectedPlaceObjDriver.drive(onNext: {[weak self] placeObj in
             guard let `self` = self else { return }
 
+            let state = placeObj != nil ? MapViewLayoutState.navigate :
+                MapViewLayoutState.minimal
+
             // Layout
-            self.handleLayoutState(placeObj)
+            self.updateLayoutState(state)
             self.addDestinationPlaceObj(placeObj)
         })
         .addDisposableTo(self.disposeBag)
@@ -221,12 +231,34 @@ class MapViewController: BaseViewController {
         }
     }
 
-    fileprivate func handleLayoutState(_ placeObj: PlaceObj?) {
-        let state = placeObj != nil ? SearchBarViewLayoutState.shrink :
-                                        SearchBarViewLayoutState.expanded
+    fileprivate func updateLayoutState(_ state: MapViewLayoutState) {
         self.searchCollectionView.layoutStateChanged(state)
         self.searchBarView.layoutState = state
+
+        switch state {
+        case .expand:
+            fallthrough
+        case .minimal:
+            NSAnimationContext.runAnimationGroup({ context in
+                context.allowsImplicitAnimation = true
+                context.duration = 0.22
+                context.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
+                self.exitNavigateBtn.alphaValue = 0
+            }, completionHandler: nil)
+        case .navigate:
+            NSAnimationContext.runAnimationGroup({ context in
+                context.allowsImplicitAnimation = true
+                context.duration = 0.22
+                context.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
+                self.exitNavigateBtn.alphaValue = 1
+            }, completionHandler: nil)
+        }
     }
+
+    @IBAction func exitNavigateBtnOnTapped(_ sender: Any) {
+        self.updateLayoutState(.minimal)
+    }
+
 }
 
 // MARK: - Private
@@ -235,6 +267,7 @@ extension MapViewController {
     fileprivate func initCommon() {
         self.view.wantsLayer = true
         self.view.layer?.backgroundColor = NSColor.white.cgColor
+        self.exitNavigateBtn.alphaValue = 0
     }
 
     fileprivate func initMapView() {
@@ -244,18 +277,20 @@ extension MapViewController {
         self.mapView.styleURL = MGLStyle.darkStyleURL(withVersion: 9)
         self.mapView.translatesAutoresizingMaskIntoConstraints = true
         self.mapView.autoresizingMask = [.viewWidthSizable, .viewHeightSizable]
-        self.view.addSubview(self.mapView)
+        self.view.addSubview(self.mapView, positioned: .below, relativeTo: self.exitNavigateBtn)
     }
 
     fileprivate func initSearchBarView() {
         self.searchBarView = SearchBarView.viewFromNib(with: BundleType.app)!
         self.searchBarView.delegate = self
+        self.view.addSubview(self.searchBarView, positioned: .below, relativeTo: self.exitNavigateBtn)
         self.searchBarView.configureView(with: self.view)
     }
 
     fileprivate func initSearchCollectionView() {
         self.searchCollectionView = SearchCollectionView.viewFromNib(with: BundleType.app)!
         self.searchCollectionView.delegate = self
+        self.view.addSubview(self.searchCollectionView, positioned: .below, relativeTo: self.exitNavigateBtn)
         self.searchCollectionView.configureView(parenView: self.view, searchBarView: self.searchBarView)
     }
 }
@@ -271,7 +306,7 @@ extension MapViewController: MGLMapViewDelegate {
 // MARK: - SearchBarViewDelegate
 extension MapViewController: SearchBarViewDelegate {
 
-    func searchBar(_ sender: SearchBarView, layoutStateDidChanged state: SearchBarViewLayoutState) {
+    func searchBar(_ sender: SearchBarView, layoutStateDidChanged state: MapViewLayoutState) {
         self.searchCollectionView.layoutStateChanged(state)
     }
 }
