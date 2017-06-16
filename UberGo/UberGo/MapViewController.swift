@@ -257,6 +257,9 @@ class MapViewController: BaseViewController {
 
     @IBAction func exitNavigateBtnOnTapped(_ sender: Any) {
         self.updateLayoutState(.minimal)
+
+        // Remove current
+        self.viewModel.input.didSelectPlaceObjPublisher.onNext(nil)
     }
 
 }
@@ -312,6 +315,7 @@ extension MapViewController: SearchBarViewDelegate {
 }
 
 extension MapViewController: SearchCollectionViewDelegate {
+
     func searchCollectionViewNumberOfPlace() -> Int {
         return self.searchPlaceObjs.count
     }
