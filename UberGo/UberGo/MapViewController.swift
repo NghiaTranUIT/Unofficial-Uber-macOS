@@ -22,7 +22,7 @@ enum MapViewLayoutState {
 class MapViewController: BaseViewController {
 
     // MARK: - OUTLET
-    fileprivate var mapView: MGLMapView!
+    fileprivate var mapView: UberMapView!
     fileprivate var searchCollectionView: SearchCollectionView!
     @IBOutlet fileprivate weak var exitNavigateBtn: NSButton!
 
@@ -34,14 +34,6 @@ class MapViewController: BaseViewController {
     fileprivate var searchPlaceObjs: [PlaceObj] {
         return self.viewModel.output.searchPlaceObjsVariable.value
     }
-
-    // Origin
-    fileprivate var originPoint: MGLPointAnnotation?
-
-    // Destination
-    fileprivate var destinationPlaceObj: PlaceObj?
-    fileprivate var destinationPoint: MGLPointAnnotation?
-    fileprivate var directionRoute: MGLPolyline?
 
     // MARK: - View Cycle
     override func viewDidLoad() {
@@ -73,13 +65,10 @@ class MapViewController: BaseViewController {
         self.viewModel.output.currentLocationDriver
             .filterNil()
             .drive(onNext: {[weak self] location in
-                guard let `self` = self else {
-                    return
-                }
+                guard let `self` = self else { return }
+
                 print("setCenter \(location)")
-//                self.updateCurrentLocation(point: location.coordinate)
-                self.addPoint(point: location.coordinate)
-                self.mapView.setCenter(location.coordinate, animated: true)
+                self.mapView.addOriginPoint(location.coordinate)
             })
             .addDisposableTo(self.disposeBag)
 
@@ -124,7 +113,7 @@ class MapViewController: BaseViewController {
 
             // Layout
             self.updateLayoutState(state)
-            self.addDestinationPlaceObj(placeObj)
+            self.mapView.addDestinationPlaceObj(placeObj)
         })
         .addDisposableTo(self.disposeBag)
 
@@ -133,102 +122,16 @@ class MapViewController: BaseViewController {
             guard let `self` = self else {
                 return
             }
-            self.drawDirectionRoute(route)
+            self.mapView.drawDirectionRoute(route)
         })
         .addDisposableTo(self.disposeBag)
     }
 
-    fileprivate func addPoint(point: CLLocationCoordinate2D) {
+    @IBAction func exitNavigateBtnOnTapped(_ sender: Any) {
+        self.updateLayoutState(.minimal)
 
-        // Remove if need
-        if let currentPoint = self.originPoint {
-            self.mapView.removeAnnotation(currentPoint)
-            self.originPoint = nil
-        }
-
-        let location = MGLPointAnnotation()
-        location.coordinate = point
-        location.title = "Here"
-
-        // Add
-        self.mapView.addAnnotation(location)
-        self.originPoint = location
-
-        // CentralizeMap
-        self.centralizeMap()
-
-    }
-
-    fileprivate func addProductObjs(_ productionObjs: [ProductObj]) {
-
-    }
-
-    fileprivate func addDestinationPlaceObj(_ placeObj: PlaceObj?) {
-        self.destinationPlaceObj = placeObj
-
-        // Remove if need
-        if let currentPoint = self.destinationPoint {
-            self.mapView.removeAnnotation(currentPoint)
-            self.destinationPoint = nil
-        }
-
-        // Remove
-        guard let placeObj = placeObj else {
-            return
-        }
-
-        // Add
-        guard let coordinate = placeObj.coordinate2D else {
-            return
-        }
-        self.destinationPoint = MGLPointAnnotation()
-        self.destinationPoint!.coordinate = coordinate
-        self.destinationPoint!.title = placeObj.name
-        self.mapView.addAnnotation(self.destinationPoint!)
-
-        // CentralizeMap
-        self.centralizeMap()
-    }
-
-    fileprivate func centralizeMap() {
-        guard let annotations = self.mapView.annotations else {
-            return
-        }
-        let edge = EdgeInsets(top: 200, left: 70, bottom: 70, right: 70)
-        self.mapView.showAnnotations(annotations, edgePadding: edge, animated: true)
-    }
-
-    fileprivate func drawDirectionRoute(_ route: Route?) {
-        guard let route = route else {
-            // Remove if need
-            if let directionRoute = self.directionRoute {
-                self.mapView.removeAnnotation(directionRoute)
-                self.directionRoute = nil
-            }
-            return
-        }
-
-        if route.coordinateCount > 0 {
-
-            // Remove if need
-            if let directionRoute = self.directionRoute {
-                self.mapView.removeAnnotation(directionRoute)
-                self.directionRoute = nil
-            }
-
-            // Convert the route’s coordinates into a polyline.
-            var routeCoordinates = route.coordinates!
-            let routeLine = MGLPolyline(coordinates: &routeCoordinates, count: route.coordinateCount)
-
-            // Add the polyline to the map and fit the viewport to the polyline.
-            self.mapView.addAnnotation(routeLine)
-            self.directionRoute = routeLine
-
-            // Centerizal
-            self.centralizeMap()
-        } else {
-            assert(false, "route.coordinateCount == 0")
-        }
+        // Remove current
+        self.viewModel.input.didSelectPlaceObjPublisher.onNext(nil)
     }
 
     fileprivate func updateLayoutState(_ state: MapViewLayoutState) {
@@ -255,13 +158,6 @@ class MapViewController: BaseViewController {
         }
     }
 
-    @IBAction func exitNavigateBtnOnTapped(_ sender: Any) {
-        self.updateLayoutState(.minimal)
-
-        // Remove current
-        self.viewModel.input.didSelectPlaceObjPublisher.onNext(nil)
-    }
-
 }
 
 // MARK: - Private
@@ -274,13 +170,9 @@ extension MapViewController {
     }
 
     fileprivate func initMapView() {
-        self.mapView = MGLMapView(frame: self.view.bounds)
+        self.mapView = UberMapView(frame: self.view.bounds)
         self.mapView.delegate = self
-        self.mapView.zoomLevel = 14
-        self.mapView.styleURL = MGLStyle.darkStyleURL(withVersion: 9)
-        self.mapView.translatesAutoresizingMaskIntoConstraints = true
-        self.mapView.autoresizingMask = [.viewWidthSizable, .viewHeightSizable]
-        self.view.addSubview(self.mapView, positioned: .below, relativeTo: self.exitNavigateBtn)
+        self.mapView.configureLayout(self.view, exitBtn: self.exitNavigateBtn)
     }
 
     fileprivate func initSearchBarView() {
