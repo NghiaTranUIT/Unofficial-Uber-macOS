@@ -129,6 +129,20 @@ class MapViewController: BaseViewController {
             self.mapView.drawDirectionRoute(route)
         })
         .addDisposableTo(self.disposeBag)
+
+        // Show or hide Bottom bar
+        self.viewModel.isLoadingAvailableProductPublisher.subscribe(onNext: { isLoading in
+            Logger.info("isLoading Available Products = \(isLoading)")
+        })
+        .addDisposableTo(self.disposeBag)
+
+        // Request Product
+        self.viewModel.availableProductsDriver.drive(onNext: { productObjs in
+
+            Logger.info("Available Products count = \(productObjs.count)")
+
+        })
+        .addDisposableTo(self.disposeBag)
     }
 
     @IBAction func exitNavigateBtnOnTapped(_ sender: Any) {
@@ -159,7 +173,7 @@ class MapViewController: BaseViewController {
         case .navigation:
 
             // Force layout
-            self.mapContainerViewBottom.constant = 120
+            self.mapContainerViewBottom.constant = 240
             self.view.layoutSubtreeIfNeeded()
 
             // Fade in
@@ -168,7 +182,6 @@ class MapViewController: BaseViewController {
             })
         }
     }
-
 }
 
 // MARK: - Private
@@ -178,6 +191,7 @@ extension MapViewController {
         self.view.wantsLayer = true
         self.view.layer?.backgroundColor = NSColor.white.cgColor
         self.exitNavigateBtn.alphaValue = 0
+        self.bottomBarView.backgroundColor = NSColor(hexString: "#343332")
     }
 
     fileprivate func initMapView() {
