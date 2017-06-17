@@ -182,7 +182,6 @@ extension MapViewController {
 
     fileprivate func initMapView() {
         self.mapView = UberMapView(frame: self.mapContainerView.bounds)
-        self.mapView.delegate = self
         self.mapView.configureLayout(self.mapContainerView, exitBtn: self.exitNavigateBtn)
     }
 
@@ -200,14 +199,6 @@ extension MapViewController {
                                          positioned: .below,
                                          relativeTo: self.exitNavigateBtn)
         self.searchCollectionView.configureView(parenView: self.mapContainerView, searchBarView: self.searchBarView)
-    }
-}
-
-// MARK: - MGLMapViewDelegate
-extension MapViewController: MGLMapViewDelegate {
-
-    func mapView(_ mapView: MGLMapView, annotationCanShowCallout annotation: MGLAnnotation) -> Bool {
-        return true
     }
 }
 

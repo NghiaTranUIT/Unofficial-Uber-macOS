@@ -36,6 +36,7 @@ class UberMapView: MGLMapView {
     fileprivate func initCommon() {
         self.zoomLevel = 14
         self.styleURL = MGLStyle.darkStyleURL(withVersion: 9)
+        self.delegate = self
     }
 
     // MARK: - Public
@@ -170,5 +171,28 @@ class UberMapView: MGLMapView {
         } else {
             assert(false, "route.coordinateCount == 0")
         }
+    }
+}
+
+// MARK: - MGLMapViewDelegate
+extension UberMapView: MGLMapViewDelegate {
+
+    func mapView(_ mapView: MGLMapView, annotationCanShowCallout annotation: MGLAnnotation) -> Bool {
+        return true
+    }
+
+    func mapView(_ mapView: MGLMapView, alphaForShapeAnnotation annotation: MGLShape) -> CGFloat {
+        // Set the alpha for all shape annotations to 1 (full opacity)
+        return 0.8
+    }
+
+    func mapView(_ mapView: MGLMapView, lineWidthForPolylineAnnotation annotation: MGLPolyline) -> CGFloat {
+        // Set the line width for polyline annotations
+        return 3.0
+    }
+
+    func mapView(_ mapView: MGLMapView, strokeColorForShapeAnnotation annotation: MGLShape) -> NSColor {
+        // Give our polyline a unique color by checking for its `title` property
+        return NSColor.white
     }
 }
