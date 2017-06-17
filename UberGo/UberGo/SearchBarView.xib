@@ -83,12 +83,8 @@
                             </constraints>
                         </customView>
                         <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="WiN-7G-eLH">
-                            <rect key="frame" x="20" y="96" width="21" height="26"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="26" id="HXn-cr-1v7"/>
-                                <constraint firstAttribute="width" constant="21" id="cgV-Dm-ETz"/>
-                            </constraints>
-                            <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="back-btn" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="huF-6U-LQT">
+                            <rect key="frame" x="20" y="95" width="22" height="32"/>
+                            <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="back-black-btn" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="huF-6U-LQT">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
@@ -98,7 +94,7 @@
                         </button>
                     </subviews>
                     <constraints>
-                        <constraint firstItem="WiN-7G-eLH" firstAttribute="top" secondItem="Gom-Qn-lcM" secondAttribute="top" constant="20" id="A7O-hJ-Kc6"/>
+                        <constraint firstItem="WiN-7G-eLH" firstAttribute="top" secondItem="Gom-Qn-lcM" secondAttribute="top" constant="15" id="A7O-hJ-Kc6"/>
                         <constraint firstItem="WiN-7G-eLH" firstAttribute="leading" secondItem="Gom-Qn-lcM" secondAttribute="leading" constant="20" id="ABp-2w-MgU"/>
                         <constraint firstAttribute="bottom" secondItem="tm8-iQ-z1e" secondAttribute="bottom" constant="8" id="F1l-Ad-6Cf"/>
                         <constraint firstItem="QjX-HT-RKP" firstAttribute="top" secondItem="H2Y-HO-oBQ" secondAttribute="bottom" constant="3" id="Hcw-zS-YSn"/>
@@ -135,6 +131,6 @@
         </customView>
     </objects>
     <resources>
-        <image name="back-btn" width="31" height="24"/>
+        <image name="back-black-btn" width="22" height="16"/>
     </resources>
 </document>

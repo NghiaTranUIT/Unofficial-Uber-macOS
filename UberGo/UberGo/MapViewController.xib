@@ -26,12 +26,8 @@
                     <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
                     <subviews>
                         <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="R7e-uc-ZRU">
-                            <rect key="frame" x="20" y="434" width="21" height="26"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="26" id="TOG-6T-3ij"/>
-                                <constraint firstAttribute="width" constant="21" id="Xu9-Wf-pfe"/>
-                            </constraints>
-                            <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="back-btn-white" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="H1D-il-Kj2">
+                            <rect key="frame" x="20" y="433" width="22" height="32"/>
+                            <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="back-white-btn" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="H1D-il-Kj2">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
@@ -42,7 +38,7 @@
                     </subviews>
                     <constraints>
                         <constraint firstAttribute="height" constant="480" id="75c-6A-gKa"/>
-                        <constraint firstItem="R7e-uc-ZRU" firstAttribute="top" secondItem="vPW-kc-2X8" secondAttribute="top" constant="20" id="9oW-fa-MM9"/>
+                        <constraint firstItem="R7e-uc-ZRU" firstAttribute="top" secondItem="vPW-kc-2X8" secondAttribute="top" constant="15" id="9oW-fa-MM9"/>
                         <constraint firstItem="R7e-uc-ZRU" firstAttribute="leading" secondItem="vPW-kc-2X8" secondAttribute="leading" constant="20" id="zjE-kd-s7w"/>
                     </constraints>
                 </customView>
@@ -66,6 +62,6 @@
         </customView>
     </objects>
     <resources>
-        <image name="back-btn-white" width="31" height="23"/>
+        <image name="back-white-btn" width="22" height="16"/>
     </resources>
 </document>
