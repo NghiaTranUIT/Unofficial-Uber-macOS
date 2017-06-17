@@ -32,6 +32,7 @@ open class PlaceObj: BaseObj {
     public var placeType = PlaceType.place
     public var name: String?
     public var address: String?
+    public var placeID: String?
     public var coordinate2D: CLLocationCoordinate2D?
     public var location: [String: Float]?
     public var isHistory = false
@@ -47,6 +48,7 @@ open class PlaceObj: BaseObj {
         self.name = personalPlaceObj.placeType.rawValue
         self.address = personalPlaceObj.address
         self.placeType = PlaceType.fromUberPersonalPlaceType(personalPlaceObj.placeType)
+        self.placeID = self.placeType.rawValue
     }
 
     public override func encode(with aCoder: NSCoder) {
@@ -55,6 +57,7 @@ open class PlaceObj: BaseObj {
         aCoder.encode(self.address, forKey: "vicinity")
         aCoder.encode(self.location, forKey: "geometry.location")
         aCoder.encode(self.placeType.rawValue, forKey: "placeType")
+        aCoder.encode(self.placeID, forKey: "placeID")
     }
 
     public required init?(coder aDecoder: NSCoder) {
@@ -68,6 +71,7 @@ open class PlaceObj: BaseObj {
 
         self.isHistory = true
         self.placeType = PlaceType(rawValue: aDecoder.decodeObject(forKey: "placeType") as! String)!
+        self.placeID = aDecoder.decodeObject(forKey: "placeID") as? String
     }
 
     public required init?(map: Map) {
@@ -82,6 +86,7 @@ open class PlaceObj: BaseObj {
         self.address <- map["vicinity"]
         self.location <- map["geometry.location"]
         self.coordinate2D <- (map["geometry.location"], Coordinate2DTransform())
+        self.placeID <- map["place_id"]
     }
 
     public var iconName: String {
@@ -96,6 +101,23 @@ open class PlaceObj: BaseObj {
         case .place:
             return "place"
         }
+    }
+
+    override open func isEqual(_ object: Any?) -> Bool {
+        guard let object = object as? PlaceObj else {
+            return false
+        }
+        guard let placeID = self.placeID else {
+            return false
+        }
+        guard let _placeID = object.placeID else {
+            return false
+        }
+
+        if placeID == _placeID {
+            return true
+        }
+        return false
     }
 }
 
