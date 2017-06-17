@@ -15,11 +15,11 @@
 		BA037F491EDD61F800945C1D /* UberGoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA037F481EDD61F800945C1D /* UberGoTests.swift */; };
 		BA2A3A751EECFF6E002A0343 /* SearchPlaceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2A3A731EECFF6E002A0343 /* SearchPlaceCell.swift */; };
 		BA2A3A761EECFF6E002A0343 /* SearchPlaceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA2A3A741EECFF6E002A0343 /* SearchPlaceCell.xib */; };
-		BA2A3A781EECFFD6002A0343 /* searchCell@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BA2A3A771EECFFD6002A0343 /* searchCell@2x.jpg */; };
 		BA2A3A831EED4298002A0343 /* SearchCollectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA2A3A821EED4298002A0343 /* SearchCollectionView.xib */; };
 		BA2A3A861EED430D002A0343 /* SearchCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2A3A851EED430D002A0343 /* SearchCollectionView.swift */; };
 		BA4796A91EE2C49700620BB0 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA4796A81EE2C49700620BB0 /* MapKit.framework */; };
 		BA7BA9831EE42C060056B0CF /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA7BA9821EE42C060056B0CF /* CoreLocation.framework */; };
+		BAAC441B1EF3A4BE00A9F949 /* UberMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAC441A1EF3A4BE00A9F949 /* UberMapView.swift */; };
 		BADB784A1EE5ABD5000536F7 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB78491EE5ABD5000536F7 /* SearchBarView.swift */; };
 		BADB784C1EE5ABDE000536F7 /* SearchBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BADB784B1EE5ABDE000536F7 /* SearchBarView.xib */; };
 		BADB78501EE5AC6A000536F7 /* NSView+Xib.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB784F1EE5AC6A000536F7 /* NSView+Xib.swift */; };
@@ -35,6 +35,7 @@
 		BAE690281EE4346700A4D876 /* Mapbox.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BAE690261EE4346700A4D876 /* Mapbox.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		BAE6902C1EE460EB00A4D876 /* EventMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE6902B1EE460EB00A4D876 /* EventMonitor.swift */; };
 		BAE6902D1EE5139500A4D876 /* UberGoCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA4796951EE2540D00620BB0 /* UberGoCore.framework */; };
+		BAE7171E1EF51D0B00E0EFFA /* NSAnimationContext+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE7171D1EF51D0B00E0EFFA /* NSAnimationContext+Helper.swift */; };
 		BAED39DB1EE9A705003D9BC3 /* UberCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAED39DA1EE9A705003D9BC3 /* UberCollectionView.swift */; };
 		BAED39DD1EE9ADB7003D9BC3 /* SearchCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAED39DC1EE9ADB7003D9BC3 /* SearchCollectionViewFlowLayout.swift */; };
 		BAF57FB91EE116FB0013090E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF57FB71EE116FB0013090E /* LoginViewController.swift */; };
@@ -83,12 +84,12 @@
 		BA037F4A1EDD61F800945C1D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BA2A3A731EECFF6E002A0343 /* SearchPlaceCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchPlaceCell.swift; sourceTree = "<group>"; };
 		BA2A3A741EECFF6E002A0343 /* SearchPlaceCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchPlaceCell.xib; sourceTree = "<group>"; };
-		BA2A3A771EECFFD6002A0343 /* searchCell@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "searchCell@2x.jpg"; sourceTree = "<group>"; };
 		BA2A3A821EED4298002A0343 /* SearchCollectionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchCollectionView.xib; sourceTree = "<group>"; };
 		BA2A3A851EED430D002A0343 /* SearchCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchCollectionView.swift; sourceTree = "<group>"; };
 		BA4796951EE2540D00620BB0 /* UberGoCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = UberGoCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA4796A81EE2C49700620BB0 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		BA7BA9821EE42C060056B0CF /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		BAAC441A1EF3A4BE00A9F949 /* UberMapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UberMapView.swift; sourceTree = "<group>"; };
 		BADB78491EE5ABD5000536F7 /* SearchBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
 		BADB784B1EE5ABDE000536F7 /* SearchBarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchBarView.xib; sourceTree = "<group>"; };
 		BADB784F1EE5AC6A000536F7 /* NSView+Xib.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSView+Xib.swift"; sourceTree = "<group>"; };
@@ -102,6 +103,7 @@
 		BADB78631EE6EFE1000536F7 /* UberTextFieldCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UberTextFieldCell.swift; sourceTree = "<group>"; };
 		BAE690261EE4346700A4D876 /* Mapbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Mapbox.framework; sourceTree = "<group>"; };
 		BAE6902B1EE460EB00A4D876 /* EventMonitor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventMonitor.swift; sourceTree = "<group>"; };
+		BAE7171D1EF51D0B00E0EFFA /* NSAnimationContext+Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSAnimationContext+Helper.swift"; sourceTree = "<group>"; };
 		BAED39DA1EE9A705003D9BC3 /* UberCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UberCollectionView.swift; sourceTree = "<group>"; };
 		BAED39DC1EE9ADB7003D9BC3 /* SearchCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
 		BAF57FB71EE116FB0013090E /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -171,7 +173,6 @@
 		BA037F351EDD61F800945C1D /* UberGo */ = {
 			isa = PBXGroup;
 			children = (
-				BA2A3A771EECFFD6002A0343 /* searchCell@2x.jpg */,
 				BAE6902A1EE460DF00A4D876 /* Models */,
 				BA47969A1EE2598B00620BB0 /* View */,
 				BA32E7211EDFC79C0044C017 /* Constants */,
@@ -229,6 +230,7 @@
 		BA47969A1EE2598B00620BB0 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				BAAC44191EF3A4AB00A9F949 /* Uber Map View */,
 				BAED39D91EE9A6EF003D9BC3 /* Search Collection View */,
 				BADB785F1EE66190000536F7 /* UberTextField */,
 				BADB785C1EE5B9F5000536F7 /* UberButton */,
@@ -236,6 +238,14 @@
 				BADB78481EE5ABC5000536F7 /* Search Bar */,
 			);
 			name = View;
+			sourceTree = "<group>";
+		};
+		BAAC44191EF3A4AB00A9F949 /* Uber Map View */ = {
+			isa = PBXGroup;
+			children = (
+				BAAC441A1EF3A4BE00A9F949 /* UberMapView.swift */,
+			);
+			name = "Uber Map View";
 			sourceTree = "<group>";
 		};
 		BADB78481EE5ABC5000536F7 /* Search Bar */ = {
@@ -281,6 +291,7 @@
 				BADB78511EE5AC86000536F7 /* NSView+Identity.swift */,
 				BADB78581EE5B92B000536F7 /* NSView+BackgroundColor.swift */,
 				BADB785A1EE5B93D000536F7 /* NSColor+Hex.swift */,
+				BAE7171D1EF51D0B00E0EFFA /* NSAnimationContext+Helper.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -420,7 +431,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BA2A3A781EECFFD6002A0343 /* searchCell@2x.jpg in Resources */,
 				BA037F3B1EDD61F800945C1D /* Assets.xcassets in Resources */,
 				BADB784C1EE5ABDE000536F7 /* SearchBarView.xib in Resources */,
 				BADB78571EE5B7FB000536F7 /* ActionSearchBarView.xib in Resources */,
@@ -569,11 +579,13 @@
 				BADB784A1EE5ABD5000536F7 /* SearchBarView.swift in Sources */,
 				BADB78501EE5AC6A000536F7 /* NSView+Xib.swift in Sources */,
 				BAF57FB91EE116FB0013090E /* LoginViewController.swift in Sources */,
+				BAE7171E1EF51D0B00E0EFFA /* NSAnimationContext+Helper.swift in Sources */,
 				BADB78591EE5B92B000536F7 /* NSView+BackgroundColor.swift in Sources */,
 				BAF57FBF1EE117300013090E /* MapViewController.swift in Sources */,
 				BAED39DD1EE9ADB7003D9BC3 /* SearchCollectionViewFlowLayout.swift in Sources */,
 				BADB785B1EE5B93D000536F7 /* NSColor+Hex.swift in Sources */,
 				BADB78611EE661A8000536F7 /* UberTextField.swift in Sources */,
+				BAAC441B1EF3A4BE00A9F949 /* UberMapView.swift in Sources */,
 				BA2A3A861EED430D002A0343 /* SearchCollectionView.swift in Sources */,
 				BA037F371EDD61F800945C1D /* AppDelegate.swift in Sources */,
 				BADB78521EE5AC86000536F7 /* NSView+Identity.swift in Sources */,

@@ -46,7 +46,7 @@ extension Requestable {
     typealias HeaderParameter = [String: String]
     typealias JSONDictionary = [String: Any]
 
-    var basePath: String { return Constants.UberAPI.BaseURL }
+    var basePath: String { return Constants.UberAPI.BaseSandboxURL }
 
     var param: Parameter? { return nil }
 

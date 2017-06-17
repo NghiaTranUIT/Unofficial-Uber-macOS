@@ -8,6 +8,7 @@
 
 import Foundation
 import MapKit
+import MapboxDirections
 import RxCocoa
 import RxSwift
 
@@ -22,20 +23,23 @@ public protocol MapViewModelInput {
 
     var startUpdateLocationTriggerPublisher: PublishSubject<Bool> { get }
     var textSearchPublish: PublishSubject<String> { get }
-    var didSelectPlaceObjPublisher: PublishSubject<PlaceObj> { get }
+    var didSelectPlaceObjPublisher: PublishSubject<PlaceObj?> { get }
 }
 
 public protocol MapViewModelOutput {
 
+    // Origin
     var currentLocationDriver: Driver<CLLocation?> { get }
     var nearestPlaceDriver: Driver<PlaceObj> { get }
-    var productsVariable: Variable<[ProductObj]> { get }
+
+    // Search
     var searchPlaceObjsVariable: Variable<[PlaceObj]> { get }
-    var personPlaceObjsVariable: Variable<[PlaceObj]> { get }
     var loadingPublisher: PublishSubject<Bool> { get }
 
     // Destination
-    var selectedPlaceObjDriver: Driver<PlaceObj> { get }
+    var selectedPlaceObjDriver: Driver<PlaceObj?>! { get }
+    var selectedDirectionRouteObserver: Observable<Route?>! { get }
+    var isSelectedPlace: Driver<Bool> { get }
 }
 
 // MARK: - View Model
@@ -51,25 +55,27 @@ open class MapViewModel: BaseViewModel,
     // MARK: - Variable
     fileprivate let mapManager = MapService()
     fileprivate let uberService = UberService()
+    fileprivate let directionService = DirectionService()
 
     // MARK: - Input
     public var startUpdateLocationTriggerPublisher = PublishSubject<Bool>()
     public var textSearchPublish = PublishSubject<String>()
-    public var didSelectPlaceObjPublisher = PublishSubject<PlaceObj>()
+    public var didSelectPlaceObjPublisher = PublishSubject<PlaceObj?>()
 
     // MARK: - Output
     public var currentLocationDriver: Driver<CLLocation?> {
         return mapManager.currentLocationVariable.asDriver()
     }
-    public var productsVariable = Variable<[ProductObj]>([])
     public var nearestPlaceDriver: Driver<PlaceObj> {
         return self.mapManager.nearestPlaceObverser.asDriver(onErrorJustReturn: PlaceObj.unknowPlace)
     }
     public var searchPlaceObjsVariable = Variable<[PlaceObj]>([])
-    public var personPlaceObjsVariable = Variable<[PlaceObj]>([])
+    fileprivate var personalOrHistoryPlaceObjsVariable = Variable<[PlaceObj]>([])
     public var loadingPublisher = PublishSubject<Bool>()
-    public var selectedPlaceObjDriver: Driver<PlaceObj> {
-        return self.didSelectPlaceObjPublisher.asObserver().asDriver(onErrorJustReturn: PlaceObj())
+    public var selectedPlaceObjDriver: Driver<PlaceObj?>!
+    public var selectedDirectionRouteObserver: Observable<Route?>!
+    public var isSelectedPlace: Driver<Bool> {
+        return self.selectedPlaceObjDriver.map({ $0 != nil })
     }
 
     // MARK: - Init
@@ -89,12 +95,32 @@ open class MapViewModel: BaseViewModel,
             })
             .addDisposableTo(self.disposeBag)
 
+        // Load personal or history place
+        self.loadingPublisher.onNext(true)
+        let personalPlace = self.uberService
+            .personalPlaceObserver()
+            .startWith([]) // Don't need to wait -> Should show history palce first
+            // Map in map: [UberPersonalPlaceObj] -> [PlaceObj]
+            .map({ $0.map({ PlaceObj(personalPlaceObj: $0) }) })
+
+        let historyPlace = self.uberService.historyObserver
+
+        Observable.combineLatest([personalPlace, historyPlace])
+        .map { (combine) -> [PlaceObj] in
+            let personPlaces = combine.first!
+            let historyPlaces = combine.last!
+            return personPlaces + historyPlaces
+        }.bind(to: self.personalOrHistoryPlaceObjsVariable)
+        .addDisposableTo(self.disposeBag)
+
+        // Trigger
+        self.uberService.reloadHistoryTrigger.onNext()
+
+        // Text Search
         let shared = self.textSearchPublish
             .asObservable()
             .share()
-
-        let searchTextObserver = shared
-            .asObservable()
+        let searchPlaceObserver = shared
             .debounce(0.3, scheduler: MainScheduler.instance)
             .distinctUntilChanged()
             .flatMapLatest {[unowned self] (text) -> Observable<[PlaceObj]> in
@@ -113,8 +139,7 @@ open class MapViewModel: BaseViewModel,
                 let param = PlaceSearchRequestParam(keyword: text, location: currentCoordinate)
                 return PlaceSearchRequest(param).toObservable()
             }
-
-        let personalObserver = shared
+        let personalOrHistoryObserver = shared
             .distinctUntilChanged()
             .flatMapLatest { (text) -> Observable<[PlaceObj]> in
                 guard text == "" else {
@@ -124,10 +149,13 @@ open class MapViewModel: BaseViewModel,
                 // Start
                 self.loadingPublisher.onNext(true)
 
-                return self.personPlaceObjsVariable.asObservable()
+                return self.personalOrHistoryPlaceObjsVariable.asObservable()
             }
 
-        Observable.merge([searchTextObserver, personalObserver])
+        // Merage into searchPlace
+        Observable.merge([searchPlaceObserver,
+                          personalOrHistoryObserver,
+                          self.personalOrHistoryPlaceObjsVariable.asObservable()])
             .skip(1)
             .do(onNext: {[weak self] _ in
                 guard let `self` = self else { return }
@@ -136,13 +164,49 @@ open class MapViewModel: BaseViewModel,
             .bind(to: self.searchPlaceObjsVariable)
             .addDisposableTo(self.disposeBag)
 
-        // Person place
-        self.loadingPublisher.onNext(true)
-        self.uberService
-            .personalPlaceObserver()
-            // Map in map: [UberPersonalPlaceObj] -> [PlaceObj]
-            .map({ $0.map({ PlaceObj(personalPlaceObj: $0) }) })
-            .bind(to: self.personPlaceObjsVariable)
-            .addDisposableTo(self.disposeBag)
+        // Selected
+        let selectedPlaceObserve = self.didSelectPlaceObjPublisher
+            .asObserver()
+            .share()
+
+        self.selectedPlaceObjDriver = selectedPlaceObserve.asDriver(onErrorJustReturn: nil)
+        let clearCurrentDirectionRoute = selectedPlaceObserve.map { _ -> Route? in return nil }
+        let getDirection = selectedPlaceObserve
+            .flatMapLatest {[unowned self] toPlace -> Observable<Route?> in
+
+                guard let toPlace = toPlace else {
+                    return Observable.empty()
+                }
+
+                //FIXME : Temporary get current location
+                // Should refactor currentLocationVariable
+                // is Observable<PlaceObj>
+                // PlaceObj maybe work/home or coordinate or googleplace
+                let current = self.mapManager.currentLocationVariable.value!
+                let place = PlaceObj()
+                place.coordinate2D = current.coordinate
+                place.name = "Current location"
+                return self.directionService.generateDirectionRoute(from: place, to: toPlace)
+            }
+            .observeOn(MainScheduler.instance)
+
+        self.selectedDirectionRouteObserver = Observable.merge([getDirection, clearCurrentDirectionRoute])
+
+        // Save History place
+        selectedPlaceObserve.subscribe(onNext: {[unowned self] placeObj in
+            guard let placeObj = placeObj else {
+                return
+            }
+            guard let currentUser = UserObj.currentUser else {
+                return
+            }
+
+            // Save history
+            currentUser.saveHistoryPlace(placeObj)
+
+            // Load again
+            self.uberService.reloadHistoryTrigger.onNext()
+        })
+        .addDisposableTo(self.disposeBag)
     }
 }

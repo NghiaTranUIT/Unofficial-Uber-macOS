@@ -30,7 +30,7 @@ class UberServiceTests: XCTestCase {
     func testUberProductsRequestAPIWorkSuccess() {
 
         // When
-        let location = CLLocationCoordinate2D(latitude: 10.79901740, longitude: 106.75191281)
+        let location = LocationHelper.originLocation
         let param = UberProductsRequestParam(location: location)
         let promise = expectation(description: "testUberProductsRequestAPIWorkSuccess")
         FakeUberCrendential.makeCurrentUser()
@@ -83,6 +83,34 @@ class UberServiceTests: XCTestCase {
                         XCTFail("Uber Personal Place's adress is invalid")
                     }
                 }
+                promise.fulfill()
+            }, onError: { error in
+                XCTFail(error.localizedDescription)
+            })
+            .addDisposableTo(self.disposeBag)
+
+        // Expect
+        waitForExpectations(timeout: 10, handler: nil)
+    }
+
+    func testRideEstimatePriceRequestWorkSuceess() {
+
+        let promise = expectation(description: "testRideEstimatePriceRequestWorkSuceess")
+        FakeUberCrendential.makeCurrentUser()
+        let from = LocationHelper.originLocation
+        let to = LocationHelper.destinationLocation
+
+        // Then
+        UberService().rideEstimatePrice(from: from, to: to)
+            .subscribe(onNext: { priceObjs in
+
+                // Check if product_id != nil
+                for obj in priceObjs {
+                    if obj.productId == nil {
+                        XCTFail("Uber Personal Place's adress is invalid")
+                    }
+                }
+
                 promise.fulfill()
             }, onError: { error in
                 XCTFail(error.localizedDescription)

@@ -12,21 +12,17 @@ import ObjectMapper
 open class BaseObj: NSObject, Mappable, NSCoding {
 
     // MARK: - Variable
-    public var objectId: String?
-    public var createdAt: Date?
-    public var updatedAt: Date?
+    public var objectId: String? = UUID.shortUUID()
+    public var createdAt: Date? = Date()
+    public var updatedAt: Date? = Date()
 
     // MARK: - Init
     public override init() {
         super.init()
-
-        self.objectId = UUID.shortUUID()
-        self.createdAt = Date()
-        self.updatedAt = Date()
     }
 
     public required init?(map: Map) {
-
+    
     }
 
     public func mapping(map: Map) {

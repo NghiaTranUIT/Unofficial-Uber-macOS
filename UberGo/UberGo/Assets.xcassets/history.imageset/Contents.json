@@ -2,11 +2,12 @@
   "images" : [
     {
       "idiom" : "mac",
-      "filename" : "history.png",
+      "filename" : "time.png",
       "scale" : "1x"
     },
     {
       "idiom" : "mac",
+      "filename" : "time@2x.png",
       "scale" : "2x"
     }
   ],

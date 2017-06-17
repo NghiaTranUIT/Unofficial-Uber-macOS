@@ -37,7 +37,7 @@ class SearchPlaceCell: NSCollectionViewItem {
     func configurePlaceCell(_ placeObj: PlaceObj) {
         self.titleLbl.stringValue = placeObj.name ?? ""
         self.addressLbl.stringValue = placeObj.address ?? ""
-        self.avatarImageView.image = NSImage(named: placeObj.placeType.iconName)
+        self.avatarImageView.image = NSImage(named: placeObj.iconName)
     }
 
     override func mouseEntered(with theEvent: NSEvent) {
@@ -74,16 +74,16 @@ extension SearchPlaceCell {
     }
 
     fileprivate func updateMouseOverUI() {
-        NSAnimationContext.runAnimationGroup({ (context) in
-            context.allowsImplicitAnimation = true
+
+        NSAnimationContext.defaultAnimate({ (context) in
+            // rapid
             context.duration = 0.11
-            context.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
 
             if self.mouseInside {
                 self.view.backgroundColor = NSColor(hexString: "#EDEDED")
             } else {
                 self.view.backgroundColor = NSColor.white
             }
-        }, completionHandler: nil)
+        })
     }
 }

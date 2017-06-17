@@ -24,11 +24,17 @@ struct Constants {
     // MARK: - Uber
     struct UberAPI {
 
-        static let BaseURL = "https://api.uber.com"
+        static let BaseProductionURL = "https://api.uber.com"
+        static let BaseSandboxURL = "https://sandbox-api.uber.com"
+
         static let LoginURL = "oauth/v2/authorize"
         static let UberProducts = "/v1.2/products"
         static let HomePersonalPlace = "/v1.2/places/home"
         static let WorkPseronalPlace = "/v1.2/places/work"
+        static let RideEstimatePrice = "/v1.2/estimates/price"
+        static let GetCurrentTrip = "/v1.2/requests/current"
+        static let RequestEstimate = "/v1.2/requests/estimate"
+        static let CreateTripRequest = "/v1.2/requests"
     }
 
     // MARK: - Google App
@@ -80,5 +86,72 @@ struct Constants {
 
             static let Address = "address"
         }
+
+        // MARK: - Price
+        struct Price {
+
+            static let LocalizedDisplayName = "localized_display_name"
+            static let Distance = "distance"
+            static let DisplayName = "display_name"
+            static let ProductId = "product_id"
+            static let HighEstimate = "high_estimate"
+            static let LowEstimate = "low_estimate"
+            static let Duration = "duration"
+            static let Estimate = "estimate"
+            static let CurrencyCode = "currency_code"
+        }
+
+        // MARK: - Trip
+        struct Trip {
+            static let ProductId = "product_id"
+            static let RequestId = "request_id"
+            static let Status = "status"
+            static let SurgeMultiplier = "surge_multiplier"
+            static let Shared = "shared"
+            static let Driver = "driver"
+            static let Vehicle = "vehicle"
+            static let Location = "location"
+            static let Pickup = "pickup"
+            static let Destination = "destination"
+            static let Waypoints = "waypoints"
+            static let Riders = "riders"
+        }
+
+        // MARK: - Waypoint
+        struct Waypoint {
+
+            static let RiderId = "rider_id"
+            static let Latitude = "latitude"
+            static let Longitude = "longitude"
+            static let `Type` = "type"
+        }
+
+        // MARK: - Rider
+        struct Rider {
+
+            static let RiderId = "rider_id"
+            static let FirstName = "first_name"
+            static let Me = "me"
+        }
+
+        // MARK: - Driver
+        struct Driver {
+
+            static let PhoneNumber = "phone_number"
+            static let SmsNumber = "sms_number"
+            static let Rating = "rating"
+            static let PictureUrl = "picture_url"
+            static let Name = "name"
+        }
+
+        // MARK: - Vehicle
+        struct Vehicle {
+
+            static let Make = "make"
+            static let Model = "model"
+            static let LicensePlate = "license_plate"
+            static let PictureUrl = "picture_url"
+        }
+
     }
 }

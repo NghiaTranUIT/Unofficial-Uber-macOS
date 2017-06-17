@@ -9,14 +9,26 @@
 import Cocoa
 import CoreLocation
 import Mapbox
+import MapboxDirections
 import RxSwift
 import UberGoCore
+
+enum MapViewLayoutState {
+    case expand
+    case minimal
+    case navigation
+}
 
 class MapViewController: BaseViewController {
 
     // MARK: - OUTLET
-    fileprivate var mapView: MGLMapView!
+    fileprivate var mapView: UberMapView!
     fileprivate var searchCollectionView: SearchCollectionView!
+    @IBOutlet fileprivate weak var exitNavigateBtn: NSButton!
+    @IBOutlet fileprivate weak var mapContainerView: NSView!
+    @IBOutlet fileprivate weak var mapContainerViewBottom: NSLayoutConstraint!
+    @IBOutlet fileprivate weak var bottomBarView: NSView!
+    @IBOutlet fileprivate weak var bottomBarViewHeight: NSLayoutConstraint!
 
     // MARK: - Variable
     fileprivate var viewModel: MapViewModel!
@@ -26,13 +38,6 @@ class MapViewController: BaseViewController {
     fileprivate var searchPlaceObjs: [PlaceObj] {
         return self.viewModel.output.searchPlaceObjsVariable.value
     }
-
-    // Origin
-    fileprivate var originPoint: MGLPointAnnotation?
-
-    // Destination
-    fileprivate var destinationPlaceObj: PlaceObj?
-    fileprivate var destinationPoint: MGLPointAnnotation?
 
     // MARK: - View Cycle
     override func viewDidLoad() {
@@ -64,13 +69,10 @@ class MapViewController: BaseViewController {
         self.viewModel.output.currentLocationDriver
             .filterNil()
             .drive(onNext: {[weak self] location in
-                guard let `self` = self else {
-                    return
-                }
+                guard let `self` = self else { return }
+
                 print("setCenter \(location)")
-//                self.updateCurrentLocation(point: location.coordinate)
-                self.addPoint(point: location.coordinate)
-                self.mapView.setCenter(location.coordinate, animated: true)
+                self.mapView.addOriginPoint(location.coordinate)
             })
             .addDisposableTo(self.disposeBag)
 
@@ -98,17 +100,6 @@ class MapViewController: BaseViewController {
             })
             .addDisposableTo(self.disposeBag)
 
-        self.viewModel.output.personPlaceObjsVariable
-            .asObservable()
-            .subscribe(onNext: {[weak self] placeObjs in
-                guard let `self` = self else { return }
-                print("Personal place FOUND = \(placeObjs.count)")
-                if self.searchBarView.textSearch == "" {
-                    self.searchCollectionView.reloadData()
-                }
-            })
-            .addDisposableTo(self.disposeBag)
-
         // Loader
         self.viewModel.output.loadingPublisher.subscribe(onNext: {[weak self] isLoading in
             guard let `self` = self else {
@@ -119,66 +110,65 @@ class MapViewController: BaseViewController {
 
         // Selected Place
         self.viewModel.output.selectedPlaceObjDriver.drive(onNext: {[weak self] placeObj in
+            guard let `self` = self else { return }
+
+            let state = placeObj != nil ? MapViewLayoutState.navigation :
+                MapViewLayoutState.minimal
+
+            // Layout
+            self.updateLayoutState(state)
+            self.mapView.addDestinationPlaceObj(placeObj)
+        })
+        .addDisposableTo(self.disposeBag)
+
+        // Draw map
+        self.viewModel.output.selectedDirectionRouteObserver.subscribe(onNext: {[weak self] (route) in
             guard let `self` = self else {
                 return
             }
-            self.addDestinationPlaceObj(placeObj)
+            self.mapView.drawDirectionRoute(route)
         })
         .addDisposableTo(self.disposeBag)
     }
 
-    fileprivate func addPoint(point: CLLocationCoordinate2D) {
+    @IBAction func exitNavigateBtnOnTapped(_ sender: Any) {
+        self.updateLayoutState(.minimal)
 
-        // Remove if need
-        if let currentPoint = self.originPoint {
-            self.mapView.removeAnnotation(currentPoint)
-        }
-
-        let location = MGLPointAnnotation()
-        location.coordinate = point
-        location.title = "Here"
-
-        // Add
-        self.mapView.addAnnotation(location)
-        self.originPoint = location
-
-        // CentralizeMap
-        self.centralizeMap()
-
+        // Remove current
+        self.viewModel.input.didSelectPlaceObjPublisher.onNext(nil)
     }
 
-    fileprivate func addProductObjs(_ productionObjs: [ProductObj]) {
+    fileprivate func updateLayoutState(_ state: MapViewLayoutState) {
+        self.searchCollectionView.layoutStateChanged(state)
+        self.searchBarView.layoutState = state
 
+        switch state {
+        case .expand:
+            fallthrough
+        case .minimal:
+
+            // Force Layout
+            self.mapContainerViewBottom.constant = 0
+            self.view.layoutSubtreeIfNeeded()
+
+            // Fade out
+            NSAnimationContext.defaultAnimate({ _ in
+                self.exitNavigateBtn.alphaValue = 0
+            })
+
+        case .navigation:
+
+            // Force layout
+            self.mapContainerViewBottom.constant = 120
+            self.view.layoutSubtreeIfNeeded()
+
+            // Fade in
+            NSAnimationContext.defaultAnimate({ _ in
+                self.exitNavigateBtn.alphaValue = 1
+            })
+        }
     }
 
-    fileprivate func addDestinationPlaceObj(_ placeObj: PlaceObj) {
-        self.destinationPlaceObj = placeObj
-
-        // Remove if need
-        if let currentPoint = self.destinationPoint {
-            self.mapView.removeAnnotation(currentPoint)
-        }
-
-        // Add
-        guard let coordinate = placeObj.coordinate2D else {
-            return
-        }
-        self.destinationPoint = MGLPointAnnotation()
-        self.destinationPoint!.coordinate = coordinate
-        self.destinationPoint!.title = placeObj.name
-        self.mapView.addAnnotation(self.destinationPoint!)
-
-        // CentralizeMap
-        self.centralizeMap()
-    }
-
-    fileprivate func centralizeMap() {
-        guard let annotations = self.mapView.annotations else {
-            return
-        }
-        let edge = EdgeInsets(top: 200, left: 70, bottom: 70, right: 70)
-        self.mapView.showAnnotations(annotations, edgePadding: edge, animated: true)
-    }
 }
 
 // MARK: - Private
@@ -187,47 +177,41 @@ extension MapViewController {
     fileprivate func initCommon() {
         self.view.wantsLayer = true
         self.view.layer?.backgroundColor = NSColor.white.cgColor
+        self.exitNavigateBtn.alphaValue = 0
     }
 
     fileprivate func initMapView() {
-        self.mapView = MGLMapView(frame: self.view.bounds)
-        self.mapView.delegate = self
-        self.mapView.zoomLevel = 14
-        self.mapView.styleURL = MGLStyle.darkStyleURL(withVersion: 9)
-        self.mapView.translatesAutoresizingMaskIntoConstraints = true
-        self.view.addSubview(self.mapView)
+        self.mapView = UberMapView(frame: self.mapContainerView.bounds)
+        self.mapView.configureLayout(self.mapContainerView, exitBtn: self.exitNavigateBtn)
     }
 
     fileprivate func initSearchBarView() {
         self.searchBarView = SearchBarView.viewFromNib(with: BundleType.app)!
         self.searchBarView.delegate = self
-        self.searchBarView.configureView(with: self.view)
+        self.mapContainerView.addSubview(self.searchBarView, positioned: .below, relativeTo: self.exitNavigateBtn)
+        self.searchBarView.configureView(with: self.mapContainerView)
     }
 
     fileprivate func initSearchCollectionView() {
         self.searchCollectionView = SearchCollectionView.viewFromNib(with: BundleType.app)!
         self.searchCollectionView.delegate = self
-        self.searchCollectionView.configureView(parenView: self.view, searchBarView: self.searchBarView)
-    }
-}
-
-// MARK: - MGLMapViewDelegate
-extension MapViewController: MGLMapViewDelegate {
-
-    func mapView(_ mapView: MGLMapView, annotationCanShowCallout annotation: MGLAnnotation) -> Bool {
-        return true
+        self.mapContainerView.addSubview(self.searchCollectionView,
+                                         positioned: .below,
+                                         relativeTo: self.exitNavigateBtn)
+        self.searchCollectionView.configureView(parenView: self.mapContainerView, searchBarView: self.searchBarView)
     }
 }
 
 // MARK: - SearchBarViewDelegate
 extension MapViewController: SearchBarViewDelegate {
 
-    func searchBar(_ sender: SearchBarView, layoutStateDidChanged state: SearchBarViewLayoutState) {
+    func searchBar(_ sender: SearchBarView, layoutStateDidChanged state: MapViewLayoutState) {
         self.searchCollectionView.layoutStateChanged(state)
     }
 }
 
 extension MapViewController: SearchCollectionViewDelegate {
+
     func searchCollectionViewNumberOfPlace() -> Int {
         return self.searchPlaceObjs.count
     }
@@ -241,9 +225,5 @@ extension MapViewController: SearchCollectionViewDelegate {
         // Select
         let placeObj = self.searchPlaceObjs[atIndex.item]
         self.viewModel.input.didSelectPlaceObjPublisher.onNext(placeObj)
-
-        // Hide map
-        self.searchCollectionView.layoutStateChanged(.shrink)
-        self.searchBarView.layoutState = .shrink
     }
 }

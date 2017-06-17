@@ -37,7 +37,7 @@ class SearchCollectionView: NSView {
     }
 
     func configureView(parenView: NSView, searchBarView: SearchBarView) {
-        parenView.addSubview(self)
+        self.translatesAutoresizingMaskIntoConstraints = false
         let top = NSLayoutConstraint(item: self,
                                      attribute: .top,
                                      relatedBy: .equal,
@@ -69,32 +69,26 @@ class SearchCollectionView: NSView {
         parenView.addConstraints([left, top, bottom, right])
     }
 
-    func layoutStateChanged(_ newState: SearchBarViewLayoutState) {
+    func layoutStateChanged(_ newState: MapViewLayoutState) {
         switch newState {
-        case .expanded:
+        case .expand:
             self.isHidden = false
             self.alphaValue = 0
 
             // Animate
-            NSAnimationContext.runAnimationGroup({ context in
-                context.allowsImplicitAnimation = true
-                context.duration = 0.22
-                context.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
-
+            NSAnimationContext.defaultAnimate({ _ in
                 self.alphaValue = 1
-            }, completionHandler: nil)
-        case .shrink:
+            })
+        case .minimal:
+            fallthrough
+        case .navigation:
             self.isHidden = false
             self.alphaValue = 1
 
             // Animate
-            NSAnimationContext.runAnimationGroup({ context in
-                context.allowsImplicitAnimation = true
-                context.duration = 0.22
-                context.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
-
+            NSAnimationContext.defaultAnimate({ _ in
                 self.alphaValue = 0
-            }, completionHandler: {
+            }, completion: { 
                 self.isHidden = true
             })
         }
@@ -174,5 +168,8 @@ extension SearchCollectionView: NSCollectionViewDelegate, NSCollectionViewDelega
         let selection = indexPaths as NSSet
         guard let selectedIndexPath = selection.allObjects.last as? IndexPath else { return }
         self.delegate?.searchCollectionView(self, didSelectItem: selectedIndexPath)
+
+        // De-select
+        self.collectionView.deselectItems(at: indexPaths)
     }
 }

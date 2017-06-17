@@ -11,13 +11,8 @@ import RxCocoa
 import RxSwift
 import UberGoCore
 
-enum SearchBarViewLayoutState {
-    case expanded
-    case shrink
-}
-
 protocol SearchBarViewDelegate: class {
-    func searchBar(_ sender: SearchBarView, layoutStateDidChanged state: SearchBarViewLayoutState)
+    func searchBar(_ sender: SearchBarView, layoutStateDidChanged state: MapViewLayoutState)
 }
 
 class SearchBarView: NSView {
@@ -34,13 +29,13 @@ class SearchBarView: NSView {
 
     // MARK: - Variable
     weak var delegate: SearchBarViewDelegate?
-    fileprivate var _layoutState = SearchBarViewLayoutState.shrink {
+    fileprivate var _layoutState = MapViewLayoutState.minimal {
         didSet {
             self.delegate?.searchBar(self, layoutStateDidChanged: _layoutState)
             self.animateSearchBarState()
         }
     }
-    public var layoutState: SearchBarViewLayoutState {
+    public var layoutState: MapViewLayoutState {
         get {
             return self._layoutState
         }
@@ -105,7 +100,7 @@ class SearchBarView: NSView {
     }
     // MARK: - Action
     @IBAction func backBtnOnTap(_ sender: Any) {
-        self.layoutState = .shrink
+        self.layoutState = .minimal
     }
 
 }
@@ -123,7 +118,7 @@ extension SearchBarView {
         self.roundBarView.layer?.masksToBounds = true
         self.roundBarView.layer?.cornerRadius = 3
 
-        // Defaukt
+        // Default
         self.searchContainerView.alphaValue = 0
     }
 
@@ -136,8 +131,6 @@ extension SearchBarView {
 
     func configureView(with parentView: NSView) {
         self.translatesAutoresizingMaskIntoConstraints = false
-
-        parentView.addSubview(self)
         self.topConstraint = NSLayoutConstraint(item: self,
                                      attribute: .top,
                                      relatedBy: .equal,
@@ -171,43 +164,45 @@ extension SearchBarView {
 
     fileprivate func animateSearchBarState() {
         switch self._layoutState {
-        case .expanded:
+        case .expand:
 
             // Focus
             self.makeDestinationFirstResponse()
 
+            self.isHidden = false
             self.leftConstraint.constant = 0
             self.topConstraint.constant = 0
             self.rightConstraint.constant = 0
             self.heightConstraint.constant = 142
 
             // Animate
-            NSAnimationContext.runAnimationGroup({ context in
-                context.allowsImplicitAnimation = true
-                context.duration = 0.22
-                context.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
-
+            NSAnimationContext.defaultAnimate({ _ in
+                self.alphaValue = 1
                 self.actionSearchView.alphaValue = 0
                 self.searchContainerView.alphaValue = 1
-
                 self.superview?.layoutSubtreeIfNeeded()
-            }, completionHandler: nil)
-        case .shrink:
+            })
+        case .minimal:
+            self.isHidden = false
             self.leftConstraint.constant = 28
             self.topConstraint.constant = 28
             self.rightConstraint.constant = -28
             self.heightConstraint.constant = 56
 
-            NSAnimationContext.runAnimationGroup({ context in
-                context.allowsImplicitAnimation = true
-                context.duration = 0.22
-                context.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
-
+            NSAnimationContext.defaultAnimate({ _ in
+                self.alphaValue = 1
                 self.actionSearchView.alphaValue = 1
                 self.searchContainerView.alphaValue = 0
-
                 self.superview?.layoutSubtreeIfNeeded()
-            }, completionHandler: nil)
+            })
+        case .navigation:
+
+            NSAnimationContext.defaultAnimate({ _ in
+                self.alphaValue = 0
+                self.superview?.layoutSubtreeIfNeeded()
+            }, completion: {
+                self.isHidden = true
+            })
         }
     }
 }
@@ -219,7 +214,7 @@ extension SearchBarView: ActionSearchBarViewDelegate {
     }
 
     func shouldOpenFullSearch() {
-        self.layoutState = .expanded
+        self.layoutState = .expand
     }
 }
 

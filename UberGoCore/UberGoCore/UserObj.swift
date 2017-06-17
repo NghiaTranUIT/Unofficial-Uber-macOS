@@ -69,6 +69,34 @@ final class UserObj: BaseObj {
         aCoder.encode(self.oauthTokenExpiresAt, forKey: Constants.Object.User.OauthTokenExpiresAt)
     }
 
+    //TODO: Don't use UserDefault
+    // Should try CoreData or Realm instead
+    public func historyPlace() -> [PlaceObj] {
+        let userDefault = UserDefaults.standard
+        guard let data = userDefault.data(forKey: "history") else {
+            return []
+        }
+
+        guard let histories = NSKeyedUnarchiver.unarchiveObject(with: data) as? [PlaceObj] else {
+            return []
+        }
+
+        return histories
+    }
+
+    public func saveHistoryPlace(_ place: PlaceObj) {
+        var histories = self.historyPlace()
+
+        if histories.contains(place) == false {
+            histories.insert(place, at: 0)
+        }
+
+        // Save
+        let data = NSKeyedArchiver.archivedData(withRootObject: histories)
+        let userDefault = UserDefaults.standard
+        userDefault.set(data, forKey: "history")
+        userDefault.synchronize()
+    }
 }
 
 // MARK: - Authentication

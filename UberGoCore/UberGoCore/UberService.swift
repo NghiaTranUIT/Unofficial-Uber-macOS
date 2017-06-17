@@ -6,15 +6,25 @@
 //  Copyright © 2017 Nghia Tran. All rights reserved.
 //
 
-import Foundation
+import CoreLocation
 import RxCocoa
 import RxSwift
 
 open class UberService {
 
     // MARK: - Variable
+    public let reloadHistoryTrigger = PublishSubject<Void>()
+    public var historyObserver: Observable<[PlaceObj]>
 
     // MARK: - Init
+    init() {
+
+        self.historyObserver = self.reloadHistoryTrigger
+            .asObserver()
+            .flatMapLatest { (_) -> Observable<[PlaceObj]> in
+                return UberService.historyPlaceObserver()
+            }
+    }
 
     // MARK: - Public
     public func personalPlaceObserver() -> Observable<[UberPersonalPlaceObj]> {
@@ -35,6 +45,37 @@ open class UberService {
             .do(onNext: { (place) in
                 place.placeType = .home
             })
+    }
+
+    public func availableProducts(at location: CLLocationCoordinate2D) -> Observable<[ProductObj]> {
+        let param = UberProductsRequestParam(location: location)
+        return UberProductsRequest(param).toObservable()
+    }
+
+    public func rideEstimatePrice(from originLocation: CLLocationCoordinate2D,
+                                  to destinationLocation: CLLocationCoordinate2D)
+        -> Observable<[PriceObj]> {
+        let param = RideEstimatePriceRequestParam(originLocation: originLocation,
+                                                  destinationLocation: destinationLocation)
+        return RideEstimatePriceRequest(param).toObservable()
+    }
+
+    public func getCurrentRide() -> Observable<TripObj> {
+        return GetCurrentTripRequest().toObservable()
+    }
+
+    fileprivate class func historyPlaceObserver() -> Observable<[PlaceObj]> {
+
+        return Observable<[PlaceObj]>.create({ (observer) -> Disposable in
+
+            let currentUser = UserObj.currentUser!
+            let histories = currentUser.historyPlace()
+
+            observer.onNext(histories)
+            observer.onCompleted()
+
+            return Disposables.create()
+        })
     }
 }
 

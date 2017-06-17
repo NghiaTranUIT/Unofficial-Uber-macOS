@@ -2,12 +2,12 @@
   "images" : [
     {
       "idiom" : "mac",
-      "filename" : "back-btn.png",
+      "filename" : "back-white-btn.png",
       "scale" : "1x"
     },
     {
       "idiom" : "mac",
-      "filename" : "back-btn@2x.png",
+      "filename" : "back-white-btn@2x.png",
       "scale" : "2x"
     }
   ],

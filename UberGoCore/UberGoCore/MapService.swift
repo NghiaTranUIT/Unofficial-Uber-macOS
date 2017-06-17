@@ -97,9 +97,10 @@ open class MapService: NSObject {
         self.nearestPlaceObverser = self.currentLocationVariable
             .asObservable()
             .filterNil()
+            .take(1)
             .throttle(0.3, scheduler: MainScheduler.instance)
             .distinctUntilChanged()
-            .flatMapFirst({[unowned self] location -> Observable<PlaceObj> in
+            .flatMapLatest({[unowned self] location -> Observable<PlaceObj> in
                 return self.nearestPlaceObverser(location)
         })
 
