@@ -6,7 +6,6 @@
 //  Copyright © 2017 Nghia Tran. All rights reserved.
 //
 
-import Foundation
 import CoreLocation
 import RxCocoa
 import RxSwift
@@ -14,8 +13,18 @@ import RxSwift
 open class UberService {
 
     // MARK: - Variable
+    public let reloadHistoryTrigger = PublishSubject<Void>()
+    public var historyObserver: Observable<[PlaceObj]>
 
     // MARK: - Init
+    init() {
+
+        self.historyObserver = self.reloadHistoryTrigger
+            .asObserver()
+            .flatMapLatest { (_) -> Observable<[PlaceObj]> in
+                return UberService.historyPlaceObserver()
+            }
+    }
 
     // MARK: - Public
     public func personalPlaceObserver() -> Observable<[UberPersonalPlaceObj]> {
@@ -55,7 +64,7 @@ open class UberService {
         return GetCurrentTripRequest().toObservable()
     }
 
-    public func historyPlaceObserver() -> Observable<[PlaceObj]> {
+    fileprivate class func historyPlaceObserver() -> Observable<[PlaceObj]> {
 
         return Observable<[PlaceObj]>.create({ (observer) -> Disposable in
 

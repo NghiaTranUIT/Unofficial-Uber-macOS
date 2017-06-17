@@ -99,10 +99,11 @@ open class MapViewModel: BaseViewModel,
         self.loadingPublisher.onNext(true)
         let personalPlace = self.uberService
             .personalPlaceObserver()
+            .startWith([]) // Don't need to wait -> Should show history palce first
             // Map in map: [UberPersonalPlaceObj] -> [PlaceObj]
             .map({ $0.map({ PlaceObj(personalPlaceObj: $0) }) })
 
-        let historyPlace = self.uberService.historyPlaceObserver()
+        let historyPlace = self.uberService.historyObserver
 
         Observable.combineLatest([personalPlace, historyPlace])
         .map { (combine) -> [PlaceObj] in
@@ -111,6 +112,9 @@ open class MapViewModel: BaseViewModel,
             return personPlaces + historyPlaces
         }.bind(to: self.personalOrHistoryPlaceObjsVariable)
         .addDisposableTo(self.disposeBag)
+
+        // Trigger
+        self.uberService.reloadHistoryTrigger.onNext()
 
         // Text Search
         let shared = self.textSearchPublish
@@ -164,6 +168,7 @@ open class MapViewModel: BaseViewModel,
         let selectedPlaceObserve = self.didSelectPlaceObjPublisher
             .asObserver()
             .share()
+
         self.selectedPlaceObjDriver = selectedPlaceObserve.asDriver(onErrorJustReturn: nil)
         let clearCurrentDirectionRoute = selectedPlaceObserve.map { _ -> Route? in return nil }
         let getDirection = selectedPlaceObserve
@@ -188,7 +193,7 @@ open class MapViewModel: BaseViewModel,
         self.selectedDirectionRouteObserver = Observable.merge([getDirection, clearCurrentDirectionRoute])
 
         // Save History place
-        selectedPlaceObserve.subscribe(onNext: { placeObj in
+        selectedPlaceObserve.subscribe(onNext: {[unowned self] placeObj in
             guard let placeObj = placeObj else {
                 return
             }
@@ -198,6 +203,9 @@ open class MapViewModel: BaseViewModel,
 
             // Save history
             currentUser.saveHistoryPlace(placeObj)
+
+            // Load again
+            self.uberService.reloadHistoryTrigger.onNext()
         })
         .addDisposableTo(self.disposeBag)
     }
