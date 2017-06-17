@@ -205,7 +205,7 @@ extension SearchBarView {
 
                 self.superview?.layoutSubtreeIfNeeded()
             }, completionHandler: nil)
-        case .navigate:
+        case .navigation:
 
             NSAnimationContext.runAnimationGroup({ context in
                 context.allowsImplicitAnimation = true
@@ -218,8 +218,6 @@ extension SearchBarView {
             }, completionHandler: {
                 self.isHidden = true
             })
-
-            break
         }
     }
 }

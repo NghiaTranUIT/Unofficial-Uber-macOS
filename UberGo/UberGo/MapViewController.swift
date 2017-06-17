@@ -16,7 +16,7 @@ import UberGoCore
 enum MapViewLayoutState {
     case expand
     case minimal
-    case navigate
+    case navigation
 }
 
 class MapViewController: BaseViewController {
@@ -25,6 +25,10 @@ class MapViewController: BaseViewController {
     fileprivate var mapView: UberMapView!
     fileprivate var searchCollectionView: SearchCollectionView!
     @IBOutlet fileprivate weak var exitNavigateBtn: NSButton!
+    @IBOutlet fileprivate weak var mapContainerView: NSView!
+    @IBOutlet fileprivate weak var mapContainerViewBottom: NSLayoutConstraint!
+    @IBOutlet fileprivate weak var bottomBarView: NSView!
+    @IBOutlet fileprivate weak var bottomBarViewHeight: NSLayoutConstraint!
 
     // MARK: - Variable
     fileprivate var viewModel: MapViewModel!
@@ -108,7 +112,7 @@ class MapViewController: BaseViewController {
         self.viewModel.output.selectedPlaceObjDriver.drive(onNext: {[weak self] placeObj in
             guard let `self` = self else { return }
 
-            let state = placeObj != nil ? MapViewLayoutState.navigate :
+            let state = placeObj != nil ? MapViewLayoutState.navigation :
                 MapViewLayoutState.minimal
 
             // Layout
@@ -142,13 +146,19 @@ class MapViewController: BaseViewController {
         case .expand:
             fallthrough
         case .minimal:
+            self.mapContainerViewBottom.constant = 0
+            self.view.layoutSubtreeIfNeeded()
+
             NSAnimationContext.runAnimationGroup({ context in
                 context.allowsImplicitAnimation = true
                 context.duration = 0.22
                 context.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
                 self.exitNavigateBtn.alphaValue = 0
             }, completionHandler: nil)
-        case .navigate:
+        case .navigation:
+            self.mapContainerViewBottom.constant = 120
+            self.view.layoutSubtreeIfNeeded()
+
             NSAnimationContext.runAnimationGroup({ context in
                 context.allowsImplicitAnimation = true
                 context.duration = 0.22
@@ -170,23 +180,25 @@ extension MapViewController {
     }
 
     fileprivate func initMapView() {
-        self.mapView = UberMapView(frame: self.view.bounds)
+        self.mapView = UberMapView(frame: self.mapContainerView.bounds)
         self.mapView.delegate = self
-        self.mapView.configureLayout(self.view, exitBtn: self.exitNavigateBtn)
+        self.mapView.configureLayout(self.mapContainerView, exitBtn: self.exitNavigateBtn)
     }
 
     fileprivate func initSearchBarView() {
         self.searchBarView = SearchBarView.viewFromNib(with: BundleType.app)!
         self.searchBarView.delegate = self
-        self.view.addSubview(self.searchBarView, positioned: .below, relativeTo: self.exitNavigateBtn)
-        self.searchBarView.configureView(with: self.view)
+        self.mapContainerView.addSubview(self.searchBarView, positioned: .below, relativeTo: self.exitNavigateBtn)
+        self.searchBarView.configureView(with: self.mapContainerView)
     }
 
     fileprivate func initSearchCollectionView() {
         self.searchCollectionView = SearchCollectionView.viewFromNib(with: BundleType.app)!
         self.searchCollectionView.delegate = self
-        self.view.addSubview(self.searchCollectionView, positioned: .below, relativeTo: self.exitNavigateBtn)
-        self.searchCollectionView.configureView(parenView: self.view, searchBarView: self.searchBarView)
+        self.mapContainerView.addSubview(self.searchCollectionView,
+                                         positioned: .below,
+                                         relativeTo: self.exitNavigateBtn)
+        self.searchCollectionView.configureView(parenView: self.mapContainerView, searchBarView: self.searchBarView)
     }
 }
 

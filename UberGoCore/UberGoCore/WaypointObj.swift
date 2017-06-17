@@ -51,7 +51,7 @@ open class WaypointObj: BaseObj {
 
         self.riderId <- map[Constants.Object.Waypoint.RiderId]
         self.typeStr <- map[Constants.Object.Waypoint.Type]
-        self.latitude <-  map[Constants.Object.Waypoint.Latitude]
-        self.longitude <-  map[Constants.Object.Waypoint.Longitude]
+        self.latitude <- map[Constants.Object.Waypoint.Latitude]
+        self.longitude <- map[Constants.Object.Waypoint.Longitude]
     }
 }

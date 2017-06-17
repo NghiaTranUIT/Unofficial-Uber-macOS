@@ -85,7 +85,7 @@ class SearchCollectionView: NSView {
             }, completionHandler: nil)
         case .minimal:
             fallthrough
-        case .navigate:
+        case .navigation:
             self.isHidden = false
             self.alphaValue = 1
 

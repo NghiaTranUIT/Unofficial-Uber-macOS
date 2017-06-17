@@ -8,7 +8,11 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="MapViewController" customModule="UberGo" customModuleProvider="target">
             <connections>
+                <outlet property="bottomBarView" destination="lC3-Vn-oNQ" id="Chf-ts-kQc"/>
+                <outlet property="bottomBarViewHeight" destination="AGG-Ec-IQ8" id="j4q-A5-PIU"/>
                 <outlet property="exitNavigateBtn" destination="R7e-uc-ZRU" id="eRD-dF-TvI"/>
+                <outlet property="mapContainerView" destination="vPW-kc-2X8" id="9qX-lW-K1q"/>
+                <outlet property="mapContainerViewBottom" destination="mpG-Am-2Mv" id="GJc-19-tvF"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
         </customObject>
@@ -18,26 +22,47 @@
             <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="R7e-uc-ZRU">
-                    <rect key="frame" x="20" y="434" width="21" height="26"/>
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="vPW-kc-2X8">
+                    <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
+                    <subviews>
+                        <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="R7e-uc-ZRU">
+                            <rect key="frame" x="20" y="434" width="21" height="26"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="26" id="TOG-6T-3ij"/>
+                                <constraint firstAttribute="width" constant="21" id="Xu9-Wf-pfe"/>
+                            </constraints>
+                            <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="back-btn-white" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="H1D-il-Kj2">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <action selector="exitNavigateBtnOnTapped:" target="-2" id="8L0-ZA-TdP"/>
+                            </connections>
+                        </button>
+                    </subviews>
                     <constraints>
-                        <constraint firstAttribute="height" constant="26" id="TOG-6T-3ij"/>
-                        <constraint firstAttribute="width" constant="21" id="Xu9-Wf-pfe"/>
+                        <constraint firstAttribute="height" constant="480" id="75c-6A-gKa"/>
+                        <constraint firstItem="R7e-uc-ZRU" firstAttribute="top" secondItem="vPW-kc-2X8" secondAttribute="top" constant="20" id="9oW-fa-MM9"/>
+                        <constraint firstItem="R7e-uc-ZRU" firstAttribute="leading" secondItem="vPW-kc-2X8" secondAttribute="leading" constant="20" id="zjE-kd-s7w"/>
                     </constraints>
-                    <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="back-btn-white" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="H1D-il-Kj2">
-                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                    <connections>
-                        <action selector="exitNavigateBtnOnTapped:" target="-2" id="8L0-ZA-TdP"/>
-                    </connections>
-                </button>
+                </customView>
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="lC3-Vn-oNQ">
+                    <rect key="frame" x="0.0" y="0.0" width="480" height="120"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="120" id="AGG-Ec-IQ8"/>
+                    </constraints>
+                </customView>
             </subviews>
             <constraints>
-                <constraint firstItem="R7e-uc-ZRU" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="20" id="guX-Wr-JkM"/>
-                <constraint firstItem="R7e-uc-ZRU" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="20" id="tGh-u8-HZW"/>
+                <constraint firstAttribute="trailing" secondItem="lC3-Vn-oNQ" secondAttribute="trailing" id="6Pm-ZO-KQ1"/>
+                <constraint firstAttribute="bottom" secondItem="lC3-Vn-oNQ" secondAttribute="bottom" id="6RO-Kp-sXX"/>
+                <constraint firstItem="vPW-kc-2X8" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" id="bBL-rx-POL"/>
+                <constraint firstItem="lC3-Vn-oNQ" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="gco-w7-czz"/>
+                <constraint firstAttribute="bottom" secondItem="vPW-kc-2X8" secondAttribute="bottom" id="mpG-Am-2Mv"/>
+                <constraint firstItem="vPW-kc-2X8" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="qjd-Lm-wEl"/>
+                <constraint firstAttribute="trailing" secondItem="vPW-kc-2X8" secondAttribute="trailing" id="zir-iV-OLl"/>
             </constraints>
-            <point key="canvasLocation" x="139" y="283"/>
+            <point key="canvasLocation" x="139" y="514"/>
         </customView>
     </objects>
     <resources>
