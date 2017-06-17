@@ -27,17 +27,24 @@ class UberServiceTests: XCTestCase {
         FakeUberCrendential.resetData()
     }
 
-    func testUberProductsRequestAPIWorkSuccess() {
+    func testAvailableProductsObserver() {
 
         // When
         let location = LocationHelper.originLocation
-        let param = UberProductsRequestParam(location: location)
-        let promise = expectation(description: "testUberProductsRequestAPIWorkSuccess")
+        let promise = expectation(description: "testAvailableProductsObserver")
         FakeUberCrendential.makeCurrentUser()
 
         // Then
-        UberProductsRequest(param).toObservable()
-        .subscribe(onNext: { _ in
+        UberService().availableProductsObserver(at: location)
+        .subscribe(onNext: { products in
+            if products.count == 0 {
+                XCTFail("None available product at testAvailableProductsObserver")
+            }
+            for obj in products {
+                if obj.productId == nil {
+                    XCTFail("Uber Product's productID is invalid")
+                }
+            }
             promise.fulfill()
         }, onError: { error in
             XCTFail(error.localizedDescription)
@@ -48,29 +55,9 @@ class UberServiceTests: XCTestCase {
         waitForExpectations(timeout: 10, handler: nil)
     }
 
-    func testUberPersonalRequestAPIWorkSuccess() {
+    func testPersonalPlaceObserver() {
 
-        // When
-        let param = UberPersonalPlaceRequestParam(placeType: .home)
-        let promise = expectation(description: "testUberPersonalRequestAPIWorkSuccess")
-        FakeUberCrendential.makeCurrentUser()
-
-        // Then
-        UberPersonalPlaceRequest(param).toObservable()
-            .subscribe(onNext: { _ in
-                promise.fulfill()
-            }, onError: { error in
-                XCTFail(error.localizedDescription)
-            })
-            .addDisposableTo(self.disposeBag)
-
-        // Expect
-        waitForExpectations(timeout: 10, handler: nil)
-    }
-
-    func testGetHomeWorkPersonalPlaceWorkSuceess() {
-
-        let promise = expectation(description: "testGetHomeWorkPersonalPlaceWorkSuceess")
+        let promise = expectation(description: "testPersonalPlaceObserver")
         FakeUberCrendential.makeCurrentUser()
 
         // Then 
@@ -93,15 +80,15 @@ class UberServiceTests: XCTestCase {
         waitForExpectations(timeout: 10, handler: nil)
     }
 
-    func testRideEstimatePriceRequestWorkSuceess() {
+    func testEstimatePriceObserver() {
 
-        let promise = expectation(description: "testRideEstimatePriceRequestWorkSuceess")
+        let promise = expectation(description: "testEstimatePriceObserver")
         FakeUberCrendential.makeCurrentUser()
         let from = LocationHelper.originLocation
         let to = LocationHelper.destinationLocation
 
         // Then
-        UberService().rideEstimatePrice(from: from, to: to)
+        UberService().estimatePriceObserver(from: from, to: to)
             .subscribe(onNext: { priceObjs in
 
                 // Check if product_id != nil
@@ -119,5 +106,41 @@ class UberServiceTests: XCTestCase {
 
         // Expect
         waitForExpectations(timeout: 10, handler: nil)
+    }
+
+    func testProductsWithEstimatePriceObserver() {
+
+        let promise = expectation(description: "testProductsWithEstimatePriceObserver")
+        FakeUberCrendential.makeCurrentUser()
+        let from = LocationHelper.originLocation
+        let to = LocationHelper.destinationLocation
+
+        // Then
+        UberService().productsWithEstimatePriceObserver(from: from, to: to)
+            .subscribe(onNext: { productObjs in
+
+                // Check if product_id != nil
+                for obj in productObjs {
+                    if obj.productId == nil {
+                        XCTFail("Product's productID is invalid")
+                    }
+                }
+
+                // Check if there is estimatePrice = nil
+                for obj in productObjs {
+                    if obj.estimatePrice == nil {
+                        XCTFail("Product's estimatePrice is invalid")
+                    }
+                }
+
+                promise.fulfill()
+            }, onError: { error in
+                XCTFail(error.localizedDescription)
+            })
+            .addDisposableTo(self.disposeBag)
+
+        // Expect
+        waitForExpectations(timeout: 10, handler: nil)
+
     }
 }

@@ -47,19 +47,6 @@ open class UberService {
             })
     }
 
-    public func availableProducts(at location: CLLocationCoordinate2D) -> Observable<[ProductObj]> {
-        let param = UberProductsRequestParam(location: location)
-        return UberProductsRequest(param).toObservable()
-    }
-
-    public func rideEstimatePrice(from originLocation: CLLocationCoordinate2D,
-                                  to destinationLocation: CLLocationCoordinate2D)
-        -> Observable<[PriceObj]> {
-        let param = RideEstimatePriceRequestParam(originLocation: originLocation,
-                                                  destinationLocation: destinationLocation)
-        return RideEstimatePriceRequest(param).toObservable()
-    }
-
     public func getCurrentRide() -> Observable<TripObj> {
         return GetCurrentTripRequest().toObservable()
     }
@@ -76,6 +63,48 @@ open class UberService {
 
             return Disposables.create()
         })
+    }
+
+    // MARK: - Request Uber
+    public func productsWithEstimatePriceObserver(from originLocation: CLLocationCoordinate2D,
+                                                  to destinationLocation: CLLocationCoordinate2D)
+        -> Observable<[ProductObj]> {
+
+            let productsOb = self.availableProductsObserver(at: originLocation)
+            let estimateOb = self.estimatePriceObserver(from: originLocation, to: destinationLocation)
+
+            return Observable.zip(productsOb, estimateOb).map({ (products, estimates) -> [ProductObj] in
+
+                // Debug
+                if products.count != estimates.count {
+                    assert(false, "[ERROR]: Products's count != Estimate's count")
+                }
+
+                // Map Estimate Prict to individual productObj
+                // Compare by productID
+                let _products = products.map({ (product) -> ProductObj in
+                    let price = estimates.first(where: { $0.productId == product.productId })
+                    if let price = price {
+                        product.estimatePrice = price
+                    }
+                    return product
+                })
+
+                return _products
+            })
+    }
+
+    public func availableProductsObserver(at location: CLLocationCoordinate2D) -> Observable<[ProductObj]> {
+        let param = UberProductsRequestParam(location: location)
+        return UberProductsRequest(param).toObservable()
+    }
+
+    public func estimatePriceObserver(from originLocation: CLLocationCoordinate2D,
+                                      to destinationLocation: CLLocationCoordinate2D)
+        -> Observable<[PriceObj]> {
+            let param = RideEstimatePriceRequestParam(from: originLocation,
+                                                      to: destinationLocation)
+            return RideEstimatePriceRequest(param).toObservable()
     }
 }
 

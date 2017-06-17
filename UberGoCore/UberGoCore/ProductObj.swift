@@ -23,6 +23,9 @@ open class ProductObj: BaseObj {
     public var productGroup: String?
     public var descr: String?
 
+    // Price from Uber
+    public var estimatePrice: PriceObj?
+
     override public func mapping(map: Map) {
         super.mapping(map: map)
 
