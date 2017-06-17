@@ -146,25 +146,26 @@ class MapViewController: BaseViewController {
         case .expand:
             fallthrough
         case .minimal:
+
+            // Force Layout
             self.mapContainerViewBottom.constant = 0
             self.view.layoutSubtreeIfNeeded()
 
-            NSAnimationContext.runAnimationGroup({ context in
-                context.allowsImplicitAnimation = true
-                context.duration = 0.22
-                context.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
+            // Fade out
+            NSAnimationContext.defaultAnimate({ _ in
                 self.exitNavigateBtn.alphaValue = 0
-            }, completionHandler: nil)
+            })
+
         case .navigation:
+
+            // Force layout
             self.mapContainerViewBottom.constant = 120
             self.view.layoutSubtreeIfNeeded()
 
-            NSAnimationContext.runAnimationGroup({ context in
-                context.allowsImplicitAnimation = true
-                context.duration = 0.22
-                context.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
+            // Fade in
+            NSAnimationContext.defaultAnimate({ _ in
                 self.exitNavigateBtn.alphaValue = 1
-            }, completionHandler: nil)
+            })
         }
     }
 

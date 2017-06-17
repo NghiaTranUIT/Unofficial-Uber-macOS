@@ -176,17 +176,12 @@ extension SearchBarView {
             self.heightConstraint.constant = 142
 
             // Animate
-            NSAnimationContext.runAnimationGroup({ context in
-                context.allowsImplicitAnimation = true
-                context.duration = 0.22
-                context.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
-
+            NSAnimationContext.defaultAnimate({ _ in
                 self.alphaValue = 1
                 self.actionSearchView.alphaValue = 0
                 self.searchContainerView.alphaValue = 1
-
                 self.superview?.layoutSubtreeIfNeeded()
-            }, completionHandler: nil)
+            })
         case .minimal:
             self.isHidden = false
             self.leftConstraint.constant = 28
@@ -194,28 +189,18 @@ extension SearchBarView {
             self.rightConstraint.constant = -28
             self.heightConstraint.constant = 56
 
-            NSAnimationContext.runAnimationGroup({ context in
-                context.allowsImplicitAnimation = true
-                context.duration = 0.22
-                context.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
-
+            NSAnimationContext.defaultAnimate({ _ in
                 self.alphaValue = 1
                 self.actionSearchView.alphaValue = 1
                 self.searchContainerView.alphaValue = 0
-
                 self.superview?.layoutSubtreeIfNeeded()
-            }, completionHandler: nil)
+            })
         case .navigation:
 
-            NSAnimationContext.runAnimationGroup({ context in
-                context.allowsImplicitAnimation = true
-                context.duration = 0.22
-                context.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
-
+            NSAnimationContext.defaultAnimate({ _ in
                 self.alphaValue = 0
                 self.superview?.layoutSubtreeIfNeeded()
-
-            }, completionHandler: {
+            }, completion: {
                 self.isHidden = true
             })
         }

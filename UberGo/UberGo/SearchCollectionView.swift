@@ -76,13 +76,9 @@ class SearchCollectionView: NSView {
             self.alphaValue = 0
 
             // Animate
-            NSAnimationContext.runAnimationGroup({ context in
-                context.allowsImplicitAnimation = true
-                context.duration = 0.22
-                context.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
-
+            NSAnimationContext.defaultAnimate({ _ in
                 self.alphaValue = 1
-            }, completionHandler: nil)
+            })
         case .minimal:
             fallthrough
         case .navigation:
@@ -90,13 +86,9 @@ class SearchCollectionView: NSView {
             self.alphaValue = 1
 
             // Animate
-            NSAnimationContext.runAnimationGroup({ context in
-                context.allowsImplicitAnimation = true
-                context.duration = 0.22
-                context.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
-
+            NSAnimationContext.defaultAnimate({ _ in
                 self.alphaValue = 0
-            }, completionHandler: {
+            }, completion: { 
                 self.isHidden = true
             })
         }

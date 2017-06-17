@@ -35,6 +35,7 @@
 		BAE690281EE4346700A4D876 /* Mapbox.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BAE690261EE4346700A4D876 /* Mapbox.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		BAE6902C1EE460EB00A4D876 /* EventMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE6902B1EE460EB00A4D876 /* EventMonitor.swift */; };
 		BAE6902D1EE5139500A4D876 /* UberGoCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA4796951EE2540D00620BB0 /* UberGoCore.framework */; };
+		BAE7171E1EF51D0B00E0EFFA /* NSAnimationContext+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE7171D1EF51D0B00E0EFFA /* NSAnimationContext+Helper.swift */; };
 		BAED39DB1EE9A705003D9BC3 /* UberCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAED39DA1EE9A705003D9BC3 /* UberCollectionView.swift */; };
 		BAED39DD1EE9ADB7003D9BC3 /* SearchCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAED39DC1EE9ADB7003D9BC3 /* SearchCollectionViewFlowLayout.swift */; };
 		BAF57FB91EE116FB0013090E /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF57FB71EE116FB0013090E /* LoginViewController.swift */; };
@@ -102,6 +103,7 @@
 		BADB78631EE6EFE1000536F7 /* UberTextFieldCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UberTextFieldCell.swift; sourceTree = "<group>"; };
 		BAE690261EE4346700A4D876 /* Mapbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Mapbox.framework; sourceTree = "<group>"; };
 		BAE6902B1EE460EB00A4D876 /* EventMonitor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventMonitor.swift; sourceTree = "<group>"; };
+		BAE7171D1EF51D0B00E0EFFA /* NSAnimationContext+Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSAnimationContext+Helper.swift"; sourceTree = "<group>"; };
 		BAED39DA1EE9A705003D9BC3 /* UberCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UberCollectionView.swift; sourceTree = "<group>"; };
 		BAED39DC1EE9ADB7003D9BC3 /* SearchCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
 		BAF57FB71EE116FB0013090E /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -289,6 +291,7 @@
 				BADB78511EE5AC86000536F7 /* NSView+Identity.swift */,
 				BADB78581EE5B92B000536F7 /* NSView+BackgroundColor.swift */,
 				BADB785A1EE5B93D000536F7 /* NSColor+Hex.swift */,
+				BAE7171D1EF51D0B00E0EFFA /* NSAnimationContext+Helper.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -576,6 +579,7 @@
 				BADB784A1EE5ABD5000536F7 /* SearchBarView.swift in Sources */,
 				BADB78501EE5AC6A000536F7 /* NSView+Xib.swift in Sources */,
 				BAF57FB91EE116FB0013090E /* LoginViewController.swift in Sources */,
+				BAE7171E1EF51D0B00E0EFFA /* NSAnimationContext+Helper.swift in Sources */,
 				BADB78591EE5B92B000536F7 /* NSView+BackgroundColor.swift in Sources */,
 				BAF57FBF1EE117300013090E /* MapViewController.swift in Sources */,
 				BAED39DD1EE9ADB7003D9BC3 /* SearchCollectionViewFlowLayout.swift in Sources */,
