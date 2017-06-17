@@ -97,12 +97,20 @@ open class MapViewModel: BaseViewModel,
 
         // Load personal or history place
         self.loadingPublisher.onNext(true)
-        self.uberService
+        let personalPlace = self.uberService
             .personalPlaceObserver()
             // Map in map: [UberPersonalPlaceObj] -> [PlaceObj]
             .map({ $0.map({ PlaceObj(personalPlaceObj: $0) }) })
-            .bind(to: self.personalOrHistoryPlaceObjsVariable)
-            .addDisposableTo(self.disposeBag)
+
+        let historyPlace = self.uberService.historyPlaceObserver()
+
+        Observable.combineLatest([personalPlace, historyPlace])
+        .map { (combine) -> [PlaceObj] in
+            let personPlaces = combine.first!
+            let historyPlaces = combine.last!
+            return personPlaces + historyPlaces
+        }.bind(to: self.personalOrHistoryPlaceObjsVariable)
+        .addDisposableTo(self.disposeBag)
 
         // Text Search
         let shared = self.textSearchPublish
@@ -178,5 +186,19 @@ open class MapViewModel: BaseViewModel,
             .observeOn(MainScheduler.instance)
 
         self.selectedDirectionRouteObserver = Observable.merge([getDirection, clearCurrentDirectionRoute])
+
+        // Save History place
+        selectedPlaceObserve.subscribe(onNext: { placeObj in
+            guard let placeObj = placeObj else {
+                return
+            }
+            guard let currentUser = UserObj.currentUser else {
+                return
+            }
+
+            // Save history
+            currentUser.saveHistoryPlace(placeObj)
+        })
+        .addDisposableTo(self.disposeBag)
     }
 }

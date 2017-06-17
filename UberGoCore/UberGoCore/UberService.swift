@@ -54,6 +54,20 @@ open class UberService {
     public func getCurrentRide() -> Observable<TripObj> {
         return GetCurrentTripRequest().toObservable()
     }
+
+    public func historyPlaceObserver() -> Observable<[PlaceObj]> {
+
+        return Observable<[PlaceObj]>.create({ (observer) -> Disposable in
+
+            let currentUser = UserObj.currentUser!
+            let histories = currentUser.historyPlace()
+
+            observer.onNext(histories)
+            observer.onCompleted()
+
+            return Disposables.create()
+        })
+    }
 }
 
 // MARK: - Private

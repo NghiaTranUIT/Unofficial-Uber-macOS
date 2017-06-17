@@ -26,7 +26,7 @@ open class BaseObj: NSObject, Mappable, NSCoding {
     }
 
     public required init?(map: Map) {
-
+    
     }
 
     public func mapping(map: Map) {

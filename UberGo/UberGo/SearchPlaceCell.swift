@@ -37,7 +37,7 @@ class SearchPlaceCell: NSCollectionViewItem {
     func configurePlaceCell(_ placeObj: PlaceObj) {
         self.titleLbl.stringValue = placeObj.name ?? ""
         self.addressLbl.stringValue = placeObj.address ?? ""
-        self.avatarImageView.image = NSImage(named: placeObj.placeType.iconName)
+        self.avatarImageView.image = NSImage(named: placeObj.iconName)
     }
 
     override func mouseEntered(with theEvent: NSEvent) {
