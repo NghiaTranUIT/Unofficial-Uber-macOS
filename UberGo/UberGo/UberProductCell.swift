@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import UberGoCore
 
 class UberProductCell: NSCollectionViewItem {
 
@@ -38,5 +39,16 @@ class UberProductCell: NSCollectionViewItem {
     fileprivate func initCommon() {
         self.productNameLbl.textColor = NSColor.white
         self.priceLbl.textColor = NSColor.white
+    }
+
+    // MARK: - Public
+    public func configureCell(with productObj: ProductObj) {
+        self.productNameLbl.stringValue = productObj.displayName ?? ""
+
+        guard let estimatePrice = productObj.estimatePrice else {
+            return
+        }
+
+        self.priceLbl.stringValue = estimatePrice.localizedDisplayName ?? "xxx"
     }
 }

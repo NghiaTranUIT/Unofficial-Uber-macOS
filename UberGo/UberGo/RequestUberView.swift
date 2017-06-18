@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import RxSwift
 import UberGoCore
 
 class RequestUberView: NSView {
@@ -19,8 +20,12 @@ class RequestUberView: NSView {
     @IBOutlet fileprivate weak var seatNumberLnl: NSTextField!
     @IBOutlet fileprivate weak var dividerLineView: NSView!
     @IBOutlet fileprivate weak var scrollView: NSScrollView!
-    @IBOutlet fileprivate weak var collectionView: NSCollectionView!
+    @IBOutlet fileprivate weak var collectionView: UberCollectionView!
     @IBOutlet fileprivate weak var stackView: NSStackView!
+
+    // MARK: - Variable
+    public let selectedGroupProduct = Variable<GroupProductObj?>(nil)
+    public let selectedProduct = Variable<ProductObj?>(nil)
 
     // MARK: - Init
     override func awakeFromNib() {
@@ -68,6 +73,12 @@ class RequestUberView: NSView {
 
         // Update Stack
         self.updateStackView(groupProductObjs)
+
+        // Selection
+        self.defaultSelection(groupProductObjs)
+
+        // Reload
+        self.collectionView.reloadData()
     }
 
     // MARK: - Stack View
@@ -85,13 +96,20 @@ class RequestUberView: NSView {
             btn.setTitleColor(NSColor.white, kern: 2)
             btn.isBordered = false
             return btn
-
         }
 
         // add
         groupViews.forEach { [unowned self] (btn) in
             self.stackView.addArrangedSubview(btn)
         }
+    }
+
+    fileprivate func defaultSelection(_ groupProductObjs: [GroupProductObj]) {
+        guard let firstGroup = groupProductObjs.first else { return }
+        guard let firstProduct = firstGroup.productObjs.first else { return }
+
+        self.selectedGroupProduct.value = firstGroup
+        self.selectedProduct.value = firstProduct
     }
 
     @objc fileprivate func groupProductBtnOnTap(_ sender: UberButton) {
@@ -122,6 +140,48 @@ extension RequestUberView {
         // Kern
         self.cardNumberLbl.setKern(1.2)
     }
+
+    fileprivate func initCollectionView() {
+
+        self.collectionView.dataSource = self
+        self.collectionView.delegate = self
+
+        let nib = NSNib(nibNamed: "UberProductCell", bundle: nil)
+        self.collectionView.register(nib, forItemWithIdentifier: "UberProductCell")
+    }
+}
+
+extension RequestUberView: NSCollectionViewDataSource {
+
+    func numberOfSections(in collectionView: NSCollectionView) -> Int {
+        return 1
+    }
+
+    func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {
+        guard let group = self.selectedGroupProduct.value else {
+            return 0
+        }
+        return group.productObjs.count
+    }
+
+    func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath)
+    -> NSCollectionViewItem {
+        guard let group = self.selectedGroupProduct.value else {
+            return NSCollectionViewItem()
+        }
+
+        let productObj = group.productObjs[indexPath.item]
+        guard let cell = collectionView.makeItem(withIdentifier: "UberProductCell", for: indexPath)
+            as? UberProductCell else {
+            return NSCollectionViewItem()
+        }
+        cell.configureCell(with: productObj)
+        return cell
+    }
+}
+
+extension RequestUberView: NSCollectionViewDelegate {
+
 }
 
 // MARK: - XIBInitializable
