@@ -37,7 +37,7 @@ class UberGroupButton: UberButton {
         self.init(frame: NSRect.zero)
 
         self.groupObj = groupProductObj
-        self.title = groupProductObj.productGroup.capitalized
+        self.title = groupProductObj.productGroup.uppercased()
         self.initCommon()
     }
 

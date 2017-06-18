@@ -11,7 +11,7 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="c22-O7-iKe" customClass="RequestUberView" customModule="UberGo" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="480" height="360"/>
+            <rect key="frame" x="0.0" y="0.0" width="480" height="305"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ghW-Bi-WIR" customClass="UberButton" customModule="UberGo" customModuleProvider="target">
@@ -65,13 +65,13 @@
                     </constraints>
                 </customView>
                 <scrollView wantsLayer="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" verticalScrollElasticity="none" translatesAutoresizingMaskIntoConstraints="NO" id="oke-Td-REg">
-                    <rect key="frame" x="0.0" y="135" width="480" height="157"/>
+                    <rect key="frame" x="0.0" y="117" width="480" height="144"/>
                     <clipView key="contentView" drawsBackground="NO" id="hpl-MZ-107">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="157"/>
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="144"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView selectable="YES" allowsEmptySelection="NO" id="dk1-FR-KZ5" customClass="UberCollectionView" customModule="UberGo" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="480" height="157"/>
+                                <rect key="frame" x="0.0" y="0.0" width="480" height="144"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumInteritemSpacing="10" minimumLineSpacing="10" scrollDirection="horizontal" id="u2e-WX-B1g">
                                     <size key="itemSize" width="50" height="50"/>
@@ -80,6 +80,9 @@
                             </collectionView>
                         </subviews>
                     </clipView>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="144" id="iVw-8s-GY9"/>
+                    </constraints>
                     <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="R4A-bo-Lcv">
                         <rect key="frame" x="-100" y="-100" width="233" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -90,9 +93,9 @@
                     </scroller>
                 </scrollView>
                 <stackView distribution="fillEqually" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yu7-vd-Hdz">
-                    <rect key="frame" x="12" y="304" width="456" height="44"/>
+                    <rect key="frame" x="12" y="261" width="456" height="32"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="44" id="oWN-3m-gB8"/>
+                        <constraint firstAttribute="height" constant="32" id="oWN-3m-gB8"/>
                     </constraints>
                 </stackView>
             </subviews>
@@ -108,7 +111,7 @@
                 <constraint firstItem="Thy-KV-ex9" firstAttribute="centerY" secondItem="NsZ-1o-kBQ" secondAttribute="centerY" id="JlH-EA-5Ov"/>
                 <constraint firstItem="NsZ-1o-kBQ" firstAttribute="centerY" secondItem="bOo-iv-9gl" secondAttribute="centerY" id="JoA-HD-CuO"/>
                 <constraint firstItem="yu7-vd-Hdz" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" constant="12" id="L0o-qv-58u"/>
-                <constraint firstItem="oke-Td-REg" firstAttribute="top" secondItem="yu7-vd-Hdz" secondAttribute="bottom" constant="12" id="M1p-6p-fcj"/>
+                <constraint firstItem="oke-Td-REg" firstAttribute="top" secondItem="yu7-vd-Hdz" secondAttribute="bottom" id="M1p-6p-fcj"/>
                 <constraint firstItem="1ZR-0r-VNP" firstAttribute="leading" secondItem="ghW-Bi-WIR" secondAttribute="leading" id="N8C-mZ-cYc"/>
                 <constraint firstItem="bOo-iv-9gl" firstAttribute="leading" secondItem="ghW-Bi-WIR" secondAttribute="leading" id="Ox1-JO-Bwg"/>
                 <constraint firstAttribute="trailing" secondItem="cgU-5U-Odr" secondAttribute="trailing" constant="24" id="PBm-GX-mMN"/>
@@ -116,7 +119,7 @@
                 <constraint firstItem="ghW-Bi-WIR" firstAttribute="top" secondItem="bOo-iv-9gl" secondAttribute="bottom" constant="7" id="TqG-6c-MVU"/>
                 <constraint firstAttribute="trailing" secondItem="yu7-vd-Hdz" secondAttribute="trailing" constant="12" id="WKJ-iy-nhV"/>
                 <constraint firstAttribute="bottom" secondItem="cgU-5U-Odr" secondAttribute="bottom" constant="12" id="aTb-sC-wFT"/>
-                <constraint firstItem="1ZR-0r-VNP" firstAttribute="top" secondItem="oke-Td-REg" secondAttribute="bottom" constant="24" id="iki-C1-XtN"/>
+                <constraint firstItem="1ZR-0r-VNP" firstAttribute="top" secondItem="oke-Td-REg" secondAttribute="bottom" constant="6" id="iki-C1-XtN"/>
                 <constraint firstItem="bOo-iv-9gl" firstAttribute="top" secondItem="1ZR-0r-VNP" secondAttribute="bottom" constant="7" id="kvp-kH-nHA"/>
                 <constraint firstAttribute="trailing" secondItem="oke-Td-REg" secondAttribute="trailing" id="nUM-Mg-3Ka"/>
             </constraints>

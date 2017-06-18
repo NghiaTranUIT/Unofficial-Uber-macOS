@@ -173,11 +173,10 @@ class MapViewController: BaseViewController {
             NSAnimationContext.defaultAnimate({ _ in
                 self.exitNavigateBtn.alphaValue = 0
             })
-
         case .navigation:
 
             // Force layout
-            self.mapContainerViewBottom.constant = 360
+            self.mapContainerViewBottom.constant = 305
             self.view.layoutSubtreeIfNeeded()
 
             // Fade in

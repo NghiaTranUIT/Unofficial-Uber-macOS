@@ -35,6 +35,23 @@ class RequestUberView: NSView {
 
         self.initCommon()
         self.initCollectionView()
+
+        self.selectedGroupProduct.asObservable().filterNil()
+        .observeOn(MainScheduler.instance)
+        .subscribe(onNext: {[weak self] (groupObj) in
+            guard let `self` = self else { return }
+            self.stackView.arrangedSubviews.forEach({ (btn) in
+                guard let btn = btn as? UberGroupButton else { return }
+                guard let obj = btn.groupObj else { return }
+                // Select
+                if obj === groupObj {
+                    btn.state = NSOnState
+                } else {
+                    btn.state = NSOffState
+                }
+            })
+        })
+        .addDisposableTo(self.disposeBag)
     }
 
     // MARK: - Public
@@ -74,11 +91,11 @@ class RequestUberView: NSView {
 
     func updateAvailableGroupProducts(_ groupProductObjs: [GroupProductObj]) {
 
-        // Selection
-        self.defaultSelection(groupProductObjs)
-
         // Update Stack
         self.updateStackView(groupProductObjs)
+
+        // Selection
+        self.defaultSelection(groupProductObjs)
 
         // Reload
         self.collectionView.reloadData()
@@ -91,16 +108,7 @@ class RequestUberView: NSView {
         self.stackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
 
         // Create
-        let groupViews = groupProductObjs.map { groupObj -> UberGroupButton in
-            let btn = UberGroupButton(groupProductObj: groupObj)
-            if let selectedObj = self.selectedGroupProduct.value, selectedObj === groupObj {
-                btn.state = NSOnState
-            } else {
-                btn.state = NSOffState
-            }
-            return btn
-        }
-
+        let groupViews = groupProductObjs.map { UberGroupButton(groupProductObj: $0) }
 
         // add
         groupViews.forEach { [unowned self] (btn) in
@@ -204,18 +212,6 @@ extension RequestUberView: UberGroupButtonDelegate {
         // Make selection
         self.selectedGroupProduct.value = groupObj
         self.selectedProduct.value = groupObj.productObjs.first!
-
-        self.stackView.arrangedSubviews.forEach { (btn) in
-            guard let btn = btn as? UberGroupButton else {
-                return
-            }
-            if btn === sender {
-                btn.state = NSOnState
-            } else {
-                btn.state = NSOffState
-            }
-        }
-
         self.collectionView.reloadData()
     }
 }
