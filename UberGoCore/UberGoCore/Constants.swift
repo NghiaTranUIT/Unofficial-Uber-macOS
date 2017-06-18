@@ -153,5 +153,18 @@ struct Constants {
             static let PictureUrl = "picture_url"
         }
 
+        // MARK: - Payment
+        struct Payment {
+
+            static let PaymentMethods = "payment_methods"
+            static let LastUsed = "last_used"
+        }
+
+        struct PaymentAccount {
+
+            static let PaymentMethodId = "payment_method_id"
+            static let `Type` = "type"
+            static let Description = "description"
+        }
     }
 }
