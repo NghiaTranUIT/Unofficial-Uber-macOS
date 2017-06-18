@@ -78,7 +78,7 @@ class RequestUberView: NSView {
 
         // Create
         let groupViews = groupProductObjs.map { (groupObj) -> UberButton in
-            let btn = UberButton(title: groupObj.productGroup.capitalized,
+            let btn = UberButton(title: groupObj.productGroup.uppercased(),
                              target: self,
                              action: #selector(self.groupProductBtnOnTap(_:)))
             btn.font = NSFont.systemFont(ofSize: 13)

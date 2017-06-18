@@ -12,6 +12,9 @@ class UberButton: NSButton {
 
     override func awakeFromNib() {
         super.awakeFromNib()
+
+        // Common
+        self.initCommon()
     }
 
     func setTitleColor(_ color: NSColor, kern: Float? = nil) {
@@ -37,5 +40,11 @@ class UberButton: NSButton {
         // Override
         let attributedTitle = NSAttributedString(string: self.title, attributes: attributes)
         self.attributedTitle = attributedTitle
+    }
+
+    fileprivate func initCommon() {
+
+        // Cursor
+        self.addCursorRect(self.bounds, cursor: NSCursor.pointingHand())
     }
 }
