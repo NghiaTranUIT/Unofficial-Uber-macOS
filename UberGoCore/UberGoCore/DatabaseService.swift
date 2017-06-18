@@ -9,6 +9,4 @@
 import Foundation
 
 open class DatabaseService {
-
-
 }

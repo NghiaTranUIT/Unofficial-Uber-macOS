@@ -91,22 +91,20 @@ class RequestUberView: NSView {
         self.stackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
 
         // Create
-        let groupViews = groupProductObjs.map { (groupObj) -> UberButton in
-            let btn = UberButton(title: groupObj.productGroup.uppercased(),
-                             target: self,
-                             action: #selector(self.groupProductBtnOnTap(_:)))
-            btn.font = NSFont.systemFont(ofSize: 13)
-            btn.isBordered = false
+        let groupViews = groupProductObjs.map { groupObj -> UberGroupButton in
+            let btn = UberGroupButton(groupProductObj: groupObj)
             if let selectedObj = self.selectedGroupProduct.value, selectedObj === groupObj {
-                btn.setTitleColor(NSColor.white, kern: 2)
+                btn.state = NSOnState
             } else {
-                btn.setTitleColor(NSColor.lightGray, kern: 2)
+                btn.state = NSOffState
             }
             return btn
         }
 
+
         // add
         groupViews.forEach { [unowned self] (btn) in
+            btn.delegate = self
             self.stackView.addArrangedSubview(btn)
         }
     }
@@ -117,10 +115,6 @@ class RequestUberView: NSView {
 
         self.selectedGroupProduct.value = firstGroup
         self.selectedProduct.value = firstProduct
-    }
-
-    @objc fileprivate func groupProductBtnOnTap(_ sender: UberButton) {
-
     }
 }
 
@@ -197,8 +191,33 @@ extension RequestUberView: NSCollectionViewDataSource {
     }
 }
 
+// MARK: - NSCollectionViewDelegate
 extension RequestUberView: NSCollectionViewDelegate {
 
+}
+
+// MARK: - UberGroupButtonDelegate
+extension RequestUberView: UberGroupButtonDelegate {
+
+    func uberGroupButton(_ sender: UberGroupButton, didSelectedGroupObj groupObj: GroupProductObj) {
+
+        // Make selection
+        self.selectedGroupProduct.value = groupObj
+        self.selectedProduct.value = groupObj.productObjs.first!
+
+        self.stackView.arrangedSubviews.forEach { (btn) in
+            guard let btn = btn as? UberGroupButton else {
+                return
+            }
+            if btn === sender {
+                btn.state = NSOnState
+            } else {
+                btn.state = NSOffState
+            }
+        }
+
+        self.collectionView.reloadData()
+    }
 }
 
 // MARK: - XIBInitializable

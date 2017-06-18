@@ -23,6 +23,7 @@
 		BAB14AC01EF62DB40066267B /* UberProductCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB14ABE1EF62DB40066267B /* UberProductCell.swift */; };
 		BAB14AC11EF62DB40066267B /* UberProductCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BAB14ABF1EF62DB40066267B /* UberProductCell.xib */; };
 		BAB14AC31EF65FA80066267B /* CenterHorizontalFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB14AC21EF65FA80066267B /* CenterHorizontalFlowLayout.swift */; };
+		BAB14ACB1EF668290066267B /* UberGroupButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB14ACA1EF668290066267B /* UberGroupButton.swift */; };
 		BADB784A1EE5ABD5000536F7 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB78491EE5ABD5000536F7 /* SearchBarView.swift */; };
 		BADB784C1EE5ABDE000536F7 /* SearchBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BADB784B1EE5ABDE000536F7 /* SearchBarView.xib */; };
 		BADB78501EE5AC6A000536F7 /* NSView+Xib.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB784F1EE5AC6A000536F7 /* NSView+Xib.swift */; };
@@ -97,6 +98,7 @@
 		BAB14ABE1EF62DB40066267B /* UberProductCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UberProductCell.swift; sourceTree = "<group>"; };
 		BAB14ABF1EF62DB40066267B /* UberProductCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UberProductCell.xib; sourceTree = "<group>"; };
 		BAB14AC21EF65FA80066267B /* CenterHorizontalFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CenterHorizontalFlowLayout.swift; sourceTree = "<group>"; };
+		BAB14ACA1EF668290066267B /* UberGroupButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UberGroupButton.swift; sourceTree = "<group>"; };
 		BADB78491EE5ABD5000536F7 /* SearchBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
 		BADB784B1EE5ABDE000536F7 /* SearchBarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchBarView.xib; sourceTree = "<group>"; };
 		BADB784F1EE5AC6A000536F7 /* NSView+Xib.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSView+Xib.swift"; sourceTree = "<group>"; };
@@ -311,6 +313,7 @@
 				BADB785F1EE66190000536F7 /* UberTextField */,
 				BAB14AC61EF65FF00066267B /* Uber Collection View */,
 				BADB785C1EE5B9F5000536F7 /* UberButton */,
+				BAB14ACA1EF668290066267B /* UberGroupButton.swift */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -670,6 +673,7 @@
 				BADB78591EE5B92B000536F7 /* NSView+BackgroundColor.swift in Sources */,
 				BAF57FBF1EE117300013090E /* MapViewController.swift in Sources */,
 				BAED39DD1EE9ADB7003D9BC3 /* SearchCollectionViewFlowLayout.swift in Sources */,
+				BAB14ACB1EF668290066267B /* UberGroupButton.swift in Sources */,
 				BADB785B1EE5B93D000536F7 /* NSColor+Hex.swift in Sources */,
 				BAB14AC31EF65FA80066267B /* CenterHorizontalFlowLayout.swift in Sources */,
 				BADB78611EE661A8000536F7 /* UberTextField.swift in Sources */,

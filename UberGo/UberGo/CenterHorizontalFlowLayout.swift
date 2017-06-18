@@ -47,7 +47,7 @@ class CenterHorizontalFlowLayout: NSCollectionViewFlowLayout {
         // Origin position
         let haflfContentSize = (self.sizeCell.width * CGFloat(self.itemCount)) / 2.0
         let halfBound = self.collectionView!.bounds.width / 2.0
-        let padding: CGFloat =  halfBound - haflfContentSize
+        let padding: CGFloat = halfBound - haflfContentSize
 
         for i in 0..<self.itemCount {
 

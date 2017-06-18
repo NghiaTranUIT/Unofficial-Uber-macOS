@@ -88,7 +88,7 @@ class SearchCollectionView: NSView {
             // Animate
             NSAnimationContext.defaultAnimate({ _ in
                 self.alphaValue = 0
-            }, completion: { 
+            }, completion: {
                 self.isHidden = true
             })
         }
