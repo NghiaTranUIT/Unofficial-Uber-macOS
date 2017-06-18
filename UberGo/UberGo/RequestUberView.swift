@@ -72,7 +72,30 @@ class RequestUberView: NSView {
 
     // MARK: - Stack View
     fileprivate func updateStackView(_ groupProductObjs: [GroupProductObj]) {
-        
+
+        // Remove all
+        self.stackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
+
+        // Create
+        let groupViews = groupProductObjs.map { (groupObj) -> UberButton in
+            let btn = UberButton(title: groupObj.productGroup.capitalized,
+                             target: self,
+                             action: #selector(self.groupProductBtnOnTap(_:)))
+            btn.font = NSFont.systemFont(ofSize: 13)
+            btn.setTitleColor(NSColor.white, kern: 2)
+            btn.isBordered = false
+            return btn
+
+        }
+
+        // add
+        groupViews.forEach { [unowned self] (btn) in
+            self.stackView.addArrangedSubview(btn)
+        }
+    }
+
+    @objc fileprivate func groupProductBtnOnTap(_ sender: UberButton) {
+
     }
 }
 

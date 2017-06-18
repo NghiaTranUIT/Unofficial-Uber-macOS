@@ -14,7 +14,7 @@ class UberButton: NSButton {
         super.awakeFromNib()
     }
 
-    func setTitleColor(_ color: NSColor, kern: Int? = nil) {
+    func setTitleColor(_ color: NSColor, kern: Float? = nil) {
 
         guard let font = font else {
             return
