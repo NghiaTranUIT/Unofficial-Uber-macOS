@@ -49,6 +49,6 @@ class UberProductCell: NSCollectionViewItem {
             return
         }
 
-        self.priceLbl.stringValue = estimatePrice.localizedDisplayName ?? "xxx"
+        self.priceLbl.stringValue = estimatePrice.estimate ?? "xxx"
     }
 }

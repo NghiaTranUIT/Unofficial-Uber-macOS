@@ -27,11 +27,14 @@ class RequestUberView: NSView {
     public let selectedGroupProduct = Variable<GroupProductObj?>(nil)
     public let selectedProduct = Variable<ProductObj?>(nil)
 
+    fileprivate let disposeBag = DisposeBag()
+
     // MARK: - Init
     override func awakeFromNib() {
         super.awakeFromNib()
 
         self.initCommon()
+        self.initCollectionView()
     }
 
     // MARK: - Public
@@ -71,11 +74,11 @@ class RequestUberView: NSView {
 
     func updateAvailableGroupProducts(_ groupProductObjs: [GroupProductObj]) {
 
-        // Update Stack
-        self.updateStackView(groupProductObjs)
-
         // Selection
         self.defaultSelection(groupProductObjs)
+
+        // Update Stack
+        self.updateStackView(groupProductObjs)
 
         // Reload
         self.collectionView.reloadData()
@@ -93,8 +96,12 @@ class RequestUberView: NSView {
                              target: self,
                              action: #selector(self.groupProductBtnOnTap(_:)))
             btn.font = NSFont.systemFont(ofSize: 13)
-            btn.setTitleColor(NSColor.white, kern: 2)
             btn.isBordered = false
+            if let selectedObj = self.selectedGroupProduct.value, selectedObj === groupObj {
+                btn.setTitleColor(NSColor.white, kern: 2)
+            } else {
+                btn.setTitleColor(NSColor.lightGray, kern: 2)
+            }
             return btn
         }
 
@@ -146,8 +153,13 @@ extension RequestUberView {
         self.collectionView.dataSource = self
         self.collectionView.delegate = self
 
+        // Cell
         let nib = NSNib(nibNamed: "UberProductCell", bundle: nil)
         self.collectionView.register(nib, forItemWithIdentifier: "UberProductCell")
+
+        // Flow
+        let flow = CenterHorizontalFlowLayout()
+        self.collectionView.collectionViewLayout = flow
     }
 }
 
@@ -176,6 +188,11 @@ extension RequestUberView: NSCollectionViewDataSource {
             return NSCollectionViewItem()
         }
         cell.configureCell(with: productObj)
+
+        // Select
+        let isSelected = productObj === self.selectedProduct.value!
+        cell.isSelected = isSelected
+
         return cell
     }
 }

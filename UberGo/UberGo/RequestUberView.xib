@@ -64,7 +64,7 @@
                         <constraint firstAttribute="height" constant="1" id="bhr-9r-hki"/>
                     </constraints>
                 </customView>
-                <scrollView wantsLayer="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oke-Td-REg">
+                <scrollView wantsLayer="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" verticalScrollElasticity="none" translatesAutoresizingMaskIntoConstraints="NO" id="oke-Td-REg">
                     <rect key="frame" x="0.0" y="135" width="480" height="157"/>
                     <clipView key="contentView" drawsBackground="NO" id="hpl-MZ-107">
                         <rect key="frame" x="0.0" y="0.0" width="480" height="157"/>
