@@ -7,8 +7,8 @@
 //
 
 import Foundation
-import MapKit
 import MapboxDirections
+import MapKit
 import RxCocoa
 import RxSwift
 

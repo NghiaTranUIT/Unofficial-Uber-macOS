@@ -48,7 +48,7 @@ public enum MapServiceResult {
 
 extension MapServiceResult: Equatable {
 
-    public static func ==(lhs: MapServiceResult, rhs: MapServiceResult) -> Bool {
+    public static func == (lhs: MapServiceResult, rhs: MapServiceResult) -> Bool {
         if lhs.isError && rhs.isError {
             return true
         }

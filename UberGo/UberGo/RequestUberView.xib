@@ -13,7 +13,7 @@
             <rect key="frame" x="0.0" y="0.0" width="480" height="360"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ghW-Bi-WIR">
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ghW-Bi-WIR" customClass="UberButton" customModule="UberGo" customModuleProvider="target">
                     <rect key="frame" x="24" y="12" width="368" height="52"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="52" id="bG5-0c-9k9"/>
@@ -29,7 +29,7 @@
                         <constraint firstAttribute="width" constant="52" id="EMB-3Y-1ZY"/>
                         <constraint firstAttribute="height" constant="52" id="ncv-Nf-Sou"/>
                     </constraints>
-                    <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="calendar" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="uZj-tV-cxd">
+                    <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="calendar_white" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="uZj-tV-cxd">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
@@ -41,7 +41,7 @@
                         <font key="font" metaFont="system"/>
                     </buttonCell>
                 </button>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NsZ-1o-kBQ">
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NsZ-1o-kBQ" customClass="UberTextField" customModule="UberGo" customModuleProvider="target">
                     <rect key="frame" x="70" y="78" width="72" height="19"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="•••• 1234" placeholderString="" id="6iC-Ld-REG">
                         <font key="font" metaFont="system" size="15"/>
@@ -63,29 +63,28 @@
                         <constraint firstAttribute="height" constant="1" id="bhr-9r-hki"/>
                     </constraints>
                 </customView>
-                <scrollView wantsLayer="YES" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oke-Td-REg">
+                <scrollView wantsLayer="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oke-Td-REg">
                     <rect key="frame" x="0.0" y="135" width="480" height="201"/>
                     <clipView key="contentView" drawsBackground="NO" id="hpl-MZ-107">
-                        <rect key="frame" x="1" y="1" width="478" height="199"/>
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="201"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView id="dk1-FR-KZ5">
-                                <rect key="frame" x="0.0" y="0.0" width="478" height="199"/>
+                            <collectionView selectable="YES" allowsEmptySelection="NO" id="dk1-FR-KZ5">
+                                <rect key="frame" x="0.0" y="0.0" width="480" height="201"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumInteritemSpacing="10" minimumLineSpacing="10" id="u2e-WX-B1g">
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumInteritemSpacing="10" minimumLineSpacing="10" scrollDirection="horizontal" id="u2e-WX-B1g">
                                     <size key="itemSize" width="50" height="50"/>
                                 </collectionViewFlowLayout>
                                 <color key="primaryBackgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                             </collectionView>
                         </subviews>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </clipView>
                     <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="R4A-bo-Lcv">
-                        <rect key="frame" x="1" y="144" width="233" height="15"/>
+                        <rect key="frame" x="-100" y="-100" width="233" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                     <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="FOx-d7-iVZ">
-                        <rect key="frame" x="233" y="1" width="16" height="108"/>
+                        <rect key="frame" x="-100" y="-100" width="16" height="108"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                 </scrollView>
@@ -112,18 +111,19 @@
             </constraints>
             <connections>
                 <outlet property="cardNumberLbl" destination="NsZ-1o-kBQ" id="nMD-lY-qYR"/>
-                <outlet property="collectionView" destination="oke-Td-REg" id="764-Ww-rQg"/>
+                <outlet property="collectionView" destination="dk1-FR-KZ5" id="9lQ-MX-DMs"/>
                 <outlet property="dividerLineView" destination="1ZR-0r-VNP" id="DUx-4A-VNX"/>
                 <outlet property="paymentImageView" destination="bOo-iv-9gl" id="z77-cO-MTG"/>
                 <outlet property="requestUberBtn" destination="ghW-Bi-WIR" id="41P-Tq-n1w"/>
                 <outlet property="scheduleUberBtn" destination="cgU-5U-Odr" id="wjR-fa-19d"/>
+                <outlet property="scrollView" destination="oke-Td-REg" id="fCX-nc-qUi"/>
                 <outlet property="seatNumberLnl" destination="Thy-KV-ex9" id="F26-1X-Evt"/>
             </connections>
             <point key="canvasLocation" x="-20" y="81"/>
         </customView>
     </objects>
     <resources>
-        <image name="calendar" width="24" height="24"/>
+        <image name="calendar_white" width="24" height="24"/>
         <image name="visa_card" width="36" height="22"/>
     </resources>
 </document>

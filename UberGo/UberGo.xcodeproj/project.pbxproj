@@ -30,7 +30,6 @@
 		BADB785B1EE5B93D000536F7 /* NSColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB785A1EE5B93D000536F7 /* NSColor+Hex.swift */; };
 		BADB785E1EE5BA0C000536F7 /* UberButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB785D1EE5BA0C000536F7 /* UberButton.swift */; };
 		BADB78611EE661A8000536F7 /* UberTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB78601EE661A8000536F7 /* UberTextField.swift */; };
-		BADB78641EE6EFE1000536F7 /* UberTextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB78631EE6EFE1000536F7 /* UberTextFieldCell.swift */; };
 		BAE3CCEF1EF5812E00F264CA /* RequestUberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE3CCEE1EF5812E00F264CA /* RequestUberView.swift */; };
 		BAE3CCF21EF5815600F264CA /* RequestUberView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BAE3CCF11EF5815600F264CA /* RequestUberView.xib */; };
 		BAE3CCF41EF5820100F264CA /* IMG_6619@2x.PNG in Resources */ = {isa = PBXBuildFile; fileRef = BAE3CCF31EF5820100F264CA /* IMG_6619@2x.PNG */; };
@@ -103,7 +102,6 @@
 		BADB785A1EE5B93D000536F7 /* NSColor+Hex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSColor+Hex.swift"; sourceTree = "<group>"; };
 		BADB785D1EE5BA0C000536F7 /* UberButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UberButton.swift; sourceTree = "<group>"; };
 		BADB78601EE661A8000536F7 /* UberTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UberTextField.swift; sourceTree = "<group>"; };
-		BADB78631EE6EFE1000536F7 /* UberTextFieldCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UberTextFieldCell.swift; sourceTree = "<group>"; };
 		BAE3CCEE1EF5812E00F264CA /* RequestUberView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestUberView.swift; sourceTree = "<group>"; };
 		BAE3CCF11EF5815600F264CA /* RequestUberView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RequestUberView.xib; sourceTree = "<group>"; };
 		BAE3CCF31EF5820100F264CA /* IMG_6619@2x.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IMG_6619@2x.PNG"; sourceTree = "<group>"; };
@@ -237,6 +235,7 @@
 		BA47969A1EE2598B00620BB0 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				BAB14AB81EF61EA40066267B /* Uber Label */,
 				BAE3CCF01EF5813300F264CA /* Request Uber View */,
 				BAAC44191EF3A4AB00A9F949 /* Uber Map View */,
 				BAED39D91EE9A6EF003D9BC3 /* Search Collection View */,
@@ -254,6 +253,13 @@
 				BAAC441A1EF3A4BE00A9F949 /* UberMapView.swift */,
 			);
 			name = "Uber Map View";
+			sourceTree = "<group>";
+		};
+		BAB14AB81EF61EA40066267B /* Uber Label */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Uber Label";
 			sourceTree = "<group>";
 		};
 		BADB78481EE5ABC5000536F7 /* Search Bar */ = {
@@ -286,7 +292,6 @@
 			isa = PBXGroup;
 			children = (
 				BADB78601EE661A8000536F7 /* UberTextField.swift */,
-				BADB78631EE6EFE1000536F7 /* UberTextFieldCell.swift */,
 			);
 			name = UberTextField;
 			sourceTree = "<group>";
@@ -611,7 +616,6 @@
 				BA2A3A751EECFF6E002A0343 /* SearchPlaceCell.swift in Sources */,
 				BAED39DB1EE9A705003D9BC3 /* UberCollectionView.swift in Sources */,
 				BADB785E1EE5BA0C000536F7 /* UberButton.swift in Sources */,
-				BADB78641EE6EFE1000536F7 /* UberTextFieldCell.swift in Sources */,
 				BAE3CCEF1EF5812E00F264CA /* RequestUberView.swift in Sources */,
 				BAE6902C1EE460EB00A4D876 /* EventMonitor.swift in Sources */,
 			);

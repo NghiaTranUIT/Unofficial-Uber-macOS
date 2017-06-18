@@ -23,9 +23,9 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="lC3-Vn-oNQ">
-                    <rect key="frame" x="0.0" y="0.0" width="480" height="240"/>
+                    <rect key="frame" x="0.0" y="0.0" width="480" height="360"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="240" id="AGG-Ec-IQ8"/>
+                        <constraint firstAttribute="height" constant="360" id="AGG-Ec-IQ8"/>
                     </constraints>
                 </customView>
                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="vPW-kc-2X8">
@@ -58,7 +58,7 @@
                 <constraint firstItem="vPW-kc-2X8" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="qjd-Lm-wEl"/>
                 <constraint firstAttribute="trailing" secondItem="vPW-kc-2X8" secondAttribute="trailing" id="zir-iV-OLl"/>
             </constraints>
-            <point key="canvasLocation" x="139" y="514"/>
+            <point key="canvasLocation" x="146" y="432"/>
         </customView>
     </objects>
     <resources>

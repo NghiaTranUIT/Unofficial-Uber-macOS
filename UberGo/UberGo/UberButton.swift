@@ -14,21 +14,27 @@ class UberButton: NSButton {
         super.awakeFromNib()
     }
 
-    func updateWhereToBtnAttribute() {
+    func setTitleColor(_ color: NSColor, kern: Int? = nil) {
+
         guard let font = font else {
             return
         }
 
+        // Paragraph
         let style = NSMutableParagraphStyle()
-        style.alignment = .left
-        let color = NSColor(hexString: "#525760")
+        style.alignment = self.alignment
 
-        let attributes = [NSForegroundColorAttributeName: color,
+        // Attribute
+        var attributes = [NSForegroundColorAttributeName: color,
                           NSFontAttributeName: font,
-                          NSKernAttributeName: 2,
-                          NSParagraphStyleAttributeName: style]
-            as [String : Any]
+                          NSParagraphStyleAttributeName: style] as [String : Any]
 
+        // Kern
+        if let kern = kern {
+            attributes[NSKernAttributeName] = kern
+        }
+
+        // Override
         let attributedTitle = NSAttributedString(string: self.title, attributes: attributes)
         self.attributedTitle = attributedTitle
     }

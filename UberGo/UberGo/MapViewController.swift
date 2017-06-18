@@ -24,6 +24,8 @@ class MapViewController: BaseViewController {
     // MARK: - OUTLET
     fileprivate var mapView: UberMapView!
     fileprivate var searchCollectionView: SearchCollectionView!
+    fileprivate lazy var requestUberView: RequestUberView = self.lazyInitRequestUberView()
+
     @IBOutlet fileprivate weak var exitNavigateBtn: NSButton!
     @IBOutlet fileprivate weak var mapContainerView: NSView!
     @IBOutlet fileprivate weak var mapContainerViewBottom: NSLayoutConstraint!
@@ -137,10 +139,12 @@ class MapViewController: BaseViewController {
         .addDisposableTo(self.disposeBag)
 
         // Request Product
-        self.viewModel.availableProductsDriver.drive(onNext: { productObjs in
-
+        self.viewModel.availableProductsDriver.drive(onNext: {[weak self] productObjs in
+            guard let `self` = self else { return }
             Logger.info("Available Products count = \(productObjs.count)")
 
+            // Update
+            self.requestUberView.updateAvailableProducts(productObjs)
         })
         .addDisposableTo(self.disposeBag)
     }
@@ -173,7 +177,7 @@ class MapViewController: BaseViewController {
         case .navigation:
 
             // Force layout
-            self.mapContainerViewBottom.constant = 240
+            self.mapContainerViewBottom.constant = 360
             self.view.layoutSubtreeIfNeeded()
 
             // Fade in
@@ -213,6 +217,12 @@ extension MapViewController {
                                          positioned: .below,
                                          relativeTo: self.exitNavigateBtn)
         self.searchCollectionView.configureView(parenView: self.mapContainerView, searchBarView: self.searchBarView)
+    }
+
+    fileprivate func lazyInitRequestUberView() -> RequestUberView {
+        let uberView = RequestUberView.viewFromNib(with: BundleType.app)!
+        uberView.configureLayout(self.bottomBarView)
+        return uberView
     }
 }
 
