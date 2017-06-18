@@ -20,6 +20,7 @@ class RequestUberView: NSView {
     @IBOutlet fileprivate weak var dividerLineView: NSView!
     @IBOutlet fileprivate weak var scrollView: NSScrollView!
     @IBOutlet fileprivate weak var collectionView: NSCollectionView!
+    @IBOutlet fileprivate weak var stackView: NSStackView!
 
     // MARK: - Init
     override func awakeFromNib() {
@@ -63,11 +64,15 @@ class RequestUberView: NSView {
         parentView.addConstraints([top, left, right, bottom])
     }
 
-    func updateAvailableProducts(_ productObjs: [ProductObj]) {
+    func updateAvailableGroupProducts(_ groupProductObjs: [GroupProductObj]) {
 
-        let first = productObjs.first!
+        // Update Stack
+        self.updateStackView(groupProductObjs)
+    }
 
-        self.requestUberBtn.stringValue = "REQUEST \(first.displayName!)"
+    // MARK: - Stack View
+    fileprivate func updateStackView(_ groupProductObjs: [GroupProductObj]) {
+        
     }
 }
 

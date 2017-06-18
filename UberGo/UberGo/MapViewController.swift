@@ -139,12 +139,12 @@ class MapViewController: BaseViewController {
         .addDisposableTo(self.disposeBag)
 
         // Request Product
-        self.viewModel.availableProductsDriver.drive(onNext: {[weak self] productObjs in
+        self.viewModel.availableGroupProductsDriver.drive(onNext: {[weak self] groups in
             guard let `self` = self else { return }
-            Logger.info("Available Products count = \(productObjs.count)")
+            Logger.info("Available Group Products count = \(groups.count)")
 
             // Update
-            self.requestUberView.updateAvailableProducts(productObjs)
+            self.requestUberView.updateAvailableGroupProducts(groups)
         })
         .addDisposableTo(self.disposeBag)
     }

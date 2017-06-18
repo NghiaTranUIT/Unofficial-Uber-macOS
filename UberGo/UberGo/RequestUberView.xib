@@ -4,6 +4,7 @@
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12120"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+        <capability name="stacking Non-gravity area distributions on NSStackView" minToolsVersion="7.0" minSystemVersion="10.11"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner"/>
@@ -64,13 +65,13 @@
                     </constraints>
                 </customView>
                 <scrollView wantsLayer="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oke-Td-REg">
-                    <rect key="frame" x="0.0" y="135" width="480" height="201"/>
+                    <rect key="frame" x="0.0" y="135" width="480" height="157"/>
                     <clipView key="contentView" drawsBackground="NO" id="hpl-MZ-107">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="201"/>
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="157"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView selectable="YES" allowsEmptySelection="NO" id="dk1-FR-KZ5">
-                                <rect key="frame" x="0.0" y="0.0" width="480" height="201"/>
+                                <rect key="frame" x="0.0" y="0.0" width="480" height="157"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumInteritemSpacing="10" minimumLineSpacing="10" scrollDirection="horizontal" id="u2e-WX-B1g">
                                     <size key="itemSize" width="50" height="50"/>
@@ -88,6 +89,12 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                 </scrollView>
+                <stackView distribution="fillEqually" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yu7-vd-Hdz">
+                    <rect key="frame" x="12" y="304" width="456" height="44"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="oWN-3m-gB8"/>
+                    </constraints>
+                </stackView>
             </subviews>
             <constraints>
                 <constraint firstItem="oke-Td-REg" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" id="37Y-AF-30A"/>
@@ -96,18 +103,22 @@
                 <constraint firstItem="ghW-Bi-WIR" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="24" id="D9F-9G-u6K"/>
                 <constraint firstItem="Thy-KV-ex9" firstAttribute="trailing" secondItem="cgU-5U-Odr" secondAttribute="trailing" id="EZ6-Th-hIH"/>
                 <constraint firstItem="NsZ-1o-kBQ" firstAttribute="leading" secondItem="bOo-iv-9gl" secondAttribute="trailing" constant="12" id="Eo2-UV-Pge"/>
+                <constraint firstItem="yu7-vd-Hdz" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="12" id="GDK-XC-6AW"/>
                 <constraint firstItem="1ZR-0r-VNP" firstAttribute="trailing" secondItem="cgU-5U-Odr" secondAttribute="trailing" id="Ghy-IW-c3x"/>
                 <constraint firstItem="Thy-KV-ex9" firstAttribute="centerY" secondItem="NsZ-1o-kBQ" secondAttribute="centerY" id="JlH-EA-5Ov"/>
                 <constraint firstItem="NsZ-1o-kBQ" firstAttribute="centerY" secondItem="bOo-iv-9gl" secondAttribute="centerY" id="JoA-HD-CuO"/>
+                <constraint firstItem="yu7-vd-Hdz" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" constant="12" id="L0o-qv-58u"/>
+                <constraint firstItem="oke-Td-REg" firstAttribute="top" secondItem="yu7-vd-Hdz" secondAttribute="bottom" constant="12" id="M1p-6p-fcj"/>
                 <constraint firstItem="1ZR-0r-VNP" firstAttribute="leading" secondItem="ghW-Bi-WIR" secondAttribute="leading" id="N8C-mZ-cYc"/>
                 <constraint firstItem="bOo-iv-9gl" firstAttribute="leading" secondItem="ghW-Bi-WIR" secondAttribute="leading" id="Ox1-JO-Bwg"/>
                 <constraint firstAttribute="trailing" secondItem="cgU-5U-Odr" secondAttribute="trailing" constant="24" id="PBm-GX-mMN"/>
+                <constraint firstItem="yu7-vd-Hdz" firstAttribute="centerX" secondItem="c22-O7-iKe" secondAttribute="centerX" id="QUz-5L-WcX"/>
                 <constraint firstItem="ghW-Bi-WIR" firstAttribute="top" secondItem="bOo-iv-9gl" secondAttribute="bottom" constant="7" id="TqG-6c-MVU"/>
+                <constraint firstAttribute="trailing" secondItem="yu7-vd-Hdz" secondAttribute="trailing" constant="12" id="WKJ-iy-nhV"/>
                 <constraint firstAttribute="bottom" secondItem="cgU-5U-Odr" secondAttribute="bottom" constant="12" id="aTb-sC-wFT"/>
                 <constraint firstItem="1ZR-0r-VNP" firstAttribute="top" secondItem="oke-Td-REg" secondAttribute="bottom" constant="24" id="iki-C1-XtN"/>
                 <constraint firstItem="bOo-iv-9gl" firstAttribute="top" secondItem="1ZR-0r-VNP" secondAttribute="bottom" constant="7" id="kvp-kH-nHA"/>
                 <constraint firstAttribute="trailing" secondItem="oke-Td-REg" secondAttribute="trailing" id="nUM-Mg-3Ka"/>
-                <constraint firstItem="oke-Td-REg" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" constant="24" id="xuH-BB-78s"/>
             </constraints>
             <connections>
                 <outlet property="cardNumberLbl" destination="NsZ-1o-kBQ" id="nMD-lY-qYR"/>
@@ -118,6 +129,7 @@
                 <outlet property="scheduleUberBtn" destination="cgU-5U-Odr" id="wjR-fa-19d"/>
                 <outlet property="scrollView" destination="oke-Td-REg" id="fCX-nc-qUi"/>
                 <outlet property="seatNumberLnl" destination="Thy-KV-ex9" id="F26-1X-Evt"/>
+                <outlet property="stackView" destination="yu7-vd-Hdz" id="3GH-Xf-c1b"/>
             </connections>
             <point key="canvasLocation" x="-20" y="81"/>
         </customView>

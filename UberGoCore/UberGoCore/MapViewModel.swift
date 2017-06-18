@@ -42,7 +42,7 @@ public protocol MapViewModelOutput {
     var isSelectedPlace: Driver<Bool> { get }
 
     // Request
-    var availableProductsDriver: Driver<[ProductObj]>! { get }
+    var availableGroupProductsDriver: Driver<[GroupProductObj]>! { get }
     var isLoadingAvailableProductPublisher: PublishSubject<Bool> { get }
 }
 
@@ -81,7 +81,7 @@ open class MapViewModel: BaseViewModel,
     public var isSelectedPlace: Driver<Bool> {
         return self.selectedPlaceObjDriver.map({ $0 != nil })
     }
-    public var availableProductsDriver: Driver<[ProductObj]>!
+    public var availableGroupProductsDriver: Driver<[GroupProductObj]>!
     public var isLoadingAvailableProductPublisher = PublishSubject<Bool>()
 
     // MARK: - Init
@@ -216,7 +216,7 @@ open class MapViewModel: BaseViewModel,
         .addDisposableTo(self.disposeBag)
 
         // Get available Product + Estimate price
-        self.availableProductsDriver =
+        self.availableGroupProductsDriver =
             selectedPlaceObserve
             .filterNil()
             .do(onNext: {[unowned self] _ in
@@ -227,6 +227,7 @@ open class MapViewModel: BaseViewModel,
                 return self.uberService.productsWithEstimatePriceObserver(from: current.coordinate,
                                                                           to: placeObj.coordinate2D!)
             }
+            .map({ GroupProductObj.mapProductGroups(from: $0) })
             .asDriver(onErrorJustReturn: [])
     }
 }
