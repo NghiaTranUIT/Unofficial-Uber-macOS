@@ -12,7 +12,7 @@ open class PaymentObj: BaseObj {
 
     // MARK: - Variable
     public var paymentAccountObjs: [PaymentAccountObj]?
-    fileprivate var lastUsed: String?
+    public var lastUsed: String?
 
     public var lastUsedPaymentAccount: PaymentAccountObj? {
         guard let paymentAccountObjs = self.paymentAccountObjs else { return nil }

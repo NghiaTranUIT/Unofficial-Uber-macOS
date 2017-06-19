@@ -24,6 +24,7 @@
 		BA0C91AA1EF04AA200BA8B4B /* DriverObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0C91A91EF04AA200BA8B4B /* DriverObj.swift */; };
 		BA22191C1EF6FBB100C766A1 /* PaymentObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA22191B1EF6FBB100C766A1 /* PaymentObj.swift */; };
 		BA22191E1EF6FC6D00C766A1 /* PaymentAccountObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA22191D1EF6FC6D00C766A1 /* PaymentAccountObj.swift */; };
+		BA2219201EF79CEB00C766A1 /* GetPaymentMethodRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA22191F1EF79CEB00C766A1 /* GetPaymentMethodRequest.swift */; };
 		BA2A3A7D1EED26EF002A0343 /* DatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2A3A7C1EED26EF002A0343 /* DatabaseService.swift */; };
 		BA32E71E1EDFC76A0044C017 /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA32E71D1EDFC76A0044C017 /* AuthenticationViewModel.swift */; };
 		BA32E7231EDFC8230044C017 /* AppViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA32E7221EDFC8230044C017 /* AppViewModel.swift */; };
@@ -103,6 +104,7 @@
 		BA0C91A91EF04AA200BA8B4B /* DriverObj.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DriverObj.swift; sourceTree = "<group>"; };
 		BA22191B1EF6FBB100C766A1 /* PaymentObj.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentObj.swift; sourceTree = "<group>"; };
 		BA22191D1EF6FC6D00C766A1 /* PaymentAccountObj.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentAccountObj.swift; sourceTree = "<group>"; };
+		BA22191F1EF79CEB00C766A1 /* GetPaymentMethodRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetPaymentMethodRequest.swift; sourceTree = "<group>"; };
 		BA2A3A7C1EED26EF002A0343 /* DatabaseService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseService.swift; sourceTree = "<group>"; };
 		BA32E71D1EDFC76A0044C017 /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
 		BA32E7221EDFC8230044C017 /* AppViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppViewModel.swift; sourceTree = "<group>"; };
@@ -290,6 +292,7 @@
 				BA0C91A11EF0481700BA8B4B /* CancelCurerntTripRequest.swift */,
 				BAAC440F1EF1246500A9F949 /* PostEstimateTripRequest.swift */,
 				BAAC44111EF124E400A9F949 /* CreateTripRequest.swift */,
+				BA22191F1EF79CEB00C766A1 /* GetPaymentMethodRequest.swift */,
 			);
 			name = Network;
 			sourceTree = "<group>";
@@ -647,6 +650,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BA2219201EF79CEB00C766A1 /* GetPaymentMethodRequest.swift in Sources */,
 				BADB78691EE70CBB000536F7 /* Parameter.swift in Sources */,
 				BA0C91961EEF8B4E00BA8B4B /* Logger.swift in Sources */,
 				BA0C91A81EF049C300BA8B4B /* WaypointObj.swift in Sources */,

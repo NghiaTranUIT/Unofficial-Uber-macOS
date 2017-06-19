@@ -106,6 +106,11 @@ open class UberService {
                                                       to: destinationLocation)
             return RideEstimatePriceRequest(param).toObservable()
     }
+
+    // MARK: - Payment
+    public func paymentMethodObserver() -> Observable<PaymentObj> {
+        return GetPaymentMethodRequest().toObservable()
+    }
 }
 
 // MARK: - Private

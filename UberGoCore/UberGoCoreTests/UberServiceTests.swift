@@ -141,6 +141,61 @@ class UberServiceTests: XCTestCase {
 
         // Expect
         waitForExpectations(timeout: 10, handler: nil)
+    }
 
+    func testPaymentMethodObserver() {
+
+        let promise = expectation(description: "testPaymentMethodObserver")
+        FakeUberCrendential.makeCurrentUser()
+
+        // Then
+        UberService().paymentMethodObserver()
+            .subscribe(onNext: { paymentObj in
+
+                // Check if product_id != nil
+                guard let paymentAccountObjs = paymentObj.paymentAccountObjs else {
+                    XCTFail("No payment accounts")
+                    return
+                }
+
+                // Check each
+                for obj in paymentAccountObjs {
+                    if obj.paymentMethodId == nil {
+                        XCTFail("Payment account ID is invalid")
+                    }
+                }
+
+                // Check lastUsed must match to any paymentMethods
+                if let lastUsed = paymentObj.lastUsed {
+                    let matched = paymentAccountObjs.first(where: { (obj) -> Bool in
+                        guard let ID = obj.paymentMethodId else {
+                            return false
+                        }
+                        if ID == lastUsed {
+                            return true
+                        }
+                        return false
+                    })
+                    if matched == nil {
+                        XCTFail("There is no LastUsed is invalid")
+                    }
+                }
+
+                // Last Used Account must have same ID with lastUsed
+                if let lastPaymentObj = paymentObj.lastUsedPaymentAccount,
+                    let lastUsed = paymentObj.lastUsed {
+                    if lastPaymentObj.paymentMethodId! != lastUsed {
+                        XCTFail("LastUsed != LastUsedAccount")
+                    }
+                }
+
+                promise.fulfill()
+            }, onError: { error in
+                XCTFail(error.localizedDescription)
+            })
+            .addDisposableTo(self.disposeBag)
+
+        // Expect
+        waitForExpectations(timeout: 10, handler: nil)
     }
 }
