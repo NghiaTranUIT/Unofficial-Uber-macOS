@@ -97,6 +97,9 @@ class RequestUberView: NSView {
         // Selection
         self.defaultSelection(groupProductObjs)
 
+        // Get Payement methods
+        self.updatePaymentMethod()
+
         // Reload
         self.collectionView.reloadData()
     }
@@ -123,6 +126,30 @@ class RequestUberView: NSView {
 
         self.selectedGroupProduct.value = firstGroup
         self.selectedProduct.value = firstProduct
+    }
+
+    // MARK: - Payment methods
+    fileprivate func updatePaymentMethod() {
+        guard let currentUser = UserObj.currentUser else { return }
+
+        currentUser.currentPaymentMethodObserver()
+        .observeOn(MainScheduler.instance)
+        .subscribe(onNext: {[weak self] (paymentObj) in
+            guard let `self` = self else { return }
+
+            // No used
+            guard let lastUsed = paymentObj.lastUsedPaymentAccount else {
+                self.paymentImageView.image = NSImage(named: PaymentAccountType.unknown.imageIconName)
+                self.cardNumberLbl.stringValue = "Haven't used yet"
+                return
+            }
+
+            // Layout
+            self.paymentImageView.image = NSImage(named: lastUsed.type.imageIconName)
+            self.cardNumberLbl.stringValue = lastUsed.betterAccountDescription 
+            self.cardNumberLbl.setKern(1.2)
+
+        }).addDisposableTo(self.disposeBag)
     }
 }
 

@@ -30,6 +30,12 @@ public enum PaymentAccountType: String {
     case unknown
     case visa
     case zaakpay
+
+    public var imageIconName: String {
+        // For temporary
+        // I dont' have any design for particular account type
+        return "visa_card"
+    }
 }
 
 open class PaymentAccountObj: BaseObj {
@@ -44,6 +50,12 @@ open class PaymentAccountObj: BaseObj {
         }
         return PaymentAccountType(rawValue: code) ?? .unknown
     }
+    public lazy var betterAccountDescription: String = {
+        guard let desc = self.accountDescription else {
+            return "No description"
+        }
+        return desc.replacingOccurrences(of: "*", with: "•")
+    }()
 
     public override func mapping(map: Map) {
         super.mapping(map: map)

@@ -9,8 +9,10 @@
 import Cocoa
 import OAuthSwift
 import ObjectMapper
+import RxSwift
 
-final class UserObj: BaseObj {
+open
+class UserObj: BaseObj {
 
     // MARK: - Current User
     fileprivate struct Static {
@@ -41,13 +43,13 @@ final class UserObj: BaseObj {
         super.init()
     }
 
-    override func mapping(map: Map) {
+    override public func mapping(map: Map) {
         super.mapping(map: map)
 
         self.name <- map[Constants.Object.User.Name]
     }
 
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         self.name = aDecoder.decodeObject(forKey: Constants.Object.User.Name) as? String
         self.oauthToken = aDecoder.decodeObject(forKey: Constants.Object.User.OauthToken) as? String
@@ -60,7 +62,7 @@ final class UserObj: BaseObj {
         super.init(map: map)
     }
 
-    override func encode(with aCoder: NSCoder) {
+    override public func encode(with aCoder: NSCoder) {
         super.encode(with: aCoder)
         aCoder.encode(self.name, forKey: Constants.Object.User.Name)
         aCoder.encode(self.oauthToken, forKey: Constants.Object.User.OauthToken)
@@ -96,6 +98,11 @@ final class UserObj: BaseObj {
         let userDefault = UserDefaults.standard
         userDefault.set(data, forKey: "history")
         userDefault.synchronize()
+    }
+
+    // MARK: - Payment
+    public func currentPaymentMethodObserver() -> Observable<PaymentObj> {
+        return UberService().paymentMethodObserver()
     }
 }
 
