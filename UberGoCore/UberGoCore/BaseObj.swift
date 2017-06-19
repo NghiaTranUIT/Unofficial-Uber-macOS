@@ -8,6 +8,7 @@
 
 import Cocoa
 import ObjectMapper
+import RxSwift
 
 open class BaseObj: NSObject, Mappable, NSCoding {
 
@@ -16,6 +17,8 @@ open class BaseObj: NSObject, Mappable, NSCoding {
     public var createdAt: Date? = Date()
     public var updatedAt: Date? = Date()
 
+    public let disposeBag = DisposeBag()
+    
     // MARK: - Init
     public override init() {
         super.init()

@@ -78,6 +78,10 @@ class MapViewController: BaseViewController {
             })
             .addDisposableTo(self.disposeBag)
 
+        // Force load Uber data
+        UserObj.currentUser?.reloadUberDataPublisher.onNext()
+
+        // Nearest place
         self.viewModel.output.nearestPlaceDriver.drive(onNext: { [weak self] nearestPlaceObj in
                 guard let `self` = self else { return }
                 print("Found Nearst Place = \(nearestPlaceObj)")

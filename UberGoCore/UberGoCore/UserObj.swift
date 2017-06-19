@@ -11,12 +11,20 @@ import OAuthSwift
 import ObjectMapper
 import RxSwift
 
-open
-class UserObj: BaseObj {
+open class UserObj: BaseObj {
 
     // MARK: - Current User
     fileprivate struct Static {
-        static var instance: UserObj?
+        static var instance: UserObj? {
+            didSet {
+                //FIXME : Smell code => Find new way to call binding()
+                // It didn't call in init()
+                // Due by we get currentUser from Disk persistance
+                // 
+                // Might be cause serious bug if call binding twice
+                instance?.binding()
+            }
+        }
     }
 
     // MARK: - Variable
@@ -37,6 +45,10 @@ class UserObj: BaseObj {
 
     fileprivate var _currentUserInstance: UserObj?
     fileprivate static let lock = NSLock()
+
+    // MARK: - Observer
+    public let reloadUberDataPublisher = PublishSubject<Void>()
+    public let paymentMethodObjVar = Variable<PaymentObj?>(nil)
 
     // MARK: - Init
     override init() {
@@ -71,6 +83,18 @@ class UserObj: BaseObj {
         aCoder.encode(self.oauthTokenExpiresAt, forKey: Constants.Object.User.OauthTokenExpiresAt)
     }
 
+    // MARK: - Binding
+    public func binding() {
+        // Payment
+        self.reloadUberDataPublisher
+            .asObserver()
+            .flatMapLatest { _ -> Observable<PaymentObj> in
+                return UberService().paymentMethodObserver()
+            }
+            .bind(to: self.paymentMethodObjVar)
+            .addDisposableTo(self.disposeBag)
+    }
+
     //TODO: Don't use UserDefault
     // Should try CoreData or Realm instead
     public func historyPlace() -> [PlaceObj] {
@@ -98,11 +122,6 @@ class UserObj: BaseObj {
         let userDefault = UserDefaults.standard
         userDefault.set(data, forKey: "history")
         userDefault.synchronize()
-    }
-
-    // MARK: - Payment
-    public func currentPaymentMethodObserver() -> Observable<PaymentObj> {
-        return UberService().paymentMethodObserver()
     }
 }
 

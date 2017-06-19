@@ -132,7 +132,9 @@ class RequestUberView: NSView {
     fileprivate func updatePaymentMethod() {
         guard let currentUser = UserObj.currentUser else { return }
 
-        currentUser.currentPaymentMethodObserver()
+        currentUser.paymentMethodObjVar
+            .asObservable()
+            .filterNil()
         .observeOn(MainScheduler.instance)
         .subscribe(onNext: {[weak self] (paymentObj) in
             guard let `self` = self else { return }
@@ -146,7 +148,7 @@ class RequestUberView: NSView {
 
             // Layout
             self.paymentImageView.image = NSImage(named: lastUsed.type.imageIconName)
-            self.cardNumberLbl.stringValue = lastUsed.betterAccountDescription 
+            self.cardNumberLbl.stringValue = lastUsed.betterAccountDescription
             self.cardNumberLbl.setKern(1.2)
 
         }).addDisposableTo(self.disposeBag)
