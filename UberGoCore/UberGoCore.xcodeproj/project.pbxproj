@@ -39,6 +39,7 @@
 		BA6767311EF8CB5400805AC1 /* UberServiceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6767301EF8CB5400805AC1 /* UberServiceViewModel.swift */; };
 		BA6767331EF8E42C00805AC1 /* SandboxUpdateProductRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6767321EF8E42C00805AC1 /* SandboxUpdateProductRequest.swift */; };
 		BA6767351EF912AD00805AC1 /* SandboxUberService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6767341EF912AD00805AC1 /* SandboxUberService.swift */; };
+		BA6767371EF9138D00805AC1 /* SandboxUberServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6767361EF9138D00805AC1 /* SandboxUberServiceTests.swift */; };
 		BA7BA9811EE415D10056B0CF /* MapService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7BA9801EE415D10056B0CF /* MapService.swift */; };
 		BA7BA9851EE42C0C0056B0CF /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA7BA9841EE42C0C0056B0CF /* CoreLocation.framework */; };
 		BAAC440E1EF0E12300A9F949 /* UberCoordinateObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAC440D1EF0E12300A9F949 /* UberCoordinateObj.swift */; };
@@ -122,6 +123,7 @@
 		BA6767301EF8CB5400805AC1 /* UberServiceViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UberServiceViewModel.swift; sourceTree = "<group>"; };
 		BA6767321EF8E42C00805AC1 /* SandboxUpdateProductRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SandboxUpdateProductRequest.swift; sourceTree = "<group>"; };
 		BA6767341EF912AD00805AC1 /* SandboxUberService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SandboxUberService.swift; sourceTree = "<group>"; };
+		BA6767361EF9138D00805AC1 /* SandboxUberServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SandboxUberServiceTests.swift; sourceTree = "<group>"; };
 		BA7BA9801EE415D10056B0CF /* MapService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapService.swift; sourceTree = "<group>"; };
 		BA7BA9841EE42C0C0056B0CF /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		BAAC440D1EF0E12300A9F949 /* UberCoordinateObj.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UberCoordinateObj.swift; sourceTree = "<group>"; };
@@ -365,6 +367,7 @@
 			children = (
 				BADB786C1EE712C9000536F7 /* UberServiceTests.swift */,
 				BADB786A1EE70FFB000536F7 /* GoogleServiceTests.swift */,
+				BA6767361EF9138D00805AC1 /* SandboxUberServiceTests.swift */,
 			);
 			name = Service;
 			sourceTree = "<group>";
@@ -722,6 +725,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BADB786F1EE7151F000536F7 /* FakeUberCrendential.swift in Sources */,
+				BA6767371EF9138D00805AC1 /* SandboxUberServiceTests.swift in Sources */,
 				BADB786D1EE712C9000536F7 /* UberServiceTests.swift in Sources */,
 				BA4796B51EE3D49300620BB0 /* UserObjTests.swift in Sources */,
 				BADB786B1EE70FFB000536F7 /* GoogleServiceTests.swift in Sources */,

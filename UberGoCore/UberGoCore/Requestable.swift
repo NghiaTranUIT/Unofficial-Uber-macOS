@@ -75,7 +75,7 @@ extension Requestable {
             }
 
             Alamofire.request(urlRequest)
-                .validate(contentType: ["application/json"])
+                .validate(contentType: ["application/json", "text/html"])
                 .responseJSON(completionHandler: { (response) in
 
                     // Check error

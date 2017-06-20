@@ -15,7 +15,7 @@ open class SandboxUberService {
     public func modifySandboxProductObserver(productObj: ProductObj,
                                              surgeRate: Float,
                                              available: Bool) -> Observable<BaseObj> {
-        let param = SandboxUpdateProductRequestParam(productID: productObj.objectId,
+        let param = SandboxUpdateProductRequestParam(productID: productObj.productId,
                                                      surgeMultiplier: surgeRate,
                                                      driversAvailable: available)
         return SandboxUpdateProductRequest(param).toObservable()
