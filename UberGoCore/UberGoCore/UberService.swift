@@ -115,7 +115,8 @@ open class UberService {
     // MARK: - Request Uber
     public func estimateForSpecificProductObserver(_ productObj: ProductObj,
                                                    from: CLLocationCoordinate2D,
-                                                   to: CLLocationCoordinate2D) -> Observable<EstimateObj> {
+                                                   to: CLLocationCoordinate2D)
+    -> Observable<EstimateObj> {
 
         //TODO : Should support from personalPlace -> personalPlace as well
         // Currently, I only support physical location -> location

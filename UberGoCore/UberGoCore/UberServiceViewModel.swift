@@ -111,7 +111,7 @@ open class UberServiceViewModel: BaseViewModel,
                   let placeObj = data.placeObj else {
                 return Observable.empty()
             }
-
+            Logger.info("productID = \(productObj.productId ?? "")")
             return self.uberService.estimateForSpecificProductObserver(productObj,
                                                                        from: data.from,
                                                                        to: placeObj.coordinate2D!)
