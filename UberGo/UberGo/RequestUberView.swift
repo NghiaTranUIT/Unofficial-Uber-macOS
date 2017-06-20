@@ -36,7 +36,9 @@ class RequestUberView: NSView {
         self.initCommon()
         self.initCollectionView()
 
-        self.selectedGroupProduct.asObservable().filterNil()
+        // Selecte Group
+        self.selectedGroupProduct.asObservable()
+        .filterNil()
         .observeOn(MainScheduler.instance)
         .subscribe(onNext: {[weak self] (groupObj) in
             guard let `self` = self else { return }
@@ -50,6 +52,19 @@ class RequestUberView: NSView {
                     btn.state = NSOffState
                 }
             })
+        })
+        .addDisposableTo(self.disposeBag)
+
+        // Select specific product
+        self.selectedProduct.asObservable()
+        .filterNil()
+        .subscribe(onNext: {[weak self] (productObj) in
+            guard let `self` = self else {
+                return
+            }
+
+            // Stuffs
+            self.updatePersonalStuffs(productObj)
         })
         .addDisposableTo(self.disposeBag)
     }
@@ -152,6 +167,13 @@ class RequestUberView: NSView {
             self.cardNumberLbl.setKern(1.2)
 
         }).addDisposableTo(self.disposeBag)
+    }
+
+    // MARK: - Stuffs
+    fileprivate func updatePersonalStuffs(_ productObj: ProductObj) {
+
+        // Seat number
+        self.seatNumberLnl.stringValue = "1 - \(productObj.capacity ?? 1)"
     }
 }
 

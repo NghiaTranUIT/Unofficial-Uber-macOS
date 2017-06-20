@@ -15,7 +15,6 @@ protocol UberGroupButtonDelegate: class {
 
 class UberGroupButton: UberButton {
 
-
     // MARK: - Variable
     public fileprivate(set) weak var groupObj: GroupProductObj?
     weak var delegate: UberGroupButtonDelegate?
