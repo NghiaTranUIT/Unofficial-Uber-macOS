@@ -195,8 +195,7 @@ class MapViewController: BaseViewController {
 extension MapViewController {
 
     fileprivate func initCommon() {
-        self.view.wantsLayer = true
-        self.view.layer?.backgroundColor = NSColor.white.cgColor
+        self.view.backgroundColor = NSColor.white
         self.exitNavigateBtn.alphaValue = 0
         self.bottomBarView.backgroundColor = NSColor(hexString: "#343332")
     }

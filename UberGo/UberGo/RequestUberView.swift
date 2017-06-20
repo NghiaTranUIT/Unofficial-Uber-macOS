@@ -117,6 +117,8 @@ class RequestUberView: NSView {
 
         // Reload
         self.collectionView.reloadData()
+        self.collectionView.selectItems(at: Set<IndexPath>(arrayLiteral: IndexPath(item: 0, section: 0)),
+                                        scrollPosition: .top)
     }
 
     // MARK: - Stack View
@@ -248,6 +250,14 @@ extension RequestUberView: NSCollectionViewDataSource {
 
         return cell
     }
+
+    func collectionView(_ collectionView: NSCollectionView, didSelectItemsAt indexPaths: Set<IndexPath>) {
+        guard let indexPath = indexPaths.first else { return }
+        guard let group = self.selectedGroupProduct.value else { return }
+
+        let obj = group.productObjs[indexPath.item]
+        self.selectedProduct.value = obj
+    }
 }
 
 // MARK: - NSCollectionViewDelegate
@@ -264,6 +274,8 @@ extension RequestUberView: UberGroupButtonDelegate {
         self.selectedGroupProduct.value = groupObj
         self.selectedProduct.value = groupObj.productObjs.first!
         self.collectionView.reloadData()
+        self.collectionView.selectItems(at: Set<IndexPath>(arrayLiteral: IndexPath(item: 0, section: 0)),
+                                        scrollPosition: .top)
     }
 }
 
