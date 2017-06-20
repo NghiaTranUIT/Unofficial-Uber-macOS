@@ -55,7 +55,8 @@ extension UberGroupButton {
     fileprivate func initCommon() {
         self.font = NSFont.systemFont(ofSize: 13)
         self.isBordered = false
-
+        self.state = NSOffState
+        
         // Targe
         self.target = self
         self.action = #selector(self.groupProductBtnOnTap(_:))

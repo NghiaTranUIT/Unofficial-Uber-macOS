@@ -131,8 +131,12 @@ class RequestUberView: NSView {
 
         // Reload
         self.collectionView.reloadData()
-        self.collectionView.selectItems(at: Set<IndexPath>(arrayLiteral: IndexPath(item: 0, section: 0)),
-                                        scrollPosition: .top)
+
+        // Manually selection
+        if groupProductObjs.isEmpty == false {
+            self.collectionView.selectItems(at: Set<IndexPath>(arrayLiteral: IndexPath(item: 0, section: 0)),
+                                            scrollPosition: .top)
+        }
     }
 
     // MARK: - Stack View
@@ -141,6 +145,7 @@ class RequestUberView: NSView {
         // Remove all
         self.stackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
 
+        guard groupProductObjs.isEmpty == false else { return }
         // Create
         let groupViews = groupProductObjs.map { UberGroupButton(groupProductObj: $0) }
 

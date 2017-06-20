@@ -126,8 +126,7 @@ class MapViewController: BaseViewController {
             self.mapView.addDestinationPlaceObj(placeObj)
 
             // Request Product + Estimate Uber
-            guard let current = self.viewModel.currentLocationVariable.value,
-                  let placeObj = placeObj else { return }
+            guard let current = self.viewModel.currentLocationVariable.value else { return }
             self.requestUberView.viewModel.input.selectedPlaceObserve.onNext(placeObj, current)
         })
         .addDisposableTo(self.disposeBag)

@@ -19,7 +19,7 @@ public protocol UberServiceViewModelProtocol {
 
 public protocol UberServiceViewModelInput {
 
-    var selectedPlaceObserve: PublishSubject<(PlaceObj, CLLocation)> { get }
+    var selectedPlaceObserve: PublishSubject<(PlaceObj?, CLLocation)> { get }
 }
 
 public protocol UberServiceViewModelOutput {
@@ -40,7 +40,7 @@ open class UberServiceViewModel: BaseViewModel,
     public var output: UberServiceViewModelOutput { return self }
 
     // MARK: - Input
-    public var selectedPlaceObserve = PublishSubject<(PlaceObj, CLLocation)>()
+    public var selectedPlaceObserve = PublishSubject<(PlaceObj?, CLLocation)>()
 
     // MARK: - Output
     public var availableGroupProductsDriver: Driver<[GroupProductObj]>!
@@ -62,9 +62,12 @@ open class UberServiceViewModel: BaseViewModel,
                 self.isLoadingAvailableProductPublisher.onNext(true)
             })
             .flatMapLatest { data -> Observable<[ProductObj]> in
+                guard let placeObj = data.0 else {
+                    return Observable.just([])
+                }
                 let current = data.1
                 return self.uberService.productsWithEstimatePriceObserver(from: current.coordinate,
-                                                                          to: data.0.coordinate2D!)
+                                                                          to: placeObj.coordinate2D!)
             }
             .map({ GroupProductObj.mapProductGroups(from: $0) })
             .share()
@@ -74,13 +77,13 @@ open class UberServiceViewModel: BaseViewModel,
                                             .asDriver(onErrorJustReturn: [])
 
         // Default selection
-        selectionShared.map { (groups) -> GroupProductObj in
-            return groups.first!
+        selectionShared.map { (groups) -> GroupProductObj? in
+            return groups.first
         }.bind(to: self.selectedGroupProduct)
         .addDisposableTo(self.disposeBag)
 
-        selectionShared.map { (groups) -> ProductObj in
-            return groups.first!.productObjs.first!
+        selectionShared.map { (groups) -> ProductObj? in
+            return groups.first?.productObjs.first
         }.bind(to: self.selectedProduct)
         .addDisposableTo(self.disposeBag)
     }
