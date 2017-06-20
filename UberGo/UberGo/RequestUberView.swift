@@ -22,6 +22,7 @@ class RequestUberView: NSView {
     @IBOutlet fileprivate weak var scrollView: NSScrollView!
     @IBOutlet fileprivate weak var collectionView: UberCollectionView!
     @IBOutlet fileprivate weak var stackView: NSStackView!
+    @IBOutlet fileprivate weak var highFareLbl: NSTextField!
 
     // MARK: - Variable
     public let viewModel = UberServiceViewModel()
@@ -196,6 +197,15 @@ class RequestUberView: NSView {
 
         // Select Btn
         self.requestUberBtn.title = "REQUEST \(productObj.displayName ?? "")"
+
+        // High Fare
+        if let priceObj = productObj.estimatePrice,
+            let rate = priceObj.surgeMultiplier,
+            rate >= 1.0 {
+            self.highFareLbl.isHidden = false
+        } else {
+            self.highFareLbl.isHidden = true
+        }
     }
 
     @IBAction func requestBtnOnTapped(_ sender: Any) {
@@ -215,7 +225,7 @@ extension RequestUberView {
         self.collectionView.backgroundColor = NSColor(hexString: "#343332")
         self.seatNumberLnl.textColor = NSColor.white
         self.dividerLineView.backgroundColor = NSColor.white
-
+        self.highFareLbl.textColor = NSColor.lightGray
         // Border
         self.scheduleUberBtn.wantsLayer = true
         self.scheduleUberBtn.layer?.borderColor = NSColor.white.cgColor

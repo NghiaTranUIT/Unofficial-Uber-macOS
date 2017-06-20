@@ -101,11 +101,21 @@
                         <constraint firstAttribute="height" constant="32" id="oWN-3m-gB8"/>
                     </constraints>
                 </stackView>
+                <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X27-dh-KrQ">
+                    <rect key="frame" x="109" y="252" width="263" height="17"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Fares are higher due to increased demand" id="b3Q-O5-5BW">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
             </subviews>
             <constraints>
                 <constraint firstItem="oke-Td-REg" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" id="37Y-AF-30A"/>
                 <constraint firstAttribute="bottom" secondItem="ghW-Bi-WIR" secondAttribute="bottom" constant="12" id="4RH-Lh-euB"/>
+                <constraint firstItem="X27-dh-KrQ" firstAttribute="top" secondItem="yu7-vd-Hdz" secondAttribute="bottom" constant="-8" id="7k0-Fh-2IA"/>
                 <constraint firstItem="cgU-5U-Odr" firstAttribute="leading" secondItem="ghW-Bi-WIR" secondAttribute="trailing" constant="12" id="C5V-Nh-N5Z"/>
+                <constraint firstItem="X27-dh-KrQ" firstAttribute="centerX" secondItem="c22-O7-iKe" secondAttribute="centerX" id="CaN-Sr-9qo"/>
                 <constraint firstItem="ghW-Bi-WIR" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="24" id="D9F-9G-u6K"/>
                 <constraint firstItem="Thy-KV-ex9" firstAttribute="trailing" secondItem="cgU-5U-Odr" secondAttribute="trailing" id="EZ6-Th-hIH"/>
                 <constraint firstItem="NsZ-1o-kBQ" firstAttribute="leading" secondItem="bOo-iv-9gl" secondAttribute="trailing" constant="12" id="Eo2-UV-Pge"/>
@@ -130,6 +140,7 @@
                 <outlet property="cardNumberLbl" destination="NsZ-1o-kBQ" id="nMD-lY-qYR"/>
                 <outlet property="collectionView" destination="dk1-FR-KZ5" id="9lQ-MX-DMs"/>
                 <outlet property="dividerLineView" destination="1ZR-0r-VNP" id="DUx-4A-VNX"/>
+                <outlet property="highFareLbl" destination="X27-dh-KrQ" id="W2Z-au-M5D"/>
                 <outlet property="paymentImageView" destination="bOo-iv-9gl" id="z77-cO-MTG"/>
                 <outlet property="requestUberBtn" destination="ghW-Bi-WIR" id="41P-Tq-n1w"/>
                 <outlet property="scheduleUberBtn" destination="cgU-5U-Odr" id="wjR-fa-19d"/>

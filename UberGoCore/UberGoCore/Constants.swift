@@ -103,6 +103,7 @@ struct Constants {
             static let Duration = "duration"
             static let Estimate = "estimate"
             static let CurrencyCode = "currency_code"
+            static let SurgeMultiplier = "surge_multiplier"
         }
 
         // MARK: - Trip

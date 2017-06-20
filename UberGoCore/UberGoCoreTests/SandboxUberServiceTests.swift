@@ -35,7 +35,7 @@ class SandboxUberServiceTests: XCTestCase {
         let productObj = ProductObj(JSON: [Constants.Object.Product.ProductId: "0b6b2de2-a6f3-4fa7-8385-414312f042ce"])!
 
         // Then
-        SandboxUberService().modifySandboxProductObserver(productObj: productObj, surgeRate: 1.2, available: true)
+        SandboxUberService().modifySandboxProductObserver(productObj: productObj, surgeRate: 2.4, available: true)
             .subscribe(onNext: { productObjs in
                 promise.fulfill()
             }, onError: { error in
