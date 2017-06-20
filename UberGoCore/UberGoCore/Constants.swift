@@ -36,6 +36,9 @@ struct Constants {
         static let RequestEstimate = "/v1.2/requests/estimate"
         static let CreateTripRequest = "/v1.2/requests"
         static let GetPaymentMethod = "/v1.2/payment-methods"
+
+        // Sandbox
+        static let SandboxUpdateProduct = "/sandbox/products/:id"
     }
 
     // MARK: - Google App

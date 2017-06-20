@@ -90,5 +90,4 @@ class PostEstimateTripRequest: Requestable {
         }
         return Mapper<EstimateObj>().map(JSON: result)
     }
-
 }
