@@ -111,6 +111,18 @@ extension Requestable {
                         return
                     }
 
+                    // 204 - no content
+                    if let code = response.response?.statusCode,
+                        code == 204 {
+                        //FIXME : Smell code
+                        // Get rid of baseObj
+                        // Because sometime, there are no response
+                        let base = BaseObj(JSON: [:])
+                        observer.on(.next(base as! Element))
+                        observer.on(.completed)
+                        return
+                    }
+
                     // Parse here
                     guard let result = self.decode(data: data) else {
                         observer.onError(NSError.jsonMapperError())

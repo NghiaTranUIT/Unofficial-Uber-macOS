@@ -38,7 +38,7 @@ struct Constants {
         static let GetPaymentMethod = "/v1.2/payment-methods"
 
         // Sandbox
-        static let SandboxUpdateProduct = "/sandbox/products/:id"
+        static let SandboxUpdateProduct = "/v1.2/sandbox/products/:id"
     }
 
     // MARK: - Google App
