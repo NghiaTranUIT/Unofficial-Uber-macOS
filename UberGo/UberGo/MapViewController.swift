@@ -124,6 +124,11 @@ class MapViewController: BaseViewController {
             // Layout
             self.updateLayoutState(state)
             self.mapView.addDestinationPlaceObj(placeObj)
+
+            // Request Product + Estimate Uber
+            guard let current = self.viewModel.currentLocationVariable.value,
+                  let placeObj = placeObj else { return }
+            self.requestUberView.viewModel.input.selectedPlaceObserve.onNext(placeObj, current)
         })
         .addDisposableTo(self.disposeBag)
 
@@ -137,18 +142,9 @@ class MapViewController: BaseViewController {
         .addDisposableTo(self.disposeBag)
 
         // Show or hide Bottom bar
-        self.viewModel.isLoadingAvailableProductPublisher.subscribe(onNext: { isLoading in
+        self.requestUberView.viewModel.output.isLoadingAvailableProductPublisher
+        .subscribe(onNext: { isLoading in
             Logger.info("isLoading Available Products = \(isLoading)")
-        })
-        .addDisposableTo(self.disposeBag)
-
-        // Request Product
-        self.viewModel.availableGroupProductsDriver.drive(onNext: {[weak self] groups in
-            guard let `self` = self else { return }
-            Logger.info("Available Group Products count = \(groups.count)")
-
-            // Update
-            self.requestUberView.updateAvailableGroupProducts(groups)
         })
         .addDisposableTo(self.disposeBag)
     }

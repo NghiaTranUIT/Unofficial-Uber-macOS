@@ -24,10 +24,16 @@ class RequestUberView: NSView {
     @IBOutlet fileprivate weak var stackView: NSStackView!
 
     // MARK: - Variable
-    public let selectedGroupProduct = Variable<GroupProductObj?>(nil)
-    public let selectedProduct = Variable<ProductObj?>(nil)
+    public let viewModel = UberServiceViewModel()
 
+    fileprivate var isBinding = false
     fileprivate let disposeBag = DisposeBag()
+    fileprivate var selectedProduct: Variable<ProductObj?> {
+        return self.viewModel.output.selectedProduct
+    }
+    fileprivate var selectedGroupProduct: Variable<GroupProductObj?> {
+        return self.viewModel.output.selectedGroupProduct
+    }
 
     // MARK: - Init
     override func awakeFromNib() {
@@ -37,7 +43,18 @@ class RequestUberView: NSView {
         self.initCollectionView()
 
         // Selecte Group
-        self.selectedGroupProduct.asObservable()
+        guard self.isBinding == false else { return }
+        self.isBinding = true
+
+        // Request Uber service
+        self.viewModel.output.availableGroupProductsDriver.drive(onNext: {[weak self] (groups) in
+            guard let `self` = self else { return }
+            self.updateAvailableGroupProducts(groups)
+        })
+        .addDisposableTo(self.disposeBag)
+
+        // Select Group
+        self.viewModel.output.selectedGroupProduct.asObservable()
         .filterNil()
         .observeOn(MainScheduler.instance)
         .subscribe(onNext: {[weak self] (groupObj) in
@@ -56,7 +73,7 @@ class RequestUberView: NSView {
         .addDisposableTo(self.disposeBag)
 
         // Select specific product
-        self.selectedProduct.asObservable()
+        self.viewModel.output.selectedProduct.asObservable()
         .filterNil()
         .subscribe(onNext: {[weak self] (productObj) in
             guard let `self` = self else {
@@ -104,13 +121,10 @@ class RequestUberView: NSView {
         parentView.addConstraints([top, left, right, bottom])
     }
 
-    func updateAvailableGroupProducts(_ groupProductObjs: [GroupProductObj]) {
+    fileprivate func updateAvailableGroupProducts(_ groupProductObjs: [GroupProductObj]) {
 
         // Update Stack
         self.updateStackView(groupProductObjs)
-
-        // Selection
-        self.defaultSelection(groupProductObjs)
 
         // Get Payement methods
         self.updatePaymentMethod()
@@ -135,14 +149,11 @@ class RequestUberView: NSView {
             btn.delegate = self
             self.stackView.addArrangedSubview(btn)
         }
-    }
 
-    fileprivate func defaultSelection(_ groupProductObjs: [GroupProductObj]) {
-        guard let firstGroup = groupProductObjs.first else { return }
-        guard let firstProduct = firstGroup.productObjs.first else { return }
-
-        self.selectedGroupProduct.value = firstGroup
-        self.selectedProduct.value = firstProduct
+        // Default selection at first obj
+        if let firstGroup = groupViews.first {
+            firstGroup.state = NSOnState
+        }
     }
 
     // MARK: - Payment methods
@@ -150,8 +161,8 @@ class RequestUberView: NSView {
         guard let currentUser = UserObj.currentUser else { return }
 
         currentUser.paymentMethodObjVar
-            .asObservable()
-            .filterNil()
+        .asObservable()
+        .filterNil()
         .observeOn(MainScheduler.instance)
         .subscribe(onNext: {[weak self] (paymentObj) in
             guard let `self` = self else { return }
@@ -175,7 +186,14 @@ class RequestUberView: NSView {
     fileprivate func updatePersonalStuffs(_ productObj: ProductObj) {
 
         // Seat number
-        self.seatNumberLnl.stringValue = "1 - \(productObj.capacity ?? 1)"
+        let capacity = productObj.capacity ?? 1
+        self.seatNumberLnl.stringValue = capacity == 1 ? "1" : "1 - \(capacity)"
+
+        // Select Btn
+        self.requestUberBtn.title = "REQUEST \(productObj.displayName ?? "")"
+    }
+
+    @IBAction func requestBtnOnTapped(_ sender: Any) {
     }
 }
 

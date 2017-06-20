@@ -23,6 +23,9 @@
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="systemBold" size="18"/>
                     </buttonCell>
+                    <connections>
+                        <action selector="requestBtnOnTapped:" target="c22-O7-iKe" id="XFA-KH-ASQ"/>
+                    </connections>
                 </button>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="cgU-5U-Odr">
                     <rect key="frame" x="404" y="12" width="52" height="52"/>

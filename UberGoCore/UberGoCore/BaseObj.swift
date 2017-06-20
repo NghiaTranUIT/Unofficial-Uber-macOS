@@ -18,14 +18,13 @@ open class BaseObj: NSObject, Mappable, NSCoding {
     public var updatedAt: Date? = Date()
 
     public let disposeBag = DisposeBag()
-    
+
     // MARK: - Init
     public override init() {
         super.init()
     }
 
     public required init?(map: Map) {
-    
     }
 
     public func mapping(map: Map) {

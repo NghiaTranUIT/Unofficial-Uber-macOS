@@ -40,10 +40,6 @@ public protocol MapViewModelOutput {
     var selectedPlaceObjDriver: Driver<PlaceObj?>! { get }
     var selectedDirectionRouteObserver: Observable<Route?>! { get }
     var isSelectedPlace: Driver<Bool> { get }
-
-    // Request
-    var availableGroupProductsDriver: Driver<[GroupProductObj]>! { get }
-    var isLoadingAvailableProductPublisher: PublishSubject<Bool> { get }
 }
 
 // MARK: - View Model
@@ -67,6 +63,9 @@ open class MapViewModel: BaseViewModel,
     public var didSelectPlaceObjPublisher = PublishSubject<PlaceObj?>()
 
     // MARK: - Output
+    public var currentLocationVariable: Variable<CLLocation?> {
+        return mapManager.currentLocationVariable
+    }
     public var currentLocationDriver: Driver<CLLocation?> {
         return mapManager.currentLocationVariable.asDriver()
     }
@@ -81,8 +80,6 @@ open class MapViewModel: BaseViewModel,
     public var isSelectedPlace: Driver<Bool> {
         return self.selectedPlaceObjDriver.map({ $0 != nil })
     }
-    public var availableGroupProductsDriver: Driver<[GroupProductObj]>!
-    public var isLoadingAvailableProductPublisher = PublishSubject<Bool>()
 
     // MARK: - Init
     public override init() {
@@ -214,20 +211,5 @@ open class MapViewModel: BaseViewModel,
             self.uberService.reloadHistoryTrigger.onNext()
         })
         .addDisposableTo(self.disposeBag)
-
-        // Get available Product + Estimate price
-        self.availableGroupProductsDriver =
-            selectedPlaceObserve
-            .filterNil()
-            .do(onNext: {[unowned self] _ in
-                self.isLoadingAvailableProductPublisher.onNext(true)
-            })
-            .flatMapLatest { (placeObj) -> Observable<[ProductObj]> in
-                let current = self.mapManager.currentLocationVariable.value!
-                return self.uberService.productsWithEstimatePriceObserver(from: current.coordinate,
-                                                                          to: placeObj.coordinate2D!)
-            }
-            .map({ GroupProductObj.mapProductGroups(from: $0) })
-            .asDriver(onErrorJustReturn: [])
     }
 }
