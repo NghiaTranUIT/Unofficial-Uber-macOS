@@ -199,6 +199,7 @@ class RequestUberView: NSView {
     }
 
     @IBAction func requestBtnOnTapped(_ sender: Any) {
+        self.viewModel.input.requestUberPublisher.onNext()
     }
 }
 

@@ -65,7 +65,7 @@ open class UberService {
         })
     }
 
-    // MARK: - Request Uber
+    // MARK: - Get Estimation + Available Uber
     public func productsWithEstimatePriceObserver(from originLocation: CLLocationCoordinate2D,
                                                   to destinationLocation: CLLocationCoordinate2D)
         -> Observable<[ProductObj]> {
@@ -110,6 +110,21 @@ open class UberService {
     // MARK: - Payment
     public func paymentMethodObserver() -> Observable<PaymentObj> {
         return GetPaymentMethodRequest().toObservable()
+    }
+
+    // MARK: - Request Uber
+    public func estimateForSpecificProductObserver(_ productObj: ProductObj,
+                                                   from: CLLocationCoordinate2D,
+                                                   to: CLLocationCoordinate2D) -> Observable<EstimateObj> {
+
+        //TODO : Should support from personalPlace -> personalPlace as well
+        // Currently, I only support physical location -> location
+        let param = PostEstimateTripRequestParamter(productId: productObj.productId!,
+                                                    startLocation: from,
+                                                    endLocation: to,
+                                                    startPlaceType: nil,
+                                                    endPlaceType: nil)
+        return PostEstimateTripRequest(param).toObservable()
     }
 }
 
