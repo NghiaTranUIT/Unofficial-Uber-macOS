@@ -43,8 +43,5 @@ class UberButton: NSButton {
     }
 
     fileprivate func initCommon() {
-
-        // Cursor
-        self.addCursorRect(self.bounds, cursor: NSCursor.pointingHand())
     }
 }

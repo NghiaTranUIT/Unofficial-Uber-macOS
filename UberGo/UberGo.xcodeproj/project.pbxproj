@@ -266,13 +266,6 @@
 			name = "Uber Map View";
 			sourceTree = "<group>";
 		};
-		BAB14AB81EF61EA40066267B /* Uber Label */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "Uber Label";
-			sourceTree = "<group>";
-		};
 		BAB14ABD1EF62D990066267B /* Product Cell */ = {
 			isa = PBXGroup;
 			children = (
@@ -322,7 +315,6 @@
 		BAB14AC81EF660240066267B /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				BAB14AB81EF61EA40066267B /* Uber Label */,
 				BADB785F1EE66190000536F7 /* UberTextField */,
 				BAB14AC61EF65FF00066267B /* Uber Collection View */,
 				BADB785C1EE5B9F5000536F7 /* UberButton */,

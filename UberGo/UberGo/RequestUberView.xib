@@ -38,12 +38,15 @@
                         <font key="font" metaFont="system"/>
                     </buttonCell>
                 </button>
-                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bOo-iv-9gl">
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="cEF-JS-mqq">
                     <rect key="frame" x="24" y="71" width="36" height="32"/>
-                    <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="visa_card" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="4XW-fC-DrP">
+                    <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="visa_card" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="6j5-Ui-1JA">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
+                    <connections>
+                        <action selector="paymentMethodsOnTap:" target="c22-O7-iKe" id="wLx-G8-fMO"/>
+                    </connections>
                 </button>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NsZ-1o-kBQ" customClass="UberTextField" customModule="UberGo" customModuleProvider="target">
                     <rect key="frame" x="70" y="78" width="72" height="19"/>
@@ -111,6 +114,7 @@
                 </textField>
             </subviews>
             <constraints>
+                <constraint firstItem="NsZ-1o-kBQ" firstAttribute="centerY" secondItem="cEF-JS-mqq" secondAttribute="centerY" id="0ea-4U-bpE"/>
                 <constraint firstItem="oke-Td-REg" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" id="37Y-AF-30A"/>
                 <constraint firstAttribute="bottom" secondItem="ghW-Bi-WIR" secondAttribute="bottom" constant="12" id="4RH-Lh-euB"/>
                 <constraint firstItem="X27-dh-KrQ" firstAttribute="top" secondItem="yu7-vd-Hdz" secondAttribute="bottom" constant="-8" id="7k0-Fh-2IA"/>
@@ -118,30 +122,29 @@
                 <constraint firstItem="X27-dh-KrQ" firstAttribute="centerX" secondItem="c22-O7-iKe" secondAttribute="centerX" id="CaN-Sr-9qo"/>
                 <constraint firstItem="ghW-Bi-WIR" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="24" id="D9F-9G-u6K"/>
                 <constraint firstItem="Thy-KV-ex9" firstAttribute="trailing" secondItem="cgU-5U-Odr" secondAttribute="trailing" id="EZ6-Th-hIH"/>
-                <constraint firstItem="NsZ-1o-kBQ" firstAttribute="leading" secondItem="bOo-iv-9gl" secondAttribute="trailing" constant="12" id="Eo2-UV-Pge"/>
                 <constraint firstItem="yu7-vd-Hdz" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="12" id="GDK-XC-6AW"/>
                 <constraint firstItem="1ZR-0r-VNP" firstAttribute="trailing" secondItem="cgU-5U-Odr" secondAttribute="trailing" id="Ghy-IW-c3x"/>
                 <constraint firstItem="Thy-KV-ex9" firstAttribute="centerY" secondItem="NsZ-1o-kBQ" secondAttribute="centerY" id="JlH-EA-5Ov"/>
-                <constraint firstItem="NsZ-1o-kBQ" firstAttribute="centerY" secondItem="bOo-iv-9gl" secondAttribute="centerY" id="JoA-HD-CuO"/>
                 <constraint firstItem="yu7-vd-Hdz" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" constant="12" id="L0o-qv-58u"/>
                 <constraint firstItem="oke-Td-REg" firstAttribute="top" secondItem="yu7-vd-Hdz" secondAttribute="bottom" id="M1p-6p-fcj"/>
                 <constraint firstItem="1ZR-0r-VNP" firstAttribute="leading" secondItem="ghW-Bi-WIR" secondAttribute="leading" id="N8C-mZ-cYc"/>
-                <constraint firstItem="bOo-iv-9gl" firstAttribute="leading" secondItem="ghW-Bi-WIR" secondAttribute="leading" id="Ox1-JO-Bwg"/>
                 <constraint firstAttribute="trailing" secondItem="cgU-5U-Odr" secondAttribute="trailing" constant="24" id="PBm-GX-mMN"/>
                 <constraint firstItem="yu7-vd-Hdz" firstAttribute="centerX" secondItem="c22-O7-iKe" secondAttribute="centerX" id="QUz-5L-WcX"/>
-                <constraint firstItem="ghW-Bi-WIR" firstAttribute="top" secondItem="bOo-iv-9gl" secondAttribute="bottom" constant="7" id="TqG-6c-MVU"/>
                 <constraint firstAttribute="trailing" secondItem="yu7-vd-Hdz" secondAttribute="trailing" constant="12" id="WKJ-iy-nhV"/>
                 <constraint firstAttribute="bottom" secondItem="cgU-5U-Odr" secondAttribute="bottom" constant="12" id="aTb-sC-wFT"/>
+                <constraint firstItem="NsZ-1o-kBQ" firstAttribute="leading" secondItem="cEF-JS-mqq" secondAttribute="trailing" constant="12" id="bdm-P0-09z"/>
                 <constraint firstItem="1ZR-0r-VNP" firstAttribute="top" secondItem="oke-Td-REg" secondAttribute="bottom" constant="6" id="iki-C1-XtN"/>
-                <constraint firstItem="bOo-iv-9gl" firstAttribute="top" secondItem="1ZR-0r-VNP" secondAttribute="bottom" constant="7" id="kvp-kH-nHA"/>
                 <constraint firstAttribute="trailing" secondItem="oke-Td-REg" secondAttribute="trailing" id="nUM-Mg-3Ka"/>
+                <constraint firstItem="ghW-Bi-WIR" firstAttribute="top" secondItem="cEF-JS-mqq" secondAttribute="bottom" constant="7" id="sV4-ad-5Qt"/>
+                <constraint firstItem="cEF-JS-mqq" firstAttribute="top" secondItem="1ZR-0r-VNP" secondAttribute="bottom" constant="7" id="thr-B5-lgq"/>
+                <constraint firstItem="cEF-JS-mqq" firstAttribute="leading" secondItem="ghW-Bi-WIR" secondAttribute="leading" id="xiL-xH-oAo"/>
             </constraints>
             <connections>
                 <outlet property="cardNumberLbl" destination="NsZ-1o-kBQ" id="nMD-lY-qYR"/>
                 <outlet property="collectionView" destination="dk1-FR-KZ5" id="9lQ-MX-DMs"/>
                 <outlet property="dividerLineView" destination="1ZR-0r-VNP" id="DUx-4A-VNX"/>
                 <outlet property="highFareLbl" destination="X27-dh-KrQ" id="W2Z-au-M5D"/>
-                <outlet property="paymentImageView" destination="bOo-iv-9gl" id="z77-cO-MTG"/>
+                <outlet property="paymentImageView" destination="cEF-JS-mqq" id="VKi-Wt-Ai9"/>
                 <outlet property="requestUberBtn" destination="ghW-Bi-WIR" id="41P-Tq-n1w"/>
                 <outlet property="scheduleUberBtn" destination="cgU-5U-Odr" id="wjR-fa-19d"/>
                 <outlet property="scrollView" destination="oke-Td-REg" id="fCX-nc-qUi"/>

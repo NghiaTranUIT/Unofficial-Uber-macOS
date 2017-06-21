@@ -38,6 +38,7 @@ class MapViewController: BaseViewController {
     fileprivate var searchBarView: SearchBarView!
     fileprivate var isFirstTime = true
     fileprivate lazy var webController: SurgeHrefConfirmationController = self.lazyInitWebController()
+    fileprivate var paymentMethodController: PaymentMethodsController?
 
     fileprivate var searchPlaceObjs: [PlaceObj] {
         return self.viewModel.output.searchPlaceObjsVariable.value
@@ -161,6 +162,10 @@ class MapViewController: BaseViewController {
                                                     observer: self,
                                                     selector: #selector(self.showSurgeHrefView(noti:)),
                                                     object: nil)
+        NotificationService.observeNotificationType(NotificationType.showPaymentMethodsView,
+                                                    observer: self,
+                                                    selector: #selector(self.showPaymentMethodView(noti:)),
+                                                    object: nil)
     }
 
     @objc func showSurgeHrefView(noti: Notification) {
@@ -170,6 +175,13 @@ class MapViewController: BaseViewController {
 
         self.webController.configureWebView(with: estimateObj)
         self.presentViewControllerAsSheet(self.webController)
+    }
+
+    @objc func showPaymentMethodView(noti: Notification) {
+        let controller = PaymentMethodsController.init(nibName: "PaymentMethodsController", bundle: nil)!
+        controller.delegate = self
+        self.presentViewControllerAsSheet(controller)
+        self.paymentMethodController = controller
     }
 
     @IBAction func exitNavigateBtnOnTapped(_ sender: Any) {
@@ -274,5 +286,14 @@ extension MapViewController: SearchCollectionViewDelegate {
         // Select
         let placeObj = self.searchPlaceObjs[atIndex.item]
         self.viewModel.input.didSelectPlaceObjPublisher.onNext(placeObj)
+    }
+}
+
+extension MapViewController: PaymentMethodsControllerDelegate {
+
+    func paymentMethodsControllerShouldDismiss(_ sender: PaymentMethodsController) {
+        guard let controller = self.paymentMethodController else { return }
+        self.dismissViewController(controller)
+        self.paymentMethodController = nil
     }
 }

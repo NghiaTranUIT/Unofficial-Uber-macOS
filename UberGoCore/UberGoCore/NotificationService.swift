@@ -15,6 +15,7 @@ public enum NotificationType: String {
 
     // Enum
     case showSurgeHrefConfirmationView
+    case showPaymentMethodsView
     case windowWillClose
 
     // To String
