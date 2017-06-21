@@ -116,6 +116,7 @@ extension SearchCollectionView {
 
         // Flow
         let flow = SearchCollectionViewFlowLayout()
+        flow.itemSize = CGSize(width: self.collectionView.bounds.width, height: 57)
         self.collectionView.collectionViewLayout = flow
     }
 }

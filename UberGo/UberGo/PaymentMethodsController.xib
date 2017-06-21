@@ -9,7 +9,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="PaymentMethodsController" customModule="UberGo" customModuleProvider="target">
             <connections>
-                <outlet property="collectionView" destination="6K0-C1-vqN" id="eMh-xd-0ZK"/>
+                <outlet property="collectionView" destination="N2Z-Dj-7AL" id="rve-CP-aDE"/>
                 <outlet property="exitBtn" destination="dLl-cY-4vL" id="rgd-jh-Bla"/>
                 <outlet property="titileLbl" destination="WgL-bb-UQd" id="djG-Z9-JsY"/>
                 <outlet property="topBarView" destination="mDs-3K-63A" id="Pw8-Mi-Qpk"/>
@@ -62,7 +62,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="480" height="380"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView id="N2Z-Dj-7AL">
+                            <collectionView id="N2Z-Dj-7AL" customClass="UberCollectionView" customModule="UberGo" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="480" height="380"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumInteritemSpacing="10" minimumLineSpacing="10" id="cVf-dA-wTu">
