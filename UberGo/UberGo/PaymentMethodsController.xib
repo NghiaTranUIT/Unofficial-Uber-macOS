@@ -27,7 +27,7 @@
                     <rect key="frame" x="0.0" y="472" width="480" height="120"/>
                     <subviews>
                         <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dLl-cY-4vL">
-                            <rect key="frame" x="25" y="79" width="16" height="16"/>
+                            <rect key="frame" x="25" y="67" width="16" height="16"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="16" id="Jxx-sh-daR"/>
                                 <constraint firstAttribute="height" constant="16" id="lep-NX-0fD"/>
@@ -38,7 +38,7 @@
                             </buttonCell>
                         </button>
                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WgL-bb-UQd">
-                            <rect key="frame" x="24" y="34" width="177" height="29"/>
+                            <rect key="frame" x="24" y="20" width="177" height="29"/>
                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Payment Options" id="xYN-Rc-CDJ">
                                 <font key="font" metaFont="systemThin" size="24"/>
                                 <color key="textColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -48,8 +48,8 @@
                     </subviews>
                     <constraints>
                         <constraint firstItem="WgL-bb-UQd" firstAttribute="leading" secondItem="mDs-3K-63A" secondAttribute="leading" constant="26" id="IDO-La-fOK"/>
-                        <constraint firstItem="WgL-bb-UQd" firstAttribute="top" secondItem="dLl-cY-4vL" secondAttribute="bottom" constant="16" id="NwQ-3N-mne"/>
-                        <constraint firstItem="dLl-cY-4vL" firstAttribute="top" secondItem="mDs-3K-63A" secondAttribute="top" constant="25" id="ZKD-r6-oFK"/>
+                        <constraint firstItem="WgL-bb-UQd" firstAttribute="top" secondItem="dLl-cY-4vL" secondAttribute="bottom" constant="18" id="NwQ-3N-mne"/>
+                        <constraint firstItem="dLl-cY-4vL" firstAttribute="top" secondItem="mDs-3K-63A" secondAttribute="top" constant="37" id="ZKD-r6-oFK"/>
                         <constraint firstAttribute="height" constant="120" id="rhB-ap-acn"/>
                         <constraint firstItem="dLl-cY-4vL" firstAttribute="leading" secondItem="mDs-3K-63A" secondAttribute="leading" constant="25" id="uhk-t9-89X"/>
                     </constraints>
