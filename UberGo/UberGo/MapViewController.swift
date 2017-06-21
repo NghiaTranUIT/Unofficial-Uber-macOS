@@ -37,6 +37,7 @@ class MapViewController: BaseViewController {
     fileprivate var viewModel: MapViewModel!
     fileprivate var searchBarView: SearchBarView!
     fileprivate var isFirstTime = true
+    fileprivate lazy var webController: SurgeHrefConfirmationController = self.lazyInitWebController()
 
     fileprivate var searchPlaceObjs: [PlaceObj] {
         return self.viewModel.output.searchPlaceObjsVariable.value
@@ -60,6 +61,7 @@ class MapViewController: BaseViewController {
 
         // View Model
         self.binding()
+        self.notificationBinding()
     }
 
     override func viewDidAppear() {
@@ -166,7 +168,8 @@ class MapViewController: BaseViewController {
             return
         }
 
-        
+        self.webController.configureWebView(with: estimateObj)
+        self.presentViewControllerAsSheet(self.webController)
     }
 
     @IBAction func exitNavigateBtnOnTapped(_ sender: Any) {
@@ -241,6 +244,10 @@ extension MapViewController {
         let uberView = RequestUberView.viewFromNib(with: BundleType.app)!
         uberView.configureLayout(self.bottomBarView)
         return uberView
+    }
+
+    fileprivate func lazyInitWebController() -> SurgeHrefConfirmationController {
+        return SurgeHrefConfirmationController(nibName: "SurgeHrefConfirmationController", bundle: nil)!
     }
 }
 
