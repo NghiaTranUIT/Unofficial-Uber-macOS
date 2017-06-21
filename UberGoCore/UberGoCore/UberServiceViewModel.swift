@@ -127,14 +127,17 @@ open class UberServiceViewModel: BaseViewModel,
             if let fareObj = estimateObj.upFrontFareObj {
                 Logger.info("Normal Price")
                 Logger.info("FareID = \(fareObj.fareId ?? "")")
+                return
             }
 
             // High surge rate
             if estimateObj.surgePriceObj != nil {
                 Logger.info("High surge rate")
-                NotificationService.postNotificationOnMainThreadType(.showSurgeHrefConfirmationView,
-                                                                     object: estimateObj,
-                                                                     userInfo: nil)
+                if estimateObj.surgePriceObj?.surgeConfirmationHref != nil {
+                    NotificationService.postNotificationOnMainThreadType(.showSurgeHrefConfirmationView,
+                                                                         object: estimateObj,
+                                                                         userInfo: nil)
+                }
             }
         })
         .addDisposableTo(self.disposeBag)
