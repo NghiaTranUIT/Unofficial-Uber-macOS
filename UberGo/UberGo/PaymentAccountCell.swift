@@ -13,16 +13,31 @@ class PaymentAccountCell: NSCollectionViewItem {
     // MARK: - OUTLET
     @IBOutlet fileprivate weak var paymentImageView: NSImageView!
     @IBOutlet fileprivate weak var tickBtn: NSButton!
-    @IBOutlet fileprivate weak var numberLbl: UberTextField!
+    @IBOutlet fileprivate weak var cardNumberLbl: UberTextField!
+    @IBOutlet fileprivate weak var dividerLineView: NSView!
 
     // MARK: - View Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.initCommon()
     }
 
     // MARK: - Public
     func configureCell(with account: PaymentAccountObj) {
-        
+        self.paymentImageView.image = NSImage(named: account.type.imageIconName)
+        self.cardNumberLbl.stringValue = account.betterAccountDescription
+        self.cardNumberLbl.setKern(1.2)
+    }
+}
+
+// MARK: - Private
+extension PaymentAccountCell {
+
+    fileprivate func initCommon() {
+        self.cardNumberLbl.textColor = NSColor(hexString: "#030303")
+        self.view.backgroundColor = NSColor.white
+        self.collectionView.backgroundColor = NSColor.white
+        self.dividerLineView.backgroundColor = NSColor(hexString: "#ededed")
     }
 }

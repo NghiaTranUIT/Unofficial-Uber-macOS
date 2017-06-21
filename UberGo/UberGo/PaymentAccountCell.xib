@@ -6,14 +6,16 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner" customClass="PaymentAccountCell" customModule="UberGo" customModuleProvider="target">
+        <customObject id="-2" userLabel="File's Owner"/>
+        <collectionViewItem id="AlI-W8-T47" customClass="PaymentAccountCell" customModule="UberGo" customModuleProvider="target">
             <connections>
-                <outlet property="numberLbl" destination="BNM-Q2-UCJ" id="R6Q-A1-TmK"/>
-                <outlet property="paymentImageView" destination="nKs-Vm-Dq0" id="AKp-8Z-5zH"/>
-                <outlet property="tickBtn" destination="t6R-zS-3vx" id="siI-UV-U8g"/>
-                <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
+                <outlet property="cardNumberLbl" destination="BNM-Q2-UCJ" id="wfA-g8-fQK"/>
+                <outlet property="dividerLineView" destination="Z4u-c2-eYb" id="Lez-VY-S4T"/>
+                <outlet property="paymentImageView" destination="nKs-Vm-Dq0" id="emp-Dd-Rl7"/>
+                <outlet property="tickBtn" destination="t6R-zS-3vx" id="TIQ-4r-sKH"/>
+                <outlet property="view" destination="Hz6-mo-xeY" id="2DP-de-xJY"/>
             </connections>
-        </customObject>
+        </collectionViewItem>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="Hz6-mo-xeY">

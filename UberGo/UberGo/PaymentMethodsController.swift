@@ -30,10 +30,11 @@ class PaymentMethodsController: NSViewController {
 
         self.initCommon()
         self.initCollectionView()
-    }
 
-    func configurePayment(_ paymentObj: PaymentObj) {
-        self.paymentObj = paymentObj
+        // Update
+        guard let currentUser = UserObj.currentUser else { return }
+        guard let paymentMethod = currentUser.paymentMethodObjVar.value else { return }
+        self.paymentObj = paymentMethod
     }
 
     @IBAction func exitBtnOnTap(_ sender: Any) {
@@ -47,6 +48,7 @@ extension PaymentMethodsController {
     fileprivate func initCommon() {
 
         self.topBarView.backgroundColor = NSColor.black
+        self.collectionView.backgroundColor = NSColor.white
         self.titileLbl.textColor = NSColor.white
         self.titileLbl.setKern(2)
     }

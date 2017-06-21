@@ -231,6 +231,7 @@ extension RequestUberView {
         self.seatNumberLnl.textColor = NSColor.white
         self.dividerLineView.backgroundColor = NSColor.white
         self.highFareLbl.textColor = NSColor.lightGray
+        
         // Border
         self.scheduleUberBtn.wantsLayer = true
         self.scheduleUberBtn.layer?.borderColor = NSColor.white.cgColor
