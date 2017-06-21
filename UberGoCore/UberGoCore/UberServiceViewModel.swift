@@ -120,7 +120,30 @@ open class UberServiceViewModel: BaseViewModel,
             return self.uberService.estimateForSpecificProductObserver(productObj,
                                                                        from: data.from,
                                                                        to: placeObj.coordinate2D!)
-        }
+        }.share()
+
+//        // Normal Price
+//        let normalPriceRequestOb = shareRequest
+//        .flatMapLatest { (estiamteObj) -> Observable<CreateTripObj>in
+//            guard estiamteObj.upFrontFareObj != nil  else {
+//                return Observable.empty()
+//            }
+//
+//            Logger.info("Normal Price")
+//        }
+//
+//        // Surge rate
+//        let surgePriceRequestOb = shareRequest
+//        .flatMapFirst { (estimateObj) -> Observable<EstimateObj> in
+//            guard let surgePriceObj = estimateObj.surgePriceObj else {
+//                return Observable.empty()
+//            }
+//            if surgePriceObj.surgeConfirmationHref != nil {
+//                assert(false, "surgeConfirmationHref is nill")
+//            }
+//            return Observable.just(estimateObj)
+//        }
+
         .subscribe(onNext: { estimateObj in
 
             // Normal Price
