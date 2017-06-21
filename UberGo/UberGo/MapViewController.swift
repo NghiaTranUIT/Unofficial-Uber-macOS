@@ -10,6 +10,7 @@ import Cocoa
 import CoreLocation
 import Mapbox
 import MapboxDirections
+import RxCocoa
 import RxSwift
 import UberGoCore
 
@@ -63,6 +64,10 @@ class MapViewController: BaseViewController {
 
     override func viewDidAppear() {
         super.viewDidAppear()
+    }
+
+    deinit {
+        NotificationService.removeAllObserve(self)
     }
 
     fileprivate func binding() {
@@ -147,6 +152,21 @@ class MapViewController: BaseViewController {
             Logger.info("isLoading Available Products = \(isLoading)")
         })
         .addDisposableTo(self.disposeBag)
+    }
+
+    fileprivate func notificationBinding() {
+        NotificationService.observeNotificationType(.showSurgeHrefConfirmationView,
+                                                    observer: self,
+                                                    selector: #selector(self.showSurgeHrefView(noti:)),
+                                                    object: nil)
+    }
+
+    @objc func showSurgeHrefView(noti: Notification) {
+        guard let estimateObj = noti.object as? EstimateObj else {
+            return
+        }
+
+        
     }
 
     @IBAction func exitNavigateBtnOnTapped(_ sender: Any) {

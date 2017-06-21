@@ -40,6 +40,7 @@
 		BA6767331EF8E42C00805AC1 /* SandboxUpdateProductRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6767321EF8E42C00805AC1 /* SandboxUpdateProductRequest.swift */; };
 		BA6767351EF912AD00805AC1 /* SandboxUberService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6767341EF912AD00805AC1 /* SandboxUberService.swift */; };
 		BA6767371EF9138D00805AC1 /* SandboxUberServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6767361EF9138D00805AC1 /* SandboxUberServiceTests.swift */; };
+		BA67673A1EFA271F00805AC1 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6767391EFA271F00805AC1 /* NotificationService.swift */; };
 		BA7BA9811EE415D10056B0CF /* MapService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7BA9801EE415D10056B0CF /* MapService.swift */; };
 		BA7BA9851EE42C0C0056B0CF /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA7BA9841EE42C0C0056B0CF /* CoreLocation.framework */; };
 		BAAC440E1EF0E12300A9F949 /* UberCoordinateObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAC440D1EF0E12300A9F949 /* UberCoordinateObj.swift */; };
@@ -124,6 +125,7 @@
 		BA6767321EF8E42C00805AC1 /* SandboxUpdateProductRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SandboxUpdateProductRequest.swift; sourceTree = "<group>"; };
 		BA6767341EF912AD00805AC1 /* SandboxUberService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SandboxUberService.swift; sourceTree = "<group>"; };
 		BA6767361EF9138D00805AC1 /* SandboxUberServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SandboxUberServiceTests.swift; sourceTree = "<group>"; };
+		BA6767391EFA271F00805AC1 /* NotificationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		BA7BA9801EE415D10056B0CF /* MapService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapService.swift; sourceTree = "<group>"; };
 		BA7BA9841EE42C0C0056B0CF /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		BAAC440D1EF0E12300A9F949 /* UberCoordinateObj.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UberCoordinateObj.swift; sourceTree = "<group>"; };
@@ -234,6 +236,7 @@
 		BA32E71B1EDFC74C0044C017 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				BA6767381EFA26DA00805AC1 /* Notification */,
 				BA2A3A7B1EED26E3002A0343 /* Database */,
 				BAED39E41EEA594C003D9BC3 /* Rx Extension */,
 				BAED39D31EE85DAE003D9BC3 /* Uber Service */,
@@ -254,8 +257,8 @@
 		BA32E71C1EDFC7550044C017 /* View Models */ = {
 			isa = PBXGroup;
 			children = (
-				BA4796A61EE2C0C700620BB0 /* MapViewModel.swift */,
 				BA6767301EF8CB5400805AC1 /* UberServiceViewModel.swift */,
+				BA4796A61EE2C0C700620BB0 /* MapViewModel.swift */,
 				BA32E71D1EDFC76A0044C017 /* AuthenticationViewModel.swift */,
 				BA32E7221EDFC8230044C017 /* AppViewModel.swift */,
 				BAF57FC11EE11A080013090E /* BaseViewModel.swift */,
@@ -342,6 +345,14 @@
 				BA4796AF1EE2DAFE00620BB0 /* UberOauth.swift */,
 			);
 			name = Oauth;
+			sourceTree = "<group>";
+		};
+		BA6767381EFA26DA00805AC1 /* Notification */ = {
+			isa = PBXGroup;
+			children = (
+				BA6767391EFA271F00805AC1 /* NotificationService.swift */,
+			);
+			name = Notification;
 			sourceTree = "<group>";
 		};
 		BA7BA97F1EE415B70056B0CF /* Map Service */ = {
@@ -706,6 +717,7 @@
 				BAED39E81EEA5954003D9BC3 /* ReachabilityService.swift in Sources */,
 				BA6767351EF912AD00805AC1 /* SandboxUberService.swift in Sources */,
 				BA2A3A7D1EED26EF002A0343 /* DatabaseService.swift in Sources */,
+				BA67673A1EFA271F00805AC1 /* NotificationService.swift in Sources */,
 				BA4796B31EE3C93900620BB0 /* UUID+Helper.swift in Sources */,
 				BA32E71E1EDFC76A0044C017 /* AuthenticationViewModel.swift in Sources */,
 				BA4796A31EE2BF0800620BB0 /* NSError+Helper.swift in Sources */,

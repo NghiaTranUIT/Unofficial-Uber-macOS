@@ -36,10 +36,14 @@ public struct UberData {
 
 public protocol UberServiceViewModelOutput {
 
+    // Request Uber
     var availableGroupProductsDriver: Driver<[GroupProductObj]>! { get }
     var isLoadingAvailableProductPublisher: PublishSubject<Bool> { get }
     var selectedGroupProduct: Variable<GroupProductObj?> { get }
     var selectedProduct: Variable<ProductObj?> { get }
+
+    // Surge Href
+    var showSurgeHrefDriver: Driver<String>! { get }
 }
 
 open class UberServiceViewModel: BaseViewModel,
@@ -60,6 +64,7 @@ open class UberServiceViewModel: BaseViewModel,
     public var isLoadingAvailableProductPublisher = PublishSubject<Bool>()
     public let selectedGroupProduct = Variable<GroupProductObj?>(nil)
     public let selectedProduct = Variable<ProductObj?>(nil)
+    public var showSurgeHrefDriver: Driver<String>!
 
     // MARK: - Variable
     fileprivate var uberService = UberService()
@@ -117,7 +122,20 @@ open class UberServiceViewModel: BaseViewModel,
                                                                        to: placeObj.coordinate2D!)
         }
         .subscribe(onNext: { estimateObj in
-            Logger.info(estimateObj)
+
+            // Normal Price
+            if let fareObj = estimateObj.upFrontFareObj {
+                Logger.info("Normal Price")
+                Logger.info("FareID = \(fareObj.fareId ?? "")")
+            }
+
+            // High surge rate
+            if estimateObj.surgePriceObj != nil {
+                Logger.info("High surge rate")
+                NotificationService.postNotificationOnMainThreadType(.showSurgeHrefConfirmationView,
+                                                                     object: estimateObj,
+                                                                     userInfo: nil)
+            }
         })
         .addDisposableTo(self.disposeBag)
     }
