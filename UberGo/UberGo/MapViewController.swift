@@ -10,6 +10,7 @@ import Cocoa
 import CoreLocation
 import Mapbox
 import MapboxDirections
+import RxCocoa
 import RxSwift
 import UberGoCore
 
@@ -24,6 +25,8 @@ class MapViewController: BaseViewController {
     // MARK: - OUTLET
     fileprivate var mapView: UberMapView!
     fileprivate var searchCollectionView: SearchCollectionView!
+    fileprivate lazy var requestUberView: RequestUberView = self.lazyInitRequestUberView()
+
     @IBOutlet fileprivate weak var exitNavigateBtn: NSButton!
     @IBOutlet fileprivate weak var mapContainerView: NSView!
     @IBOutlet fileprivate weak var mapContainerViewBottom: NSLayoutConstraint!
@@ -34,6 +37,8 @@ class MapViewController: BaseViewController {
     fileprivate var viewModel: MapViewModel!
     fileprivate var searchBarView: SearchBarView!
     fileprivate var isFirstTime = true
+    fileprivate lazy var webController: SurgeHrefConfirmationController = self.lazyInitWebController()
+    fileprivate var paymentMethodController: PaymentMethodsController?
 
     fileprivate var searchPlaceObjs: [PlaceObj] {
         return self.viewModel.output.searchPlaceObjsVariable.value
@@ -57,10 +62,15 @@ class MapViewController: BaseViewController {
 
         // View Model
         self.binding()
+        self.notificationBinding()
     }
 
     override func viewDidAppear() {
         super.viewDidAppear()
+    }
+
+    deinit {
+        NotificationService.removeAllObserve(self)
     }
 
     fileprivate func binding() {
@@ -76,6 +86,10 @@ class MapViewController: BaseViewController {
             })
             .addDisposableTo(self.disposeBag)
 
+        // Force load Uber data
+        UserObj.currentUser?.reloadUberDataPublisher.onNext()
+
+        // Nearest place
         self.viewModel.output.nearestPlaceDriver.drive(onNext: { [weak self] nearestPlaceObj in
                 guard let `self` = self else { return }
                 print("Found Nearst Place = \(nearestPlaceObj)")
@@ -118,6 +132,11 @@ class MapViewController: BaseViewController {
             // Layout
             self.updateLayoutState(state)
             self.mapView.addDestinationPlaceObj(placeObj)
+
+            // Request Product + Estimate Uber
+            guard let current = self.viewModel.currentLocationVariable.value else { return }
+            let data = UberData(placeObj: placeObj, from: current.coordinate)
+            self.requestUberView.viewModel.input.selectedPlacePublisher.onNext(data)
         })
         .addDisposableTo(self.disposeBag)
 
@@ -129,6 +148,40 @@ class MapViewController: BaseViewController {
             self.mapView.drawDirectionRoute(route)
         })
         .addDisposableTo(self.disposeBag)
+
+        // Show or hide Bottom bar
+        self.requestUberView.viewModel.output.isLoadingAvailableProductPublisher
+        .subscribe(onNext: { isLoading in
+            Logger.info("isLoading Available Products = \(isLoading)")
+        })
+        .addDisposableTo(self.disposeBag)
+    }
+
+    fileprivate func notificationBinding() {
+        NotificationService.observeNotificationType(.showSurgeHrefConfirmationView,
+                                                    observer: self,
+                                                    selector: #selector(self.showSurgeHrefView(noti:)),
+                                                    object: nil)
+        NotificationService.observeNotificationType(NotificationType.showPaymentMethodsView,
+                                                    observer: self,
+                                                    selector: #selector(self.showPaymentMethodView(noti:)),
+                                                    object: nil)
+    }
+
+    @objc func showSurgeHrefView(noti: Notification) {
+        guard let estimateObj = noti.object as? EstimateObj else {
+            return
+        }
+
+        self.webController.configureWebView(with: estimateObj)
+        self.presentViewControllerAsSheet(self.webController)
+    }
+
+    @objc func showPaymentMethodView(noti: Notification) {
+        let controller = PaymentMethodsController(nibName: "PaymentMethodsController", bundle: nil)!
+        controller.delegate = self
+        self.presentViewControllerAsSheet(controller)
+        self.paymentMethodController = controller
     }
 
     @IBAction func exitNavigateBtnOnTapped(_ sender: Any) {
@@ -155,11 +208,10 @@ class MapViewController: BaseViewController {
             NSAnimationContext.defaultAnimate({ _ in
                 self.exitNavigateBtn.alphaValue = 0
             })
-
         case .navigation:
 
             // Force layout
-            self.mapContainerViewBottom.constant = 120
+            self.mapContainerViewBottom.constant = 305
             self.view.layoutSubtreeIfNeeded()
 
             // Fade in
@@ -168,16 +220,15 @@ class MapViewController: BaseViewController {
             })
         }
     }
-
 }
 
 // MARK: - Private
 extension MapViewController {
 
     fileprivate func initCommon() {
-        self.view.wantsLayer = true
-        self.view.layer?.backgroundColor = NSColor.white.cgColor
+        self.view.backgroundColor = NSColor.white
         self.exitNavigateBtn.alphaValue = 0
+        self.bottomBarView.backgroundColor = NSColor(hexString: "#343332")
     }
 
     fileprivate func initMapView() {
@@ -199,6 +250,16 @@ extension MapViewController {
                                          positioned: .below,
                                          relativeTo: self.exitNavigateBtn)
         self.searchCollectionView.configureView(parenView: self.mapContainerView, searchBarView: self.searchBarView)
+    }
+
+    fileprivate func lazyInitRequestUberView() -> RequestUberView {
+        let uberView = RequestUberView.viewFromNib(with: BundleType.app)!
+        uberView.configureLayout(self.bottomBarView)
+        return uberView
+    }
+
+    fileprivate func lazyInitWebController() -> SurgeHrefConfirmationController {
+        return SurgeHrefConfirmationController(nibName: "SurgeHrefConfirmationController", bundle: nil)!
     }
 }
 
@@ -225,5 +286,14 @@ extension MapViewController: SearchCollectionViewDelegate {
         // Select
         let placeObj = self.searchPlaceObjs[atIndex.item]
         self.viewModel.input.didSelectPlaceObjPublisher.onNext(placeObj)
+    }
+}
+
+extension MapViewController: PaymentMethodsControllerDelegate {
+
+    func paymentMethodsControllerShouldDismiss(_ sender: PaymentMethodsController) {
+        guard let controller = self.paymentMethodController else { return }
+        self.dismissViewController(controller)
+        self.paymentMethodController = nil
     }
 }

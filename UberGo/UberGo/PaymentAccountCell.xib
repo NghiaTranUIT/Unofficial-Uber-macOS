@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12120"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner"/>
+        <collectionViewItem id="AlI-W8-T47" customClass="PaymentAccountCell" customModule="UberGo" customModuleProvider="target">
+            <connections>
+                <outlet property="cardNumberLbl" destination="BNM-Q2-UCJ" id="wfA-g8-fQK"/>
+                <outlet property="dividerLineView" destination="Z4u-c2-eYb" id="Lez-VY-S4T"/>
+                <outlet property="paymentImageView" destination="nKs-Vm-Dq0" id="emp-Dd-Rl7"/>
+                <outlet property="tickBtn" destination="t6R-zS-3vx" id="TIQ-4r-sKH"/>
+                <outlet property="view" destination="Hz6-mo-xeY" id="2DP-de-xJY"/>
+            </connections>
+        </collectionViewItem>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="Hz6-mo-xeY">
+            <rect key="frame" x="0.0" y="0.0" width="480" height="55"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="Z4u-c2-eYb">
+                    <rect key="frame" x="0.0" y="0.0" width="480" height="1"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="HDX-Bf-VGY"/>
+                    </constraints>
+                </customView>
+                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="nKs-Vm-Dq0">
+                    <rect key="frame" x="20" y="16" width="36" height="22"/>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="visa_card" id="kG1-08-jIA"/>
+                </imageView>
+                <button hidden="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="t6R-zS-3vx">
+                    <rect key="frame" x="443" y="12" width="13" height="32"/>
+                    <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="checked" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="EhH-mr-RdI">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                </button>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BNM-Q2-UCJ" customClass="UberTextField" customModule="UberGo" customModuleProvider="target">
+                    <rect key="frame" x="66" y="18" width="72" height="19"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="•••• 1234" placeholderString="" id="b2k-he-oUh">
+                        <font key="font" metaFont="system" size="15"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+            </subviews>
+            <constraints>
+                <constraint firstItem="t6R-zS-3vx" firstAttribute="centerY" secondItem="Hz6-mo-xeY" secondAttribute="centerY" id="7gT-J2-EG7"/>
+                <constraint firstItem="nKs-Vm-Dq0" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="20" id="Af8-U7-twV"/>
+                <constraint firstAttribute="trailing" secondItem="t6R-zS-3vx" secondAttribute="trailing" constant="24" id="Qm0-eV-CKb"/>
+                <constraint firstAttribute="trailing" secondItem="Z4u-c2-eYb" secondAttribute="trailing" id="U6K-zy-nKK"/>
+                <constraint firstItem="Z4u-c2-eYb" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="bl3-5N-kaz"/>
+                <constraint firstAttribute="bottom" secondItem="Z4u-c2-eYb" secondAttribute="bottom" id="pY8-yE-Zxm"/>
+                <constraint firstItem="nKs-Vm-Dq0" firstAttribute="centerY" secondItem="Hz6-mo-xeY" secondAttribute="centerY" id="uar-NY-DIg"/>
+                <constraint firstItem="BNM-Q2-UCJ" firstAttribute="centerY" secondItem="Hz6-mo-xeY" secondAttribute="centerY" id="vgg-qb-1aO"/>
+                <constraint firstItem="BNM-Q2-UCJ" firstAttribute="leading" secondItem="nKs-Vm-Dq0" secondAttribute="trailing" constant="12" id="xXN-lb-UoX"/>
+            </constraints>
+        </customView>
+    </objects>
+    <resources>
+        <image name="checked" width="13" height="10"/>
+        <image name="visa_card" width="36" height="22"/>
+    </resources>
+</document>

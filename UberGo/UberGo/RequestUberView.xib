@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12120"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+        <capability name="stacking Non-gravity area distributions on NSStackView" minToolsVersion="7.0" minSystemVersion="10.11"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner"/>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="c22-O7-iKe" customClass="RequestUberView" customModule="UberGo" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="480" height="305"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ghW-Bi-WIR" customClass="UberButton" customModule="UberGo" customModuleProvider="target">
+                    <rect key="frame" x="24" y="12" width="368" height="52"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="52" id="bG5-0c-9k9"/>
+                    </constraints>
+                    <buttonCell key="cell" type="bevel" title="REQUEST UBERX" bezelStyle="rounded" alignment="center" imageScaling="proportionallyDown" inset="2" id="UxH-xT-d78">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="systemBold" size="18"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="requestBtnOnTapped:" target="c22-O7-iKe" id="XFA-KH-ASQ"/>
+                    </connections>
+                </button>
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="cgU-5U-Odr">
+                    <rect key="frame" x="404" y="12" width="52" height="52"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="52" id="EMB-3Y-1ZY"/>
+                        <constraint firstAttribute="height" constant="52" id="ncv-Nf-Sou"/>
+                    </constraints>
+                    <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="calendar_white" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="uZj-tV-cxd">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                </button>
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="cEF-JS-mqq">
+                    <rect key="frame" x="24" y="71" width="36" height="32"/>
+                    <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="visa_card" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="6j5-Ui-1JA">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="paymentMethodsOnTap:" target="c22-O7-iKe" id="wLx-G8-fMO"/>
+                    </connections>
+                </button>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NsZ-1o-kBQ" customClass="UberTextField" customModule="UberGo" customModuleProvider="target">
+                    <rect key="frame" x="70" y="78" width="72" height="19"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="•••• 1234" placeholderString="" id="6iC-Ld-REG">
+                        <font key="font" metaFont="system" size="15"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Thy-KV-ex9">
+                    <rect key="frame" x="422" y="78" width="36" height="19"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="1 - 4" placeholderString="" id="Lr6-Il-t6P">
+                        <font key="font" metaFont="system" size="15"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="1ZR-0r-VNP">
+                    <rect key="frame" x="24" y="110" width="432" height="1"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="bhr-9r-hki"/>
+                    </constraints>
+                </customView>
+                <scrollView wantsLayer="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" verticalScrollElasticity="none" translatesAutoresizingMaskIntoConstraints="NO" id="oke-Td-REg">
+                    <rect key="frame" x="0.0" y="117" width="480" height="144"/>
+                    <clipView key="contentView" drawsBackground="NO" id="hpl-MZ-107">
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="144"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView selectable="YES" allowsEmptySelection="NO" id="dk1-FR-KZ5" customClass="UberCollectionView" customModule="UberGo" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="480" height="144"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumInteritemSpacing="10" minimumLineSpacing="10" scrollDirection="horizontal" id="u2e-WX-B1g">
+                                    <size key="itemSize" width="50" height="50"/>
+                                </collectionViewFlowLayout>
+                                <color key="primaryBackgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                            </collectionView>
+                        </subviews>
+                    </clipView>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="144" id="iVw-8s-GY9"/>
+                    </constraints>
+                    <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="R4A-bo-Lcv">
+                        <rect key="frame" x="-100" y="-100" width="233" height="15"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </scroller>
+                    <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="FOx-d7-iVZ">
+                        <rect key="frame" x="-100" y="-100" width="16" height="108"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </scroller>
+                </scrollView>
+                <stackView distribution="fillEqually" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yu7-vd-Hdz">
+                    <rect key="frame" x="12" y="261" width="456" height="32"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="32" id="oWN-3m-gB8"/>
+                    </constraints>
+                </stackView>
+                <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X27-dh-KrQ">
+                    <rect key="frame" x="109" y="252" width="263" height="17"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Fares are higher due to increased demand" id="b3Q-O5-5BW">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+            </subviews>
+            <constraints>
+                <constraint firstItem="NsZ-1o-kBQ" firstAttribute="centerY" secondItem="cEF-JS-mqq" secondAttribute="centerY" id="0ea-4U-bpE"/>
+                <constraint firstItem="oke-Td-REg" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" id="37Y-AF-30A"/>
+                <constraint firstAttribute="bottom" secondItem="ghW-Bi-WIR" secondAttribute="bottom" constant="12" id="4RH-Lh-euB"/>
+                <constraint firstItem="X27-dh-KrQ" firstAttribute="top" secondItem="yu7-vd-Hdz" secondAttribute="bottom" constant="-8" id="7k0-Fh-2IA"/>
+                <constraint firstItem="cgU-5U-Odr" firstAttribute="leading" secondItem="ghW-Bi-WIR" secondAttribute="trailing" constant="12" id="C5V-Nh-N5Z"/>
+                <constraint firstItem="X27-dh-KrQ" firstAttribute="centerX" secondItem="c22-O7-iKe" secondAttribute="centerX" id="CaN-Sr-9qo"/>
+                <constraint firstItem="ghW-Bi-WIR" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="24" id="D9F-9G-u6K"/>
+                <constraint firstItem="Thy-KV-ex9" firstAttribute="trailing" secondItem="cgU-5U-Odr" secondAttribute="trailing" id="EZ6-Th-hIH"/>
+                <constraint firstItem="yu7-vd-Hdz" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="12" id="GDK-XC-6AW"/>
+                <constraint firstItem="1ZR-0r-VNP" firstAttribute="trailing" secondItem="cgU-5U-Odr" secondAttribute="trailing" id="Ghy-IW-c3x"/>
+                <constraint firstItem="Thy-KV-ex9" firstAttribute="centerY" secondItem="NsZ-1o-kBQ" secondAttribute="centerY" id="JlH-EA-5Ov"/>
+                <constraint firstItem="yu7-vd-Hdz" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" constant="12" id="L0o-qv-58u"/>
+                <constraint firstItem="oke-Td-REg" firstAttribute="top" secondItem="yu7-vd-Hdz" secondAttribute="bottom" id="M1p-6p-fcj"/>
+                <constraint firstItem="1ZR-0r-VNP" firstAttribute="leading" secondItem="ghW-Bi-WIR" secondAttribute="leading" id="N8C-mZ-cYc"/>
+                <constraint firstAttribute="trailing" secondItem="cgU-5U-Odr" secondAttribute="trailing" constant="24" id="PBm-GX-mMN"/>
+                <constraint firstItem="yu7-vd-Hdz" firstAttribute="centerX" secondItem="c22-O7-iKe" secondAttribute="centerX" id="QUz-5L-WcX"/>
+                <constraint firstAttribute="trailing" secondItem="yu7-vd-Hdz" secondAttribute="trailing" constant="12" id="WKJ-iy-nhV"/>
+                <constraint firstAttribute="bottom" secondItem="cgU-5U-Odr" secondAttribute="bottom" constant="12" id="aTb-sC-wFT"/>
+                <constraint firstItem="NsZ-1o-kBQ" firstAttribute="leading" secondItem="cEF-JS-mqq" secondAttribute="trailing" constant="12" id="bdm-P0-09z"/>
+                <constraint firstItem="1ZR-0r-VNP" firstAttribute="top" secondItem="oke-Td-REg" secondAttribute="bottom" constant="6" id="iki-C1-XtN"/>
+                <constraint firstAttribute="trailing" secondItem="oke-Td-REg" secondAttribute="trailing" id="nUM-Mg-3Ka"/>
+                <constraint firstItem="ghW-Bi-WIR" firstAttribute="top" secondItem="cEF-JS-mqq" secondAttribute="bottom" constant="7" id="sV4-ad-5Qt"/>
+                <constraint firstItem="cEF-JS-mqq" firstAttribute="top" secondItem="1ZR-0r-VNP" secondAttribute="bottom" constant="7" id="thr-B5-lgq"/>
+                <constraint firstItem="cEF-JS-mqq" firstAttribute="leading" secondItem="ghW-Bi-WIR" secondAttribute="leading" id="xiL-xH-oAo"/>
+            </constraints>
+            <connections>
+                <outlet property="cardNumberLbl" destination="NsZ-1o-kBQ" id="nMD-lY-qYR"/>
+                <outlet property="collectionView" destination="dk1-FR-KZ5" id="9lQ-MX-DMs"/>
+                <outlet property="dividerLineView" destination="1ZR-0r-VNP" id="DUx-4A-VNX"/>
+                <outlet property="highFareLbl" destination="X27-dh-KrQ" id="W2Z-au-M5D"/>
+                <outlet property="paymentImageView" destination="cEF-JS-mqq" id="VKi-Wt-Ai9"/>
+                <outlet property="requestUberBtn" destination="ghW-Bi-WIR" id="41P-Tq-n1w"/>
+                <outlet property="scheduleUberBtn" destination="cgU-5U-Odr" id="wjR-fa-19d"/>
+                <outlet property="scrollView" destination="oke-Td-REg" id="fCX-nc-qUi"/>
+                <outlet property="seatNumberLnl" destination="Thy-KV-ex9" id="F26-1X-Evt"/>
+                <outlet property="stackView" destination="yu7-vd-Hdz" id="3GH-Xf-c1b"/>
+            </connections>
+            <point key="canvasLocation" x="-20" y="81"/>
+        </customView>
+    </objects>
+    <resources>
+        <image name="calendar_white" width="24" height="24"/>
+        <image name="visa_card" width="36" height="22"/>
+    </resources>
+</document>

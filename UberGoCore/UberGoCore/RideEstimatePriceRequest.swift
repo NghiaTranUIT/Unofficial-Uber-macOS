@@ -13,14 +13,14 @@ import ObjectMapper
 
 public struct RideEstimatePriceRequestParam: Parameter {
 
-    let originLocation: CLLocationCoordinate2D
-    let destinationLocation: CLLocationCoordinate2D
+    let from: CLLocationCoordinate2D
+    let to: CLLocationCoordinate2D
 
     func toDictionary() -> [String : Any] {
-        return ["start_latitude": self.originLocation.latitude,
-                "start_longitude": self.originLocation.longitude,
-                "end_latitude": self.destinationLocation.latitude,
-                "end_longitude": self.destinationLocation.longitude]
+        return ["start_latitude": self.from.latitude,
+                "start_longitude": self.from.longitude,
+                "end_latitude": self.to.latitude,
+                "end_longitude": self.to.longitude]
     }
 }
 

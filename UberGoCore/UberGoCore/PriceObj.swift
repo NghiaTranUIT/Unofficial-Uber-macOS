@@ -21,6 +21,7 @@ open class PriceObj: BaseObj {
     public var duration: Float?
     public var estimate: String?
     public var currencyCode: String?
+    public var surgeMultiplier: Double?
 
     override public func mapping(map: Map) {
         super.mapping(map: map)
@@ -34,5 +35,6 @@ open class PriceObj: BaseObj {
         self.duration <- map[Constants.Object.Price.Duration]
         self.estimate <- map[Constants.Object.Price.Estimate]
         self.currencyCode <- map[Constants.Object.Price.CurrencyCode]
+        self.surgeMultiplier <- map[Constants.Object.Price.SurgeMultiplier]
     }
 }

@@ -34,4 +34,29 @@ class UberTextField: NSTextField {
         self.focusRingType = .none
     }
 
+    // MARK: - Public
+    func setKern(_ kern: Float) {
+        guard let font = font else {
+            return
+        }
+        guard let color = self.textColor else {
+            return
+        }
+
+        // Paragraph
+        let style = NSMutableParagraphStyle()
+        style.alignment = self.alignment
+
+        // Attribute
+        var attributes = [NSForegroundColorAttributeName: color,
+                          NSFontAttributeName: font,
+                          NSParagraphStyleAttributeName: style] as [String : Any]
+
+        // Kern
+        attributes[NSKernAttributeName] = kern
+
+        // Override
+        let attributedTitle = NSAttributedString(string: self.stringValue, attributes: attributes)
+        self.attributedStringValue = attributedTitle
+    }
 }

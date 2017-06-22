@@ -75,7 +75,7 @@ extension Requestable {
             }
 
             Alamofire.request(urlRequest)
-                .validate(contentType: ["application/json"])
+                .validate(contentType: ["application/json", "text/html"])
                 .responseJSON(completionHandler: { (response) in
 
                     // Check error
@@ -108,6 +108,18 @@ extension Requestable {
                     // Check Response
                     guard let data = response.result.value else {
                         observer.onError(NSError.jsonMapperError())
+                        return
+                    }
+
+                    // 204 - no content
+                    if let code = response.response?.statusCode,
+                        code == 204 {
+                        //FIXME : Smell code
+                        // Get rid of baseObj
+                        // Because sometime, there are no response
+                        let base = BaseObj(JSON: [:])
+                        observer.on(.next(base as! Element))
+                        observer.on(.completed)
                         return
                     }
 

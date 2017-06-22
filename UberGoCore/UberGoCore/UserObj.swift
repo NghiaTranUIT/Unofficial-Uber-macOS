@@ -9,12 +9,22 @@
 import Cocoa
 import OAuthSwift
 import ObjectMapper
+import RxSwift
 
-final class UserObj: BaseObj {
+open class UserObj: BaseObj {
 
     // MARK: - Current User
     fileprivate struct Static {
-        static var instance: UserObj?
+        static var instance: UserObj? {
+            didSet {
+                //FIXME : Smell code => Find new way to call binding()
+                // It didn't call in init()
+                // Due by we get currentUser from Disk persistance
+                // 
+                // Might be cause serious bug if call binding twice
+                instance?.binding()
+            }
+        }
     }
 
     // MARK: - Variable
@@ -36,18 +46,24 @@ final class UserObj: BaseObj {
     fileprivate var _currentUserInstance: UserObj?
     fileprivate static let lock = NSLock()
 
+    // MARK: - Observer
+    public let reloadUberDataPublisher = PublishSubject<Void>()
+    public let paymentMethodObjVar = Variable<PaymentObj?>(nil)
+    public var selectedNewPaymentObjVar = Variable<PaymentAccountObj?>(nil)
+    public var currentPaymentAccountObjVar = Variable<PaymentAccountObj?>(nil)
+
     // MARK: - Init
     override init() {
         super.init()
     }
 
-    override func mapping(map: Map) {
+    override public func mapping(map: Map) {
         super.mapping(map: map)
 
         self.name <- map[Constants.Object.User.Name]
     }
 
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         self.name = aDecoder.decodeObject(forKey: Constants.Object.User.Name) as? String
         self.oauthToken = aDecoder.decodeObject(forKey: Constants.Object.User.OauthToken) as? String
@@ -60,13 +76,48 @@ final class UserObj: BaseObj {
         super.init(map: map)
     }
 
-    override func encode(with aCoder: NSCoder) {
+    override public func encode(with aCoder: NSCoder) {
         super.encode(with: aCoder)
         aCoder.encode(self.name, forKey: Constants.Object.User.Name)
         aCoder.encode(self.oauthToken, forKey: Constants.Object.User.OauthToken)
         aCoder.encode(self.oauthRefreshToken, forKey: Constants.Object.User.OauthRefreshToken)
         aCoder.encode(self.oauthTokenSecret, forKey: Constants.Object.User.OauthTokenSecret)
         aCoder.encode(self.oauthTokenExpiresAt, forKey: Constants.Object.User.OauthTokenExpiresAt)
+    }
+
+    // MARK: - Binding
+    public func binding() {
+
+        // Payment
+        self.reloadUberDataPublisher
+            .asObserver()
+            .flatMapLatest { _ -> Observable<PaymentObj> in
+                return UberService().paymentMethodObserver()
+            }
+            .do(onNext: { (paymentObj) in
+                Logger.info("Curent PaymentMethods count = \(paymentObj.paymentAccountObjs?.count ?? 0 )")
+            })
+            .bind(to: self.paymentMethodObjVar)
+            .addDisposableTo(self.disposeBag)
+
+        // Last User or select
+        let lastUsed = self.paymentMethodObjVar.asObservable()
+            .filterNil()
+            .flatMapLatest({ (paymentObj) -> Observable<PaymentAccountObj> in
+                guard let lastUser = paymentObj.lastUsedPaymentAccount else {
+                    return Observable.empty()
+                }
+                return Observable.just(lastUser)
+            })
+
+        let newSelectAccount = self.selectedNewPaymentObjVar
+            .asObservable()
+            .filterNil()
+
+        // Combine
+        Observable.merge([lastUsed, newSelectAccount])
+        .bind(to: self.currentPaymentAccountObjVar)
+        .addDisposableTo(self.disposeBag)
     }
 
     //TODO: Don't use UserDefault

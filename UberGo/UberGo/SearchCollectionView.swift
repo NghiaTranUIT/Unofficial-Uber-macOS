@@ -88,7 +88,7 @@ class SearchCollectionView: NSView {
             // Animate
             NSAnimationContext.defaultAnimate({ _ in
                 self.alphaValue = 0
-            }, completion: { 
+            }, completion: {
                 self.isHidden = true
             })
         }
@@ -116,6 +116,7 @@ extension SearchCollectionView {
 
         // Flow
         let flow = SearchCollectionViewFlowLayout()
+        flow.itemSize = CGSize(width: self.collectionView.bounds.width, height: 57)
         self.collectionView.collectionViewLayout = flow
     }
 }

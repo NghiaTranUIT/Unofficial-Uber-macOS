@@ -22,6 +22,12 @@
             <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="lC3-Vn-oNQ">
+                    <rect key="frame" x="0.0" y="0.0" width="480" height="305"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="305" id="AGG-Ec-IQ8"/>
+                    </constraints>
+                </customView>
                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="vPW-kc-2X8">
                     <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
                     <subviews>
@@ -42,12 +48,6 @@
                         <constraint firstItem="R7e-uc-ZRU" firstAttribute="leading" secondItem="vPW-kc-2X8" secondAttribute="leading" constant="20" id="zjE-kd-s7w"/>
                     </constraints>
                 </customView>
-                <customView translatesAutoresizingMaskIntoConstraints="NO" id="lC3-Vn-oNQ">
-                    <rect key="frame" x="0.0" y="0.0" width="480" height="120"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="120" id="AGG-Ec-IQ8"/>
-                    </constraints>
-                </customView>
             </subviews>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="lC3-Vn-oNQ" secondAttribute="trailing" id="6Pm-ZO-KQ1"/>
@@ -58,7 +58,7 @@
                 <constraint firstItem="vPW-kc-2X8" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="qjd-Lm-wEl"/>
                 <constraint firstAttribute="trailing" secondItem="vPW-kc-2X8" secondAttribute="trailing" id="zir-iV-OLl"/>
             </constraints>
-            <point key="canvasLocation" x="139" y="514"/>
+            <point key="canvasLocation" x="146" y="432"/>
         </customView>
     </objects>
     <resources>

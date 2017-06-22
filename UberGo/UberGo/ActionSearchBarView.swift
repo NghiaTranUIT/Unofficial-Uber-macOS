@@ -85,7 +85,7 @@ extension ActionSearchBarView {
         // Background
         self.backgroundColor = NSColor.white
         self.dotSquareView.backgroundColor = NSColor.black
-        self.whereToBtn.updateWhereToBtnAttribute()
+        self.whereToBtn.setTitleColor(NSColor(hexString: "#525760"), kern: 2)
         self.verticalBarView.backgroundColor = NSColor(hexString: "#E5E5E5")
     }
 }

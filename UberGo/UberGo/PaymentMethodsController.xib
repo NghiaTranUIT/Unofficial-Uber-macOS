@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12120"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+        <capability name="system font weights other than Regular or Bold" minToolsVersion="7.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="PaymentMethodsController" customModule="UberGo" customModuleProvider="target">
+            <connections>
+                <outlet property="collectionView" destination="N2Z-Dj-7AL" id="rve-CP-aDE"/>
+                <outlet property="exitBtn" destination="dLl-cY-4vL" id="rgd-jh-Bla"/>
+                <outlet property="titileLbl" destination="WgL-bb-UQd" id="djG-Z9-JsY"/>
+                <outlet property="topBarView" destination="mDs-3K-63A" id="Pw8-Mi-Qpk"/>
+                <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="Hz6-mo-xeY">
+            <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="mDs-3K-63A">
+                    <rect key="frame" x="0.0" y="380" width="480" height="100"/>
+                    <subviews>
+                        <button focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dLl-cY-4vL" customClass="UberButton" customModule="UberGo" customModuleProvider="target">
+                            <rect key="frame" x="25" y="67" width="16" height="16"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="16" id="Jxx-sh-daR"/>
+                                <constraint firstAttribute="height" constant="16" id="lep-NX-0fD"/>
+                            </constraints>
+                            <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="close_btn" imagePosition="only" alignment="center" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="cXa-an-za3">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <action selector="exitBtnOnTap:" target="-2" id="gHN-cs-OwG"/>
+                            </connections>
+                        </button>
+                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WgL-bb-UQd" customClass="UberTextField" customModule="UberGo" customModuleProvider="target">
+                            <rect key="frame" x="24" y="18" width="177" height="29"/>
+                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Payment Options" id="xYN-Rc-CDJ">
+                                <font key="font" metaFont="systemThin" size="24"/>
+                                <color key="textColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            </textFieldCell>
+                        </textField>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="WgL-bb-UQd" firstAttribute="leading" secondItem="mDs-3K-63A" secondAttribute="leading" constant="26" id="IDO-La-fOK"/>
+                        <constraint firstItem="WgL-bb-UQd" firstAttribute="top" secondItem="dLl-cY-4vL" secondAttribute="bottom" constant="20" id="NwQ-3N-mne"/>
+                        <constraint firstAttribute="bottom" secondItem="WgL-bb-UQd" secondAttribute="bottom" constant="18" id="U2x-Fg-BKU"/>
+                        <constraint firstAttribute="height" constant="100" id="rhB-ap-acn"/>
+                        <constraint firstItem="dLl-cY-4vL" firstAttribute="leading" secondItem="mDs-3K-63A" secondAttribute="leading" constant="25" id="uhk-t9-89X"/>
+                    </constraints>
+                </customView>
+                <scrollView wantsLayer="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6K0-C1-vqN">
+                    <rect key="frame" x="0.0" y="0.0" width="480" height="380"/>
+                    <clipView key="contentView" drawsBackground="NO" id="iHB-xH-MgQ">
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="380"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView selectable="YES" allowsEmptySelection="NO" id="N2Z-Dj-7AL" customClass="UberCollectionView" customModule="UberGo" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="480" height="380"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumInteritemSpacing="10" minimumLineSpacing="10" id="cVf-dA-wTu">
+                                    <size key="itemSize" width="50" height="50"/>
+                                </collectionViewFlowLayout>
+                                <color key="primaryBackgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                            </collectionView>
+                        </subviews>
+                    </clipView>
+                    <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="7yP-yK-RrP">
+                        <rect key="frame" x="-100" y="-100" width="233" height="15"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </scroller>
+                    <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="76c-Cw-W1A">
+                        <rect key="frame" x="464" y="0.0" width="16" height="377"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </scroller>
+                </scrollView>
+            </subviews>
+            <constraints>
+                <constraint firstItem="6K0-C1-vqN" firstAttribute="top" secondItem="mDs-3K-63A" secondAttribute="bottom" id="Go8-KP-NnC"/>
+                <constraint firstAttribute="trailing" secondItem="6K0-C1-vqN" secondAttribute="trailing" id="Ow5-Qz-DRR"/>
+                <constraint firstAttribute="trailing" secondItem="mDs-3K-63A" secondAttribute="trailing" id="PZp-3n-kQ4"/>
+                <constraint firstItem="6K0-C1-vqN" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="fzV-nP-yAY"/>
+                <constraint firstItem="mDs-3K-63A" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" id="jn9-81-a9V"/>
+                <constraint firstItem="mDs-3K-63A" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="ong-3f-x0S"/>
+                <constraint firstAttribute="bottom" secondItem="6K0-C1-vqN" secondAttribute="bottom" id="op0-4x-GnC"/>
+            </constraints>
+            <point key="canvasLocation" x="76" y="191"/>
+        </customView>
+    </objects>
+    <resources>
+        <image name="close_btn" width="16" height="16"/>
+    </resources>
+</document>

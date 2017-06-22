@@ -7,8 +7,8 @@
 //
 
 import Foundation
-import MapKit
 import MapboxDirections
+import MapKit
 import RxCocoa
 import RxSwift
 
@@ -63,6 +63,9 @@ open class MapViewModel: BaseViewModel,
     public var didSelectPlaceObjPublisher = PublishSubject<PlaceObj?>()
 
     // MARK: - Output
+    public var currentLocationVariable: Variable<CLLocation?> {
+        return mapManager.currentLocationVariable
+    }
     public var currentLocationDriver: Driver<CLLocation?> {
         return mapManager.currentLocationVariable.asDriver()
     }

@@ -23,6 +23,9 @@ open class ProductObj: BaseObj {
     public var productGroup: String?
     public var descr: String?
 
+    // Price from Uber
+    public var estimatePrice: PriceObj?
+
     override public func mapping(map: Map) {
         super.mapping(map: map)
 
@@ -36,5 +39,37 @@ open class ProductObj: BaseObj {
         self.displayName <- map[Constants.Object.Product.DisplayName]
         self.productGroup <- map[Constants.Object.Product.ProductGroup]
         self.descr <- map[Constants.Object.Product.Description]
+    }
+}
+
+open class GroupProductObj: BaseObj {
+
+    // MARK: - Variable
+    public var productGroup: String!
+    public var productObjs: [ProductObj] = []
+
+    // MARK: - Init
+    public convenience init(productGroup: String, productObjs: [ProductObj]) {
+        self.init()
+        self.productGroup = productGroup
+        self.productObjs = productObjs
+    }
+
+    // MARK: - Public
+    public class func mapProductGroups(from productObjs: [ProductObj]) -> [GroupProductObj] {
+
+        // Get unique group name
+        let groupNames = productObjs.map { $0.productGroup! }
+                                    .uniqueElements
+
+        // Map
+        return groupNames.map({ name -> GroupProductObj in
+
+            // Get all product with same GroupName
+            let subProducts = productObjs.filter({ $0.productGroup! == name })
+
+            // Map to Group
+            return GroupProductObj(productGroup: name, productObjs: subProducts)
+        })
     }
 }

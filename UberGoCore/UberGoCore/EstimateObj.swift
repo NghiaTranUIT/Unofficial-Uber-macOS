@@ -71,7 +71,6 @@ open class SurgePriceObj: BaseObj {
         self.surgeMultiplier <- map["surge_multiplier"]
         self.display <- map["display"]
         self.currencyCode <- map["currency_code"]
-
     }
 }
 

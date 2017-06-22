@@ -35,6 +35,10 @@ struct Constants {
         static let GetCurrentTrip = "/v1.2/requests/current"
         static let RequestEstimate = "/v1.2/requests/estimate"
         static let CreateTripRequest = "/v1.2/requests"
+        static let GetPaymentMethod = "/v1.2/payment-methods"
+
+        // Sandbox
+        static let SandboxUpdateProduct = "/v1.2/sandbox/products/:id"
     }
 
     // MARK: - Google App
@@ -99,6 +103,7 @@ struct Constants {
             static let Duration = "duration"
             static let Estimate = "estimate"
             static let CurrencyCode = "currency_code"
+            static let SurgeMultiplier = "surge_multiplier"
         }
 
         // MARK: - Trip
@@ -153,5 +158,18 @@ struct Constants {
             static let PictureUrl = "picture_url"
         }
 
+        // MARK: - Payment
+        struct Payment {
+
+            static let PaymentMethods = "payment_methods"
+            static let LastUsed = "last_used"
+        }
+
+        struct PaymentAccount {
+
+            static let PaymentMethodId = "payment_method_id"
+            static let `Type` = "type"
+            static let Description = "description"
+        }
     }
 }

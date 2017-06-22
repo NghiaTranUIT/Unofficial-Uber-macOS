@@ -12,7 +12,6 @@ class SearchCollectionViewFlowLayout: NSCollectionViewFlowLayout {
 
     //
     // MARK: - Variable
-    fileprivate var sizeCell = CGSize.zero
     fileprivate var cellsAttributes: [NSCollectionViewLayoutAttributes] = []
     fileprivate var contentSize = CGSize.zero
     fileprivate var itemCount = 0
@@ -38,10 +37,6 @@ class SearchCollectionViewFlowLayout: NSCollectionViewFlowLayout {
 
         // Cound
         self.itemCount = self.collectionView?.dataSource?.collectionView(collectionView, numberOfItemsInSection: 0) ?? 0
-
-        // Size
-        let sizeScreen = collectionView.frame.size
-        self.sizeCell = CGSize(width: sizeScreen.width, height: 57)
     }
 
     override open func prepare() {
@@ -56,12 +51,12 @@ class SearchCollectionViewFlowLayout: NSCollectionViewFlowLayout {
         for i in 0..<self.itemCount {
 
             let x: CGFloat = 0
-            let y = CGFloat(i) * self.sizeCell.height
+            let y = CGFloat(i) * self.itemSize.height
             let indexPath = IndexPath(item: i, section: 0)
 
             // Create attribute
             let att = NSCollectionViewLayoutAttributes(forItemWith: indexPath)
-            att.frame = CGRect(x: x, y: y, width: self.sizeCell.width, height: self.sizeCell.height)
+            att.frame = CGRect(x: x, y: y, width: self.itemSize.width, height: self.itemSize.height)
 
             // Append
             cell.append(att)
@@ -77,7 +72,7 @@ class SearchCollectionViewFlowLayout: NSCollectionViewFlowLayout {
             return CGSize.zero
         }
 
-        let height = CGFloat(self.itemCount) * self.sizeCell.height
+        let height = CGFloat(self.itemCount) * self.itemSize.height
         return CGSize(width: collectionView.frame.width, height: height)
     }
 
