@@ -91,6 +91,9 @@ open class UserObj: BaseObj {
             .flatMapLatest { _ -> Observable<PaymentObj> in
                 return UberService().paymentMethodObserver()
             }
+            .do(onNext: { (paymentObj) in
+                Logger.info("Curent PaymentMethods count = \(paymentObj.paymentAccountObjs?.count ?? 0 )")
+            })
             .bind(to: self.paymentMethodObjVar)
             .addDisposableTo(self.disposeBag)
     }

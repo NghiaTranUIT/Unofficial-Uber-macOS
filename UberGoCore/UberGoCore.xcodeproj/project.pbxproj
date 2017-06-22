@@ -25,6 +25,7 @@
 		BA22191C1EF6FBB100C766A1 /* PaymentObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA22191B1EF6FBB100C766A1 /* PaymentObj.swift */; };
 		BA22191E1EF6FC6D00C766A1 /* PaymentAccountObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA22191D1EF6FC6D00C766A1 /* PaymentAccountObj.swift */; };
 		BA2219201EF79CEB00C766A1 /* GetPaymentMethodRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA22191F1EF79CEB00C766A1 /* GetPaymentMethodRequest.swift */; };
+		BA2467FA1EFB793600E95E6D /* PaymentMethodViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2467F91EFB793600E95E6D /* PaymentMethodViewModel.swift */; };
 		BA2A3A7D1EED26EF002A0343 /* DatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2A3A7C1EED26EF002A0343 /* DatabaseService.swift */; };
 		BA32E71E1EDFC76A0044C017 /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA32E71D1EDFC76A0044C017 /* AuthenticationViewModel.swift */; };
 		BA32E7231EDFC8230044C017 /* AppViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA32E7221EDFC8230044C017 /* AppViewModel.swift */; };
@@ -110,6 +111,7 @@
 		BA22191B1EF6FBB100C766A1 /* PaymentObj.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentObj.swift; sourceTree = "<group>"; };
 		BA22191D1EF6FC6D00C766A1 /* PaymentAccountObj.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentAccountObj.swift; sourceTree = "<group>"; };
 		BA22191F1EF79CEB00C766A1 /* GetPaymentMethodRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetPaymentMethodRequest.swift; sourceTree = "<group>"; };
+		BA2467F91EFB793600E95E6D /* PaymentMethodViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentMethodViewModel.swift; sourceTree = "<group>"; };
 		BA2A3A7C1EED26EF002A0343 /* DatabaseService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseService.swift; sourceTree = "<group>"; };
 		BA32E71D1EDFC76A0044C017 /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
 		BA32E7221EDFC8230044C017 /* AppViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppViewModel.swift; sourceTree = "<group>"; };
@@ -257,6 +259,7 @@
 		BA32E71C1EDFC7550044C017 /* View Models */ = {
 			isa = PBXGroup;
 			children = (
+				BA2467F91EFB793600E95E6D /* PaymentMethodViewModel.swift */,
 				BA6767301EF8CB5400805AC1 /* UberServiceViewModel.swift */,
 				BA4796A61EE2C0C700620BB0 /* MapViewModel.swift */,
 				BA32E71D1EDFC76A0044C017 /* AuthenticationViewModel.swift */,
@@ -704,6 +707,7 @@
 				BA0C91AA1EF04AA200BA8B4B /* DriverObj.swift in Sources */,
 				BA6767311EF8CB5400805AC1 /* UberServiceViewModel.swift in Sources */,
 				BA4796AC1EE2D5BD00620BB0 /* BaseViewController.swift in Sources */,
+				BA2467FA1EFB793600E95E6D /* PaymentMethodViewModel.swift in Sources */,
 				BA4796A71EE2C0C700620BB0 /* MapViewModel.swift in Sources */,
 				BA7BA9811EE415D10056B0CF /* MapService.swift in Sources */,
 				BA0C91981EEF919B00BA8B4B /* Coordinate2DTransform.swift in Sources */,

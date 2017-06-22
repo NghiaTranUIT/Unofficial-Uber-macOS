@@ -47,15 +47,20 @@ class RequestUberView: NSView {
         guard self.isBinding == false else { return }
         self.isBinding = true
 
+        // Payment
+        self.updatePaymentMethod()
+
         // Request Uber service
-        self.viewModel.output.availableGroupProductsDriver.drive(onNext: {[weak self] (groups) in
+        self.viewModel.output.availableGroupProductsDriver
+        .drive(onNext: {[weak self] (groups) in
             guard let `self` = self else { return }
             self.updateAvailableGroupProducts(groups)
         })
         .addDisposableTo(self.disposeBag)
 
         // Select Group
-        self.viewModel.output.selectedGroupProduct.asObservable()
+        self.viewModel.output.selectedGroupProduct
+        .asObservable()
         .filterNil()
         .observeOn(MainScheduler.instance)
         .subscribe(onNext: {[weak self] (groupObj) in
@@ -126,9 +131,6 @@ class RequestUberView: NSView {
 
         // Update Stack
         self.updateStackView(groupProductObjs)
-
-        // Get Payement methods
-        self.updatePaymentMethod()
 
         // Reload
         self.collectionView.reloadData()

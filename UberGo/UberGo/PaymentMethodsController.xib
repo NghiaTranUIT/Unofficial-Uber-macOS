@@ -62,7 +62,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="480" height="380"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView id="N2Z-Dj-7AL" customClass="UberCollectionView" customModule="UberGo" customModuleProvider="target">
+                            <collectionView selectable="YES" allowsEmptySelection="NO" id="N2Z-Dj-7AL" customClass="UberCollectionView" customModule="UberGo" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="480" height="380"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumInteritemSpacing="10" minimumLineSpacing="10" id="cVf-dA-wTu">

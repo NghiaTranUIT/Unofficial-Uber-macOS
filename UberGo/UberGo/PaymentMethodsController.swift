@@ -21,6 +21,7 @@ class PaymentMethodsController: NSViewController {
     @IBOutlet fileprivate weak var topBarView: NSView!
 
     // MARK: - Variable
+    fileprivate var viewModel: PaymentMethodViewModel!
     public weak var delegate: PaymentMethodsControllerDelegate?
     fileprivate var paymentObj: PaymentObj!
 
@@ -35,6 +36,9 @@ class PaymentMethodsController: NSViewController {
         guard let currentUser = UserObj.currentUser else { return }
         guard let paymentMethod = currentUser.paymentMethodObjVar.value else { return }
         self.paymentObj = paymentMethod
+
+        // Selection
+        
     }
 
     @IBAction func exitBtnOnTap(_ sender: Any) {
@@ -84,9 +88,11 @@ extension PaymentMethodsController: NSCollectionViewDataSource {
         return accounts.count
     }
 
-    func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath) -> NSCollectionViewItem {
+    func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath)
+        -> NSCollectionViewItem {
         // Guard
-        guard let cell = collectionView.makeItem(withIdentifier: "PaymentAccountCell", for: indexPath) as? PaymentAccountCell,
+        guard let cell = collectionView.makeItem(withIdentifier: "PaymentAccountCell", for: indexPath)
+            as? PaymentAccountCell,
         let accounts = self.paymentObj.paymentAccountObjs else {
                 return NSCollectionViewItem()
         }

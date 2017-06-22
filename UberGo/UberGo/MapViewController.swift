@@ -178,7 +178,7 @@ class MapViewController: BaseViewController {
     }
 
     @objc func showPaymentMethodView(noti: Notification) {
-        let controller = PaymentMethodsController.init(nibName: "PaymentMethodsController", bundle: nil)!
+        let controller = PaymentMethodsController(nibName: "PaymentMethodsController", bundle: nil)!
         controller.delegate = self
         self.presentViewControllerAsSheet(controller)
         self.paymentMethodController = controller
