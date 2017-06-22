@@ -14,10 +14,6 @@ env:
     - DESTINATION="arch=x86_64"                      SCHEME="$FRAMEWORK_SCHEME"           SDK="$OSX_SDK"     RUN_TESTS="YES"    BUILD_EXAMPLE="NO"
 
 before_install:
-  - bundle init
-  - echo "gem 'cocoapods'" >> Gemfile
-  - echo "gem 'slather'" >> Gemfile
-  - echo "gem 'xcpretty'" >> Gemfile
   - bundle install
   - bundle exec pod install --repo-update
   - bundle exec pod update
