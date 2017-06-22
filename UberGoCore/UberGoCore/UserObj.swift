@@ -49,6 +49,8 @@ open class UserObj: BaseObj {
     // MARK: - Observer
     public let reloadUberDataPublisher = PublishSubject<Void>()
     public let paymentMethodObjVar = Variable<PaymentObj?>(nil)
+    public var selectedNewPaymentObjVar = Variable<PaymentAccountObj?>(nil)
+    public var currentPaymentAccountObjVar = Variable<PaymentAccountObj?>(nil)
 
     // MARK: - Init
     override init() {
@@ -85,6 +87,7 @@ open class UserObj: BaseObj {
 
     // MARK: - Binding
     public func binding() {
+
         // Payment
         self.reloadUberDataPublisher
             .asObserver()
@@ -96,6 +99,25 @@ open class UserObj: BaseObj {
             })
             .bind(to: self.paymentMethodObjVar)
             .addDisposableTo(self.disposeBag)
+
+        // Last User or select
+        let lastUsed = self.paymentMethodObjVar.asObservable()
+            .filterNil()
+            .flatMapLatest({ (paymentObj) -> Observable<PaymentAccountObj> in
+                guard let lastUser = paymentObj.lastUsedPaymentAccount else {
+                    return Observable.empty()
+                }
+                return Observable.just(lastUser)
+            })
+
+        let newSelectAccount = self.selectedNewPaymentObjVar
+            .asObservable()
+            .filterNil()
+
+        // Combine
+        Observable.merge([lastUsed, newSelectAccount])
+        .bind(to: self.currentPaymentAccountObjVar)
+        .addDisposableTo(self.disposeBag)
     }
 
     //TODO: Don't use UserDefault

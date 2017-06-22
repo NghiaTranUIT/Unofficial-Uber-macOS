@@ -16,6 +16,17 @@ class PaymentAccountCell: NSCollectionViewItem {
     @IBOutlet fileprivate weak var cardNumberLbl: UberTextField!
     @IBOutlet fileprivate weak var dividerLineView: NSView!
 
+    // MARK: - Variable
+    override var isSelected: Bool {
+        didSet {
+            if self.isSelected {
+                self.tickBtn.isHidden = false
+            } else {
+                self.tickBtn.isHidden = true
+            }
+        }
+    }
+
     // MARK: - View Cycle
     override func viewDidLoad() {
         super.viewDidLoad()

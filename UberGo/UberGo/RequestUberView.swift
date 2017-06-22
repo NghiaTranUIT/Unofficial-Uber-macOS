@@ -168,26 +168,19 @@ class RequestUberView: NSView {
     fileprivate func updatePaymentMethod() {
         guard let currentUser = UserObj.currentUser else { return }
 
-        currentUser.paymentMethodObjVar
+        // LastUse or select 
+        currentUser.currentPaymentAccountObjVar
         .asObservable()
         .filterNil()
-        .observeOn(MainScheduler.instance)
-        .subscribe(onNext: {[weak self] (paymentObj) in
-            guard let `self` = self else { return }
-
-            // No used
-            guard let lastUsed = paymentObj.lastUsedPaymentAccount else {
-                self.paymentImageView.image = NSImage(named: PaymentAccountType.unknown.imageIconName)
-                self.cardNumberLbl.stringValue = "Haven't used yet"
-                return
-            }
+        .subscribe(onNext: {[weak self] (accountObj) in
+             guard let `self` = self else { return }
 
             // Layout
-            self.paymentImageView.image = NSImage(named: lastUsed.type.imageIconName)
-            self.cardNumberLbl.stringValue = lastUsed.betterAccountDescription
+            self.paymentImageView.image = NSImage(named: accountObj.type.imageIconName)
+            self.cardNumberLbl.stringValue = accountObj.betterAccountDescription
             self.cardNumberLbl.setKern(1.2)
-
-        }).addDisposableTo(self.disposeBag)
+        })
+        .addDisposableTo(self.disposeBag)
     }
 
     // MARK: - Stuffs

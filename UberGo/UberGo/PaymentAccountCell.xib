@@ -32,7 +32,7 @@
                     <rect key="frame" x="20" y="16" width="36" height="22"/>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="visa_card" id="kG1-08-jIA"/>
                 </imageView>
-                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="t6R-zS-3vx">
+                <button hidden="YES" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="t6R-zS-3vx">
                     <rect key="frame" x="443" y="12" width="13" height="32"/>
                     <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="checked" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="EhH-mr-RdI">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>

@@ -24,6 +24,7 @@ class PaymentMethodsController: NSViewController {
     fileprivate var viewModel: PaymentMethodViewModel!
     public weak var delegate: PaymentMethodsControllerDelegate?
     fileprivate var paymentObj: PaymentObj!
+    fileprivate var selectedAccountObj: PaymentAccountObj?
 
     // MARK: - View Cycle
     override func viewDidLoad() {
@@ -35,10 +36,28 @@ class PaymentMethodsController: NSViewController {
         // Update
         guard let currentUser = UserObj.currentUser else { return }
         guard let paymentMethod = currentUser.paymentMethodObjVar.value else { return }
-        self.paymentObj = paymentMethod
+        guard let lastUsed = paymentMethod.lastUsedPaymentAccount else { return }
 
-        // Selection
+        // Default selection is lastUsed account
+        if self.selectedAccountObj == nil {
+            self.selectedAccountObj = lastUsed
+        }
+
+        // Fill
+        self.paymentObj = paymentMethod
+        self.collectionView.reloadData()
         
+        // Selection
+        guard let paymentAccountObjs = self.paymentObj.paymentAccountObjs else { return }
+        var index = 0
+        for (i, e) in paymentAccountObjs.enumerated() {
+            if e.paymentMethodId == self.selectedAccountObj?.paymentMethodId {
+                index = i
+                break
+            }
+        }
+        let set = Set<IndexPath>([IndexPath(item: index, section: 0)])
+        self.collectionView.selectItems(at: set, scrollPosition: .top)
     }
 
     @IBAction func exitBtnOnTap(_ sender: Any) {
@@ -98,10 +117,16 @@ extension PaymentMethodsController: NSCollectionViewDataSource {
         }
         let obj = accounts[indexPath.item]
         cell.configureCell(with: obj)
+
         return cell
     }
 }
 
 extension PaymentMethodsController: NSCollectionViewDelegate {
 
+    func collectionView(_ collectionView: NSCollectionView, didSelectItemsAt indexPaths: Set<IndexPath>) {
+        guard let accounts = self.paymentObj.paymentAccountObjs else { return }
+        guard let indexPath = indexPaths.first else { return }
+        self.selectedAccountObj = accounts[indexPath.item]
+    }
 }
