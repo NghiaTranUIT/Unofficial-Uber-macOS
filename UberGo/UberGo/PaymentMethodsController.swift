@@ -24,7 +24,13 @@ class PaymentMethodsController: NSViewController {
     fileprivate var viewModel: PaymentMethodViewModel!
     public weak var delegate: PaymentMethodsControllerDelegate?
     fileprivate var paymentObj: PaymentObj!
-    fileprivate var selectedAccountObj: PaymentAccountObj?
+    fileprivate var selectedAccountObj: PaymentAccountObj? {
+        didSet {
+            guard let obj = self.selectedAccountObj else { return }
+            guard let currentUser = UserObj.currentUser else { return }
+            currentUser.selectedNewPaymentObjVar.value = obj
+        }
+    }
 
     // MARK: - View Cycle
     override func viewDidLoad() {
@@ -36,22 +42,17 @@ class PaymentMethodsController: NSViewController {
         // Update
         guard let currentUser = UserObj.currentUser else { return }
         guard let paymentMethod = currentUser.paymentMethodObjVar.value else { return }
-        guard let lastUsed = paymentMethod.lastUsedPaymentAccount else { return }
-
-        // Default selection is lastUsed account
-        if self.selectedAccountObj == nil {
-            self.selectedAccountObj = lastUsed
-        }
+        guard let currentAccount = currentUser.currentPaymentAccountObjVar.value else { return }
 
         // Fill
         self.paymentObj = paymentMethod
         self.collectionView.reloadData()
-        
+
         // Selection
         guard let paymentAccountObjs = self.paymentObj.paymentAccountObjs else { return }
         var index = 0
         for (i, e) in paymentAccountObjs.enumerated() {
-            if e.paymentMethodId == self.selectedAccountObj?.paymentMethodId {
+            if e.paymentMethodId == currentAccount.paymentMethodId {
                 index = i
                 break
             }
