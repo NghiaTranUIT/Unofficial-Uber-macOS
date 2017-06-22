@@ -461,9 +461,8 @@
 				BA037F311EDD61F800945C1D /* Resources */,
 				F20F0C70E7EA8A04910A7D3A /* [CP] Embed Pods Frameworks */,
 				702D69811002A3516F5DB060 /* [CP] Copy Pods Resources */,
-				BA4796AD1EE2D61100620BB0 /* ShellScript */,
+				BA4796AD1EE2D61100620BB0 /* Swiftlint */,
 				BAE690291EE4346700A4D876 /* Embed Frameworks */,
-				BADB78651EE6F3FE000536F7 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -507,7 +506,7 @@
 				TargetAttributes = {
 					BA037F321EDD61F800945C1D = {
 						CreatedOnToolsVersion = 8.3.2;
-						DevelopmentTeam = D54Y88Y9CY;
+						DevelopmentTeam = 7G5K6NH4YV;
 						ProvisioningStyle = Automatic;
 					};
 					BA037F431EDD61F800945C1D = {
@@ -630,31 +629,19 @@
 			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-UberGoTests/Pods-UberGoTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		BA4796AD1EE2D61100620BB0 /* ShellScript */ = {
+		BA4796AD1EE2D61100620BB0 /* Swiftlint */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
+			name = Swiftlint;
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
-		};
-		BADB78651EE6F3FE000536F7 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "TAGS=\"TODO:|FIXME:\"\nERRORTAG=\"ERROR:\"\nfind \"${SRCROOT}\" \\( -name \"*.h\" -or -name \"*.m\" -or -name \"*.swift\" -type f\\) -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($TAGS).*\\$|($ERRORTAG).*\\$\" | perl -p -e \"s/($TAGS)/ warning: \\$1/\" | perl -p -e \"s/($ERRORTAG)/ error: \\$1/\"";
 		};
 		DE15E6E755C70DECE8D50B8C /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -861,8 +848,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = D54Y88Y9CY;
+				DEVELOPMENT_TEAM = 7G5K6NH4YV;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -882,8 +870,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = D54Y88Y9CY;
+				DEVELOPMENT_TEAM = 7G5K6NH4YV;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",

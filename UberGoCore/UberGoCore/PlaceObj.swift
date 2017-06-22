@@ -6,6 +6,8 @@
 //  Copyright © 2017 Nghia Tran. All rights reserved.
 //
 
+// swiftlint:disable force_cast
+
 import CoreLocation
 import ObjectMapper
 

@@ -36,7 +36,7 @@ class SandboxUberServiceTests: XCTestCase {
 
         // Then
         SandboxUberService().modifySandboxProductObserver(productObj: productObj, surgeRate: 2.4, available: true)
-            .subscribe(onNext: { productObjs in
+            .subscribe(onNext: { _ in
                 promise.fulfill()
             }, onError: { error in
                 XCTFail(error.localizedDescription)

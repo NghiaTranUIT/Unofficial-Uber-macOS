@@ -128,14 +128,6 @@ open class UberService {
         return PostEstimateTripRequest(param).toObservable()
     }
 
-//    public func requestTripUber(with estimateObj: EstimateObj, productObj: ProductObj, paymentAccountObj: PaymentAccountObj, from: CLLocationCoordinate2D, to: PlaceObj) -> Observable<CreateTripObj> {
-//        var param: CreateTripRequestParam
-//        if let upFrontFareObj = estimateObj.upFrontFareObj {
-//            param = CreateTripRequestParam(fareID: upFrontFareObj.fareId!, productID: productObj.objectId!, surgeConfirmationId: estimateObj.surgePriceObj?.surgeConfirmationId, paymentMethodId: paymentAccountObj.objectId, startLocation: from, endLocation: to.coordinate2D, startPlaceType: nil, endPlaceType: nil)
-//        } else {
-//            param = CreateTripRequestParam(fareID: upFrontFareObj.fareId!, productID: productObj.objectId!, surgeConfirmationId: estimateObj.surgePriceObj?.surgeConfirmationId, paymentMethodId: paymentAccountObj.objectId, startLocation: from, endLocation: to.coordinate2D, startPlaceType: nil, endPlaceType: nil)
-//        }
-//    }
 }
 
 // MARK: - Private

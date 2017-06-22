@@ -14,7 +14,7 @@ class FakeUberCrendential {
 
     class func valid() -> OAuthSwiftCredential {
         let uber = OAuthSwiftCredential(consumerKey: "abc", consumerSecret: "secret")
-        uber.oauthToken = "KA.eyJ2ZXJzaW9uIjoyLCJpZCI6Imc4bEFRSWxMUk5LNGF3WXRYVXFsQVE9PSIsImV4cGlyZXNfYXQiOjE0OTkxNDUyNDIsInBpcGVsaW5lX2tleV9pZCI6Ik1RPT0iLCJwaXBlbGluZV9pZCI6MX0.ONbzHyX58JAYgpzlH3XKcADH2ukVUsPhRNNRLll0NM0"
+        uber.oauthToken = "KA.eyJ2ZXJzaW9uIjoyLCJpZCI6Imc4bEFRSWxMUk5LNGF3WXRYVXFsQVE9PSIsImV4cGlyZXNfYXQiOjE0OTkxNDUyNDIsInBpcGVsaW5lX2tleV9pZCI6Ik1RPT0iLCJwaXBlbGluZV9pZCI6MX0.ONbzHyX58JAYgpzlH3XKcADH2ukVUsPhRNNRLll0NM0" // swiftlint:disable:this line_length
         uber.oauthTokenSecret = "oauthTokenSecret"
         uber.oauthTokenExpiresAt = Date()
         uber.oauthRefreshToken = "oauthRefreshToken"

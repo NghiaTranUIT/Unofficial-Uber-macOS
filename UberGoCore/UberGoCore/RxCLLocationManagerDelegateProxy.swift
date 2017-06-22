@@ -6,15 +6,15 @@
 //  Copyright © 2015 Krunoslav Zaher. All rights reserved.
 //
 
+// swiftlint:disable force_cast
+
 import CoreLocation
 #if !RX_NO_MODULE
     import RxSwift
     import RxCocoa
 #endif
 
-class RxCLLocationManagerDelegateProxy : DelegateProxy
-                                       , CLLocationManagerDelegate
-                                       , DelegateProxyType {
+class RxCLLocationManagerDelegateProxy: DelegateProxy, CLLocationManagerDelegate, DelegateProxyType {
 
     internal lazy var didUpdateLocationsSubject = PublishSubject<[CLLocation]>()
     internal lazy var didFailWithErrorSubject = PublishSubject<Error>()

@@ -6,11 +6,15 @@
 //  Copyright © 2015 Krunoslav Zaher. All rights reserved.
 //
 
+// swiftlint:disable identifier_name
+
+
 #if !RX_NO_MODULE
 import RxSwift
 #endif
 
-import class Dispatch.queue.DispatchQueue
+import Foundation
+//import class Dispatch.queue.DispatchQueue
 
 public enum ReachabilityStatus {
     case reachable(viaWiFi: Bool)
@@ -36,8 +40,7 @@ enum ReachabilityServiceError: Error {
     case failedToCreate
 }
 
-class DefaultReachabilityService
-    : ReachabilityService {
+class DefaultReachabilityService: ReachabilityService {
 
     private let _reachabilitySubject: BehaviorSubject<ReachabilityStatus>
 
@@ -77,7 +80,7 @@ class DefaultReachabilityService
 }
 
 extension ObservableConvertibleType {
-    func retryOnBecomesReachable(_ valueOnFailure:E, reachabilityService: ReachabilityService) -> Observable<E> {
+    func retryOnBecomesReachable(_ valueOnFailure: E, reachabilityService: ReachabilityService) -> Observable<E> {
         return self.asObservable()
             .catchError { (e) -> Observable<E> in
                 reachabilityService.reachability
