@@ -204,6 +204,10 @@ class MapViewController: BaseViewController {
             return
         }
 
+        // Hide
+        self.dismissViewController(self.webController)
+
+        // Get
         self.requestUberView.viewModel.input.requestUberWithSurgeIDPublisher.onNext(url)
     }
 

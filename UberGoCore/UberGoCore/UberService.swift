@@ -134,9 +134,9 @@ open class UberService {
                                        from: CLLocationCoordinate2D,
                                        to: PlaceObj) -> Observable<CreateTripObj> {
         let param = CreateTripRequestParam(fareID: frontFareObj.fareId!,
-                                       productID: productObj.objectId!,
+                                       productID: productObj.productId!,
                                        surgeConfirmationId: nil,
-                                       paymentMethodId: paymentAccountObj?.objectId,
+                                       paymentMethodId: paymentAccountObj?.paymentMethodId,
                                        startLocation: from,
                                        endLocation: to.coordinate2D,
                                        startPlaceType: nil,
@@ -150,9 +150,9 @@ open class UberService {
                                  from: CLLocationCoordinate2D,
                                  to: PlaceObj) -> Observable<CreateTripObj> {
         let param = CreateTripRequestParam(fareID: nil,
-                                       productID: productObj.objectId!,
+                                       productID: productObj.productId!,
                                        surgeConfirmationId: surgeID,
-                                       paymentMethodId: paymentAccountObj?.objectId,
+                                       paymentMethodId: paymentAccountObj?.paymentMethodId,
                                        startLocation: from,
                                        endLocation: to.coordinate2D,
                                        startPlaceType: nil,
