@@ -134,8 +134,12 @@ class MapViewController: BaseViewController {
             self.mapView.addDestinationPlaceObj(placeObj)
 
             // Request Product + Estimate Uber
-            guard let current = self.viewModel.currentLocationVariable.value else { return }
-            let data = UberData(placeObj: placeObj, from: current.coordinate)
+            guard let placeObj = placeObj else { return }
+            guard let currentLocation = self.viewModel.currentLocationVariable.value else { return }
+            guard let currentUser = UserObj.currentUser else { return }
+
+            let data = UberData(placeObj: placeObj, from: currentLocation.coordinate,
+                                paymentAccount: currentUser.selectedNewPaymentObjVar.value)
             self.requestUberView.viewModel.input.selectedPlacePublisher.onNext(data)
         })
         .addDisposableTo(self.disposeBag)
@@ -154,26 +158,24 @@ class MapViewController: BaseViewController {
         .subscribe(onNext: { isLoading in
             Logger.info("isLoading Available Products = \(isLoading)")
         })
-        .addDisposableTo(self.disposeBag)
+        .addDisposableTo(self.viewModel.disposeBag)
+
+        // Show href
+        self.requestUberView.viewModel.output.showSurgeHrefDriver.drive(onNext: { surgeObj in
+
+        })
+        .addDisposableTo(self.viewModel.disposeBag)
     }
 
     fileprivate func notificationBinding() {
-        NotificationService.observeNotificationType(.showSurgeHrefConfirmationView,
-                                                    observer: self,
-                                                    selector: #selector(self.showSurgeHrefView(noti:)),
-                                                    object: nil)
         NotificationService.observeNotificationType(NotificationType.showPaymentMethodsView,
                                                     observer: self,
                                                     selector: #selector(self.showPaymentMethodView(noti:)),
                                                     object: nil)
     }
 
-    @objc func showSurgeHrefView(noti: Notification) {
-        guard let estimateObj = noti.object as? EstimateObj else {
-            return
-        }
-
-        self.webController.configureWebView(with: estimateObj)
+    @objc func showSurgeHrefView(_ surgeObj: SurgePriceObj) {
+        self.webController.configureWebView(with: surgeObj)
         self.presentViewControllerAsSheet(self.webController)
     }
 

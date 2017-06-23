@@ -12,7 +12,7 @@ import ObjectMapper
 
 public struct CreateTripRequestParam: Parameter {
 
-    let fareID: String
+    let fareID: String?
     let productID: String
     let surgeConfirmationId: String?
     let paymentMethodId: String?
@@ -34,8 +34,15 @@ public struct CreateTripRequestParam: Parameter {
         }
 
         // Param
-        var param: [String: Any] = ["fare_id": self.fareID,
-                                    "product_id": self.productID]
+        var param: [String: Any] = ["product_id": self.productID]
+
+        // Fare ID or Surge_comfirmation
+        if let fareID = self.fareID {
+             param["fare_id"] = fareID
+        }
+        if let surgeConfirmationId = self.surgeConfirmationId {
+            param["surge_confirmation_id"] = surgeConfirmationId
+        }
 
         // Start
         if let placeType = self.startPlaceType {
@@ -51,10 +58,6 @@ public struct CreateTripRequestParam: Parameter {
         } else if let endLocation = self.endLocation {
             param["end_latitude"] = endLocation.latitude
             param["end_longitude"] = endLocation.longitude
-        }
-
-        if let surgeConfirmationId = self.surgeConfirmationId {
-            param["surge_confirmation_id"] = surgeConfirmationId
         }
 
         if let paymentMethodId = self.paymentMethodId {

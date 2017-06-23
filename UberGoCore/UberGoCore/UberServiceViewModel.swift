@@ -25,12 +25,18 @@ public protocol UberServiceViewModelInput {
 
 public struct UberData {
 
-    public var placeObj: PlaceObj?
+    public var placeObj: PlaceObj
     public var from: CLLocationCoordinate2D
+    public var paymentAccount: PaymentAccountObj?
+    public var productObj: ProductObj?
+    public var estimateObj: EstimateObj?
 
-    public init(placeObj: PlaceObj?, from: CLLocationCoordinate2D) {
+    public init(placeObj: PlaceObj,
+                from: CLLocationCoordinate2D,
+                paymentAccount: PaymentAccountObj?) {
         self.placeObj = placeObj
         self.from = from
+        self.paymentAccount = paymentAccount
     }
 }
 
@@ -43,7 +49,10 @@ public protocol UberServiceViewModelOutput {
     var selectedProduct: Variable<ProductObj?> { get }
 
     // Surge Href
-    var showSurgeHrefDriver: Driver<String>! { get }
+    var showSurgeHrefDriver: Driver<SurgePriceObj>! { get }
+
+    // Normal Trip
+    var normalTripDriver: Driver<CreateTripObj>! { get }
 }
 
 open class UberServiceViewModel: BaseViewModel,
@@ -64,7 +73,8 @@ open class UberServiceViewModel: BaseViewModel,
     public var isLoadingAvailableProductPublisher = PublishSubject<Bool>()
     public let selectedGroupProduct = Variable<GroupProductObj?>(nil)
     public let selectedProduct = Variable<ProductObj?>(nil)
-    public var showSurgeHrefDriver: Driver<String>!
+    public var showSurgeHrefDriver: Driver<SurgePriceObj>!
+    public var normalTripDriver: Driver<CreateTripObj>!
 
     // MARK: - Variable
     fileprivate var uberService = UberService()
@@ -81,13 +91,11 @@ open class UberServiceViewModel: BaseViewModel,
                 self.isLoadingAvailableProductPublisher.onNext(true)
             })
             .flatMapLatest {[unowned self] data -> Observable<[ProductObj]> in
-                guard let placeObj = data.placeObj else {
-                    return Observable.just([])
-                }
-
                 self.uberData = data
+                self.uberData?.productObj = self.selectedProduct.value!
+
                 return self.uberService.productsWithEstimatePriceObserver(from: data.from,
-                                                                          to: placeObj.coordinate2D!)
+                                                                          to: data.placeObj.coordinate2D!)
             }
             .map({ GroupProductObj.mapProductGroups(from: $0) })
             .share()
@@ -108,61 +116,53 @@ open class UberServiceViewModel: BaseViewModel,
         .addDisposableTo(self.disposeBag)
 
         // Request Uber service
-        self.requestUberPublisher.flatMapLatest {[unowned self] _ -> Observable<EstimateObj> in
+        let shareRequest = self.requestUberPublisher
+            .flatMapLatest {[unowned self] _ -> Observable<EstimateObj> in
+                guard let productObj = self.selectedProduct.value else {
+                    return Observable.empty()
+                }
+                guard let data = self.uberData else {
+                    return Observable.empty()
+                }
+                Logger.info("productID = \(productObj.productId ?? "")")
+                return self.uberService.estimateForSpecificProductObserver(productObj,
+                                                                           from: data.from,
+                                                                           to: data.placeObj.coordinate2D!)
+            }
+        .share()
+
+        // Normal Price
+        self.normalTripDriver = shareRequest
+        .flatMapLatest { (estiamteObj) -> Observable<CreateTripObj>in
+            guard estiamteObj.upFrontFareObj != nil  else {
+                return Observable.empty()
+            }
             guard let productObj = self.selectedProduct.value else {
                 return Observable.empty()
             }
-            guard let data = self.uberData,
-                  let placeObj = data.placeObj else {
+            guard let data = self.uberData else {
                 return Observable.empty()
             }
-            Logger.info("productID = \(productObj.productId ?? "")")
-            return self.uberService.estimateForSpecificProductObserver(productObj,
-                                                                       from: data.from,
-                                                                       to: placeObj.coordinate2D!)
-        }.share()
 
-//        // Normal Price
-//        let normalPriceRequestOb = shareRequest
-//        .flatMapLatest { (estiamteObj) -> Observable<CreateTripObj>in
-//            guard estiamteObj.upFrontFareObj != nil  else {
-//                return Observable.empty()
-//            }
-//
-//            Logger.info("Normal Price")
-//        }
-//
-//        // Surge rate
-//        let surgePriceRequestOb = shareRequest
-//        .flatMapFirst { (estimateObj) -> Observable<EstimateObj> in
-//            guard let surgePriceObj = estimateObj.surgePriceObj else {
-//                return Observable.empty()
-//            }
-//            if surgePriceObj.surgeConfirmationHref != nil {
-//                assert(false, "surgeConfirmationHref is nill")
-//            }
-//            return Observable.just(estimateObj)
-//        }
+            Logger.info("Normal Price")
+            return self.uberService.requestTripUber(with: estiamteObj,
+                                                    productObj: productObj,
+                                                    paymentAccountObj: data.paymentAccount,
+                                                    from: data.from,
+                                                    to: data.placeObj)
+        }.asDriver(onErrorJustReturn: CreateTripObj())
 
-        .subscribe(onNext: { estimateObj in
-
-            // Normal Price
-            if let fareObj = estimateObj.upFrontFareObj {
-                Logger.info("Normal Price")
-                Logger.info("FareID = \(fareObj.fareId ?? "")")
-                return
+        // Show Surge rate confirmation
+        self.showSurgeHrefDriver = shareRequest
+        .flatMapFirst { (estimateObj) -> Observable<SurgePriceObj> in
+            guard let surgePriceObj = estimateObj.surgePriceObj else {
+                return Observable.empty()
             }
-
-            // High surge rate
-            if estimateObj.surgePriceObj != nil {
-                Logger.info("High surge rate")
-                if estimateObj.surgePriceObj?.surgeConfirmationHref != nil {
-                    NotificationService.postNotificationOnMainThreadType(.showSurgeHrefConfirmationView,
-                                                                         object: estimateObj,
-                                                                         userInfo: nil)
-                }
+            guard let href = surgePriceObj.surgeConfirmationHref else {
+                assert(false, "surgeConfirmationHref is nill")
             }
-        })
-        .addDisposableTo(self.disposeBag)
+            return Observable.just(surgePriceObj)
+        }
+        .asDriver(onErrorJustReturn: SurgePriceObj())
     }
 }
