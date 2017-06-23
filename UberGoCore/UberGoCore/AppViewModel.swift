@@ -30,6 +30,7 @@ public protocol AppViewModelInput {
     // Debug
     var currentTripStatusPublish: PublishSubject<Void> { get }
     var cancelCurrentTripPublish: PublishSubject<Void> { get }
+    var updateStatusTripPublish: PublishSubject<TripObjStatus> { get }
 }
 
 public protocol AppViewModelOutput {
@@ -51,6 +52,8 @@ open class AppViewModel: BaseViewModel, AppViewModelProtocol, AppViewModelInput,
 
     public var currentTripStatusPublish = PublishSubject<Void>()
     public var cancelCurrentTripPublish = PublishSubject<Void>()
+    public var updateStatusTripPublish = PublishSubject<TripObjStatus>()
+    fileprivate var sandboxStatus = TripObjStatus.unknown
 
     fileprivate let uberService = UberService()
 
@@ -81,12 +84,32 @@ open class AppViewModel: BaseViewModel, AppViewModelProtocol, AppViewModelInput,
         })
         .addDisposableTo(self.disposeBag)
 
+        // Cancel
         self.cancelCurrentTripPublish.asObserver()
         .flatMapLatest {[unowned self] (_) -> Observable<Void> in
             return self.uberService.cancelCurrentTrip()
         }
         .subscribe(onNext: { _ in
             Logger.info("[DEBUG] CANCEL TRIP OK")
+        })
+        .addDisposableTo(self.disposeBag)
+
+        // Update status
+        self.updateStatusTripPublish.asObserver()
+        .do(onNext: {[unowned self] (status) in
+            self.sandboxStatus = status
+        })
+        .flatMapLatest({[unowned self] _ -> Observable<TripObj> in
+            return self.uberService.getCurrentTrip()
+        })
+        .flatMapLatest {[unowned self] (tripObj) -> Observable<Void> in
+            guard let requestID = tripObj.requestId else {
+                return Observable.empty()
+            }
+            return SandboxUberService().updateTripStateObserver(status: self.sandboxStatus, requestID: requestID)
+        }
+        .subscribe(onNext: {[unowned self] _ in
+            Logger.info("[DEBUG] UPDATE TRIP = \(self.sandboxStatus.rawValue)")
         })
         .addDisposableTo(self.disposeBag)
     }

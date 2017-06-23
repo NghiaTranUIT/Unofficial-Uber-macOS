@@ -655,6 +655,50 @@
                                                             <action selector="currentTripStatusOnTap:" target="Voe-Tx-rLC" id="Zmu-kM-MPZ"/>
                                                         </connections>
                                                     </menuItem>
+                                                    <menuItem isSeparatorItem="YES" id="Khm-aJ-phF"/>
+                                                    <menuItem title="Update Status" id="fne-sm-tWU">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <menu key="submenu" title="Update Status" id="JWr-2c-KtL">
+                                                            <items>
+                                                                <menuItem title="processing" id="R6V-3q-sDA">
+                                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                                    <connections>
+                                                                        <action selector="updateStateOnTap:" target="Voe-Tx-rLC" id="HWK-gr-Fze"/>
+                                                                    </connections>
+                                                                </menuItem>
+                                                                <menuItem title="accepted" id="LJ0-KD-64R">
+                                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                                    <connections>
+                                                                        <action selector="updateStateOnTap:" target="Voe-Tx-rLC" id="ehl-dJ-8Od"/>
+                                                                    </connections>
+                                                                </menuItem>
+                                                                <menuItem title="arriving" id="9dV-zY-E8v">
+                                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                                    <connections>
+                                                                        <action selector="updateStateOnTap:" target="Voe-Tx-rLC" id="jqy-2I-DZ9"/>
+                                                                    </connections>
+                                                                </menuItem>
+                                                                <menuItem title="in_progress" id="xKt-QU-w3g">
+                                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                                    <connections>
+                                                                        <action selector="updateStateOnTap:" target="Voe-Tx-rLC" id="vlY-1Q-E9D"/>
+                                                                    </connections>
+                                                                </menuItem>
+                                                                <menuItem title="driver_canceled" id="Tm0-gI-93a">
+                                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                                    <connections>
+                                                                        <action selector="updateStateOnTap:" target="Voe-Tx-rLC" id="Wfp-Jg-GQP"/>
+                                                                    </connections>
+                                                                </menuItem>
+                                                                <menuItem title="completed" id="0gm-Cz-hrU">
+                                                                    <modifierMask key="keyEquivalentModifierMask"/>
+                                                                    <connections>
+                                                                        <action selector="updateStateOnTap:" target="Voe-Tx-rLC" id="U3S-88-ehh"/>
+                                                                    </connections>
+                                                                </menuItem>
+                                                            </items>
+                                                        </menu>
+                                                    </menuItem>
                                                     <menuItem isSeparatorItem="YES" id="qDt-z5-ctz"/>
                                                     <menuItem title="Cancel Current Trip" id="BCm-8p-eg0">
                                                         <modifierMask key="keyEquivalentModifierMask"/>

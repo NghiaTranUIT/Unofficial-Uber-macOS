@@ -89,6 +89,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         self.viewModel.input.cancelCurrentTripPublish.onNext()
     }
 
+    @IBAction func updateStateOnTap(_ sender: NSMenuItem) {
+        let status = TripObjStatus.createTripStatus(rawValue: sender.title)
+        self.viewModel.input.updateStatusTripPublish.onNext(status)
+    }
 }
 
 // MARK: - Private
