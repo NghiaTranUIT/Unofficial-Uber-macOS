@@ -138,8 +138,7 @@ class MapViewController: BaseViewController {
             guard let currentLocation = self.viewModel.currentLocationVariable.value else { return }
             guard let currentUser = UserObj.currentUser else { return }
 
-            let data = UberData(placeObj: placeObj, from: currentLocation.coordinate,
-                                paymentAccount: currentUser.selectedNewPaymentObjVar.value)
+            let data = UberData(placeObj: placeObj, from: currentLocation.coordinate)
             self.requestUberView.viewModel.input.selectedPlacePublisher.onNext(data)
         })
         .addDisposableTo(self.disposeBag)
@@ -158,13 +157,22 @@ class MapViewController: BaseViewController {
         .subscribe(onNext: { isLoading in
             Logger.info("isLoading Available Products = \(isLoading)")
         })
-        .addDisposableTo(self.viewModel.disposeBag)
+        .addDisposableTo(self.requestUberView.disposeBag)
 
         // Show href
-        self.requestUberView.viewModel.output.showSurgeHrefDriver.drive(onNext: { surgeObj in
-
+        self.requestUberView.viewModel.output.showSurgeHrefDriver
+        .drive(onNext: {[weak self] surgeObj in
+            guard let `self` = self else { return }
+            Logger.info("SHOW CONFIRMATION = \(surgeObj.surgeConfirmationHref ?? "")")
+            self.showSurgeHrefView(surgeObj)
         })
-        .addDisposableTo(self.viewModel.disposeBag)
+        .addDisposableTo(self.requestUberView.disposeBag)
+
+        // Trip
+        self.requestUberView.viewModel.output.normalTripDriver.drive(onNext: { (createTripObj) in
+            Logger.info("Start Request Normal TRIP = \(createTripObj)")
+        })
+        .addDisposableTo(self.requestUberView.disposeBag)
     }
 
     fileprivate func notificationBinding() {

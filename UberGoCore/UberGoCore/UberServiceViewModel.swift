@@ -27,16 +27,11 @@ public struct UberData {
 
     public var placeObj: PlaceObj
     public var from: CLLocationCoordinate2D
-    public var paymentAccount: PaymentAccountObj?
-    public var productObj: ProductObj?
-    public var estimateObj: EstimateObj?
 
     public init(placeObj: PlaceObj,
-                from: CLLocationCoordinate2D,
-                paymentAccount: PaymentAccountObj?) {
+                from: CLLocationCoordinate2D) {
         self.placeObj = placeObj
         self.from = from
-        self.paymentAccount = paymentAccount
     }
 }
 
@@ -92,8 +87,6 @@ open class UberServiceViewModel: BaseViewModel,
             })
             .flatMapLatest {[unowned self] data -> Observable<[ProductObj]> in
                 self.uberData = data
-                self.uberData?.productObj = self.selectedProduct.value!
-
                 return self.uberService.productsWithEstimatePriceObserver(from: data.from,
                                                                           to: data.placeObj.coordinate2D!)
             }
@@ -140,6 +133,9 @@ open class UberServiceViewModel: BaseViewModel,
             guard let productObj = self.selectedProduct.value else {
                 return Observable.empty()
             }
+            guard let currentUser = UserObj.currentUser else {
+                return Observable.empty()
+            }
             guard let data = self.uberData else {
                 return Observable.empty()
             }
@@ -147,7 +143,7 @@ open class UberServiceViewModel: BaseViewModel,
             Logger.info("Normal Price")
             return self.uberService.requestTripUber(with: estiamteObj,
                                                     productObj: productObj,
-                                                    paymentAccountObj: data.paymentAccount,
+                                                    paymentAccountObj: currentUser.currentPaymentAccountObjVar.value,
                                                     from: data.from,
                                                     to: data.placeObj)
         }.asDriver(onErrorJustReturn: CreateTripObj())

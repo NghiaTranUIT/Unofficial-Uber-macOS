@@ -28,7 +28,7 @@ class RequestUberView: NSView {
     public let viewModel = UberServiceViewModel()
 
     fileprivate var isBinding = false
-    fileprivate let disposeBag = DisposeBag()
+    public let disposeBag = DisposeBag()
     fileprivate var selectedProduct: Variable<ProductObj?> {
         return self.viewModel.output.selectedProduct
     }
