@@ -26,6 +26,10 @@ public protocol AppViewModelInput {
 
     var switchPopoverPublish: PublishSubject<Void> { get }
     var actionPopoverPublish: PublishSubject<PopoverState> { get }
+
+    // Debug
+    var currentTripStatusPublish: PublishSubject<Void> { get }
+    var cancelCurrentTripPublish: PublishSubject<Void> { get }
 }
 
 public protocol AppViewModelOutput {
@@ -45,6 +49,11 @@ open class AppViewModel: BaseViewModel, AppViewModelProtocol, AppViewModelInput,
     public var switchPopoverPublish = PublishSubject<Void>()
     public var popoverStateVariable = Variable<PopoverState>(.close)
 
+    public var currentTripStatusPublish = PublishSubject<Void>()
+    public var cancelCurrentTripPublish = PublishSubject<Void>()
+
+    fileprivate let uberService = UberService()
+
     // MARK: - Init
     public override init() {
         super.init()
@@ -60,6 +69,25 @@ open class AppViewModel: BaseViewModel, AppViewModelProtocol, AppViewModelInput,
         .addDisposableTo(self.disposeBag)
 
         self.actionPopoverPublish.bind(to: self.popoverStateVariable)
+        .addDisposableTo(self.disposeBag)
+
+        // Debug
+        self.currentTripStatusPublish.asObserver()
+        .flatMapLatest {[unowned self] _ -> Observable<TripObj> in
+            return self.uberService.getCurrentTrip()
+        }
+        .subscribe(onNext: { (tripObj) in
+            Logger.info("[DEBUG] CURRENT TRIP = \(tripObj)")
+        })
+        .addDisposableTo(self.disposeBag)
+
+        self.cancelCurrentTripPublish.asObserver()
+        .flatMapLatest {[unowned self] (_) -> Observable<Void> in
+            return self.uberService.cancelCurrentTrip()
+        }
+        .subscribe(onNext: { _ in
+            Logger.info("[DEBUG] CANCEL TRIP OK")
+        })
         .addDisposableTo(self.disposeBag)
     }
 }

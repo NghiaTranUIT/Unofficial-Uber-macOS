@@ -47,8 +47,15 @@ open class UberService {
             })
     }
 
-    public func getCurrentRide() -> Observable<TripObj> {
+    public func getCurrentTrip() -> Observable<TripObj> {
         return GetCurrentTripRequest().toObservable()
+    }
+
+    public func cancelCurrentTrip() -> Observable<Void> {
+        return CancelCurrentTripRequest().toObservable()
+        .map({ _ -> Void in
+            return
+        })
     }
 
     fileprivate class func historyPlaceObserver() -> Observable<[PlaceObj]> {

@@ -24,10 +24,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     // MARK: - Action
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-
-//        UserDefaults.standard.removeObject(forKey: "history")
-//        UserDefaults.standard.synchronize()
-
+        
         // listen to scheme url
         let selector = #selector(AppDelegate.handleGetURL(event:withReplyEvent:))
         NSAppleEventManager.shared().setEventHandler(self, andSelector: selector,
@@ -82,6 +79,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Uber Authentication
         self.authenticationViewModel.input.uberCallbackPublish.onNext(event)
     }
+
+    // MARK: - Debug
+    @IBAction func currentTripStatusOnTap(_ sender: Any) {
+
+    }
+
+    @IBAction func cancelCurrentTripOnTab(_ sender: Any) {
+
+    }
+
 }
 
 // MARK: - Private

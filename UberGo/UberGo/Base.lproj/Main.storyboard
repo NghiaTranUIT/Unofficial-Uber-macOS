@@ -645,6 +645,25 @@
                                                 <action selector="showHelp:" target="Ady-hI-5gd" id="y7X-2Q-9no"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem title="Debug" id="zif-Tg-s8L">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <menu key="submenu" title="Debug" id="Zsb-et-OIS">
+                                                <items>
+                                                    <menuItem title="Current Trip Status" id="wso-lX-mzy">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="currentTripStatusOnTap:" target="Voe-Tx-rLC" id="Zmu-kM-MPZ"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                    <menuItem title="Cancel Current Trip" id="BCm-8p-eg0">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="cancelCurrentTripOnTab:" target="Voe-Tx-rLC" id="fxd-Qd-OY7"/>
+                                                        </connections>
+                                                    </menuItem>
+                                                </items>
+                                            </menu>
+                                        </menuItem>
                                     </items>
                                 </menu>
                             </menuItem>
