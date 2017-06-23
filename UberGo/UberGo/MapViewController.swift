@@ -176,9 +176,13 @@ class MapViewController: BaseViewController {
     }
 
     fileprivate func notificationBinding() {
-        NotificationService.observeNotificationType(NotificationType.showPaymentMethodsView,
+        NotificationService.observeNotificationType(.showPaymentMethodsView,
                                                     observer: self,
                                                     selector: #selector(self.showPaymentMethodView(noti:)),
+                                                    object: nil)
+        NotificationService.observeNotificationType(.handleSurgeCallback,
+                                                    observer: self,
+                                                    selector: #selector(self.handleSurgeCallback(noti:)),
                                                     object: nil)
     }
 
@@ -192,6 +196,15 @@ class MapViewController: BaseViewController {
         controller.delegate = self
         self.presentViewControllerAsSheet(controller)
         self.paymentMethodController = controller
+    }
+
+    @objc func handleSurgeCallback(noti: Notification) {
+        guard let event = noti.object as? NSAppleEventDescriptor else { return }
+        guard let url = event.paramDescriptor(forKeyword: AEKeyword(keyDirectObject))?.stringValue else {
+            return
+        }
+
+        self.requestUberView.viewModel.input.requestUberWithSurgeIDPublisher.onNext(url)
     }
 
     @IBAction func exitNavigateBtnOnTapped(_ sender: Any) {

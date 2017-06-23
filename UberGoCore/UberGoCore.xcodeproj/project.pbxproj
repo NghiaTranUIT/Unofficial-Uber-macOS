@@ -44,6 +44,7 @@
 		BA67673A1EFA271F00805AC1 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6767391EFA271F00805AC1 /* NotificationService.swift */; };
 		BA7BA9811EE415D10056B0CF /* MapService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7BA9801EE415D10056B0CF /* MapService.swift */; };
 		BA7BA9851EE42C0C0056B0CF /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA7BA9841EE42C0C0056B0CF /* CoreLocation.framework */; };
+		BAA2BD7E1EFD57AD00296395 /* URL+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA2BD7D1EFD57AD00296395 /* URL+Helper.swift */; };
 		BAAC440E1EF0E12300A9F949 /* UberCoordinateObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAC440D1EF0E12300A9F949 /* UberCoordinateObj.swift */; };
 		BAAC44101EF1246500A9F949 /* PostEstimateTripRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAC440F1EF1246500A9F949 /* PostEstimateTripRequest.swift */; };
 		BAAC44121EF124E400A9F949 /* CreateTripRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAC44111EF124E400A9F949 /* CreateTripRequest.swift */; };
@@ -130,6 +131,7 @@
 		BA6767391EFA271F00805AC1 /* NotificationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		BA7BA9801EE415D10056B0CF /* MapService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapService.swift; sourceTree = "<group>"; };
 		BA7BA9841EE42C0C0056B0CF /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		BAA2BD7D1EFD57AD00296395 /* URL+Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URL+Helper.swift"; sourceTree = "<group>"; };
 		BAAC440D1EF0E12300A9F949 /* UberCoordinateObj.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UberCoordinateObj.swift; sourceTree = "<group>"; };
 		BAAC440F1EF1246500A9F949 /* PostEstimateTripRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostEstimateTripRequest.swift; sourceTree = "<group>"; };
 		BAAC44111EF124E400A9F949 /* CreateTripRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateTripRequest.swift; sourceTree = "<group>"; };
@@ -330,6 +332,7 @@
 				BA4796B21EE3C93900620BB0 /* UUID+Helper.swift */,
 				BA0C91971EEF919B00BA8B4B /* Coordinate2DTransform.swift */,
 				BAB14ABB1EF627160066267B /* Array+Helper.swift */,
+				BAA2BD7D1EFD57AD00296395 /* URL+Helper.swift */,
 			);
 			name = Helper;
 			sourceTree = "<group>";
@@ -703,6 +706,7 @@
 				BAF57FAC1EE116710013090E /* BaseObj.swift in Sources */,
 				BAED39E21EE9B67C003D9BC3 /* RxCLLocationManagerDelegateProxy.swift in Sources */,
 				BAF57FC21EE11A080013090E /* BaseViewModel.swift in Sources */,
+				BAA2BD7E1EFD57AD00296395 /* URL+Helper.swift in Sources */,
 				BAAC44161EF1340500A9F949 /* CreateTripObj.swift in Sources */,
 				BA0C91AA1EF04AA200BA8B4B /* DriverObj.swift in Sources */,
 				BA6767311EF8CB5400805AC1 /* UberServiceViewModel.swift in Sources */,

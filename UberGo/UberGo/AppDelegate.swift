@@ -69,6 +69,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func handleGetURL(event: NSAppleEventDescriptor!, withReplyEvent: NSAppleEventDescriptor!) {
+        guard let url = event.paramDescriptor(forKeyword: AEKeyword(keyDirectObject))?.stringValue else {
+            return
+        }
+
+        // Uber Surge
+        if url.contains("uber-surge") {
+            NotificationService.postNotificationOnMainThreadType(.handleSurgeCallback, object: event, userInfo: nil)
+            return
+        }
+
+        // Uber Authentication
         self.authenticationViewModel.input.uberCallbackPublish.onNext(event)
     }
 }
