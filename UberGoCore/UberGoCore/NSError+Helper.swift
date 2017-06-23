@@ -27,4 +27,22 @@ extension NSError {
         let userInfo = [NSLocalizedDescriptionKey: "JSON Mapper error"]
         return NSError(domain: "com.fe.ubergo.defaultError", code: 998, userInfo: userInfo)
     }
+
+    // Uber Error
+    static func uberError(data: Any, code: Int) -> NSError {
+        guard let dictData = data as? [String: Any] else {
+            return self.jsonMapperError()
+        }
+
+        // Incase Uber return many errors
+        if let uberErrors = dictData["errors"] as? [[String: Any]] {
+            guard let firstError = uberErrors.first else {
+                return self.jsonMapperError()
+            }
+            return NSError(domain: "com.fe.ubergo.defaultError", code: code, userInfo: firstError)
+        }
+
+        // Single Error
+        return NSError(domain: "com.fe.ubergo.defaultError", code: code, userInfo: dictData)
+    }
 }

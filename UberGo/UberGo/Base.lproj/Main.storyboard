@@ -655,6 +655,7 @@
                                                             <action selector="currentTripStatusOnTap:" target="Voe-Tx-rLC" id="Zmu-kM-MPZ"/>
                                                         </connections>
                                                     </menuItem>
+                                                    <menuItem isSeparatorItem="YES" id="qDt-z5-ctz"/>
                                                     <menuItem title="Cancel Current Trip" id="BCm-8p-eg0">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
                                                         <connections>

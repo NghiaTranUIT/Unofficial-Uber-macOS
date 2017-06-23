@@ -78,42 +78,15 @@ extension Requestable {
                 .validate(contentType: ["application/json", "text/html"])
                 .responseJSON(completionHandler: { (response) in
 
-                    // Check error
-                    if let error = response.result.error {
-
-                        //FIXME : Smell code
-                        // https://developer.uber.com/docs/riders/references/api/v1.2/places-place_id-get
-                        // 422 = No personal Place
-                        // Need to refactor all of request which adapt Requestable protocol
-                        //
-                        // HOW TO FIX
-                        //
-                        // convert
-                        // func toObservable() -> Observable<Element>
-                        // to
-                        // func toObservable() -> Observable<Element?>
-                        if response.response?.statusCode == 422 {
-
-                            // Stupid force cast 
-                            // By-pass error
-                            observer.onNext(UberPersonalPlaceObj.invalidPlace as! Element)
-                            observer.on(.completed)
-                            return
-                        }
-
-                        observer.onError(error)
-                        return
-                    }
-
-                    // Check Response
-                    guard let data = response.result.value else {
+                    guard let _response = response.response else {
                         observer.onError(NSError.jsonMapperError())
                         return
                     }
 
+                    let statusCode = _response.statusCode
+
                     // 204 - no content
-                    if let code = response.response?.statusCode,
-                        code == 204 {
+                    if statusCode == 204 {
                         //FIXME : Smell code
                         // Get rid of baseObj
                         // Because sometime, there are no response
@@ -123,15 +96,36 @@ extension Requestable {
                         return
                     }
 
-                    // Parse here
-                    guard let result = self.decode(data: data) else {
+                    // Check Response
+                    guard let data = response.result.value else {
                         observer.onError(NSError.jsonMapperError())
                         return
                     }
 
-                    // Fill
-                    observer.on(.next(result))
-                    observer.on(.completed)
+                    //FIXME : Smell code
+                    // Should implement ErrorHandler flawless
+                    // Instead of doing manually
+                    if statusCode >= 200 && statusCode < 300 {
+
+                        // Parse here
+                        guard let result = self.decode(data: data) else {
+                            observer.onError(NSError.jsonMapperError())
+                            return
+                        }
+
+                        // Loger
+                        Logger.info(result)
+
+                        // Fill
+                        observer.on(.next(result))
+                        observer.on(.completed)
+                        return
+                    }
+
+                    // Error
+                    Logger.error(data)
+                    let uberError = NSError.uberError(data: data, code: statusCode)
+                    observer.onError(uberError)
                 })
 
             return Disposables.create()
