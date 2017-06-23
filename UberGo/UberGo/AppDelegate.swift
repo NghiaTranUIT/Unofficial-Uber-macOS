@@ -24,7 +24,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     // MARK: - Action
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        
+
         // listen to scheme url
         let selector = #selector(AppDelegate.handleGetURL(event:withReplyEvent:))
         NSAppleEventManager.shared().setEventHandler(self, andSelector: selector,
@@ -82,11 +82,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     // MARK: - Debug
     @IBAction func currentTripStatusOnTap(_ sender: Any) {
-
+        self.viewModel.input.currentTripStatusPublish.onNext()
     }
 
     @IBAction func cancelCurrentTripOnTab(_ sender: Any) {
-
+        self.viewModel.input.cancelCurrentTripPublish.onNext()
     }
 
 }
