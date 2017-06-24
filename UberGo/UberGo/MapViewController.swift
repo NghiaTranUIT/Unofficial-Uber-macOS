@@ -34,14 +34,15 @@ class MapViewController: BaseViewController {
     @IBOutlet fileprivate weak var bottomBarViewHeight: NSLayoutConstraint!
 
     // MARK: - Variable
-    fileprivate var viewModel: MapViewModel!
+    fileprivate var mapViewModel = MapViewModel()
+    fileprivate let uberViewModel = UberServiceViewModel()
+
     fileprivate var searchBarView: SearchBarView!
     fileprivate var isFirstTime = true
     fileprivate lazy var webController: SurgeHrefConfirmationController = self.lazyInitWebController()
     fileprivate var paymentMethodController: PaymentMethodsController?
-
     fileprivate var searchPlaceObjs: [PlaceObj] {
-        return self.viewModel.output.searchPlaceObjsVariable.value
+        return self.mapViewModel.output.searchPlaceObjsVariable.value
     }
 
     // MARK: - View Cycle
@@ -74,9 +75,12 @@ class MapViewController: BaseViewController {
     }
 
     fileprivate func binding() {
-        self.viewModel = MapViewModel()
-        self.viewModel.input.startUpdateLocationTriggerPublisher.onNext(true)
-        self.viewModel.output.currentLocationDriver
+
+        // Trigger Get location
+        self.mapViewModel.input.startUpdateLocationTriggerPublisher.onNext(true)
+
+        // Update Location on map
+        self.mapViewModel.output.currentLocationDriver
             .filterNil()
             .drive(onNext: {[weak self] location in
                 guard let `self` = self else { return }
@@ -90,7 +94,8 @@ class MapViewController: BaseViewController {
         UserObj.currentUser?.reloadUberDataPublisher.onNext()
 
         // Nearest place
-        self.viewModel.output.nearestPlaceDriver.drive(onNext: { [weak self] nearestPlaceObj in
+        self.mapViewModel.output.nearestPlaceDriver
+            .drive(onNext: { [weak self] nearestPlaceObj in
                 guard let `self` = self else { return }
                 print("Found Nearst Place = \(nearestPlaceObj)")
                 self.searchBarView.updateNestestPlace(nearestPlaceObj)
@@ -100,12 +105,12 @@ class MapViewController: BaseViewController {
         // Input search
         self.searchBarView.textSearchDidChangedDriver
             .drive(onNext: {[unowned self] text in
-                self.viewModel.input.textSearchPublish.onNext(text)
+                self.mapViewModel.input.textSearchPublish.onNext(text)
             })
             .addDisposableTo(self.disposeBag)
 
-        // Reload
-        self.viewModel.output.searchPlaceObjsVariable
+        // Reload search Place collectionView
+        self.mapViewModel.output.searchPlaceObjsVariable
             .asObservable()
             .subscribe(onNext: {[weak self] placeObjs in
                 guard let `self` = self else { return }
@@ -115,63 +120,66 @@ class MapViewController: BaseViewController {
             .addDisposableTo(self.disposeBag)
 
         // Loader
-        self.viewModel.output.loadingPublisher.subscribe(onNext: {[weak self] isLoading in
-            guard let `self` = self else {
-                return
-            }
-            self.searchBarView.loaderIndicatorView(isLoading)
-        }).addDisposableTo(self.disposeBag)
+        self.mapViewModel.output.loadingPublisher.subscribe(onNext: {[weak self] isLoading in
+                guard let `self` = self else {
+                    return
+                }
+                self.searchBarView.loaderIndicatorView(isLoading)
+            }).addDisposableTo(self.disposeBag)
 
         // Selected Place
-        self.viewModel.output.selectedPlaceObjDriver.drive(onNext: {[weak self] placeObj in
-            guard let `self` = self else { return }
+        self.mapViewModel.output.selectedPlaceObjDriver
+            .drive(onNext: {[weak self] placeObj in
+                guard let `self` = self else { return }
 
-            let state = placeObj != nil ? MapViewLayoutState.navigation :
-                MapViewLayoutState.minimal
+                let state = placeObj != nil ? MapViewLayoutState.navigation :
+                    MapViewLayoutState.minimal
 
-            // Layout
-            self.updateLayoutState(state)
-            self.mapView.addDestinationPlaceObj(placeObj)
+                // Layout
+                self.updateLayoutState(state)
+                self.mapView.addDestinationPlaceObj(placeObj)
 
-            // Request Product + Estimate Uber
-            guard let placeObj = placeObj else { return }
-            guard let currentLocation = self.viewModel.currentLocationVariable.value else { return }
+                // Request Product + Estimate Uber
+                guard let placeObj = placeObj else { return }
+                guard let currentLocation = self.mapViewModel.currentLocationVariable.value else { return }
 
-            let data = UberData(placeObj: placeObj, from: currentLocation.coordinate)
-            self.requestUberView.viewModel.input.selectedPlacePublisher.onNext(data)
-        })
-        .addDisposableTo(self.disposeBag)
+                let data = UberData(placeObj: placeObj, from: currentLocation.coordinate)
+                self.uberViewModel.input.selectedPlacePublisher.onNext(data)
+            })
+            .addDisposableTo(self.disposeBag)
 
         // Draw map
-        self.viewModel.output.selectedDirectionRouteObserver.subscribe(onNext: {[weak self] (route) in
-            guard let `self` = self else {
-                return
-            }
-            self.mapView.drawDirectionRoute(route)
-        })
-        .addDisposableTo(self.disposeBag)
+        self.mapViewModel.output.selectedDirectionRouteObserver
+            .subscribe(onNext: {[weak self] (route) in
+                guard let `self` = self else {
+                    return
+                }
+                self.mapView.drawDirectionRoute(route)
+            })
+            .addDisposableTo(self.disposeBag)
 
         // Show or hide Bottom bar
-        self.requestUberView.viewModel.output.isLoadingAvailableProductPublisher
-        .subscribe(onNext: { isLoading in
-            Logger.info("isLoading Available Products = \(isLoading)")
-        })
-        .addDisposableTo(self.requestUberView.disposeBag)
+        self.uberViewModel.output.isLoadingAvailableProductPublisher
+            .subscribe(onNext: { isLoading in
+                Logger.info("isLoading Available Products = \(isLoading)")
+            })
+            .addDisposableTo(self.disposeBag)
 
         // Show href
-        self.requestUberView.viewModel.output.showSurgeHrefDriver
-        .drive(onNext: {[weak self] surgeObj in
-            guard let `self` = self else { return }
-            Logger.info("SHOW CONFIRMATION = \(surgeObj.surgeConfirmationHref ?? "")")
-            self.showSurgeHrefView(surgeObj)
-        })
-        .addDisposableTo(self.requestUberView.disposeBag)
+        self.uberViewModel.output.showSurgeHrefDriver
+            .drive(onNext: {[weak self] surgeObj in
+                guard let `self` = self else { return }
+                Logger.info("SHOW CONFIRMATION = \(surgeObj.surgeConfirmationHref ?? "")")
+                self.showSurgeHrefView(surgeObj)
+            })
+            .addDisposableTo(self.disposeBag)
 
         // Trip
-        self.requestUberView.viewModel.output.normalTripDriver.drive(onNext: { (createTripObj) in
-            Logger.info("Start Request Normal TRIP = \(createTripObj)")
-        })
-        .addDisposableTo(self.requestUberView.disposeBag)
+        self.uberViewModel.output.normalTripDriver
+            .drive(onNext: { (createTripObj) in
+                Logger.info("Start Request Normal TRIP = \(createTripObj)")
+            })
+            .addDisposableTo(self.disposeBag)
     }
 
     fileprivate func notificationBinding() {
@@ -207,14 +215,14 @@ class MapViewController: BaseViewController {
         self.dismissViewController(self.webController)
 
         // Get
-        self.requestUberView.viewModel.input.requestUberWithSurgeIDPublisher.onNext(url)
+        self.uberViewModel.input.requestUberWithSurgeIDPublisher.onNext(url)
     }
 
     @IBAction func exitNavigateBtnOnTapped(_ sender: Any) {
         self.updateLayoutState(.minimal)
 
         // Remove current
-        self.viewModel.input.didSelectPlaceObjPublisher.onNext(nil)
+        self.mapViewModel.input.didSelectPlaceObjPublisher.onNext(nil)
     }
 
     fileprivate func updateLayoutState(_ state: MapViewLayoutState) {
@@ -281,6 +289,7 @@ extension MapViewController {
     fileprivate func lazyInitRequestUberView() -> RequestUberView {
         let uberView = RequestUberView.viewFromNib(with: BundleType.app)!
         uberView.configureLayout(self.bottomBarView)
+        uberView.viewModel = self.uberViewModel
         return uberView
     }
 
@@ -311,7 +320,7 @@ extension MapViewController: SearchCollectionViewDelegate {
 
         // Select
         let placeObj = self.searchPlaceObjs[atIndex.item]
-        self.viewModel.input.didSelectPlaceObjPublisher.onNext(placeObj)
+        self.mapViewModel.input.didSelectPlaceObjPublisher.onNext(placeObj)
     }
 }
 

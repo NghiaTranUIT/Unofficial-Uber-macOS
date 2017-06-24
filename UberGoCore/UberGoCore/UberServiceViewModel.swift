@@ -100,15 +100,17 @@ open class UberServiceViewModel: BaseViewModel,
                                             .asDriver(onErrorJustReturn: [])
 
         // Default selection
-        selectionShared.map { (groups) -> GroupProductObj? in
-            return groups.first
-        }.bind(to: self.selectedGroupProduct)
-        .addDisposableTo(self.disposeBag)
+        selectionShared
+            .map { (groups) -> GroupProductObj? in
+                return groups.first
+            }.bind(to: self.selectedGroupProduct)
+            .addDisposableTo(self.disposeBag)
 
-        selectionShared.map { (groups) -> ProductObj? in
-            return groups.first?.productObjs.first
-        }.bind(to: self.selectedProduct)
-        .addDisposableTo(self.disposeBag)
+        selectionShared
+            .map { (groups) -> ProductObj? in
+                return groups.first?.productObjs.first
+            }.bind(to: self.selectedProduct)
+            .addDisposableTo(self.disposeBag)
 
         // Request Uber service
         let shareRequest = self.requestUberPublisher
@@ -124,43 +126,43 @@ open class UberServiceViewModel: BaseViewModel,
                                                                            from: data.from,
                                                                            to: data.placeObj.coordinate2D!)
             }
-        .share()
+            .share()
 
         // Normal Price
         let uberTripUpFareOb = shareRequest
-        .flatMapLatest {[unowned self] (estiamteObj) -> Observable<CreateTripObj>in
-            guard let frontFareObj = estiamteObj.upFrontFareObj else {
-                return Observable.empty()
+            .flatMapLatest {[unowned self] (estiamteObj) -> Observable<CreateTripObj>in
+                guard let frontFareObj = estiamteObj.upFrontFareObj else {
+                    return Observable.empty()
+                }
+                guard let productObj = self.selectedProduct.value else {
+                    return Observable.empty()
+                }
+                guard let currentUser = UserObj.currentUser else {
+                    return Observable.empty()
+                }
+                guard let data = self.uberData else {
+                    return Observable.empty()
+                }
+                let payment = currentUser.currentPaymentAccountObjVar.value
+                Logger.info("Normal Price")
+                return self.uberService.requestUpFrontFareTrip(frontFareObj: frontFareObj,
+                                                               productObj: productObj,
+                                                               paymentAccountObj: payment,
+                                                               from: data.from, to: data.placeObj)
             }
-            guard let productObj = self.selectedProduct.value else {
-                return Observable.empty()
-            }
-            guard let currentUser = UserObj.currentUser else {
-                return Observable.empty()
-            }
-            guard let data = self.uberData else {
-                return Observable.empty()
-            }
-
-            Logger.info("Normal Price")
-            return self.uberService.requestUpFrontFareTrip(frontFareObj: frontFareObj,
-                                                           productObj: productObj,
-                                                           paymentAccountObj: currentUser.currentPaymentAccountObjVar.value,
-                                                           from: data.from, to: data.placeObj)
-        }
 
         // Show Surge rate confirmation
         self.showSurgeHrefDriver = shareRequest
-        .flatMapFirst { (estimateObj) -> Observable<SurgePriceObj> in
-            guard let surgePriceObj = estimateObj.surgePriceObj else {
-                return Observable.empty()
+            .flatMapFirst { (estimateObj) -> Observable<SurgePriceObj> in
+                guard let surgePriceObj = estimateObj.surgePriceObj else {
+                    return Observable.empty()
+                }
+                guard surgePriceObj.surgeConfirmationHref != nil else {
+                    assert(false, "surgeConfirmationHref is nill")
+                }
+                return Observable.just(surgePriceObj)
             }
-            guard surgePriceObj.surgeConfirmationHref != nil else {
-                assert(false, "surgeConfirmationHref is nill")
-            }
-            return Observable.just(surgePriceObj)
-        }
-        .asDriver(onErrorJustReturn: SurgePriceObj())
+            .asDriver(onErrorJustReturn: SurgePriceObj())
 
         // Handle SurgeCallback
         let uberTripSurgeFareOb = self.requestUberWithSurgeIDPublisher
@@ -180,13 +182,13 @@ open class UberServiceViewModel: BaseViewModel,
                 guard let data = self.uberData else {
                     return Observable.empty()
                 }
-
+                let payment = currentUser.currentPaymentAccountObjVar.value
                 return self.uberService.requestSurgeTrip(surgeID: ID,
                                                          productObj: productObj,
-                                                         paymentAccountObj: currentUser.currentPaymentAccountObjVar.value,
+                                                         paymentAccountObj: payment,
                                                          from: data.from,
                                                          to: data.placeObj)
-        }
+            }
 
         self.normalTripDriver = Observable.merge([uberTripUpFareOb, uberTripSurgeFareOb])
             .asDriver(onErrorJustReturn: CreateTripObj())
