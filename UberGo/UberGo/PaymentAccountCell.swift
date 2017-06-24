@@ -36,7 +36,7 @@ class PaymentAccountCell: NSCollectionViewItem {
 
     // MARK: - Public
     func configureCell(with account: PaymentAccountObj) {
-        self.paymentImageView.image = NSImage(named: account.type.imageIconName)
+        self.paymentImageView.image = NSImage(imageLiteralResourceName: account.type.imageIconName)
         self.cardNumberLbl.stringValue = account.betterAccountDescription
         self.cardNumberLbl.setKern(1.2)
     }

@@ -136,7 +136,6 @@ class MapViewController: BaseViewController {
             // Request Product + Estimate Uber
             guard let placeObj = placeObj else { return }
             guard let currentLocation = self.viewModel.currentLocationVariable.value else { return }
-            guard let currentUser = UserObj.currentUser else { return }
 
             let data = UberData(placeObj: placeObj, from: currentLocation.coordinate)
             self.requestUberView.viewModel.input.selectedPlacePublisher.onNext(data)

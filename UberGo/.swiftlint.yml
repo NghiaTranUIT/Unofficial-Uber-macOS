@@ -35,6 +35,7 @@ file_header:
                     \/\/  Copyright © \d{4} Realm\. All rights reserved\.
                     \/\/
 identifier_name:
+  min_length: 2
   excluded:
     - id
 line_length: 120

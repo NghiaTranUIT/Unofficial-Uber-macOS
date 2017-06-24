@@ -51,11 +51,10 @@ class PaymentMethodsController: NSViewController {
         // Selection
         guard let paymentAccountObjs = self.paymentObj.paymentAccountObjs else { return }
         var index = 0
-        for (i, e) in paymentAccountObjs.enumerated() {
-            if e.paymentMethodId == currentAccount.paymentMethodId {
-                index = i
-                break
-            }
+        for (i, e) in paymentAccountObjs.enumerated()
+            where e.paymentMethodId == currentAccount.paymentMethodId {
+            index = i
+            break
         }
         let set = Set<IndexPath>([IndexPath(item: index, section: 0)])
         self.collectionView.selectItems(at: set, scrollPosition: .top)

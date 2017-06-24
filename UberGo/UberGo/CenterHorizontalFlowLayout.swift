@@ -95,7 +95,7 @@ class CenterHorizontalFlowLayout: NSCollectionViewFlowLayout {
                 cells.append(att)
             }
         }
-        
+
         return cells
     }
 

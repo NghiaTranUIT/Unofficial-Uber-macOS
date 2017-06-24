@@ -101,7 +101,7 @@ extension AppDelegate {
     fileprivate func setupPopover(with state: AuthenticationState) {
 
         if let button = statusItem.button {
-            button.image = NSImage(named: "StatusBarButtonImage")
+            button.image = NSImage(imageLiteralResourceName: "StatusBarButtonImage")
             button.imagePosition = .imageLeft
             button.action = #selector(togglePopover)
         }

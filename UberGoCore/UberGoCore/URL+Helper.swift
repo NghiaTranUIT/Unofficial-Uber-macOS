@@ -11,11 +11,9 @@ import Foundation
 extension URL {
 
     var allQueryItems: [URLQueryItem] {
-        get {
-            let components = URLComponents(url: self, resolvingAgainstBaseURL: false)!
-            let allQueryItems = components.queryItems!
-            return allQueryItems as [URLQueryItem]
-        }
+        let components = URLComponents(url: self, resolvingAgainstBaseURL: false)!
+        let allQueryItems = components.queryItems!
+        return allQueryItems as [URLQueryItem]
     }
 
     func queryItemForKey(key: String) -> URLQueryItem? {

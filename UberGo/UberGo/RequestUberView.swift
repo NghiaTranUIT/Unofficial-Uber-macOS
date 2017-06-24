@@ -176,7 +176,7 @@ class RequestUberView: NSView {
              guard let `self` = self else { return }
 
             // Layout
-            self.paymentImageView.image = NSImage(named: accountObj.type.imageIconName)
+            self.paymentImageView.image = NSImage(imageLiteralResourceName: accountObj.type.imageIconName)
             self.cardNumberLbl.stringValue = accountObj.betterAccountDescription
             self.cardNumberLbl.setKern(1.2)
         })
@@ -226,7 +226,7 @@ extension RequestUberView {
         self.seatNumberLnl.textColor = NSColor.white
         self.dividerLineView.backgroundColor = NSColor.white
         self.highFareLbl.textColor = NSColor.lightGray
-        
+
         // Border
         self.scheduleUberBtn.wantsLayer = true
         self.scheduleUberBtn.layer?.borderColor = NSColor.white.cgColor
