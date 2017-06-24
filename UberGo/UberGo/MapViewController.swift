@@ -76,6 +76,9 @@ class MapViewController: BaseViewController {
 
     fileprivate func binding() {
 
+        // 
+        self.requestUberView.viewModel = self.uberViewModel
+
         // Trigger Get location
         self.mapViewModel.input.startUpdateLocationTriggerPublisher.onNext(true)
 
@@ -289,7 +292,6 @@ extension MapViewController {
     fileprivate func lazyInitRequestUberView() -> RequestUberView {
         let uberView = RequestUberView.viewFromNib(with: BundleType.app)!
         uberView.configureLayout(self.bottomBarView)
-        uberView.viewModel = self.uberViewModel
         return uberView
     }
 

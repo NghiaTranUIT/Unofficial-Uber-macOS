@@ -25,7 +25,11 @@ class RequestUberView: NSView {
     @IBOutlet fileprivate weak var highFareLbl: NSTextField!
 
     // MARK: - Variable
-    public var viewModel: UberServiceViewModel!
+    public var viewModel: UberServiceViewModel! {
+        didSet {
+            self.binding()
+        }
+    }
     fileprivate var isBinding = false
     fileprivate let disposeBag = DisposeBag()
     fileprivate var selectedProduct: Variable<ProductObj?> {
@@ -41,6 +45,10 @@ class RequestUberView: NSView {
 
         self.initCommon()
         self.initCollectionView()
+    }
+
+    // MARK: - Binding
+    fileprivate func binding() {
 
         // Selecte Group
         guard self.isBinding == false else { return }
