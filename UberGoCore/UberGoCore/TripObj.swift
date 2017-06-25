@@ -72,6 +72,30 @@ open class TripObj: BaseObj {
         return TripObjStatus.createTripStatus(rawValue: _status)
     }()
 
+    public var isValidTrip: Bool {
+        switch self.status {
+            case .unknown:
+                fallthrough
+            case .completed:
+                fallthrough
+            case .driverCanceled:
+                fallthrough
+            case .riderCanceled:
+                fallthrough
+            case .noDriversAvailable:
+                return false
+
+            case .accepted:
+                fallthrough
+            case .arriving:
+                fallthrough
+            case .inProgress:
+                fallthrough
+            case .processing:
+                return true
+        }
+    }
+
     override public func mapping(map: Map) {
         super.mapping(map: map)
 
@@ -87,5 +111,11 @@ open class TripObj: BaseObj {
         self.destination <- map[Constants.Object.Trip.Destination]
         self.waypoints <- map[Constants.Object.Trip.Waypoints]
         self.riders <- map[Constants.Object.Trip.Riders]
+    }
+
+    class func noCurrentTrip() -> TripObj {
+        let obj = TripObj()
+        obj._status = TripObjStatus.unknown.rawValue
+        return obj
     }
 }

@@ -22,7 +22,9 @@ public protocol UberServiceViewModelInput {
     var selectedPlacePublisher: PublishSubject<UberData> { get }
     var requestUberPublisher: PublishSubject<Void> { get }
     var requestUberWithSurgeIDPublisher: PublishSubject<String> { get }
-    var triggerCurrentTripDriverPublisher: PublishSubject<Void> { get }
+
+    var triggerCurrentTripPublisher: PublishSubject<Void> { get }
+    var manuallyGetCurrentTripStatusPublisher: PublishSubject<Void> { get }
 }
 
 public struct UberData {
@@ -53,6 +55,7 @@ public protocol UberServiceViewModelOutput {
 
     // Current Trip Status
     var currentTripStatusDriver: Driver<TripObj>! { get }
+    var manuallyCurrentTripStatusDriver: Driver<TripObj>! { get }
 }
 
 open class UberServiceViewModel: BaseViewModel,
@@ -77,12 +80,14 @@ open class UberServiceViewModel: BaseViewModel,
     public var normalTripDriver: Driver<CreateTripObj>!
     public var requestUberWithSurgeIDPublisher = PublishSubject<String>()
     public var currentTripStatusDriver: Driver<TripObj>!
-    public var triggerCurrentTripDriverPublisher = PublishSubject<Void>()
+    public var triggerCurrentTripPublisher = PublishSubject<Void>()
+    public var manuallyGetCurrentTripStatusPublisher = PublishSubject<Void>()
+    public var manuallyCurrentTripStatusDriver: Driver<TripObj>!
 
     // MARK: - Variable
     fileprivate var uberService = UberService()
     fileprivate var uberData: UberData?
-    fileprivate var timerDisposeBag: DisposeBag!
+    public var timerDisposeBag: DisposeBag!
 
     // MARK: - Init
     override public init() {
@@ -201,7 +206,7 @@ open class UberServiceViewModel: BaseViewModel,
             .asDriver(onErrorJustReturn: CreateTripObj())
 
         // Current Trip Status
-        let timerOb = self.triggerCurrentTripDriverPublisher
+        let timerOb = self.triggerCurrentTripPublisher
             .asObserver()
             .do(onNext: {[unowned self] _ in
 
@@ -214,11 +219,32 @@ open class UberServiceViewModel: BaseViewModel,
                     .startWith(1) // Call instantly
             }
 
-        self.currentTripStatusDriver = timerOb
-            .flatMapLatest {[unowned self] _ -> Observable<TripObj> in
-                Logger.info("__getCurrentTrip timer")
+        //FIXME : For some reason: Merge<timerObj, manuallyTriggerOb> cause timer didn't fire up
+        // Manually trigger at the first time app open
+        self.manuallyCurrentTripStatusDriver = self.manuallyGetCurrentTripStatusPublisher
+            .asObserver()
+            .flatMapLatest { _ -> Observable<TripObj> in
                 return self.uberService.getCurrentTrip()
             }
-            .asDriver(onErrorJustReturn: TripObj())
+            .asDriver(onErrorJustReturn: TripObj.noCurrentTrip())
+
+        // Merge
+        self.currentTripStatusDriver =
+            //Observable.merge([timerOb, tripTriggerManually])
+            timerOb
+            .flatMapLatest {[unowned self] _ -> Observable<TripObj> in
+                Logger.debug("$$$ TIMER start")
+                return self.uberService.getCurrentTrip()
+            }
+            .do(onNext: { (tripObj) in
+                if tripObj.isValidTrip == false {
+                    Logger.error("Invalid timer")
+                    self.timerDisposeBag = DisposeBag()
+                }
+            }, onError: {[unowned self] _ in
+                Logger.error("Invalid timer")
+                self.timerDisposeBag = DisposeBag()
+            })
+            .asDriver(onErrorJustReturn: TripObj.noCurrentTrip())
     }
 }

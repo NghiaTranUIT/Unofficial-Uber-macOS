@@ -207,7 +207,7 @@ class MapViewController: BaseViewController {
                 self.layoutState = .tripActivity
 
                 // Trigger to start Timer
-                self.uberViewModel.input.triggerCurrentTripDriverPublisher.onNext()
+                self.uberViewModel.input.triggerCurrentTripPublisher.onNext()
             })
             .addDisposableTo(self.disposeBag)
 
@@ -215,13 +215,20 @@ class MapViewController: BaseViewController {
         self.uberViewModel.output.currentTripStatusDriver
         .drive(onNext: {[weak self] (tripObj) in
             guard let `self` = self else { return }
-            Logger.info("Trip Obj = \(tripObj)")
-
-            // Update
-            self.tripActivityView.updateData(tripObj)
-
+            self.updateTripActivityView(tripObj)
         })
         .addDisposableTo(self.disposeBag)
+
+        // Manually
+        self.uberViewModel.output.manuallyCurrentTripStatusDriver
+        .drive(onNext: {[weak self] tripObj in
+            guard let `self` = self else { return }
+            self.updateTripActivityView(tripObj)
+        })
+        .addDisposableTo(self.disposeBag)
+
+        // Get first check Trip Status
+        self.uberViewModel.input.manuallyGetCurrentTripStatusPublisher.onNext()
     }
 
     fileprivate func notificationBinding() {
@@ -233,6 +240,21 @@ class MapViewController: BaseViewController {
                                                     observer: self,
                                                     selector: #selector(self.handleSurgeCallback(noti:)),
                                                     object: nil)
+    }
+
+    fileprivate func updateTripActivityView(_ tripObj: TripObj) {
+
+        Logger.info("Trip Obj = \(tripObj)")
+
+        // Reset layout if there is no trip
+        if tripObj.isValidTrip {
+            self.layoutState = .tripActivity
+        } else {
+            self.layoutState = .minimal
+        }
+
+        // Update
+        self.tripActivityView.updateData(tripObj)
     }
 
     @objc func showSurgeHrefView(_ surgeObj: SurgePriceObj) {
