@@ -138,12 +138,18 @@
                                         <font key="font" metaFont="system" size="14"/>
                                     </buttonCell>
                                 </button>
+                                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="w3I-Ld-xJN">
+                                    <rect key="frame" x="25" y="11" width="11" height="16"/>
+                                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="place" id="zKM-8Z-AIc"/>
+                                </imageView>
                             </subviews>
                             <constraints>
+                                <constraint firstItem="w3I-Ld-xJN" firstAttribute="leading" secondItem="8lQ-sY-yoe" secondAttribute="leading" constant="25" id="8cj-zW-57H"/>
                                 <constraint firstAttribute="height" constant="38" id="Azs-PI-Npi"/>
                                 <constraint firstItem="VSp-F0-3lg" firstAttribute="centerY" secondItem="8lQ-sY-yoe" secondAttribute="centerY" id="Ped-To-ndE"/>
                                 <constraint firstItem="p32-ZB-vms" firstAttribute="centerY" secondItem="8lQ-sY-yoe" secondAttribute="centerY" id="U0z-14-0ZD"/>
                                 <constraint firstItem="VSp-F0-3lg" firstAttribute="leading" secondItem="8lQ-sY-yoe" secondAttribute="leading" constant="58" id="WlB-Gh-R8t"/>
+                                <constraint firstItem="w3I-Ld-xJN" firstAttribute="centerY" secondItem="8lQ-sY-yoe" secondAttribute="centerY" id="iSy-D4-1ex"/>
                                 <constraint firstAttribute="trailing" secondItem="p32-ZB-vms" secondAttribute="trailing" constant="22" id="kDz-DW-Xri"/>
                             </constraints>
                         </customView>
@@ -171,11 +177,17 @@
                                         <font key="font" metaFont="system" size="14"/>
                                     </buttonCell>
                                 </button>
+                                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8N5-tw-x1y">
+                                    <rect key="frame" x="22" y="11" width="16" height="16"/>
+                                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="history" id="ezf-gu-5ak"/>
+                                </imageView>
                             </subviews>
                             <constraints>
+                                <constraint firstItem="8N5-tw-x1y" firstAttribute="leading" secondItem="YRW-tw-qu4" secondAttribute="leading" constant="22" id="4P0-nj-Ruh"/>
                                 <constraint firstItem="6ry-Wv-x1X" firstAttribute="centerY" secondItem="YRW-tw-qu4" secondAttribute="centerY" id="NNe-iy-JK5"/>
                                 <constraint firstItem="w3l-He-GBw" firstAttribute="leading" secondItem="YRW-tw-qu4" secondAttribute="leading" constant="58" id="UUL-0Q-gCo"/>
                                 <constraint firstAttribute="height" constant="38" id="bf4-7r-aMr"/>
+                                <constraint firstItem="8N5-tw-x1y" firstAttribute="centerY" secondItem="YRW-tw-qu4" secondAttribute="centerY" id="dWw-cN-DvJ"/>
                                 <constraint firstAttribute="trailing" secondItem="6ry-Wv-x1X" secondAttribute="trailing" constant="22" id="uGy-0t-W9D"/>
                                 <constraint firstItem="w3l-He-GBw" firstAttribute="centerY" secondItem="YRW-tw-qu4" secondAttribute="centerY" id="v6I-Ag-dbU"/>
                             </constraints>
@@ -189,27 +201,24 @@
                         <customView translatesAutoresizingMaskIntoConstraints="NO" id="9qo-aB-GAc">
                             <rect key="frame" x="0.0" y="0.0" width="480" height="40"/>
                             <subviews>
-                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eDP-1J-aLJ" customClass="UberTextField" customModule="UberGo" customModuleProvider="target">
-                                    <rect key="frame" x="56" y="12" width="78" height="17"/>
-                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="18:58 arrvial" id="E8N-5s-5ul">
-                                        <font key="font" metaFont="systemThin" size="13"/>
+                                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="NuQ-Mv-qYC">
+                                    <rect key="frame" x="28" y="9" width="36" height="22"/>
+                                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="visa_card" id="rzd-E3-aOq"/>
+                                </imageView>
+                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nee-7H-WSo" customClass="UberTextField" customModule="UberGo" customModuleProvider="target">
+                                    <rect key="frame" x="74" y="11" width="72" height="19"/>
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="•••• 1234" placeholderString="" id="tQJ-7c-VLH">
+                                        <font key="font" metaFont="system" size="15"/>
                                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
-                                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="c5X-Cj-DJV" customClass="UberButton" customModule="UberGo" customModuleProvider="target">
-                                    <rect key="frame" x="381" y="4" width="77" height="32"/>
-                                    <buttonCell key="cell" type="bevel" title="Share Status" bezelStyle="rounded" alignment="center" imageScaling="proportionallyDown" inset="2" id="VWA-FE-TJV">
-                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" metaFont="system" size="12"/>
-                                    </buttonCell>
-                                </button>
                             </subviews>
                             <constraints>
-                                <constraint firstItem="c5X-Cj-DJV" firstAttribute="centerY" secondItem="9qo-aB-GAc" secondAttribute="centerY" id="7xB-mV-cj0"/>
-                                <constraint firstAttribute="trailing" secondItem="c5X-Cj-DJV" secondAttribute="trailing" constant="22" id="YtB-iV-z2V"/>
-                                <constraint firstItem="eDP-1J-aLJ" firstAttribute="centerY" secondItem="9qo-aB-GAc" secondAttribute="centerY" id="fHO-HW-EfC"/>
-                                <constraint firstItem="eDP-1J-aLJ" firstAttribute="leading" secondItem="9qo-aB-GAc" secondAttribute="leading" constant="58" id="fRn-xa-YDG"/>
+                                <constraint firstItem="nee-7H-WSo" firstAttribute="centerY" secondItem="NuQ-Mv-qYC" secondAttribute="centerY" id="LPT-V3-PqV"/>
+                                <constraint firstItem="NuQ-Mv-qYC" firstAttribute="centerY" secondItem="9qo-aB-GAc" secondAttribute="centerY" id="TYI-HP-2yg"/>
+                                <constraint firstItem="nee-7H-WSo" firstAttribute="leading" secondItem="NuQ-Mv-qYC" secondAttribute="trailing" constant="12" id="acV-Pa-dAi"/>
+                                <constraint firstItem="NuQ-Mv-qYC" firstAttribute="leading" secondItem="9qo-aB-GAc" secondAttribute="leading" constant="28" id="lTO-Sp-e2T"/>
                             </constraints>
                         </customView>
                     </subviews>
@@ -250,6 +259,7 @@
                 <outlet property="activityContainerView" destination="hSf-zi-5bY" id="QQm-W2-7ai"/>
                 <outlet property="arrvialTimeLbl" destination="w3l-He-GBw" id="5hv-jh-PKd"/>
                 <outlet property="cancelTripBtn" destination="kT9-we-lkN" id="HVh-Kt-YEG"/>
+                <outlet property="cardNumberLbl" destination="nee-7H-WSo" id="XP6-vm-w50"/>
                 <outlet property="changeDestinationBtn" destination="p32-ZB-vms" id="cHo-78-6mx"/>
                 <outlet property="contactDriverBtn" destination="IH8-Ux-KG7" id="HW6-cG-PZ3"/>
                 <outlet property="destinationContainerView" destination="8lQ-sY-yoe" id="PxJ-aB-a2K"/>
@@ -264,6 +274,7 @@
                 <outlet property="driverRatingLbl" destination="gIv-Sp-8WJ" id="yCC-1e-xa3"/>
                 <outlet property="etaLbl" destination="ptm-cs-XU0" id="ydK-CL-C8W"/>
                 <outlet property="paymentContainerView" destination="9qo-aB-GAc" id="v08-A8-Ytx"/>
+                <outlet property="paymentImageView" destination="NuQ-Mv-qYC" id="gTt-lJ-s0c"/>
                 <outlet property="shareStatusBtn" destination="6ry-Wv-x1X" id="RER-9M-SES"/>
                 <outlet property="statusLbl" destination="b9S-bI-6dS" id="lGi-kf-43P"/>
                 <outlet property="timeContainerView" destination="YRW-tw-qu4" id="iFU-d4-Ma0"/>
@@ -273,5 +284,8 @@
     </objects>
     <resources>
         <image name="driver_placeholder" width="50" height="50"/>
+        <image name="history" width="16" height="16"/>
+        <image name="place" width="11" height="16"/>
+        <image name="visa_card" width="36" height="22"/>
     </resources>
 </document>

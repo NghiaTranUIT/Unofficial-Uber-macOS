@@ -25,6 +25,29 @@ public enum TripObjStatus: String {
         }
         return status
     }
+
+    public var prettyValue: String {
+        switch self {
+        case .processing:
+            return "Processing"
+        case .noDriversAvailable:
+            return "No Driver Available"
+        case .accepted:
+            return "Accepted"
+        case .arriving:
+            return "Arriving"
+        case .inProgress:
+            return "In Progress"
+        case .driverCanceled:
+            return "Driver Canceled"
+        case .riderCanceled:
+            return "Rider Canceled"
+        case .completed:
+            return "Completed"
+        case .unknown:
+            return "Unknown"
+        }
+    }
 }
 
 open class TripObj: BaseObj {

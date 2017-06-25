@@ -6,7 +6,7 @@
 //  Copyright © 2017 Nghia Tran. All rights reserved.
 //
 
-import Cocoa
+import UberGoCore
 
 class TripActivityView: NSView {
 
@@ -39,6 +39,8 @@ class TripActivityView: NSView {
     @IBOutlet fileprivate weak var shareStatusBtn: UberButton!
 
     @IBOutlet weak var paymentContainerView: NSView!
+    @IBOutlet weak var paymentImageView: NSImageView!
+    @IBOutlet weak var cardNumberLbl: UberTextField!
 
     // MARK: - Variable
 
@@ -83,7 +85,64 @@ class TripActivityView: NSView {
                                         constant: 0)
         parentView.addConstraints([top, left, right, bottom])
     }
+    
+    public func updateData(_ tripObj: TripObj) {
 
+        // Status
+        self.statusLbl.stringValue = tripObj.status.prettyValue
+        self.statusLbl.setKern(2.0)
+
+        // ETA
+        self.etaLbl.isHidden = true
+        if tripObj.status == .accepted {
+            self.etaLbl.isHidden = false
+            self.etaLbl.stringValue = "\(tripObj.pickup?.eta ?? 5) mins"
+        } else if tripObj.status == .arriving {
+            self.etaLbl.isHidden = false
+            self.etaLbl.stringValue = "Arriving shortly"
+        } else if tripObj.status == .inProgress {
+            self.etaLbl.isHidden = false
+            self.etaLbl.stringValue = "\(tripObj.destination?.eta ?? 5) mins"
+        }
+        self.etaLbl.setKern(1.4)
+
+        // Driver name
+        if let driver = tripObj.driver {
+            self.driverNameLbl.stringValue = driver.name ?? "Unknow"
+            self.driverRatingLbl.stringValue = "\(driver.rating ?? 4) ★"
+
+            // Avatar
+            if let avatar = driver.pictureUrl {
+                DispatchQueue.global(qos: DispatchQoS.QoSClass.background)
+                    .async {
+                        if let url = URL(string: avatar) {
+                            let image = NSImage(contentsOf: url)
+
+                            // Update
+                            DispatchQueue.main.async {
+                                self.driverAvatarImageView.image = image
+                            }
+                        }
+                    }
+            }
+        }
+
+        // Vehicle
+        if let vehicle = tripObj.vehicle {
+            self.driverModelLbl.stringValue = vehicle.fullName
+            self.driverLicensePlateLbl.stringValue = vehicle.licensePlate ?? "Unknow"
+        }
+
+        // Destination ETA
+        //self.arrvialTimeLbl.stringValue = tripObj.destination?.eta
+
+        // Current Payment
+        guard let currentUser = UserObj.currentUser else { return }
+        guard let account = currentUser.currentPaymentAccountObjVar.value else { return }
+        self.paymentImageView.image = NSImage(imageLiteralResourceName: account.type.imageIconName)
+        self.cardNumberLbl.stringValue = account.betterAccountDescription
+        self.cardNumberLbl.setKern(1.2)
+    }
 }
 
 // MARK: - Private
@@ -97,7 +156,7 @@ extension TripActivityView {
         self.destinationContainerView.backgroundColor = NSColor.white
         self.timeContainerView.backgroundColor = NSColor.white
         self.paymentContainerView.backgroundColor = NSColor.white
-        
+
         self.contactDriverBtn.wantsLayer = true
         self.contactDriverBtn.layer?.borderWidth = 1
         self.contactDriverBtn.layer?.borderColor = NSColor(hexString: "#ededed").cgColor

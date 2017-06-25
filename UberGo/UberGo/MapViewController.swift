@@ -207,7 +207,7 @@ class MapViewController: BaseViewController {
 
                 // Update layout
                 self.layoutState = .tripActivity
-
+                
                 // Trigger to start Timer
                 self.uberViewModel.input.triggerCurrentTripDriverPublisher.onNext()
             })
@@ -215,8 +215,13 @@ class MapViewController: BaseViewController {
 
         // Current Trip Status
         self.uberViewModel.output.currentTripStatusDriver
-        .drive(onNext: { (tripObj) in
+        .drive(onNext: {[weak self] (tripObj) in
+            guard let `self` = self else { return }
             Logger.info("Trip Obj = \(tripObj)")
+
+            // Update
+            self.tripActivityView.updateData(tripObj)
+
         })
         .addDisposableTo(self.disposeBag)
     }

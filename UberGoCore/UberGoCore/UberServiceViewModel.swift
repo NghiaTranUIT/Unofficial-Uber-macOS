@@ -213,6 +213,7 @@ open class UberServiceViewModel: BaseViewModel,
             }
 
         self.currentTripStatusDriver = timerOb
+            .startWith(1) // Call instantly
             .flatMapLatest {[unowned self] _ -> Observable<TripObj> in
                 Logger.info("__getCurrentTrip timer")
                 return self.uberService.getCurrentTrip()
