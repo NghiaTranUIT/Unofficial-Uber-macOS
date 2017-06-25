@@ -261,7 +261,7 @@ class MapViewController: BaseViewController {
         case .navigation:
 
             // Force layout
-            self.mapContainerViewBottom.constant = 305
+            self.mapContainerViewBottom.constant = 324
             self.view.layoutSubtreeIfNeeded()
 
             // Fade in
