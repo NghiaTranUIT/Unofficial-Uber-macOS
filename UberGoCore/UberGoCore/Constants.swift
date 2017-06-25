@@ -39,6 +39,7 @@ struct Constants {
 
         // Sandbox
         static let SandboxUpdateProduct = "/v1.2/sandbox/products/:id"
+        static let SandboxUpdateStatusTrip = "/v1.2/sandbox/requests/:id"
     }
 
     // MARK: - Google App

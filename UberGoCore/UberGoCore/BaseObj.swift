@@ -44,4 +44,18 @@ open class BaseObj: NSObject, Mappable, NSCoding {
         aCoder.encode(self.createdAt)
         aCoder.encode(self.updatedAt)
     }
+
+    // MARK: - Debug
+    override open var debugDescription: String {
+        guard let json = self.toJSONString() else {
+            return super.debugDescription
+        }
+        return json
+    }
+    override open var description: String {
+        guard let json = self.toJSONString() else {
+            return super.debugDescription
+        }
+        return json
+    }
 }

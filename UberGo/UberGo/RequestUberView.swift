@@ -25,8 +25,11 @@ class RequestUberView: NSView {
     @IBOutlet fileprivate weak var highFareLbl: NSTextField!
 
     // MARK: - Variable
-    public let viewModel = UberServiceViewModel()
-
+    public var viewModel: UberServiceViewModel! {
+        didSet {
+            self.binding()
+        }
+    }
     fileprivate var isBinding = false
     fileprivate let disposeBag = DisposeBag()
     fileprivate var selectedProduct: Variable<ProductObj?> {
@@ -42,6 +45,10 @@ class RequestUberView: NSView {
 
         self.initCommon()
         self.initCollectionView()
+    }
+
+    // MARK: - Binding
+    fileprivate func binding() {
 
         // Selecte Group
         guard self.isBinding == false else { return }
@@ -52,44 +59,44 @@ class RequestUberView: NSView {
 
         // Request Uber service
         self.viewModel.output.availableGroupProductsDriver
-        .drive(onNext: {[weak self] (groups) in
-            guard let `self` = self else { return }
-            self.updateAvailableGroupProducts(groups)
-        })
-        .addDisposableTo(self.disposeBag)
+            .drive(onNext: {[weak self] (groups) in
+                guard let `self` = self else { return }
+                self.updateAvailableGroupProducts(groups)
+            })
+            .addDisposableTo(self.disposeBag)
 
         // Select Group
         self.viewModel.output.selectedGroupProduct
-        .asObservable()
-        .filterNil()
-        .observeOn(MainScheduler.instance)
-        .subscribe(onNext: {[weak self] (groupObj) in
-            guard let `self` = self else { return }
-            self.stackView.arrangedSubviews.forEach({ (btn) in
-                guard let btn = btn as? UberGroupButton else { return }
-                guard let obj = btn.groupObj else { return }
-                // Select
-                if obj === groupObj {
-                    btn.state = NSOnState
-                } else {
-                    btn.state = NSOffState
-                }
+            .asObservable()
+            .filterNil()
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: {[weak self] (groupObj) in
+                guard let `self` = self else { return }
+                self.stackView.arrangedSubviews.forEach({ (btn) in
+                    guard let btn = btn as? UberGroupButton else { return }
+                    guard let obj = btn.groupObj else { return }
+                    // Select
+                    if obj === groupObj {
+                        btn.state = NSOnState
+                    } else {
+                        btn.state = NSOffState
+                    }
+                })
             })
-        })
-        .addDisposableTo(self.disposeBag)
+            .addDisposableTo(self.disposeBag)
 
         // Select specific product
         self.viewModel.output.selectedProduct.asObservable()
-        .filterNil()
-        .subscribe(onNext: {[weak self] (productObj) in
-            guard let `self` = self else {
-                return
-            }
+            .filterNil()
+            .subscribe(onNext: {[weak self] (productObj) in
+                guard let `self` = self else {
+                    return
+                }
 
-            // Stuffs
-            self.updatePersonalStuffs(productObj)
-        })
-        .addDisposableTo(self.disposeBag)
+                // Stuffs
+                self.updatePersonalStuffs(productObj)
+            })
+            .addDisposableTo(self.disposeBag)
     }
 
     // MARK: - Public
@@ -176,7 +183,7 @@ class RequestUberView: NSView {
              guard let `self` = self else { return }
 
             // Layout
-            self.paymentImageView.image = NSImage(named: accountObj.type.imageIconName)
+            self.paymentImageView.image = NSImage(imageLiteralResourceName: accountObj.type.imageIconName)
             self.cardNumberLbl.stringValue = accountObj.betterAccountDescription
             self.cardNumberLbl.setKern(1.2)
         })
@@ -226,7 +233,7 @@ extension RequestUberView {
         self.seatNumberLnl.textColor = NSColor.white
         self.dividerLineView.backgroundColor = NSColor.white
         self.highFareLbl.textColor = NSColor.lightGray
-        
+
         // Border
         self.scheduleUberBtn.wantsLayer = true
         self.scheduleUberBtn.layer?.borderColor = NSColor.white.cgColor

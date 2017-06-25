@@ -16,14 +16,14 @@ class SurgeHrefConfirmationController: NSViewController {
     @IBOutlet fileprivate weak var webView: WKWebView!
 
     // MARK: - Private
-    fileprivate var estimateObj: EstimateObj!
+    fileprivate var surgePriceObj: SurgePriceObj!
 
     // MARK: - View
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Load
-        guard let urlStr = self.estimateObj.surgePriceObj?.surgeConfirmationHref else {
+        guard let urlStr = self.surgePriceObj.surgeConfirmationHref else {
             return
         }
         guard let url = URL(string: urlStr) else {
@@ -34,7 +34,7 @@ class SurgeHrefConfirmationController: NSViewController {
     }
 
     // MARK: - Public
-    public func configureWebView(with estimateObj: EstimateObj) {
-        self.estimateObj = estimateObj
+    public func configureWebView(with surgePriceObj: SurgePriceObj) {
+        self.surgePriceObj = surgePriceObj
     }
 }

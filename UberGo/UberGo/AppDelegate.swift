@@ -25,9 +25,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     // MARK: - Action
     func applicationDidFinishLaunching(_ aNotification: Notification) {
 
-//        UserDefaults.standard.removeObject(forKey: "history")
-//        UserDefaults.standard.synchronize()
-
         // listen to scheme url
         let selector = #selector(AppDelegate.handleGetURL(event:withReplyEvent:))
         NSAppleEventManager.shared().setEventHandler(self, andSelector: selector,
@@ -69,7 +66,32 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func handleGetURL(event: NSAppleEventDescriptor!, withReplyEvent: NSAppleEventDescriptor!) {
+        guard let url = event.paramDescriptor(forKeyword: AEKeyword(keyDirectObject))?.stringValue else {
+            return
+        }
+
+        // Uber Surge
+        if url.contains("uber-surge") {
+            NotificationService.postNotificationOnMainThreadType(.handleSurgeCallback, object: event, userInfo: nil)
+            return
+        }
+
+        // Uber Authentication
         self.authenticationViewModel.input.uberCallbackPublish.onNext(event)
+    }
+
+    // MARK: - Debug
+    @IBAction func currentTripStatusOnTap(_ sender: Any) {
+        self.viewModel.input.currentTripStatusPublish.onNext()
+    }
+
+    @IBAction func cancelCurrentTripOnTab(_ sender: Any) {
+        self.viewModel.input.cancelCurrentTripPublish.onNext()
+    }
+
+    @IBAction func updateStateOnTap(_ sender: NSMenuItem) {
+        let status = TripObjStatus.createTripStatus(rawValue: sender.title)
+        self.viewModel.input.updateStatusTripPublish.onNext(status)
     }
 }
 
@@ -79,7 +101,7 @@ extension AppDelegate {
     fileprivate func setupPopover(with state: AuthenticationState) {
 
         if let button = statusItem.button {
-            button.image = NSImage(named: "StatusBarButtonImage")
+            button.image = NSImage(imageLiteralResourceName: "StatusBarButtonImage")
             button.imagePosition = .imageLeft
             button.action = #selector(togglePopover)
         }

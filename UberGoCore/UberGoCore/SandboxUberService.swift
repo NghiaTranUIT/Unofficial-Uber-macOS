@@ -20,4 +20,13 @@ open class SandboxUberService {
                                                      driversAvailable: available)
         return SandboxUpdateProductRequest(param).toObservable()
     }
+
+    public func updateTripStateObserver(status: TripObjStatus,
+                                        requestID: String) -> Observable<Void> {
+        let param = SandboxUpdateStatusTripRequestParam(status: status, requestID: requestID)
+        return SandboxUpdateStatusTripRequest(param).toObservable()
+        .map({ (_) -> Void in
+            return
+        })
+    }
 }

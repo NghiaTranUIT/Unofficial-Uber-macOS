@@ -47,8 +47,15 @@ open class UberService {
             })
     }
 
-    public func getCurrentRide() -> Observable<TripObj> {
+    public func getCurrentTrip() -> Observable<TripObj> {
         return GetCurrentTripRequest().toObservable()
+    }
+
+    public func cancelCurrentTrip() -> Observable<Void> {
+        return CancelCurrentTripRequest().toObservable()
+        .map({ _ -> Void in
+            return
+        })
     }
 
     fileprivate class func historyPlaceObserver() -> Observable<[PlaceObj]> {
@@ -128,14 +135,37 @@ open class UberService {
         return PostEstimateTripRequest(param).toObservable()
     }
 
-//    public func requestTripUber(with estimateObj: EstimateObj, productObj: ProductObj, paymentAccountObj: PaymentAccountObj, from: CLLocationCoordinate2D, to: PlaceObj) -> Observable<CreateTripObj> {
-//        var param: CreateTripRequestParam
-//        if let upFrontFareObj = estimateObj.upFrontFareObj {
-//            param = CreateTripRequestParam(fareID: upFrontFareObj.fareId!, productID: productObj.objectId!, surgeConfirmationId: estimateObj.surgePriceObj?.surgeConfirmationId, paymentMethodId: paymentAccountObj.objectId, startLocation: from, endLocation: to.coordinate2D, startPlaceType: nil, endPlaceType: nil)
-//        } else {
-//            param = CreateTripRequestParam(fareID: upFrontFareObj.fareId!, productID: productObj.objectId!, surgeConfirmationId: estimateObj.surgePriceObj?.surgeConfirmationId, paymentMethodId: paymentAccountObj.objectId, startLocation: from, endLocation: to.coordinate2D, startPlaceType: nil, endPlaceType: nil)
-//        }
-//    }
+    public func requestUpFrontFareTrip(frontFareObj: UpFrontFareOb,
+                                       productObj: ProductObj,
+                                       paymentAccountObj: PaymentAccountObj?,
+                                       from: CLLocationCoordinate2D,
+                                       to: PlaceObj) -> Observable<CreateTripObj> {
+        let param = CreateTripRequestParam(fareID: frontFareObj.fareId!,
+                                       productID: productObj.productId!,
+                                       surgeConfirmationId: nil,
+                                       paymentMethodId: paymentAccountObj?.paymentMethodId,
+                                       startLocation: from,
+                                       endLocation: to.coordinate2D,
+                                       startPlaceType: nil,
+                                       endPlaceType: nil)
+        return CreateTripRequest(param).toObservable()
+    }
+
+    public func requestSurgeTrip(surgeID: String,
+                                 productObj: ProductObj,
+                                 paymentAccountObj: PaymentAccountObj?,
+                                 from: CLLocationCoordinate2D,
+                                 to: PlaceObj) -> Observable<CreateTripObj> {
+        let param = CreateTripRequestParam(fareID: nil,
+                                       productID: productObj.productId!,
+                                       surgeConfirmationId: surgeID,
+                                       paymentMethodId: paymentAccountObj?.paymentMethodId,
+                                       startLocation: from,
+                                       endLocation: to.coordinate2D,
+                                       startPlaceType: nil,
+                                       endPlaceType: nil)
+        return CreateTripRequest(param).toObservable()
+    }
 }
 
 // MARK: - Private

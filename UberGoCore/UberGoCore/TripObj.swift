@@ -19,7 +19,7 @@ public enum TripObjStatus: String {
     case completed
     case unknown
 
-    static func createTripStatus(rawValue: String) -> TripObjStatus {
+    public static func createTripStatus(rawValue: String) -> TripObjStatus {
         guard let status = TripObjStatus(rawValue: rawValue) else {
             return .unknown
         }

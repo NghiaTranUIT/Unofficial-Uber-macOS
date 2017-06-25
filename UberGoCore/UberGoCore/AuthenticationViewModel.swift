@@ -69,7 +69,7 @@ open class AuthenticationViewModel: BaseViewModel,
 
         // Login
         self.loginBtnOnTabPublish
-        .flatMapLatest { _ -> Observable<OAuthSwiftCredential> in
+        .flatMapLatest {[unowned self] _ -> Observable<OAuthSwiftCredential> in
             return self.uberOauth.oauthUberObserable()
         }
         .map({ (credential) -> UserObj in
