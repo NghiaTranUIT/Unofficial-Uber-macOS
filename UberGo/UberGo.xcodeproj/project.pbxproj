@@ -32,6 +32,10 @@
 		BAB14AC11EF62DB40066267B /* UberProductCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BAB14ABF1EF62DB40066267B /* UberProductCell.xib */; };
 		BAB14AC31EF65FA80066267B /* CenterHorizontalFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB14AC21EF65FA80066267B /* CenterHorizontalFlowLayout.swift */; };
 		BAB14ACB1EF668290066267B /* UberGroupButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB14ACA1EF668290066267B /* UberGroupButton.swift */; };
+		BAB7B8E01EFF67D600B508A1 /* TripActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB7B8DF1EFF67D600B508A1 /* TripActivityView.swift */; };
+		BAB7B8E21EFF67DF00B508A1 /* TripActivityView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BAB7B8E11EFF67DF00B508A1 /* TripActivityView.xib */; };
+		BAB7B8E41EFF67FA00B508A1 /* IMG_6628@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BAB7B8E31EFF67FA00B508A1 /* IMG_6628@2x.jpg */; };
+		BAB7B8E61EFF686600B508A1 /* IMG_6629@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BAB7B8E51EFF686600B508A1 /* IMG_6629@2x.jpg */; };
 		BADB784A1EE5ABD5000536F7 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB78491EE5ABD5000536F7 /* SearchBarView.swift */; };
 		BADB784C1EE5ABDE000536F7 /* SearchBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BADB784B1EE5ABDE000536F7 /* SearchBarView.xib */; };
 		BADB78501EE5AC6A000536F7 /* NSView+Xib.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB784F1EE5AC6A000536F7 /* NSView+Xib.swift */; };
@@ -115,6 +119,10 @@
 		BAB14ABF1EF62DB40066267B /* UberProductCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UberProductCell.xib; sourceTree = "<group>"; };
 		BAB14AC21EF65FA80066267B /* CenterHorizontalFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CenterHorizontalFlowLayout.swift; sourceTree = "<group>"; };
 		BAB14ACA1EF668290066267B /* UberGroupButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UberGroupButton.swift; sourceTree = "<group>"; };
+		BAB7B8DF1EFF67D600B508A1 /* TripActivityView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripActivityView.swift; sourceTree = "<group>"; };
+		BAB7B8E11EFF67DF00B508A1 /* TripActivityView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TripActivityView.xib; sourceTree = "<group>"; };
+		BAB7B8E31EFF67FA00B508A1 /* IMG_6628@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "IMG_6628@2x.jpg"; sourceTree = "<group>"; };
+		BAB7B8E51EFF686600B508A1 /* IMG_6629@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "IMG_6629@2x.jpg"; sourceTree = "<group>"; };
 		BADB78491EE5ABD5000536F7 /* SearchBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
 		BADB784B1EE5ABDE000536F7 /* SearchBarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchBarView.xib; sourceTree = "<group>"; };
 		BADB784F1EE5AC6A000536F7 /* NSView+Xib.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSView+Xib.swift"; sourceTree = "<group>"; };
@@ -199,6 +207,8 @@
 		BA037F351EDD61F800945C1D /* UberGo */ = {
 			isa = PBXGroup;
 			children = (
+				BAB7B8E51EFF686600B508A1 /* IMG_6629@2x.jpg */,
+				BAB7B8E31EFF67FA00B508A1 /* IMG_6628@2x.jpg */,
 				BA1C3FBD1EFABE80001FD50F /* IMG_6625_1@2x.jpg */,
 				BA1C3FB61EFA68DA001FD50F /* IMG_6625@2x.jpg */,
 				BA32E7211EDFC79C0044C017 /* Constants */,
@@ -319,6 +329,7 @@
 		BAB14AC71EF660030066267B /* Uber */ = {
 			isa = PBXGroup;
 			children = (
+				BAB7B8DE1EFF67BE00B508A1 /* Trip Activity */,
 				BA1C3FB81EFAB1B5001FD50F /* Payment Account Cell */,
 				BAE3CCF01EF5813300F264CA /* Request Uber View */,
 				BADB78531EE5B7BA000536F7 /* ActionSearchBarView */,
@@ -351,6 +362,15 @@
 				BAE7171D1EF51D0B00E0EFFA /* NSAnimationContext+Helper.swift */,
 			);
 			name = Helper;
+			sourceTree = "<group>";
+		};
+		BAB7B8DE1EFF67BE00B508A1 /* Trip Activity */ = {
+			isa = PBXGroup;
+			children = (
+				BAB7B8DF1EFF67D600B508A1 /* TripActivityView.swift */,
+				BAB7B8E11EFF67DF00B508A1 /* TripActivityView.xib */,
+			);
+			name = "Trip Activity";
 			sourceTree = "<group>";
 		};
 		BADB78481EE5ABC5000536F7 /* Search Bar */ = {
@@ -545,6 +565,7 @@
 				BA037F3B1EDD61F800945C1D /* Assets.xcassets in Resources */,
 				BAB14AC11EF62DB40066267B /* UberProductCell.xib in Resources */,
 				BA1C3FB71EFA68DA001FD50F /* IMG_6625@2x.jpg in Resources */,
+				BAB7B8E41EFF67FA00B508A1 /* IMG_6628@2x.jpg in Resources */,
 				BADB784C1EE5ABDE000536F7 /* SearchBarView.xib in Resources */,
 				BADB78571EE5B7FB000536F7 /* ActionSearchBarView.xib in Resources */,
 				BA037F3E1EDD61F800945C1D /* Main.storyboard in Resources */,
@@ -552,8 +573,10 @@
 				BA1C3FBE1EFABE80001FD50F /* IMG_6625_1@2x.jpg in Resources */,
 				BAF57FBA1EE116FB0013090E /* LoginViewController.xib in Resources */,
 				BA1C3FB51EFA6852001FD50F /* PaymentMethodsController.xib in Resources */,
+				BAB7B8E61EFF686600B508A1 /* IMG_6629@2x.jpg in Resources */,
 				BA2A3A761EECFF6E002A0343 /* SearchPlaceCell.xib in Resources */,
 				BA1C3FBC1EFAB1D6001FD50F /* PaymentAccountCell.xib in Resources */,
+				BAB7B8E21EFF67DF00B508A1 /* TripActivityView.xib in Resources */,
 				BAE3CCF21EF5815600F264CA /* RequestUberView.xib in Resources */,
 				BAF57FC01EE117300013090E /* MapViewController.xib in Resources */,
 				BA67673E1EFA295D00805AC1 /* SurgeHrefConfirmationController.xib in Resources */,
@@ -703,6 +726,7 @@
 				BADB78591EE5B92B000536F7 /* NSView+BackgroundColor.swift in Sources */,
 				BAF57FBF1EE117300013090E /* MapViewController.swift in Sources */,
 				BAED39DD1EE9ADB7003D9BC3 /* SearchCollectionViewFlowLayout.swift in Sources */,
+				BAB7B8E01EFF67D600B508A1 /* TripActivityView.swift in Sources */,
 				BA1C3FBB1EFAB1D6001FD50F /* PaymentAccountCell.swift in Sources */,
 				BAB14ACB1EF668290066267B /* UberGroupButton.swift in Sources */,
 				BADB785B1EE5B93D000536F7 /* NSColor+Hex.swift in Sources */,
