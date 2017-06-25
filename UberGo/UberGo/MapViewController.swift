@@ -82,6 +82,8 @@ class MapViewController: BaseViewController {
         // View Model
         self.binding()
         self.notificationBinding()
+
+        self.layoutState = .tripActivity
     }
 
     override func viewDidAppear() {
@@ -327,7 +329,7 @@ extension MapViewController {
     fileprivate func initCommon() {
         self.view.backgroundColor = NSColor.white
         self.exitNavigateBtn.alphaValue = 0
-        self.bottomBarView.backgroundColor = NSColor(hexString: "#343332")
+        self.bottomBarView.backgroundColor = NSColor.black
     }
 
     fileprivate func initMapView() {
@@ -353,11 +355,13 @@ extension MapViewController {
 
     fileprivate func lazyInitRequestUberView() -> RequestUberView {
         let uberView = RequestUberView.viewFromNib(with: BundleType.app)!
+        uberView.backgroundColor = NSColor.black
         return uberView
     }
 
     fileprivate func lazyInitTripActivityView() -> TripActivityView {
         let uberView = TripActivityView.viewFromNib(with: BundleType.app)!
+        uberView.backgroundColor = NSColor.black
         return uberView
     }
 
