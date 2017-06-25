@@ -89,10 +89,50 @@ class TripActivityView: NSView {
     public func updateData(_ tripObj: TripObj) {
 
         // Status
+        self.updateStatus(tripObj)
+
+        // ETA
+        self.updateETA(tripObj)
+
+        // Driver name 
+        self.updateDriver(tripObj)
+
+        // Vehicle
+        self.updateVehicle(tripObj)
+
+        // Destination ETA
+        //self.arrvialTimeLbl.stringValue = tripObj.destination?.eta
+
+        // Current Payment
+        self.updatePayment()
+    }
+
+    // MARK: - Update Layout
+    fileprivate func updateStatus(_ tripObj: TripObj) {
+
+        // Name
         self.statusLbl.stringValue = tripObj.status.prettyValue
         self.statusLbl.setKern(2.0)
 
-        // ETA
+        // Enable - Disable
+        if tripObj.status == .processing ||
+            tripObj.status == .driverCanceled ||
+            tripObj.status == .riderCanceled ||
+            tripObj.status == .noDriversAvailable ||
+            tripObj.status == .unknown {
+
+            self.contactDriverBtn.isEnabled = false
+            self.shareStatusBtn.isEnabled = false
+            self.changeDestinationBtn.isEnabled = false
+        }
+        else {
+            self.contactDriverBtn.isEnabled = true
+            self.shareStatusBtn.isEnabled = true
+            self.changeDestinationBtn.isEnabled = true
+        }
+    }
+
+    fileprivate func updateETA(_ tripObj: TripObj) {
         self.etaLbl.isHidden = true
         if tripObj.status == .accepted {
             self.etaLbl.isHidden = false
@@ -105,38 +145,38 @@ class TripActivityView: NSView {
             self.etaLbl.stringValue = "\(tripObj.destination?.eta ?? 5) mins"
         }
         self.etaLbl.setKern(1.4)
+    }
 
-        // Driver name
-        if let driver = tripObj.driver {
-            self.driverNameLbl.stringValue = driver.name ?? "Unknow"
-            self.driverRatingLbl.stringValue = "\(driver.rating ?? 4) ★"
+    fileprivate func updateDriver(_ tripObj: TripObj) {
+        guard let driver = tripObj.driver else { return }
 
-            // Avatar
-            if let avatar = driver.pictureUrl {
-                DispatchQueue.global(qos: DispatchQoS.QoSClass.background)
-                    .async {
-                        if let url = URL(string: avatar) {
-                            let image = NSImage(contentsOf: url)
+        // Name
+        self.driverNameLbl.stringValue = driver.name ?? "Unknow"
+        self.driverRatingLbl.stringValue = "\(driver.rating ?? 4) ★"
 
-                            // Update
-                            DispatchQueue.main.async {
-                                self.driverAvatarImageView.image = image
-                            }
+        // Avatar
+        if let avatar = driver.pictureUrl {
+            DispatchQueue.global(qos: DispatchQoS.QoSClass.background)
+                .async {
+                    if let url = URL(string: avatar) {
+                        let image = NSImage(contentsOf: url)
+
+                        // Update
+                        DispatchQueue.main.async {
+                            self.driverAvatarImageView.image = image
                         }
                     }
             }
         }
+    }
 
-        // Vehicle
-        if let vehicle = tripObj.vehicle {
-            self.driverModelLbl.stringValue = vehicle.fullName
-            self.driverLicensePlateLbl.stringValue = vehicle.licensePlate ?? "Unknow"
-        }
+    fileprivate func updateVehicle(_ tripObj: TripObj) {
+        guard let vehicle = tripObj.vehicle else { return }
+        self.driverModelLbl.stringValue = vehicle.fullName
+        self.driverLicensePlateLbl.stringValue = vehicle.licensePlate ?? "Unknow"
+    }
 
-        // Destination ETA
-        //self.arrvialTimeLbl.stringValue = tripObj.destination?.eta
-
-        // Current Payment
+    fileprivate func updatePayment() {
         guard let currentUser = UserObj.currentUser else { return }
         guard let account = currentUser.currentPaymentAccountObjVar.value else { return }
         self.paymentImageView.image = NSImage(imageLiteralResourceName: account.type.imageIconName)

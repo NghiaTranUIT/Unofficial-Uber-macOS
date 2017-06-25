@@ -82,8 +82,6 @@ class MapViewController: BaseViewController {
         // View Model
         self.binding()
         self.notificationBinding()
-
-        self.layoutState = .tripActivity
     }
 
     override func viewDidAppear() {
@@ -207,7 +205,7 @@ class MapViewController: BaseViewController {
 
                 // Update layout
                 self.layoutState = .tripActivity
-                
+
                 // Trigger to start Timer
                 self.uberViewModel.input.triggerCurrentTripDriverPublisher.onNext()
             })

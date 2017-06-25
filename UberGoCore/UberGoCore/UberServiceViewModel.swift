@@ -209,11 +209,12 @@ open class UberServiceViewModel: BaseViewModel,
                 self.timerDisposeBag = DisposeBag()
             })
             .flatMapLatest { _ -> Observable<Int> in
-                return Observable<Int>.interval(10, scheduler: MainScheduler.instance)
+                return Observable<Int>
+                    .interval(10, scheduler: MainScheduler.instance)
+                    .startWith(1) // Call instantly
             }
 
         self.currentTripStatusDriver = timerOb
-            .startWith(1) // Call instantly
             .flatMapLatest {[unowned self] _ -> Observable<TripObj> in
                 Logger.info("__getCurrentTrip timer")
                 return self.uberService.getCurrentTrip()
