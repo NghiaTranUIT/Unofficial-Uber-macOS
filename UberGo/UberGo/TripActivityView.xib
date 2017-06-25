@@ -216,7 +216,28 @@
                 <constraint firstItem="FeV-XM-xef" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" id="fV1-4n-89n"/>
                 <constraint firstItem="hSf-zi-5bY" firstAttribute="top" secondItem="FeV-XM-xef" secondAttribute="bottom" constant="8" id="tpo-lD-UwQ"/>
             </constraints>
-            <point key="canvasLocation" x="139" y="190"/>
+            <connections>
+                <outlet property="activityContainerView" destination="hSf-zi-5bY" id="QQm-W2-7ai"/>
+                <outlet property="arrvialTimeLbl" destination="w3l-He-GBw" id="5hv-jh-PKd"/>
+                <outlet property="cancelTripBtn" destination="kT9-we-lkN" id="HVh-Kt-YEG"/>
+                <outlet property="changeDestinationBtn" destination="p32-ZB-vms" id="cHo-78-6mx"/>
+                <outlet property="contactDriverBtn" destination="IH8-Ux-KG7" id="HW6-cG-PZ3"/>
+                <outlet property="destinationContainerView" destination="8lQ-sY-yoe" id="PxJ-aB-a2K"/>
+                <outlet property="destinationLbl" destination="VSp-F0-3lg" id="Tsg-ZZ-5dF"/>
+                <outlet property="dividerActiviyView" destination="uaU-OH-2f3" id="MJj-w2-z1w"/>
+                <outlet property="dividerStatusLineView" destination="kms-P0-Br9" id="ZLh-t7-h8C"/>
+                <outlet property="driverAvatarImageView" destination="dQ9-Bc-94y" id="mrL-Yz-U84"/>
+                <outlet property="driverContainerView" destination="FeV-XM-xef" id="Gpr-65-lnt"/>
+                <outlet property="driverLicensePlateLbl" destination="R1d-HX-fow" id="Ihc-2K-tS5"/>
+                <outlet property="driverModelLbl" destination="mdl-Mg-Qum" id="Kzt-ES-NbC"/>
+                <outlet property="driverNameLbl" destination="9AY-FG-pg8" id="xhf-lG-xkW"/>
+                <outlet property="driverRatingLbl" destination="gIv-Sp-8WJ" id="yCC-1e-xa3"/>
+                <outlet property="etaLbl" destination="ptm-cs-XU0" id="ydK-CL-C8W"/>
+                <outlet property="shareStatusBtn" destination="6ry-Wv-x1X" id="RER-9M-SES"/>
+                <outlet property="statusLbl" destination="b9S-bI-6dS" id="lGi-kf-43P"/>
+                <outlet property="timeContainerView" destination="YRW-tw-qu4" id="Tb1-4i-2aK"/>
+            </connections>
+            <point key="canvasLocation" x="-91" y="212"/>
         </customView>
     </objects>
 </document>

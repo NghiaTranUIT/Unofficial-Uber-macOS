@@ -195,7 +195,9 @@ extension SearchBarView {
                 self.searchContainerView.alphaValue = 0
                 self.superview?.layoutSubtreeIfNeeded()
             })
-        case .navigation:
+        case .tripActivity:
+            fallthrough
+        case .productSelection:
 
             NSAnimationContext.defaultAnimate({ _ in
                 self.alphaValue = 0
