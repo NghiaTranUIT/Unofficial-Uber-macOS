@@ -29,21 +29,9 @@ class SearchBarView: NSView {
 
     // MARK: - Variable
     weak var delegate: SearchBarViewDelegate?
-    fileprivate var _layoutState = MapViewLayoutState.minimal {
+    var layoutState = MapViewLayoutState.minimal {
         didSet {
-            self.delegate?.searchBar(self, layoutStateDidChanged: _layoutState)
             self.animateSearchBarState()
-        }
-    }
-    public var layoutState: MapViewLayoutState {
-        get {
-            return self._layoutState
-        }
-        set {
-            if newValue == _layoutState {
-                return
-            }
-            _layoutState = newValue
         }
     }
     public var textSearchDidChangedDriver: Driver<String> {
@@ -100,7 +88,7 @@ class SearchBarView: NSView {
     }
     // MARK: - Action
     @IBAction func backBtnOnTap(_ sender: Any) {
-        self.layoutState = .minimal
+        self.delegate?.searchBar(self, layoutStateDidChanged: .minimal)
     }
 
 }
@@ -163,7 +151,7 @@ extension SearchBarView {
     }
 
     fileprivate func animateSearchBarState() {
-        switch self._layoutState {
+        switch self.layoutState {
         case .expand:
 
             // Focus
@@ -216,7 +204,7 @@ extension SearchBarView: ActionSearchBarViewDelegate {
     }
 
     func shouldOpenFullSearch() {
-        self.layoutState = .expand
+        self.delegate?.searchBar(self, layoutStateDidChanged: .expand)
     }
 }
 

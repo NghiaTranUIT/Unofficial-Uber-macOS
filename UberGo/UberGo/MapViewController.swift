@@ -267,8 +267,8 @@ class MapViewController: BaseViewController {
     fileprivate func updateLayoutState(_ state: MapViewLayoutState) {
 
         // Update state to sub-views
-        self.searchCollectionView.layoutStateChanged(state)
         self.searchBarView.layoutState = state
+        self.searchCollectionView.layoutStateChanged(state)
 
         // Remove if need
         self.tripActivityView.removeFromSuperview()
@@ -370,7 +370,7 @@ extension MapViewController {
 extension MapViewController: SearchBarViewDelegate {
 
     func searchBar(_ sender: SearchBarView, layoutStateDidChanged state: MapViewLayoutState) {
-        self.searchCollectionView.layoutStateChanged(state)
+        self.layoutState = state
     }
 }
 
