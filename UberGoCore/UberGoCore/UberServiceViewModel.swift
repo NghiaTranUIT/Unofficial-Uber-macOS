@@ -22,6 +22,7 @@ public protocol UberServiceViewModelInput {
     var selectedPlacePublisher: PublishSubject<UberData> { get }
     var requestUberPublisher: PublishSubject<Void> { get }
     var requestUberWithSurgeIDPublisher: PublishSubject<String> { get }
+    var triggerCurrentTripDriverPublisher: PublishSubject<Void> { get }
 }
 
 public struct UberData {
@@ -49,6 +50,9 @@ public protocol UberServiceViewModelOutput {
 
     // Normal Trip
     var normalTripDriver: Driver<CreateTripObj>! { get }
+
+    // Current Trip Status
+    var currentTripStatusDriver: Driver<TripObj>! { get }
 }
 
 open class UberServiceViewModel: BaseViewModel,
@@ -72,10 +76,13 @@ open class UberServiceViewModel: BaseViewModel,
     public var showSurgeHrefDriver: Driver<SurgePriceObj>!
     public var normalTripDriver: Driver<CreateTripObj>!
     public var requestUberWithSurgeIDPublisher = PublishSubject<String>()
+    public var currentTripStatusDriver: Driver<TripObj>!
+    public var triggerCurrentTripDriverPublisher = PublishSubject<Void>()
 
     // MARK: - Variable
     fileprivate var uberService = UberService()
     fileprivate var uberData: UberData?
+    fileprivate var timerDisposeBag: DisposeBag!
 
     // MARK: - Init
     override public init() {
@@ -192,5 +199,24 @@ open class UberServiceViewModel: BaseViewModel,
 
         self.normalTripDriver = Observable.merge([uberTripUpFareOb, uberTripSurgeFareOb])
             .asDriver(onErrorJustReturn: CreateTripObj())
+
+        // Current Trip Status
+        let timerOb = self.triggerCurrentTripDriverPublisher
+            .asObserver()
+            .do(onNext: {[unowned self] _ in
+
+                // Invalidate Timer
+                self.timerDisposeBag = DisposeBag()
+            })
+            .flatMapLatest { _ -> Observable<Int> in
+                return Observable<Int>.interval(10, scheduler: MainScheduler.instance)
+            }
+
+        self.currentTripStatusDriver = timerOb
+            .flatMapLatest {[unowned self] _ -> Observable<TripObj> in
+                Logger.info("__getCurrentTrip timer")
+                return self.uberService.getCurrentTrip()
+            }
+            .asDriver(onErrorJustReturn: TripObj())
     }
 }

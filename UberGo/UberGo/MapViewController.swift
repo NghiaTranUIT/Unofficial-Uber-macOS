@@ -123,7 +123,8 @@ class MapViewController: BaseViewController {
             .addDisposableTo(self.disposeBag)
 
         // Loader
-        self.mapViewModel.output.loadingPublisher.subscribe(onNext: {[weak self] isLoading in
+        self.mapViewModel.output.loadingPublisher
+            .subscribe(onNext: {[weak self] isLoading in
                 guard let `self` = self else {
                     return
                 }
@@ -179,10 +180,22 @@ class MapViewController: BaseViewController {
 
         // Trip
         self.uberViewModel.output.normalTripDriver
-            .drive(onNext: { (createTripObj) in
+            .drive(onNext: {[weak self] (createTripObj) in
+                guard let `self` = self else { return }
+
                 Logger.info("Start Request Normal TRIP = \(createTripObj)")
+
+                // Trigger to start Timer
+                self.uberViewModel.input.triggerCurrentTripDriverPublisher.onNext()
             })
             .addDisposableTo(self.disposeBag)
+
+        // Current Trip Status
+        self.uberViewModel.output.currentTripStatusDriver
+        .drive(onNext: { (tripObj) in
+            Logger.info("Trip Obj = \(tripObj)")
+        })
+        .addDisposableTo(self.disposeBag)
     }
 
     fileprivate func notificationBinding() {
