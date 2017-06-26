@@ -224,6 +224,11 @@ class MapViewController: BaseViewController {
         .drive(onNext: {[weak self] tripObj in
             guard let `self` = self else { return }
             self.updateTripActivityView(tripObj)
+
+            // Start Timer again
+            if tripObj.isValidTrip {
+                self.uberViewModel.input.triggerCurrentTripPublisher.onNext()
+            }
         })
         .addDisposableTo(self.disposeBag)
 

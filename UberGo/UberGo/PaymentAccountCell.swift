@@ -48,7 +48,6 @@ extension PaymentAccountCell {
     fileprivate func initCommon() {
         self.cardNumberLbl.textColor = NSColor(hexString: "#030303")
         self.view.backgroundColor = NSColor.white
-        self.collectionView.backgroundColor = NSColor.white
         self.dividerLineView.backgroundColor = NSColor(hexString: "#ededed")
     }
 }

@@ -38,9 +38,9 @@ class TripActivityView: NSView {
     @IBOutlet fileprivate weak var arrvialTimeLbl: UberTextField!
     @IBOutlet fileprivate weak var shareStatusBtn: UberButton!
 
-    @IBOutlet weak var paymentContainerView: NSView!
-    @IBOutlet weak var paymentImageView: NSImageView!
-    @IBOutlet weak var cardNumberLbl: UberTextField!
+    @IBOutlet fileprivate weak var paymentContainerView: NSView!
+    @IBOutlet fileprivate weak var paymentImageView: NSImageView!
+    @IBOutlet fileprivate weak var cardNumberLbl: UberTextField!
 
     // MARK: - Variable
 
@@ -85,7 +85,7 @@ class TripActivityView: NSView {
                                         constant: 0)
         parentView.addConstraints([top, left, right, bottom])
     }
-    
+
     public func updateData(_ tripObj: TripObj) {
 
         // Status
@@ -124,8 +124,7 @@ class TripActivityView: NSView {
             self.contactDriverBtn.isEnabled = false
             self.shareStatusBtn.isEnabled = false
             self.changeDestinationBtn.isEnabled = false
-        }
-        else {
+        } else {
             self.contactDriverBtn.isEnabled = true
             self.shareStatusBtn.isEnabled = true
             self.changeDestinationBtn.isEnabled = true
@@ -166,7 +165,7 @@ class TripActivityView: NSView {
                             self.driverAvatarImageView.image = image
                         }
                     }
-            }
+                }
         }
     }
 
@@ -216,6 +215,13 @@ extension TripActivityView {
         // Kern
         self.statusLbl.setKern(2.0)
         self.etaLbl.setKern(1.4)
+
+        // Border
+        self.driverAvatarImageView.wantsLayer = true
+        self.driverAvatarImageView.layer?.cornerRadius = 25
+        self.driverAvatarImageView.layer?.borderColor = NSColor(hexString: "#ededed").cgColor
+        self.driverAvatarImageView.layer?.borderWidth = 1
+        self.driverAvatarImageView.layer?.contentsGravity = kCAGravityResizeAspectFill
     }
 }
 
