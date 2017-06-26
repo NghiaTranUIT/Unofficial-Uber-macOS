@@ -31,9 +31,9 @@ class UberOauth {
     }
 
     // MARK: - Public
-    public func oauthUberObserable() -> Observable<OAuthSwiftCredential> {
+    public func oauthUberObserable() -> Observable<OAuthSwiftCredential?> {
 
-        return Observable<OAuthSwiftCredential>.create { (observer) -> Disposable in
+        return Observable<OAuthSwiftCredential?>.create { (observer) -> Disposable in
             _ = self.oauthUber.authorize (
                 withCallbackURL: URL(string: Constants.UberApp.CallBackUrl)!,
                 scope: "", state:"UBER",
@@ -44,7 +44,8 @@ class UberOauth {
             },
                 failure: { error in
                     print(error.localizedDescription)
-                    observer.onError(error)
+                    observer.onNext(nil)
+                    observer.onCompleted()
             })
 
             return Disposables.create()

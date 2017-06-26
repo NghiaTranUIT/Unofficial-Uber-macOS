@@ -40,9 +40,7 @@ open class AuthenticationViewModel: BaseViewModel,
     public var output: AuthenticationViewModelOutput { return self }
 
     // MARK: - Variable
-    fileprivate lazy var uberOauth: UberOauth = {
-        return UberOauth()
-    }()
+    fileprivate let uberOauth = UberOauth()
 
     // MARK: - Input
     public var loginBtnOnTabPublish = PublishSubject<Void>()
@@ -56,27 +54,39 @@ open class AuthenticationViewModel: BaseViewModel,
         super.init()
 
         // Check authentication
-        self.authenticateStateDriver = Observable<AuthenticationState>.create({ (observer) -> Disposable in
-            guard let currentUser = UserObj.currentUser else {
-                observer.onNext(.unAuthenticated)
-                return Disposables.create()
-            }
+        let authenticationChanged = Observable<AuthenticationState>
+            .create({ (observer) -> Disposable in
+                guard let currentUser = UserObj.currentUser else {
+                    observer.onNext(.unAuthenticated)
+                    return Disposables.create()
+                }
 
-            observer.onNext(currentUser.authenticateState)
-            return Disposables.create()
+                observer.onNext(currentUser.authenticateState)
+                return Disposables.create()
         })
-        .asDriver(onErrorJustReturn: AuthenticationState.unAuthenticated)
 
         // Login
-        self.loginBtnOnTabPublish
-        .flatMapLatest {[unowned self] _ -> Observable<OAuthSwiftCredential> in
-            return self.uberOauth.oauthUberObserable()
-        }
-        .map({ (credential) -> UserObj in
-            return UserObj.convertCurrentUser(with: credential)
-        })
-        .subscribe()
-        .addDisposableTo(self.disposeBag)
+        let loginSuccess = self.loginBtnOnTabPublish
+            .asObserver()
+            .flatMapLatest {[unowned self] _ -> Observable<OAuthSwiftCredential?> in
+                return self.uberOauth.oauthUberObserable()
+            }
+            .do(onNext: { (credential) in
+                guard let credential = credential else { return }
+                UserObj.convertCurrentUser(with: credential)
+            })
+            .map({ (credential) -> AuthenticationState in
+
+                guard credential != nil else {
+                    return .unAuthenticated
+                }
+
+                return .authenticated
+            })
+
+        // Merge
+        self.authenticateStateDriver = Observable.merge([authenticationChanged, loginSuccess])
+            .asDriver(onErrorJustReturn: AuthenticationState.unAuthenticated)
 
         // Oauth Callback
         self.uberCallbackPublish.bind(to: self.uberOauth.callbackObserverPublish)

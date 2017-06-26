@@ -93,6 +93,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let status = TripObjStatus.createTripStatus(rawValue: sender.title)
         self.viewModel.input.updateStatusTripPublish.onNext(status)
     }
+
+    @IBAction func logoutUberOnTap(_ sender: NSMenuItem) {
+        UserDefaults.standard.removeObject(forKey: "currentUser")
+        UserDefaults.standard.synchronize()
+
+        // Layout
+        self.setupPopover(with: .unAuthenticated)
+    }
+
 }
 
 // MARK: - Private
