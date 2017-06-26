@@ -13,6 +13,7 @@ import UberGoCore
 class UberMapView: MGLMapView {
 
     // MARK: - Variable
+
     // Origin
     fileprivate var originPoint: MGLPointAnnotation?
 
@@ -20,6 +21,16 @@ class UberMapView: MGLMapView {
     fileprivate var destinationPlaceObj: PlaceObj?
     fileprivate var destinationPoint: MGLPointAnnotation?
     fileprivate var directionRoute: MGLPolyline?
+
+    // Pickup place
+    fileprivate var pickupPlace: UberCoordinateObj?
+    fileprivate var pickupPoint: MGLPointAnnotation?
+    fileprivate var pickupRoute: MGLPolyline?
+
+    // Driver Place
+    fileprivate var driverPlace: DriverObj?
+    fileprivate var driverPoint: MGLPointAnnotation?
+    fileprivate var driverRoute: MGLPolyline?
 
     // MARK: - Initilization
     override init(frame: NSRect) {
@@ -110,9 +121,8 @@ class UberMapView: MGLMapView {
         }
 
         // Add
-        guard let coordinate = placeObj.coordinate2D else {
-            return
-        }
+        guard let coordinate = placeObj.coordinate2D else { return }
+
         self.destinationPoint = MGLPointAnnotation()
         self.destinationPoint!.coordinate = coordinate
         self.destinationPoint!.title = placeObj.name
@@ -171,6 +181,60 @@ class UberMapView: MGLMapView {
         } else {
             assert(false, "route.coordinateCount == 0")
         }
+    }
+
+    func updateCurrentTripLayout(_ tripObj: TripObj) {
+
+        // Pickup
+        self.addPickupPoint(tripObj.pickup)
+
+        // Driver
+        self.addDriverPoint(tripObj.driver, location: tripObj.location)
+
+        // Draw route
+        self.drawCurrentTripRoute()
+    }
+
+    fileprivate func addPickupPoint(_ pickupObj: UberCoordinateObj?) {
+
+        self.pickupPlace = pickupObj
+
+        // Remove if need
+        if let pickupPoint = self.pickupPoint {
+            self.removeAnnotation(pickupPoint)
+            self.pickupPoint = nil
+        }
+
+        guard let pickupObj = pickupObj else { return }
+
+        self.pickupPoint = MGLPointAnnotation()
+        self.pickupPoint!.coordinate = CLLocationCoordinate2D(latitude: pickupObj.latitude!,
+                                                              longitude: pickupObj.longitude!)
+        self.pickupPoint!.title = "Pickup"
+        self.addAnnotation(self.pickupPoint!)
+    }
+
+    fileprivate func addDriverPoint(_ driverObj: DriverObj?, location: UberCoordinateObj?) {
+
+        self.driverPlace = driverObj
+
+        // Remove if need
+        if let driverPoint = self.driverPoint {
+            self.removeAnnotation(driverPoint)
+            self.driverPoint = nil
+        }
+
+        guard let location = location else { return }
+
+        self.driverPoint = MGLPointAnnotation()
+        self.driverPoint!.coordinate = CLLocationCoordinate2D(latitude: location.latitude!,
+                                                              longitude: location.longitude!)
+        self.driverPoint!.title = "Driver"
+        self.addAnnotation(self.driverPoint!)
+    }
+
+    fileprivate func drawCurrentTripRoute() {
+
     }
 }
 

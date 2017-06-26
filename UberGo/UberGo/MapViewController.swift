@@ -46,6 +46,7 @@ class MapViewController: BaseViewController {
     fileprivate var searchPlaceObjs: [PlaceObj] {
         return self.mapViewModel.output.searchPlaceObjsVariable.value
     }
+    fileprivate var isShouldUpdateActivityLayout = true
 
     // Layout State
     fileprivate var _layoutState: MapViewLayoutState = .minimal {
@@ -154,11 +155,7 @@ class MapViewController: BaseViewController {
             .drive(onNext: {[weak self] placeObj in
                 guard let `self` = self else { return }
 
-                let state = placeObj != nil ? MapViewLayoutState.productSelection :
-                    MapViewLayoutState.minimal
-
-                // Layout
-                self.layoutState = state
+                // Draw
                 self.mapView.addDestinationPlaceObj(placeObj)
 
                 // Request Product + Estimate Uber
@@ -227,7 +224,7 @@ class MapViewController: BaseViewController {
 
             // Start Timer again
             if tripObj.isValidTrip {
-                self.uberViewModel.input.triggerCurrentTripPublisher.onNext()
+                //self.uberViewModel.input.triggerCurrentTripPublisher.onNext()
             }
         })
         .addDisposableTo(self.disposeBag)
@@ -255,11 +252,26 @@ class MapViewController: BaseViewController {
         if tripObj.isValidTrip {
             self.layoutState = .tripActivity
         } else {
+            self.isShouldUpdateActivityLayout = true
             self.layoutState = .minimal
         }
 
+        // Stop if unknown
+        guard tripObj.status != .unknown else { return }
+
         // Update
         self.tripActivityView.updateData(tripObj)
+
+        // Update Map
+        if self.isShouldUpdateActivityLayout {
+            self.isShouldUpdateActivityLayout = false
+
+            // Remove destination
+            self.mapViewModel.input.didSelectPlaceObjPublisher.onNext(nil)
+
+            // Update map 
+            self.mapView.updateCurrentTripLayout(tripObj)
+        }
     }
 
     @objc func showSurgeHrefView(_ surgeObj: SurgePriceObj) {
@@ -423,6 +435,9 @@ extension MapViewController: SearchCollectionViewDelegate {
         // Select
         let placeObj = self.searchPlaceObjs[atIndex.item]
         self.mapViewModel.input.didSelectPlaceObjPublisher.onNext(placeObj)
+
+        // Update layout
+        self.layoutState = .productSelection
     }
 }
 
