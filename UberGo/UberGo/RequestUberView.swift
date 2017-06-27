@@ -224,12 +224,12 @@ class RequestUberView: NSView {
 extension RequestUberView {
 
     fileprivate func initCommon() {
-        self.backgroundColor = NSColor(hexString: "#343332")
+        self.backgroundColor = NSColor.black
         self.requestUberBtn.backgroundColor = NSColor.white
         self.requestUberBtn.setTitleColor(NSColor.black, kern: 2)
         self.cardNumberLbl.textColor = NSColor.white
-        self.scrollView.backgroundColor = NSColor(hexString: "#343332")
-        self.collectionView.backgroundColor = NSColor(hexString: "#343332")
+        self.scrollView.backgroundColor = NSColor.black
+        self.collectionView.backgroundColor = NSColor.black
         self.seatNumberLnl.textColor = NSColor.white
         self.dividerLineView.backgroundColor = NSColor.white
         self.highFareLbl.textColor = NSColor.lightGray

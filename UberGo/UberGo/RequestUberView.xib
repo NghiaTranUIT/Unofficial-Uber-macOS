@@ -72,7 +72,7 @@
                 </customView>
                 <scrollView wantsLayer="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" verticalScrollElasticity="none" translatesAutoresizingMaskIntoConstraints="NO" id="oke-Td-REg">
                     <rect key="frame" x="0.0" y="117" width="480" height="151"/>
-                    <clipView key="contentView" drawsBackground="NO" id="hpl-MZ-107">
+                    <clipView key="contentView" id="hpl-MZ-107">
                         <rect key="frame" x="0.0" y="0.0" width="480" height="151"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>

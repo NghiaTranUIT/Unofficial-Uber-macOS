@@ -203,12 +203,12 @@ open class MapViewModel: BaseViewModel,
 
         // Save History place
         selectedPlaceObserve.subscribe(onNext: {[unowned self] placeObj in
-            guard let placeObj = placeObj else {
-                return
-            }
-            guard let currentUser = UserObj.currentUser else {
-                return
-            }
+            guard let placeObj = placeObj else { return }
+            guard let currentUser = UserObj.currentUser else { return }
+
+            // Only save normal place to history
+            // Don't save personal place
+            guard placeObj.placeType == .place else { return }
 
             // Save history
             currentUser.saveHistoryPlace(placeObj)
