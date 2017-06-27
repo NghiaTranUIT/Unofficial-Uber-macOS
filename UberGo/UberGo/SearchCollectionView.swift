@@ -81,7 +81,9 @@ class SearchCollectionView: NSView {
             })
         case .minimal:
             fallthrough
-        case .tripActivity:
+        case .tripMinimunActivity:
+            fallthrough
+        case .tripFullActivity:
             fallthrough
         case .productSelection:
             self.isHidden = false

@@ -18,7 +18,8 @@ enum MapViewLayoutState {
     case expand
     case minimal
     case productSelection
-    case tripActivity
+    case tripFullActivity
+    case tripMinimunActivity
 }
 
 class MapViewController: BaseViewController {
@@ -31,9 +32,8 @@ class MapViewController: BaseViewController {
 
     @IBOutlet fileprivate weak var exitNavigateBtn: NSButton!
     @IBOutlet fileprivate weak var mapContainerView: NSView!
-    @IBOutlet fileprivate weak var mapContainerViewBottom: NSLayoutConstraint!
     @IBOutlet fileprivate weak var bottomBarView: NSView!
-    @IBOutlet fileprivate weak var bottomBarViewHeight: NSLayoutConstraint!
+    @IBOutlet fileprivate weak var containerViewHeight: NSLayoutConstraint!
 
     // MARK: - Variable
     fileprivate var mapViewModel = MapViewModel()
@@ -201,7 +201,7 @@ class MapViewController: BaseViewController {
                 Logger.info("Start Request Normal TRIP = \(createTripObj)")
 
                 // Update layout
-                self.layoutState = .tripActivity
+                self.layoutState = .tripMinimunActivity
 
                 // Trigger to start Timer
                 self.uberViewModel.input.triggerCurrentTripPublisher.onNext()
@@ -210,24 +210,30 @@ class MapViewController: BaseViewController {
 
         // Current Trip Status
         self.uberViewModel.output.currentTripStatusDriver
-        .drive(onNext: {[weak self] (tripObj) in
-            guard let `self` = self else { return }
-            self.updateTripActivityView(tripObj)
-        })
-        .addDisposableTo(self.disposeBag)
+            .drive(onNext: {[weak self] (tripObj) in
+                guard let `self` = self else { return }
+
+                // Update
+                self.updateTripActivityView(tripObj)
+                self.updateLayoutWithTrip(tripObj)
+            })
+            .addDisposableTo(self.disposeBag)
 
         // Manually
         self.uberViewModel.output.manuallyCurrentTripStatusDriver
-        .drive(onNext: {[weak self] tripObj in
-            guard let `self` = self else { return }
-            self.updateTripActivityView(tripObj)
+            .drive(onNext: {[weak self] tripObj in
+                guard let `self` = self else { return }
 
-            // Start Timer again
-            if tripObj.isValidTrip {
-                //self.uberViewModel.input.triggerCurrentTripPublisher.onNext()
-            }
-        })
-        .addDisposableTo(self.disposeBag)
+                // Update
+                self.updateTripActivityView(tripObj)
+                self.updateLayoutWithTrip(tripObj)
+
+                // Start Timer again
+                if tripObj.isValidTrip {
+                    //self.uberViewModel.input.triggerCurrentTripPublisher.onNext()
+                }
+            })
+            .addDisposableTo(self.disposeBag)
 
         // Get first check Trip Status
         self.uberViewModel.input.manuallyGetCurrentTripStatusPublisher.onNext()
@@ -259,13 +265,15 @@ class MapViewController: BaseViewController {
                                                     object: nil)
     }
 
-    fileprivate func updateTripActivityView(_ tripObj: TripObj) {
-
-        Logger.info("Trip Obj = \(tripObj)")
+    fileprivate func updateLayoutWithTrip(_ tripObj: TripObj) {
 
         // Reset layout if there is no trip
         if tripObj.isValidTrip {
-            self.layoutState = .tripActivity
+            if tripObj.status == .processing {
+                self.layoutState = .tripMinimunActivity
+            } else {
+                self.layoutState = .tripFullActivity
+            }
         } else {
             self.isShouldUpdateActivityLayout = true
             self.layoutState = .minimal
@@ -276,6 +284,11 @@ class MapViewController: BaseViewController {
             // Trigger location
             self.mapViewModel.input.startUpdateLocationTriggerPublisher.onNext(true)
         }
+    }
+
+    fileprivate func updateTripActivityView(_ tripObj: TripObj) {
+
+        Logger.info("Trip Obj = \(tripObj)")
 
         // Stop if unknown
         guard tripObj.status != .unknown else { return }
@@ -353,13 +366,14 @@ class MapViewController: BaseViewController {
         case .minimal:
 
             // Force Layout
-            self.mapContainerViewBottom.constant = 0
+            self.containerViewHeight.constant = 480
             self.view.layoutSubtreeIfNeeded()
 
             // Fade out
             NSAnimationContext.defaultAnimate({ _ in
                 self.exitNavigateBtn.alphaValue = 0
             })
+
         case .productSelection:
 
             // Add
@@ -368,21 +382,37 @@ class MapViewController: BaseViewController {
             }
 
             // Force layout
-            self.mapContainerViewBottom.constant = 324
+            self.containerViewHeight.constant = 804
             self.view.layoutSubtreeIfNeeded()
 
             // Fade in
             NSAnimationContext.defaultAnimate({ _ in
                 self.exitNavigateBtn.alphaValue = 1
             })
-        case .tripActivity:
+
+        case .tripFullActivity:
 
             // Add
             if self.tripActivityView.superview == nil {
                 self.tripActivityView.configureLayout(self.bottomBarView)
             }
 
-            self.mapContainerViewBottom.constant = 324
+            self.containerViewHeight.constant = 480 + 324
+            self.view.layoutSubtreeIfNeeded()
+
+            // Fade in
+            NSAnimationContext.defaultAnimate({ _ in
+                self.exitNavigateBtn.alphaValue = 0
+            })
+
+        case .tripMinimunActivity:
+
+            // Add
+            if self.tripActivityView.superview == nil {
+                self.tripActivityView.configureLayout(self.bottomBarView)
+            }
+
+            self.containerViewHeight.constant = 480 + 70
             self.view.layoutSubtreeIfNeeded()
 
             // Fade in

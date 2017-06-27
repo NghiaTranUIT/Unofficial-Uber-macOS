@@ -9,10 +9,9 @@
         <customObject id="-2" userLabel="File's Owner" customClass="MapViewController" customModule="UberGo" customModuleProvider="target">
             <connections>
                 <outlet property="bottomBarView" destination="lC3-Vn-oNQ" id="Chf-ts-kQc"/>
-                <outlet property="bottomBarViewHeight" destination="AGG-Ec-IQ8" id="j4q-A5-PIU"/>
+                <outlet property="containerViewHeight" destination="vsq-P1-q1e" id="HpB-Er-eRh"/>
                 <outlet property="exitNavigateBtn" destination="R7e-uc-ZRU" id="eRD-dF-TvI"/>
                 <outlet property="mapContainerView" destination="vPW-kc-2X8" id="9qX-lW-K1q"/>
-                <outlet property="mapContainerViewBottom" destination="mpG-Am-2Mv" id="GJc-19-tvF"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
         </customObject>
@@ -22,41 +21,51 @@
             <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <customView translatesAutoresizingMaskIntoConstraints="NO" id="lC3-Vn-oNQ">
-                    <rect key="frame" x="0.0" y="0.0" width="480" height="324"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="324" id="AGG-Ec-IQ8"/>
-                    </constraints>
-                </customView>
-                <customView translatesAutoresizingMaskIntoConstraints="NO" id="vPW-kc-2X8">
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="d62-3U-cvd">
                     <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
                     <subviews>
-                        <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="R7e-uc-ZRU">
-                            <rect key="frame" x="20" y="433" width="22" height="32"/>
-                            <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="back-white-btn" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="H1D-il-Kj2">
-                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                <font key="font" metaFont="system"/>
-                            </buttonCell>
-                            <connections>
-                                <action selector="exitNavigateBtnOnTapped:" target="-2" id="8L0-ZA-TdP"/>
-                            </connections>
-                        </button>
+                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="lC3-Vn-oNQ">
+                            <rect key="frame" x="0.0" y="-324" width="480" height="324"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="324" id="Wzt-my-f1t"/>
+                            </constraints>
+                        </customView>
+                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="vPW-kc-2X8">
+                            <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
+                            <subviews>
+                                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="R7e-uc-ZRU">
+                                    <rect key="frame" x="20" y="433" width="22" height="32"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="back-white-btn" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="H1D-il-Kj2">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                    <connections>
+                                        <action selector="exitNavigateBtnOnTapped:" target="-2" id="8L0-ZA-TdP"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="480" id="QWT-Vi-c6X"/>
+                            </constraints>
+                        </customView>
                     </subviews>
                     <constraints>
-                        <constraint firstAttribute="height" constant="480" id="75c-6A-gKa"/>
-                        <constraint firstItem="R7e-uc-ZRU" firstAttribute="top" secondItem="vPW-kc-2X8" secondAttribute="top" constant="15" id="9oW-fa-MM9"/>
-                        <constraint firstItem="R7e-uc-ZRU" firstAttribute="leading" secondItem="vPW-kc-2X8" secondAttribute="leading" constant="20" id="zjE-kd-s7w"/>
+                        <constraint firstAttribute="trailing" secondItem="lC3-Vn-oNQ" secondAttribute="trailing" id="HzT-W9-09H"/>
+                        <constraint firstItem="lC3-Vn-oNQ" firstAttribute="leading" secondItem="d62-3U-cvd" secondAttribute="leading" id="KMT-M7-IfO"/>
+                        <constraint firstAttribute="trailing" secondItem="vPW-kc-2X8" secondAttribute="trailing" id="LKD-t9-bxB"/>
+                        <constraint firstItem="lC3-Vn-oNQ" firstAttribute="top" secondItem="vPW-kc-2X8" secondAttribute="bottom" id="jcM-2F-h6A"/>
+                        <constraint firstItem="vPW-kc-2X8" firstAttribute="leading" secondItem="d62-3U-cvd" secondAttribute="leading" id="ndy-Ok-xhF"/>
+                        <constraint firstItem="vPW-kc-2X8" firstAttribute="top" secondItem="d62-3U-cvd" secondAttribute="top" id="oNL-MO-UFN"/>
+                        <constraint firstAttribute="height" constant="480" id="vsq-P1-q1e"/>
                     </constraints>
                 </customView>
             </subviews>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="lC3-Vn-oNQ" secondAttribute="trailing" id="6Pm-ZO-KQ1"/>
-                <constraint firstAttribute="bottom" secondItem="lC3-Vn-oNQ" secondAttribute="bottom" id="6RO-Kp-sXX"/>
-                <constraint firstItem="vPW-kc-2X8" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" id="bBL-rx-POL"/>
-                <constraint firstItem="lC3-Vn-oNQ" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="gco-w7-czz"/>
-                <constraint firstAttribute="bottom" secondItem="vPW-kc-2X8" secondAttribute="bottom" id="mpG-Am-2Mv"/>
-                <constraint firstItem="vPW-kc-2X8" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="qjd-Lm-wEl"/>
-                <constraint firstAttribute="trailing" secondItem="vPW-kc-2X8" secondAttribute="trailing" id="zir-iV-OLl"/>
+                <constraint firstAttribute="trailing" secondItem="d62-3U-cvd" secondAttribute="trailing" id="3aB-oX-alA"/>
+                <constraint firstAttribute="bottom" secondItem="d62-3U-cvd" secondAttribute="bottom" id="Fkd-Co-iWH"/>
+                <constraint firstItem="d62-3U-cvd" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" id="rU5-8K-aTa"/>
+                <constraint firstItem="d62-3U-cvd" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="s2t-ZD-eHr"/>
             </constraints>
             <point key="canvasLocation" x="146" y="432"/>
         </customView>

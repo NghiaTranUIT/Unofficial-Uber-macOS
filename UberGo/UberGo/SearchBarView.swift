@@ -183,7 +183,9 @@ extension SearchBarView {
                 self.searchContainerView.alphaValue = 0
                 self.superview?.layoutSubtreeIfNeeded()
             })
-        case .tripActivity:
+        case .tripMinimunActivity:
+            fallthrough
+        case .tripFullActivity:
             fallthrough
         case .productSelection:
 
