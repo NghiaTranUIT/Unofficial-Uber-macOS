@@ -149,6 +149,10 @@ class UberMapView: MGLMapView {
         self.showAnnotations(annotations, edgePadding: edge, animated: true)
     }
 
+    func reset() {
+        
+    }
+
     func drawDirectionRoute(_ route: Route?) {
 
         guard let route = route else {
@@ -190,9 +194,6 @@ class UberMapView: MGLMapView {
 
         // Driver
         self.addDriverPoint(tripObj.driver, location: tripObj.location)
-
-        // Draw route
-        self.drawCurrentTripRoute()
     }
 
     fileprivate func addPickupPoint(_ pickupObj: UberCoordinateObj?) {
@@ -233,8 +234,37 @@ class UberMapView: MGLMapView {
         self.addAnnotation(self.driverPoint!)
     }
 
-    fileprivate func drawCurrentTripRoute() {
+    public func drawCurrentTripRoute(_ route: Route?) {
+        guard let route = route else {
+            // Remove if need
+            if let driverRoute = self.driverRoute {
+                self.removeAnnotation(driverRoute)
+                self.driverRoute = nil
+            }
+            return
+        }
 
+        if route.coordinateCount > 0 {
+
+            // Remove if need
+            if let driverRoute = self.driverRoute {
+                self.removeAnnotation(driverRoute)
+                self.driverRoute = nil
+            }
+
+            // Convert the route’s coordinates into a polyline.
+            var routeCoordinates = route.coordinates!
+            let routeLine = MGLPolyline(coordinates: &routeCoordinates, count: route.coordinateCount)
+
+            // Add the polyline to the map and fit the viewport to the polyline.
+            self.addAnnotation(routeLine)
+            self.driverRoute = routeLine
+
+            // Centerizal
+            self.centralizeMap()
+        } else {
+            assert(false, "route.coordinateCount == 0")
+        }
     }
 }
 

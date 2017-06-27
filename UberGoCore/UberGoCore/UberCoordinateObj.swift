@@ -17,6 +17,10 @@ open class UberCoordinateObj: BaseObj {
     public var bearing: Double?
     public var eta: Int?
 
+    public var coordinate: CLLocationCoordinate2D {
+        return CLLocationCoordinate2D(latitude: self.latitude!, longitude: self.longitude!)
+    }
+    
     override public func mapping(map: Map) {
         super.mapping(map: map)
 

@@ -24,6 +24,7 @@ public protocol MapViewModelInput {
     var startUpdateLocationTriggerPublisher: PublishSubject<Bool> { get }
     var textSearchPublish: PublishSubject<String> { get }
     var didSelectPlaceObjPublisher: PublishSubject<PlaceObj?> { get }
+    var routeForCurrentTripPublisher: PublishSubject<TripObj> { get }
 }
 
 public protocol MapViewModelOutput {
@@ -40,6 +41,9 @@ public protocol MapViewModelOutput {
     var selectedPlaceObjDriver: Driver<PlaceObj?>! { get }
     var selectedDirectionRouteObserver: Observable<Route?>! { get }
     var isSelectedPlace: Driver<Bool> { get }
+
+    // Route
+    var routeCurrentTrip: Driver<Route?>! { get }
 }
 
 // MARK: - View Model
@@ -61,6 +65,7 @@ open class MapViewModel: BaseViewModel,
     public var startUpdateLocationTriggerPublisher = PublishSubject<Bool>()
     public var textSearchPublish = PublishSubject<String>()
     public var didSelectPlaceObjPublisher = PublishSubject<PlaceObj?>()
+    public var routeForCurrentTripPublisher = PublishSubject<TripObj>()
 
     // MARK: - Output
     public var currentLocationVariable: Variable<CLLocation?> {
@@ -80,6 +85,7 @@ open class MapViewModel: BaseViewModel,
     public var isSelectedPlace: Driver<Bool> {
         return self.selectedPlaceObjDriver.map({ $0 != nil })
     }
+    public var routeCurrentTrip: Driver<Route?>!
 
     // MARK: - Init
     public override init() {
@@ -211,5 +217,21 @@ open class MapViewModel: BaseViewModel,
             self.uberService.reloadHistoryTrigger.onNext()
         })
         .addDisposableTo(self.disposeBag)
+
+        // Request Route for Current Trip
+        self.routeCurrentTrip = self.routeForCurrentTripPublisher
+            .asObserver()
+            .flatMapLatest {[unowned self] (tripObj) -> Observable<Route?> in
+                guard let pickup = tripObj.pickup else {
+                    return Observable.just(nil)
+                }
+                guard let driver = tripObj.location else {
+                    return Observable.just(nil)
+                }
+
+                return self.directionService.generateDirectionRoute(from: driver.coordinate, originName: "Driver",
+                                                                    to: pickup.coordinate, destinationName: "Pickup")
+            }
+        .asDriver(onErrorJustReturn: nil)
     }
 }
