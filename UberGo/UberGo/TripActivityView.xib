@@ -86,6 +86,9 @@
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system" size="14"/>
                             </buttonCell>
+                            <connections>
+                                <action selector="contactDriverBtnOnTap:" target="c22-O7-iKe" id="kpY-nF-Gtn"/>
+                            </connections>
                         </button>
                         <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kT9-we-lkN" customClass="UberButton" customModule="UberGo" customModuleProvider="target">
                             <rect key="frame" x="240" y="0.0" width="240" height="41"/>
@@ -96,6 +99,9 @@
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system" size="14"/>
                             </buttonCell>
+                            <connections>
+                                <action selector="cancelTripBtnOnTap:" target="c22-O7-iKe" id="GSi-ma-K6O"/>
+                            </connections>
                         </button>
                     </subviews>
                     <constraints>

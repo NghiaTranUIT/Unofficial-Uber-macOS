@@ -36,6 +36,7 @@
 		BAB7B8E21EFF67DF00B508A1 /* TripActivityView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BAB7B8E11EFF67DF00B508A1 /* TripActivityView.xib */; };
 		BAB7B8E41EFF67FA00B508A1 /* IMG_6628@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BAB7B8E31EFF67FA00B508A1 /* IMG_6628@2x.jpg */; };
 		BAB7B8E61EFF686600B508A1 /* IMG_6629@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BAB7B8E51EFF686600B508A1 /* IMG_6629@2x.jpg */; };
+		BACC07981F021F1F0092F2F4 /* UberAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACC07971F021F1F0092F2F4 /* UberAlertView.swift */; };
 		BADB784A1EE5ABD5000536F7 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB78491EE5ABD5000536F7 /* SearchBarView.swift */; };
 		BADB784C1EE5ABDE000536F7 /* SearchBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BADB784B1EE5ABDE000536F7 /* SearchBarView.xib */; };
 		BADB78501EE5AC6A000536F7 /* NSView+Xib.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB784F1EE5AC6A000536F7 /* NSView+Xib.swift */; };
@@ -123,6 +124,7 @@
 		BAB7B8E11EFF67DF00B508A1 /* TripActivityView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TripActivityView.xib; sourceTree = "<group>"; };
 		BAB7B8E31EFF67FA00B508A1 /* IMG_6628@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "IMG_6628@2x.jpg"; sourceTree = "<group>"; };
 		BAB7B8E51EFF686600B508A1 /* IMG_6629@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "IMG_6629@2x.jpg"; sourceTree = "<group>"; };
+		BACC07971F021F1F0092F2F4 /* UberAlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UberAlertView.swift; sourceTree = "<group>"; };
 		BADB78491EE5ABD5000536F7 /* SearchBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
 		BADB784B1EE5ABDE000536F7 /* SearchBarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchBarView.xib; sourceTree = "<group>"; };
 		BADB784F1EE5AC6A000536F7 /* NSView+Xib.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSView+Xib.swift"; sourceTree = "<group>"; };
@@ -343,6 +345,7 @@
 		BAB14AC81EF660240066267B /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				BACC07941F021E620092F2F4 /* Uber Alert View */,
 				BADB785F1EE66190000536F7 /* UberTextField */,
 				BAB14AC61EF65FF00066267B /* Uber Collection View */,
 				BADB785C1EE5B9F5000536F7 /* UberButton */,
@@ -371,6 +374,14 @@
 				BAB7B8E11EFF67DF00B508A1 /* TripActivityView.xib */,
 			);
 			name = "Trip Activity";
+			sourceTree = "<group>";
+		};
+		BACC07941F021E620092F2F4 /* Uber Alert View */ = {
+			isa = PBXGroup;
+			children = (
+				BACC07971F021F1F0092F2F4 /* UberAlertView.swift */,
+			);
+			name = "Uber Alert View";
 			sourceTree = "<group>";
 		};
 		BADB78481EE5ABC5000536F7 /* Search Bar */ = {
@@ -727,6 +738,7 @@
 				BAF57FBF1EE117300013090E /* MapViewController.swift in Sources */,
 				BAED39DD1EE9ADB7003D9BC3 /* SearchCollectionViewFlowLayout.swift in Sources */,
 				BAB7B8E01EFF67D600B508A1 /* TripActivityView.swift in Sources */,
+				BACC07981F021F1F0092F2F4 /* UberAlertView.swift in Sources */,
 				BA1C3FBB1EFAB1D6001FD50F /* PaymentAccountCell.swift in Sources */,
 				BAB14ACB1EF668290066267B /* UberGroupButton.swift in Sources */,
 				BADB785B1EE5B93D000536F7 /* NSColor+Hex.swift in Sources */,

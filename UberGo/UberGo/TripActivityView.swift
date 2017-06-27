@@ -8,6 +8,10 @@
 
 import UberGoCore
 
+protocol TripActivityViewDelegate: class {
+    func tripActivityViewShouldCancelCurrentTrip(_ sender: TripActivityView)
+}
+
 class TripActivityView: NSView {
 
     // MARK: - OUTLET
@@ -43,6 +47,7 @@ class TripActivityView: NSView {
     @IBOutlet fileprivate weak var cardNumberLbl: UberTextField!
 
     // MARK: - Variable
+    public weak var delegate: TripActivityViewDelegate?
 
     // MARK: - Init
     override func awakeFromNib() {
@@ -52,7 +57,7 @@ class TripActivityView: NSView {
     }
 
     // MARK: - Public
-    func configureLayout(_ parentView: NSView) {
+    public func configureLayout(_ parentView: NSView) {
         self.translatesAutoresizingMaskIntoConstraints = false
         parentView.addSubview(self)
 
@@ -107,7 +112,67 @@ class TripActivityView: NSView {
         self.updatePayment()
     }
 
-    // MARK: - Update Layout
+    // MARK: - OUTLET
+    @IBAction func cancelTripBtnOnTap(_ sender: Any) {
+        guard let window = self.window else { return }
+        NSAlert.confirmationAlertView(showOn: window, title: "Are you sure",
+                                      message: "Maybe cause pay deposit money",
+                                      okBlock: { [weak self] in
+
+            guard let `self` = self else { return }
+            self.delegate?.tripActivityViewShouldCancelCurrentTrip(self)
+        }, cancelBlock: nil)
+    }
+
+    @IBAction func contactDriverBtnOnTap(_ sender: Any) {
+        
+    }
+}
+
+// MARK: - Private
+extension TripActivityView {
+
+    fileprivate func initCommon() {
+
+        self.backgroundColor = NSColor.black
+        self.driverContainerView.backgroundColor = NSColor.white
+        self.activityContainerView.backgroundColor = NSColor.white
+        self.destinationContainerView.backgroundColor = NSColor.white
+        self.timeContainerView.backgroundColor = NSColor.white
+        self.paymentContainerView.backgroundColor = NSColor.white
+
+        self.contactDriverBtn.wantsLayer = true
+        self.contactDriverBtn.layer?.borderWidth = 1
+        self.contactDriverBtn.layer?.borderColor = NSColor(hexString: "#ededed").cgColor
+        self.contactDriverBtn.setTitleColor(NSColor(hexString: "#235a92"))
+
+        self.cancelTripBtn.wantsLayer = true
+        self.cancelTripBtn.layer?.borderWidth = 1
+        self.cancelTripBtn.layer?.borderColor = NSColor(hexString: "#ededed").cgColor
+        self.cancelTripBtn.setTitleColor(NSColor(hexString: "#9e191e"))
+
+        self.driverLicensePlateLbl.layer?.borderColor = NSColor(hexString: "#a4a5aa").cgColor
+        self.driverLicensePlateLbl.layer?.borderWidth = 1
+
+        self.dividerFirstView.backgroundColor = NSColor(hexString: "#ededed")
+        self.dividerSecondView.backgroundColor = NSColor(hexString: "#ededed")
+
+        // Kern
+        self.statusLbl.setKern(2.0)
+        self.etaLbl.setKern(1.4)
+
+        // Border
+        self.driverAvatarImageView.wantsLayer = true
+        self.driverAvatarImageView.layer?.cornerRadius = 25
+        self.driverAvatarImageView.layer?.borderColor = NSColor(hexString: "#ededed").cgColor
+        self.driverAvatarImageView.layer?.borderWidth = 1
+        self.driverAvatarImageView.layer?.contentsGravity = kCAGravityResizeAspectFill
+    }
+}
+
+// MARK: - Layout
+extension TripActivityView {
+
     fileprivate func updateStatus(_ tripObj: TripObj) {
 
         // Name
@@ -165,7 +230,7 @@ class TripActivityView: NSView {
                             self.driverAvatarImageView.image = image
                         }
                     }
-                }
+            }
         }
     }
 
@@ -181,47 +246,6 @@ class TripActivityView: NSView {
         self.paymentImageView.image = NSImage(imageLiteralResourceName: account.type.imageIconName)
         self.cardNumberLbl.stringValue = account.betterAccountDescription
         self.cardNumberLbl.setKern(1.2)
-    }
-}
-
-// MARK: - Private
-extension TripActivityView {
-
-    fileprivate func initCommon() {
-
-        self.backgroundColor = NSColor.black
-        self.driverContainerView.backgroundColor = NSColor.white
-        self.activityContainerView.backgroundColor = NSColor.white
-        self.destinationContainerView.backgroundColor = NSColor.white
-        self.timeContainerView.backgroundColor = NSColor.white
-        self.paymentContainerView.backgroundColor = NSColor.white
-
-        self.contactDriverBtn.wantsLayer = true
-        self.contactDriverBtn.layer?.borderWidth = 1
-        self.contactDriverBtn.layer?.borderColor = NSColor(hexString: "#ededed").cgColor
-        self.contactDriverBtn.setTitleColor(NSColor(hexString: "#235a92"))
-
-        self.cancelTripBtn.wantsLayer = true
-        self.cancelTripBtn.layer?.borderWidth = 1
-        self.cancelTripBtn.layer?.borderColor = NSColor(hexString: "#ededed").cgColor
-        self.cancelTripBtn.setTitleColor(NSColor(hexString: "#9e191e"))
-
-        self.driverLicensePlateLbl.layer?.borderColor = NSColor(hexString: "#a4a5aa").cgColor
-        self.driverLicensePlateLbl.layer?.borderWidth = 1
-
-        self.dividerFirstView.backgroundColor = NSColor(hexString: "#ededed")
-        self.dividerSecondView.backgroundColor = NSColor(hexString: "#ededed")
-
-        // Kern
-        self.statusLbl.setKern(2.0)
-        self.etaLbl.setKern(1.4)
-
-        // Border
-        self.driverAvatarImageView.wantsLayer = true
-        self.driverAvatarImageView.layer?.cornerRadius = 25
-        self.driverAvatarImageView.layer?.borderColor = NSColor(hexString: "#ededed").cgColor
-        self.driverAvatarImageView.layer?.borderWidth = 1
-        self.driverAvatarImageView.layer?.contentsGravity = kCAGravityResizeAspectFill
     }
 }
 

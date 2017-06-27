@@ -231,6 +231,21 @@ class MapViewController: BaseViewController {
 
         // Get first check Trip Status
         self.uberViewModel.input.manuallyGetCurrentTripStatusPublisher.onNext()
+
+        // Cancel
+        self.uberViewModel.output.resetMapDriver
+            .drive(onNext: {[weak self] _ in
+                guard let `self` = self else { return }
+
+                self.layoutState = .minimal
+
+                // Reset data
+                self.mapView.resetAllData()
+
+                // Trigger location
+                self.mapViewModel.input.startUpdateLocationTriggerPublisher.onNext(true)
+            })
+            .addDisposableTo(self.disposeBag)
     }
 
     fileprivate func notificationBinding() {
@@ -417,6 +432,7 @@ extension MapViewController {
     fileprivate func lazyInitTripActivityView() -> TripActivityView {
         let uberView = TripActivityView.viewFromNib(with: BundleType.app)!
         uberView.backgroundColor = NSColor.black
+        uberView.delegate = self
         return uberView
     }
 
@@ -460,5 +476,12 @@ extension MapViewController: PaymentMethodsControllerDelegate {
         guard let controller = self.paymentMethodController else { return }
         self.dismissViewController(controller)
         self.paymentMethodController = nil
+    }
+}
+
+extension MapViewController: TripActivityViewDelegate {
+
+    func tripActivityViewShouldCancelCurrentTrip(_ sender: TripActivityView) {
+        self.uberViewModel.input.cancelCurrentTripPublisher.onNext()
     }
 }

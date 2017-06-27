@@ -25,6 +25,7 @@ public protocol UberServiceViewModelInput {
 
     var triggerCurrentTripPublisher: PublishSubject<Void> { get }
     var manuallyGetCurrentTripStatusPublisher: PublishSubject<Void> { get }
+    var cancelCurrentTripPublisher: PublishSubject<Void> { get }
 }
 
 public struct UberData {
@@ -56,6 +57,9 @@ public protocol UberServiceViewModelOutput {
     // Current Trip Status
     var currentTripStatusDriver: Driver<TripObj>! { get }
     var manuallyCurrentTripStatusDriver: Driver<TripObj>! { get }
+
+    // Reset map
+    var resetMapDriver: Driver<Void>! { get }
 }
 
 open class UberServiceViewModel: BaseViewModel,
@@ -83,6 +87,8 @@ open class UberServiceViewModel: BaseViewModel,
     public var triggerCurrentTripPublisher = PublishSubject<Void>()
     public var manuallyGetCurrentTripStatusPublisher = PublishSubject<Void>()
     public var manuallyCurrentTripStatusDriver: Driver<TripObj>!
+    public var cancelCurrentTripPublisher = PublishSubject<Void>()
+    public var resetMapDriver: Driver<Void>!
 
     // MARK: - Variable
     fileprivate var uberService = UberService()
@@ -246,5 +252,12 @@ open class UberServiceViewModel: BaseViewModel,
                 self.timerDisposeBag = DisposeBag()
             })
             .asDriver(onErrorJustReturn: TripObj.noCurrentTrip())
+
+        // cancel
+        self.resetMapDriver = self.cancelCurrentTripPublisher.asObserver()
+            .flatMapLatest {[unowned self] _ -> Observable<Void> in
+                self.uberService.cancelCurrentTrip()
+            }
+            .asDriver(onErrorJustReturn: ())
     }
 }
