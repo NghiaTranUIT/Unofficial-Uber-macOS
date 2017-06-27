@@ -135,14 +135,6 @@ extension TripActivityView {
 
     fileprivate func initCommon() {
 
-        self.backgroundColor = NSColor.black
-        self.statusContainerView.backgroundColor = NSColor.black
-        self.driverContainerView.backgroundColor = NSColor.white
-        self.activityContainerView.backgroundColor = NSColor.white
-        self.destinationContainerView.backgroundColor = NSColor.white
-        self.timeContainerView.backgroundColor = NSColor.white
-        self.paymentContainerView.backgroundColor = NSColor.white
-
         self.contactDriverBtn.wantsLayer = true
         self.contactDriverBtn.layer?.borderWidth = 1
         self.contactDriverBtn.layer?.borderColor = NSColor(hexString: "#ededed").cgColor
@@ -168,7 +160,7 @@ extension TripActivityView {
         self.driverAvatarImageView.layer?.cornerRadius = 25
         self.driverAvatarImageView.layer?.borderColor = NSColor(hexString: "#ededed").cgColor
         self.driverAvatarImageView.layer?.borderWidth = 1
-        self.driverAvatarImageView.layer?.contentsGravity = kCAGravityResizeAspectFill
+        self.driverAvatarImageView.layer?.contentsGravity = kCAGravityResizeAspect
     }
 }
 

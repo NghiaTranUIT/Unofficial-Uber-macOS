@@ -142,8 +142,8 @@ class MapViewController: BaseViewController {
             .addDisposableTo(self.disposeBag)
 
         // Loader
-        self.mapViewModel.output.loadingPublisher
-            .subscribe(onNext: {[weak self] isLoading in
+        self.mapViewModel.output.loadingDriver
+            .drive(onNext: {[weak self] (isLoading) in
                 guard let `self` = self else {
                     return
                 }
