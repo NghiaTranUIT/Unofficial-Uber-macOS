@@ -293,6 +293,7 @@
                 <outlet property="paymentContainerView" destination="9qo-aB-GAc" id="v08-A8-Ytx"/>
                 <outlet property="paymentImageView" destination="NuQ-Mv-qYC" id="gTt-lJ-s0c"/>
                 <outlet property="shareStatusBtn" destination="6ry-Wv-x1X" id="RER-9M-SES"/>
+                <outlet property="statusContainerView" destination="aKs-eE-1K1" id="b39-4j-8od"/>
                 <outlet property="statusLbl" destination="b9S-bI-6dS" id="lGi-kf-43P"/>
                 <outlet property="timeContainerView" destination="YRW-tw-qu4" id="iFU-d4-Ma0"/>
             </connections>

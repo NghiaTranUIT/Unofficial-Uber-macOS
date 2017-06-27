@@ -214,8 +214,7 @@ class MapViewController: BaseViewController {
                 guard let `self` = self else { return }
 
                 // Update
-                self.updateTripActivityView(tripObj)
-                self.updateLayoutWithTrip(tripObj)
+                self.handleLayoutAndData(tripObj)
             })
             .addDisposableTo(self.disposeBag)
 
@@ -225,8 +224,7 @@ class MapViewController: BaseViewController {
                 guard let `self` = self else { return }
 
                 // Update
-                self.updateTripActivityView(tripObj)
-                self.updateLayoutWithTrip(tripObj)
+                self.handleLayoutAndData(tripObj)
 
                 // Start Timer again
                 if tripObj.isValidTrip {
@@ -265,56 +263,6 @@ class MapViewController: BaseViewController {
                                                     object: nil)
     }
 
-    fileprivate func updateLayoutWithTrip(_ tripObj: TripObj) {
-
-        // Reset layout if there is no trip
-        if tripObj.isValidTrip {
-            if tripObj.status == .processing {
-                self.layoutState = .tripMinimunActivity
-            } else {
-                self.layoutState = .tripFullActivity
-            }
-        } else {
-            self.isShouldUpdateActivityLayout = true
-            self.layoutState = .minimal
-
-            // Reset data
-            self.mapView.resetAllData()
-
-            // Trigger location
-            self.mapViewModel.input.startUpdateLocationTriggerPublisher.onNext(true)
-        }
-    }
-
-    fileprivate func updateTripActivityView(_ tripObj: TripObj) {
-
-        Logger.info("Trip Obj = \(tripObj)")
-
-        // Stop if unknown
-        guard tripObj.status != .unknown else { return }
-
-        // Update
-        self.tripActivityView.updateData(tripObj)
-
-        // Remove destination
-        if self.isShouldUpdateActivityLayout {
-            self.isShouldUpdateActivityLayout = false
-            self.mapViewModel.input.didSelectPlaceObjPublisher.onNext(nil)
-        }
-
-        // Update map
-        self.mapView.updateCurrentTripLayout(tripObj)
-
-        // Get Route
-        self.mapViewModel.input.routeForCurrentTripPublisher.onNext(tripObj)
-        self.mapViewModel.output.routeCurrentTrip
-            .drive(onNext: {[weak self] (route) in
-                guard let `self` = self else { return }
-                self.mapView.drawVisbileRoute(route)
-            })
-            .addDisposableTo(self.disposeBag)
-    }
-
     @objc func showSurgeHrefView(_ surgeObj: SurgePriceObj) {
         self.webController.configureWebView(with: surgeObj)
         self.presentViewControllerAsSheet(self.webController)
@@ -347,79 +295,6 @@ class MapViewController: BaseViewController {
 
         // Remove current
         self.mapViewModel.input.didSelectPlaceObjPublisher.onNext(nil)
-    }
-
-    fileprivate func updateLayoutState(_ state: MapViewLayoutState) {
-
-        // Update state to sub-views
-        self.searchBarView.layoutState = state
-        self.searchCollectionView.layoutStateChanged(state)
-
-        // Remove if need
-        self.tripActivityView.removeFromSuperview()
-        self.selectUberView.removeFromSuperview()
-
-        // Layout
-        switch state {
-        case .expand:
-            fallthrough
-        case .minimal:
-
-            // Force Layout
-            self.containerViewHeight.constant = 480
-            self.view.layoutSubtreeIfNeeded()
-
-            // Fade out
-            NSAnimationContext.defaultAnimate({ _ in
-                self.exitNavigateBtn.alphaValue = 0
-            })
-
-        case .productSelection:
-
-            // Add
-            if self.selectUberView.superview == nil {
-                self.selectUberView.configureLayout(self.bottomBarView)
-            }
-
-            // Force layout
-            self.containerViewHeight.constant = 804
-            self.view.layoutSubtreeIfNeeded()
-
-            // Fade in
-            NSAnimationContext.defaultAnimate({ _ in
-                self.exitNavigateBtn.alphaValue = 1
-            })
-
-        case .tripFullActivity:
-
-            // Add
-            if self.tripActivityView.superview == nil {
-                self.tripActivityView.configureLayout(self.bottomBarView)
-            }
-
-            self.containerViewHeight.constant = 480 + 324
-            self.view.layoutSubtreeIfNeeded()
-
-            // Fade in
-            NSAnimationContext.defaultAnimate({ _ in
-                self.exitNavigateBtn.alphaValue = 0
-            })
-
-        case .tripMinimunActivity:
-
-            // Add
-            if self.tripActivityView.superview == nil {
-                self.tripActivityView.configureLayout(self.bottomBarView)
-            }
-
-            self.containerViewHeight.constant = 480 + 70
-            self.view.layoutSubtreeIfNeeded()
-
-            // Fade in
-            NSAnimationContext.defaultAnimate({ _ in
-                self.exitNavigateBtn.alphaValue = 0
-            })
-        }
     }
 }
 
@@ -468,6 +343,131 @@ extension MapViewController {
 
     fileprivate func lazyInitWebController() -> SurgeHrefConfirmationController {
         return SurgeHrefConfirmationController(nibName: "SurgeHrefConfirmationController", bundle: nil)!
+    }
+}
+
+// MARK: - Layout
+extension MapViewController {
+
+    fileprivate func updateLayoutState(_ state: MapViewLayoutState) {
+
+        // Update state to sub-views
+        self.searchBarView.layoutState = state
+        self.searchCollectionView.layoutStateChanged(state)
+
+        // Remove if need
+        self.tripActivityView.removeFromSuperview()
+        self.selectUberView.removeFromSuperview()
+
+        // Layout
+        let newHeight = self.preferredHeight(state)
+
+        // Animate
+        self.containerViewHeight.constant = newHeight
+        self.view.layoutSubtreeIfNeeded()
+
+        // Fade in
+        NSAnimationContext.defaultAnimate({ _ in
+            self.exitNavigateBtn.alphaValue = 0
+        })
+    }
+
+    fileprivate func preferredHeight(_ state: MapViewLayoutState) -> CGFloat {
+        switch state {
+        case .expand:
+            fallthrough
+        case .minimal:
+            return 480
+
+        case .productSelection:
+
+            // Add
+            if self.selectUberView.superview == nil {
+                self.selectUberView.configureLayout(self.bottomBarView)
+            }
+
+            return 804
+
+        case .tripFullActivity:
+
+            // Add
+            if self.tripActivityView.superview == nil {
+                self.tripActivityView.configureLayout(self.bottomBarView)
+            }
+
+            return 480 + 324
+
+        case .tripMinimunActivity:
+
+            // Add
+            if self.tripActivityView.superview == nil {
+                self.tripActivityView.configureLayout(self.bottomBarView)
+            }
+            return 480 + 70
+        }
+    }
+}
+
+// MARK: - Activity View
+extension MapViewController {
+
+    fileprivate func updateLayoutWithTrip(_ tripObj: TripObj) {
+
+        // Reset layout if there is no trip
+        if tripObj.isValidTrip {
+            if tripObj.status == .processing {
+                self.layoutState = .tripMinimunActivity
+            } else {
+                self.layoutState = .tripFullActivity
+            }
+        } else {
+            self.isShouldUpdateActivityLayout = true
+            self.layoutState = .minimal
+
+            // Reset data
+            self.mapView.resetAllData()
+
+            // Trigger location
+            self.mapViewModel.input.startUpdateLocationTriggerPublisher.onNext(true)
+        }
+    }
+
+    fileprivate func handleLayoutAndData(_ tripObj: TripObj) {
+
+        // Layout
+        self.updateLayoutWithTrip(tripObj)
+
+        // Trip
+        self.updateTripActivityView(tripObj)
+    }
+
+    fileprivate func updateTripActivityView(_ tripObj: TripObj) {
+
+        Logger.info("Trip Obj = \(tripObj)")
+
+        // Stop if unknown
+        guard tripObj.status != .unknown else { return }
+
+        // Update
+        self.tripActivityView.updateData(tripObj)
+
+        // Remove destination
+        if self.isShouldUpdateActivityLayout {
+            self.isShouldUpdateActivityLayout = false
+            self.mapViewModel.input.didSelectPlaceObjPublisher.onNext(nil)
+        }
+
+        // Update map
+        self.mapView.updateCurrentTripLayout(tripObj)
+
+        // Get Route
+        self.mapViewModel.input.routeForCurrentTripPublisher.onNext(tripObj)
+        self.mapViewModel.output.routeCurrentTrip
+            .drive(onNext: {[weak self] (route) in
+                guard let `self` = self else { return }
+                self.mapView.drawVisbileRoute(route)
+            })
+            .addDisposableTo(self.disposeBag)
     }
 }
 

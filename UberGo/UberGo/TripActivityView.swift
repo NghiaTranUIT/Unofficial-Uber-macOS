@@ -17,6 +17,7 @@ class TripActivityView: NSView {
     // MARK: - OUTLET
 
     // Status
+    @IBOutlet fileprivate weak var statusContainerView: NSView!
     @IBOutlet fileprivate weak var statusLbl: UberTextField!
     @IBOutlet fileprivate weak var etaLbl: UberTextField!
 
@@ -48,7 +49,6 @@ class TripActivityView: NSView {
 
     // MARK: - Variable
     public weak var delegate: TripActivityViewDelegate?
-    fileprivate var tripObj: TripObj?
 
     // MARK: - Init
     override func awakeFromNib() {
@@ -58,16 +58,6 @@ class TripActivityView: NSView {
     }
 
     // MARK: - Public
-    public func heightViewDependOnTripStatus() -> CGFloat {
-        guard let tripObj = self.tripObj else { return 70 }
-
-        if tripObj.status == .processing {
-            return 70
-        }
-        return 324
-
-    }
-
     public func configureLayout(_ parentView: NSView) {
         self.translatesAutoresizingMaskIntoConstraints = false
         parentView.addSubview(self)
@@ -103,8 +93,6 @@ class TripActivityView: NSView {
     }
 
     public func updateData(_ tripObj: TripObj) {
-
-        self.tripObj = tripObj
 
         // Status
         self.updateStatus(tripObj)
@@ -148,6 +136,7 @@ extension TripActivityView {
     fileprivate func initCommon() {
 
         self.backgroundColor = NSColor.black
+        self.statusContainerView.backgroundColor = NSColor.black
         self.driverContainerView.backgroundColor = NSColor.white
         self.activityContainerView.backgroundColor = NSColor.white
         self.destinationContainerView.backgroundColor = NSColor.white
