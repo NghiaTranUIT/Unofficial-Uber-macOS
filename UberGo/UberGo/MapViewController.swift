@@ -173,7 +173,7 @@ class MapViewController: BaseViewController {
                 guard let `self` = self else {
                     return
                 }
-                self.mapView.drawDirectionRoute(route)
+                self.mapView.drawVisbileRoute(route)
             })
             .addDisposableTo(self.disposeBag)
 
@@ -256,7 +256,10 @@ class MapViewController: BaseViewController {
             self.layoutState = .minimal
 
             // Reset data
-            self.mapView.reset()
+            self.mapView.resetAllData()
+
+            // Trigger location
+            self.mapViewModel.input.startUpdateLocationTriggerPublisher.onNext(true)
         }
 
         // Stop if unknown
@@ -279,7 +282,7 @@ class MapViewController: BaseViewController {
         self.mapViewModel.output.routeCurrentTrip
             .drive(onNext: {[weak self] (route) in
                 guard let `self` = self else { return }
-                self.mapView.drawCurrentTripRoute(route)
+                self.mapView.drawVisbileRoute(route)
             })
             .addDisposableTo(self.disposeBag)
     }

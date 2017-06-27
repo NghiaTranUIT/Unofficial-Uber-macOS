@@ -18,19 +18,16 @@ class UberMapView: MGLMapView {
     fileprivate var originPoint: MGLPointAnnotation?
 
     // Destination
-    fileprivate var destinationPlaceObj: PlaceObj?
     fileprivate var destinationPoint: MGLPointAnnotation?
-    fileprivate var directionRoute: MGLPolyline?
 
     // Pickup place
-    fileprivate var pickupPlace: UberCoordinateObj?
     fileprivate var pickupPoint: MGLPointAnnotation?
-    fileprivate var pickupRoute: MGLPolyline?
 
     // Driver Place
-    fileprivate var driverPlace: DriverObj?
     fileprivate var driverPoint: MGLPointAnnotation?
-    fileprivate var driverRoute: MGLPolyline?
+
+    // Visible Route
+    fileprivate var visibleRoute: MGLPolyline?
 
     // MARK: - Initilization
     override init(frame: NSRect) {
@@ -106,7 +103,6 @@ class UberMapView: MGLMapView {
     }
 
     func addDestinationPlaceObj(_ placeObj: PlaceObj?) {
-        self.destinationPlaceObj = placeObj
 
         // Remove if need
         if let currentPoint = self.destinationPoint {
@@ -115,10 +111,7 @@ class UberMapView: MGLMapView {
         }
 
         // Remove
-        guard let placeObj = placeObj else {
-            self.centralizeMap()
-            return
-        }
+        guard let placeObj = placeObj else { return }
 
         // Add
         guard let coordinate = placeObj.coordinate2D else { return }
@@ -149,44 +142,6 @@ class UberMapView: MGLMapView {
         self.showAnnotations(annotations, edgePadding: edge, animated: true)
     }
 
-    func reset() {
-        
-    }
-
-    func drawDirectionRoute(_ route: Route?) {
-
-        guard let route = route else {
-            // Remove if need
-            if let directionRoute = self.directionRoute {
-                self.removeAnnotation(directionRoute)
-                self.directionRoute = nil
-            }
-            return
-        }
-
-        if route.coordinateCount > 0 {
-
-            // Remove if need
-            if let directionRoute = self.directionRoute {
-                self.removeAnnotation(directionRoute)
-                self.directionRoute = nil
-            }
-
-            // Convert the route’s coordinates into a polyline.
-            var routeCoordinates = route.coordinates!
-            let routeLine = MGLPolyline(coordinates: &routeCoordinates, count: route.coordinateCount)
-
-            // Add the polyline to the map and fit the viewport to the polyline.
-            self.addAnnotation(routeLine)
-            self.directionRoute = routeLine
-
-            // Centerizal
-            self.centralizeMap()
-        } else {
-            assert(false, "route.coordinateCount == 0")
-        }
-    }
-
     func updateCurrentTripLayout(_ tripObj: TripObj) {
 
         // Pickup
@@ -197,8 +152,6 @@ class UberMapView: MGLMapView {
     }
 
     fileprivate func addPickupPoint(_ pickupObj: UberCoordinateObj?) {
-
-        self.pickupPlace = pickupObj
 
         // Remove if need
         if let pickupPoint = self.pickupPoint {
@@ -217,8 +170,6 @@ class UberMapView: MGLMapView {
 
     fileprivate func addDriverPoint(_ driverObj: DriverObj?, location: UberCoordinateObj?) {
 
-        self.driverPlace = driverObj
-
         // Remove if need
         if let driverPoint = self.driverPoint {
             self.removeAnnotation(driverPoint)
@@ -234,23 +185,19 @@ class UberMapView: MGLMapView {
         self.addAnnotation(self.driverPoint!)
     }
 
-    public func drawCurrentTripRoute(_ route: Route?) {
-        guard let route = route else {
-            // Remove if need
-            if let driverRoute = self.driverRoute {
-                self.removeAnnotation(driverRoute)
-                self.driverRoute = nil
-            }
-            return
-        }
+}
+
+// MARK: - Route
+extension UberMapView {
+
+    func drawVisbileRoute(_ route: Route?) {
+
+        // Reset all Draw
+        self.resetCurrentRoute()
+
+        guard let route = route else { return }
 
         if route.coordinateCount > 0 {
-
-            // Remove if need
-            if let driverRoute = self.driverRoute {
-                self.removeAnnotation(driverRoute)
-                self.driverRoute = nil
-            }
 
             // Convert the route’s coordinates into a polyline.
             var routeCoordinates = route.coordinates!
@@ -258,12 +205,38 @@ class UberMapView: MGLMapView {
 
             // Add the polyline to the map and fit the viewport to the polyline.
             self.addAnnotation(routeLine)
-            self.driverRoute = routeLine
+            self.visibleRoute = routeLine
 
             // Centerizal
             self.centralizeMap()
         } else {
             assert(false, "route.coordinateCount == 0")
+        }
+    }
+}
+
+// MARK: - Reset
+extension UberMapView {
+
+    public func resetAllData() {
+
+        // Reset Route
+        self.resetCurrentRoute()
+
+        // Remove point
+        if let anno = self.annotations {
+            self.removeAnnotations(anno)
+        }
+        self.originPoint = nil
+        self.destinationPoint = nil
+        self.pickupPoint = nil
+        self.driverPoint = nil
+    }
+
+    public func resetCurrentRoute() {
+        if let visibleRoute = self.visibleRoute {
+            self.removeAnnotation(visibleRoute)
+            self.visibleRoute = nil
         }
     }
 }
