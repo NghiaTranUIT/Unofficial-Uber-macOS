@@ -23,31 +23,23 @@ class WebViewController: NSViewController {
 
     // MARK: - Variable
     public fileprivate(set) var mode: WebViewMode = .none
+    public var data: Any?
 
     // MARK: - View
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.loadWebview()
     }
 
     // MARK: - Public
     public class func webviewControllerWith(_ mode: WebViewMode) -> WebViewController {
-
-        switch mode {
-        case .surgeConfirmation:
-            let controller = WebViewController(nibName: "WebViewController", bundle: nil)!
-            controller.mode = .surgeConfirmation
-            return controller
-        case .loginUber:
-            break
-        case .none:
-            break
-        }
-
-        fatalError()
+        let controller = WebViewController(nibName: "WebViewController", bundle: nil)!
+        controller.mode = mode
+        return controller
     }
 
-    public func loadWebview(data: Any) {
+    fileprivate func loadWebview() {
 
         switch self.mode {
         case .surgeConfirmation:
@@ -58,7 +50,9 @@ class WebViewController: NSViewController {
             self.webView.load(URLRequest(url: url))
 
         case .loginUber:
-            break
+            guard let url = data as? URL else { return }
+            self.webView.title = "Login"
+            self.webView.load(URLRequest(url: url))
 
         case .none:
             break

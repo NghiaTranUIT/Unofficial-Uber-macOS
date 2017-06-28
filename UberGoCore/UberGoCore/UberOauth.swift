@@ -10,15 +10,17 @@ import Foundation
 import OAuthSwift
 import RxSwift
 
-class UberOauth {
+open class UberOauth {
 
     // MARK: - Variable
     public var callbackObserverPublish = PublishSubject<NSAppleEventDescriptor>()
+    fileprivate let internalWebviewHandler: OAuthSwiftURLHandlerType
     fileprivate lazy var oauthUber: OAuth2Swift = self.lazyOauthUber()
     fileprivate let disposeBag = DisposeBag()
 
     // MARK: - Init
-    public init() {
+    public init(webviewHandler: OAuthSwiftURLHandlerType) {
+        self.internalWebviewHandler = webviewHandler
 
         self.callbackObserverPublish
             .subscribe(onNext: { (event) in
@@ -33,23 +35,24 @@ class UberOauth {
     // MARK: - Public
     public func oauthUberObserable() -> Observable<OAuthSwiftCredential?> {
 
-        return Observable<OAuthSwiftCredential?>.create { (observer) -> Disposable in
-            _ = self.oauthUber.authorize (
-                withCallbackURL: URL(string: Constants.UberApp.CallBackUrl)!,
-                scope: "", state:"UBER",
-                success: { credential, _, _ in
-                    print(credential.oauthToken)
-                    observer.onNext(credential)
-                    observer.onCompleted()
-            },
-                failure: { error in
-                    print(error.localizedDescription)
-                    observer.onNext(nil)
-                    observer.onCompleted()
-            })
+        return Observable<OAuthSwiftCredential?>
+            .create {[unowned self] (observer) -> Disposable in
+                _ = self.oauthUber.authorize (
+                    withCallbackURL: URL(string: Constants.UberApp.CallBackUrl)!,
+                    scope: "", state:"UBER",
+                    success: { credential, _, _ in
+                        print(credential.oauthToken)
+                        observer.onNext(credential)
+                        observer.onCompleted()
+                },
+                    failure: { error in
+                        print(error.localizedDescription)
+                        observer.onNext(nil)
+                        observer.onCompleted()
+                })
 
-            return Disposables.create()
-        }
+                return Disposables.create()
+            }
     }
 
     fileprivate class func applicationHandle(url: URL) {
@@ -65,12 +68,16 @@ class UberOauth {
 extension UberOauth {
 
     fileprivate func lazyOauthUber() -> OAuth2Swift {
-        return OAuth2Swift(
+        let oauth = OAuth2Swift(
             consumerKey:    Constants.UberApp.ClientID,
             consumerSecret: Constants.UberApp.SecretID,
             authorizeUrl:   Constants.UberApp.AuthorizeUrl,
             accessTokenUrl: Constants.UberApp.AccessTokenUrl,
             responseType:   Constants.UberApp.ResponseType
         )
+
+        // Internal webview
+        oauth.authorizeURLHandler = self.internalWebviewHandler
+        return oauth
     }
 }

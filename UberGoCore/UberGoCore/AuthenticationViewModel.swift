@@ -30,8 +30,7 @@ public protocol AuthenticationViewModelOutput {
 }
 
 // MARK: - View Model
-open class AuthenticationViewModel: BaseViewModel,
-                                    AuthenticationViewModelProtocol,
+open class AuthenticationViewModel: AuthenticationViewModelProtocol,
                                     AuthenticationViewModelInput,
                                     AuthenticationViewModelOutput {
 
@@ -40,8 +39,9 @@ open class AuthenticationViewModel: BaseViewModel,
     public var output: AuthenticationViewModelOutput { return self }
 
     // MARK: - Variable
-    fileprivate let uberOauth = UberOauth()
-
+    fileprivate let uberOauth: UberOauth
+    fileprivate let disposeBag = DisposeBag()
+    
     // MARK: - Input
     public var loginBtnOnTabPublish = PublishSubject<Void>()
     public var uberCallbackPublish = PublishSubject<NSAppleEventDescriptor>()
@@ -50,8 +50,8 @@ open class AuthenticationViewModel: BaseViewModel,
     public var authenticateStateDriver: Driver<AuthenticationState>!
 
     // MARK: - Init
-    public override init() {
-        super.init()
+    public init(uberOauth: UberOauth) {
+        self.uberOauth = uberOauth
 
         // Check authentication
         let authenticationChanged = Observable<AuthenticationState>
@@ -60,7 +60,6 @@ open class AuthenticationViewModel: BaseViewModel,
                     observer.onNext(.unAuthenticated)
                     return Disposables.create()
                 }
-
                 observer.onNext(currentUser.authenticateState)
                 return Disposables.create()
         })
@@ -68,8 +67,8 @@ open class AuthenticationViewModel: BaseViewModel,
         // Login
         let loginSuccess = self.loginBtnOnTabPublish
             .asObserver()
-            .flatMapLatest {[unowned self] _ -> Observable<OAuthSwiftCredential?> in
-                return self.uberOauth.oauthUberObserable()
+            .flatMapLatest { _ -> Observable<OAuthSwiftCredential?> in
+                return uberOauth.oauthUberObserable()
             }
             .do(onNext: { (credential) in
                 guard let credential = credential else { return }
