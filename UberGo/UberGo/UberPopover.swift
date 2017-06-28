@@ -14,19 +14,27 @@ class UberPopover: NSPopover {
 
     // MARK: - Variable
     fileprivate let statusItem = NSStatusBar.system().statusItem(withLength: NSVariableStatusItemLength)
-    fileprivate let authenViewModel: AuthenticationViewModel
+    public let authenViewModel: AuthenticationViewModel
     fileprivate let viewModel: AppViewModel
     fileprivate let disposeBag = DisposeBag()
+
+    fileprivate lazy var webviewController: WebViewController = self.lazyInitWebviewController()
 
     // Event monitor
     fileprivate lazy var eventMonitor: EventMonitor = self.initEventMonitor()
 
     // MARK: - Init
-    init(appViewModel: AppViewModel, authenticationViewModel: AuthenticationViewModel) {
+    init(appViewModel: AppViewModel) {
         viewModel = appViewModel
-        authenViewModel = authenticationViewModel
+
+        // Web Handler - Incase need re-fresh or re-login
+        let webHandler = OauthWebViewHandler()
+        self.authenViewModel = AuthenticationViewModel(uberOauth: UberOauth(webviewHandler: webHandler))
+
         super.init()
         self.initCommon()
+
+        webHandler.delegate = self
     }
 
     required init?(coder: NSCoder) {
@@ -102,6 +110,10 @@ extension UberPopover {
         behavior = .transient
     }
 
+    fileprivate func lazyInitWebviewController() -> WebViewController {
+        return WebViewController.webviewControllerWith(WebViewMode.loginUber)
+    }
+
     fileprivate func initEventMonitor() -> EventMonitor {
         return EventMonitor(mask: [NSEventMask.leftMouseDown,
                             NSEventMask.rightMouseDown]) { [unowned self] _ in
@@ -130,4 +142,15 @@ extension UberPopover {
         self.eventMonitor.start()
     }
 
+}
+
+extension UberPopover: OauthWebViewHandlerDelegate {
+    func oauthVisibleController() -> NSViewController {
+        return self.contentViewController!
+    }
+
+    func oauthWebviewController(_ url: URL) -> NSViewController {
+        self.webviewController.data = url
+        return webviewController
+    }
 }

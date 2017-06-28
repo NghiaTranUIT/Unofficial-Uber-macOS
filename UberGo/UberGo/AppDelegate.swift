@@ -16,7 +16,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     // MARK: - Variable
     fileprivate var viewModel = AppViewModel()
-    fileprivate var authenViewModel = AuthenticationViewModel()
 
     fileprivate var popover: UberPopover!
     fileprivate let disposeBag = DisposeBag()
@@ -30,7 +29,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                                                      forEventClass: AEEventClass(kInternetEventClass),
                                                      andEventID: AEEventID(kAEGetURL))
 
-        self.popover = UberPopover(appViewModel: self.viewModel, authenticationViewModel: self.authenViewModel)
+        self.popover = UberPopover(appViewModel: self.viewModel)
         self.popover.binding()
         self.popover.startEventMonitor()
     }
@@ -51,7 +50,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
 
         // Uber Authentication
-        self.authenViewModel.input.uberCallbackPublish.onNext(event)
+        self.popover.authenViewModel.input.uberCallbackPublish.onNext(event)
     }
 
     // MARK: - Debug

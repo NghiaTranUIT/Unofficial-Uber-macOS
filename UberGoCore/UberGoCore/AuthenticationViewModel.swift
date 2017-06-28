@@ -31,9 +31,9 @@ public protocol AuthenticationViewModelOutput {
 
 // MARK: - View Model
 open class AuthenticationViewModel: BaseViewModel,
-                                    AuthenticationViewModelProtocol,
-                                    AuthenticationViewModelInput,
-                                    AuthenticationViewModelOutput {
+    AuthenticationViewModelProtocol,
+    AuthenticationViewModelInput,
+AuthenticationViewModelOutput {
 
     // MARK: - Protocol
     public var input: AuthenticationViewModelInput { return self }
@@ -63,14 +63,14 @@ open class AuthenticationViewModel: BaseViewModel,
 
                 observer.onNext(.authenticated)
                 return Disposables.create()
-        })
+            })
 
         // Login
         let loginSuccess = self.loginBtnOnTabPublish
             .asObserver()
             .flatMapLatest {[unowned self] _ -> Observable<AuthenticationState> in
                 return self.uberOauth.authWithUberServiceObserable()
-            }
+        }
 
         // Merge
         self.authenticateStateDriver = Observable.merge([authenticationChanged, loginSuccess])
@@ -78,6 +78,6 @@ open class AuthenticationViewModel: BaseViewModel,
 
         // Oauth Callback
         self.uberCallbackPublish.bind(to: self.uberOauth.callbackObserverPublish)
-        .addDisposableTo(self.disposeBag)
+            .addDisposableTo(self.disposeBag)
     }
 }

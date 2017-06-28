@@ -267,7 +267,7 @@ class MapViewController: BaseViewController {
     }
 
     @objc func showSurgeHrefView(_ surgeObj: SurgePriceObj) {
-        self.webController.loadWebview(data: surgeObj)
+        self.webController.data = surgeObj
         self.presentViewControllerAsSheet(self.webController)
     }
 
