@@ -3,44 +3,72 @@
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12120"/>
+        <capability name="box content view" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+        <capability name="system font weights other than Regular or Bold" minToolsVersion="7.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="LoginViewController" customModule="UberGo" customModuleProvider="target">
             <connections>
+                <outlet property="bigTitleLbl" destination="jg1-8a-iwM" id="mh2-vs-KOk"/>
                 <outlet property="loginBtn" destination="C74-C6-KeO" id="crH-ii-amh"/>
+                <outlet property="subTitleLbl" destination="JDz-UR-5It" id="8ri-z3-JJm"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="Hz6-mo-xeY">
-            <rect key="frame" x="0.0" y="0.0" width="480" height="272"/>
+            <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DsE-rs-atN">
-                    <rect key="frame" x="206" y="127" width="69" height="17"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Hello Uber" id="Zbq-8v-ZZx">
-                        <font key="font" metaFont="system"/>
-                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                <box boxType="custom" borderType="none" borderWidth="0.0" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="c8X-zw-Jah">
+                    <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
+                    <view key="contentView" id="pOb-Gs-2ff">
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    </view>
+                    <color key="fillColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                </box>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jg1-8a-iwM" customClass="UberTextField" customModule="UberGo" customModuleProvider="target">
+                    <rect key="frame" x="32" y="304" width="177" height="66"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Moving" id="d8d-k1-nhq">
+                        <font key="font" metaFont="systemLight" size="55"/>
+                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="C74-C6-KeO">
-                    <rect key="frame" x="187" y="58" width="107" height="32"/>
-                    <buttonCell key="cell" type="push" title="Login Uber" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="v8r-2D-Qr2">
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JDz-UR-5It" customClass="UberTextField" customModule="UberGo" customModuleProvider="target">
+                    <rect key="frame" x="32" y="244" width="239" height="60"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Convenient" id="p0N-9j-IPR">
+                        <font key="font" metaFont="systemUltraLight" size="50"/>
+                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <button focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="C74-C6-KeO" customClass="UberButton" customModule="UberGo" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="0.0" width="480" height="44"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="B65-db-CSm"/>
+                    </constraints>
+                    <buttonCell key="cell" type="bevel" title="LOGIN" bezelStyle="rounded" alignment="center" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="v8r-2D-Qr2">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="system"/>
+                        <font key="font" metaFont="systemLight" size="16"/>
                     </buttonCell>
-                    <connections>
-                        <action selector="loginBtnOnTap:" target="-2" id="8LZ-qg-xdU"/>
-                    </connections>
                 </button>
             </subviews>
             <constraints>
-                <constraint firstItem="DsE-rs-atN" firstAttribute="centerY" secondItem="Hz6-mo-xeY" secondAttribute="centerY" id="3RB-gr-CFs"/>
-                <constraint firstItem="DsE-rs-atN" firstAttribute="centerX" secondItem="Hz6-mo-xeY" secondAttribute="centerX" id="Vwx-Cb-njg"/>
-                <constraint firstItem="C74-C6-KeO" firstAttribute="top" secondItem="DsE-rs-atN" secondAttribute="bottom" constant="41" id="tbE-8A-ExO"/>
+                <constraint firstItem="jg1-8a-iwM" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="34" id="9TC-bf-PTd"/>
+                <constraint firstItem="JDz-UR-5It" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="34" id="9nO-3N-KZ4"/>
+                <constraint firstItem="C74-C6-KeO" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="NiC-mB-Nm9"/>
+                <constraint firstAttribute="trailing" secondItem="c8X-zw-Jah" secondAttribute="trailing" id="RKv-og-vY8"/>
+                <constraint firstItem="c8X-zw-Jah" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="UvC-iA-MRx"/>
+                <constraint firstAttribute="trailing" secondItem="C74-C6-KeO" secondAttribute="trailing" id="eHm-vh-KXP"/>
+                <constraint firstItem="jg1-8a-iwM" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="110" id="eiY-Ym-Qmy"/>
+                <constraint firstItem="JDz-UR-5It" firstAttribute="top" secondItem="jg1-8a-iwM" secondAttribute="bottom" id="fao-gm-Xh7"/>
+                <constraint firstAttribute="bottom" secondItem="c8X-zw-Jah" secondAttribute="bottom" id="fcv-xL-IAG"/>
+                <constraint firstItem="c8X-zw-Jah" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" id="h0H-jY-gEv"/>
+                <constraint firstAttribute="bottom" secondItem="C74-C6-KeO" secondAttribute="bottom" id="hFg-ab-fHW"/>
                 <constraint firstItem="C74-C6-KeO" firstAttribute="centerX" secondItem="Hz6-mo-xeY" secondAttribute="centerX" id="xjx-Mj-uh3"/>
             </constraints>
         </customView>
