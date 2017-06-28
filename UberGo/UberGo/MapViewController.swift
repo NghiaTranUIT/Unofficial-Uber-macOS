@@ -144,9 +144,7 @@ class MapViewController: BaseViewController {
         // Loader
         self.mapViewModel.output.loadingDriver
             .drive(onNext: {[weak self] (isLoading) in
-                guard let `self` = self else {
-                    return
-                }
+                guard let `self` = self else { return }
                 self.searchBarView.loaderIndicatorView(isLoading)
             }).addDisposableTo(self.disposeBag)
 
@@ -373,7 +371,7 @@ extension MapViewController {
 
         // Fade in
         NSAnimationContext.defaultAnimate({ _ in
-            self.exitNavigateBtn.alphaValue = 0
+            self.exitNavigateBtn.alphaValue = state == .productSelection ? 1 : 0
         })
     }
 
