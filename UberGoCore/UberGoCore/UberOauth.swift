@@ -10,6 +10,10 @@ import Foundation
 import OAuthSwift
 import RxSwift
 
+import Foundation
+import OAuthSwift
+import RxSwift
+
 open class UberAuth {
 
     // MARK: - Variable
