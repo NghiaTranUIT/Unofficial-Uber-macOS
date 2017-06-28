@@ -99,7 +99,6 @@ class TripActivityView: NSView {
     }
 
     @IBAction func contactDriverBtnOnTap(_ sender: Any) {
-        
     }
 }
 
@@ -197,7 +196,7 @@ extension TripActivityView {
                             self.driverAvatarImageView.image = image
                         }
                     }
-            }
+                }
         }
     }
 
