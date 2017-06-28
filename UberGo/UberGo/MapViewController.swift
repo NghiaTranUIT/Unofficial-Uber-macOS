@@ -41,7 +41,7 @@ class MapViewController: BaseViewController {
 
     fileprivate var searchBarView: SearchBarView!
     fileprivate var isFirstTime = true
-    fileprivate lazy var webController: SurgeHrefConfirmationController = self.lazyInitWebController()
+    fileprivate lazy var webController: WebViewController = self.lazyInitWebController()
     fileprivate var paymentMethodController: PaymentMethodsController?
     fileprivate var searchPlaceObjs: [PlaceObj] {
         return self.mapViewModel.output.searchPlaceObjsVariable.value
@@ -267,7 +267,7 @@ class MapViewController: BaseViewController {
     }
 
     @objc func showSurgeHrefView(_ surgeObj: SurgePriceObj) {
-        self.webController.configureWebView(with: surgeObj)
+        self.webController.loadWebview(data: surgeObj)
         self.presentViewControllerAsSheet(self.webController)
     }
 
@@ -344,8 +344,8 @@ extension MapViewController {
         return uberView
     }
 
-    fileprivate func lazyInitWebController() -> SurgeHrefConfirmationController {
-        return SurgeHrefConfirmationController(nibName: "SurgeHrefConfirmationController", bundle: nil)!
+    fileprivate func lazyInitWebController() -> WebViewController {
+        return WebViewController.webviewControllerWith(.surgeConfirmation)
     }
 }
 
