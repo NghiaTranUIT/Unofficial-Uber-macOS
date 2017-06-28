@@ -77,7 +77,7 @@ extension UberOauth {
         )
 
         // Internal webview
-        oauth.authorizeURLHandler = self.internalWebviewHandler
+        //oauth.authorizeURLHandler = self.internalWebviewHandler
         return oauth
     }
 }

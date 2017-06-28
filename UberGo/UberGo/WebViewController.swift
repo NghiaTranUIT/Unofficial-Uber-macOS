@@ -29,6 +29,9 @@ class WebViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.webView.navigationDelegate = self
+        self.webView.uiDelegate = self
+
         self.loadWebview()
     }
 
@@ -51,11 +54,25 @@ class WebViewController: NSViewController {
 
         case .loginUber:
             guard let url = data as? URL else { return }
-            self.webView.title = "Login"
             self.webView.load(URLRequest(url: url))
 
         case .none:
             break
         }
+    }
+}
+
+extension WebViewController: WKNavigationDelegate, WKUIDelegate {
+    // the following function handles target="_blank" links by opening themmin thesame view
+    func webView(_ myWebView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration, for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
+        if navigationAction.targetFrame == nil {
+            openSafari(link: navigationAction.request.url!)
+        }
+
+        return nil
+    }
+
+    func openSafari(link: URL) {
+        NSWorkspace.shared().open(link)
     }
 }
