@@ -706,6 +706,13 @@
                                                             <action selector="cancelCurrentTripOnTab:" target="Voe-Tx-rLC" id="fxd-Qd-OY7"/>
                                                         </connections>
                                                     </menuItem>
+                                                    <menuItem isSeparatorItem="YES" id="Ldh-na-GpH"/>
+                                                    <menuItem title="Logout" id="z7p-Ja-N0b">
+                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="logoutUberOnTap:" target="Voe-Tx-rLC" id="glf-Mf-wt7"/>
+                                                        </connections>
+                                                    </menuItem>
                                                 </items>
                                             </menu>
                                         </menuItem>

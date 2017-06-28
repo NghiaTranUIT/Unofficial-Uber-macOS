@@ -16,14 +16,25 @@ open class DirectionService {
     // MARK: - Public
     public func generateDirectionRoute(from originPlace: PlaceObj, to destinationPlace: PlaceObj)
         -> Observable<Route?> {
+            return self.generateDirectionRoute(from: originPlace.coordinate2D!,
+                                               originName: originPlace.name!,
+                                               to: destinationPlace.coordinate2D!,
+                                               destinationName: destinationPlace.name!)
+    }
+
+    public func generateDirectionRoute(from originPoint: CLLocationCoordinate2D,
+                                       originName: String,
+                                       to destinationPoint: CLLocationCoordinate2D,
+                                       destinationName: String)
+     -> Observable<Route?> {
         return Observable<Route?>.create { (observer) -> Disposable in
 
             // Create option
             let options = RouteOptions(waypoints: [
-                Waypoint(coordinate: originPlace.coordinate2D!,
-                         name: originPlace.name!),
-                Waypoint(coordinate: destinationPlace.coordinate2D!,
-                         name: destinationPlace.name!)
+                Waypoint(coordinate: originPoint,
+                         name: originName),
+                Waypoint(coordinate: destinationPoint,
+                         name: destinationName)
                 ])
             options.includesSteps = true
 

@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12120"/>
+        <capability name="box content view" minToolsVersion="7.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+        <capability name="system font weights other than Regular or Bold" minToolsVersion="7.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner"/>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="c22-O7-iKe" customClass="TripActivityView" customModule="UberGo" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="480" height="324"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="aKs-eE-1K1">
+                    <rect key="frame" x="0.0" y="254" width="480" height="70"/>
+                    <subviews>
+                        <box boxType="custom" borderType="none" borderWidth="0.0" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="Uyk-ZR-9Vv">
+                            <rect key="frame" x="0.0" y="0.0" width="480" height="70"/>
+                            <view key="contentView" id="Xzd-Bg-aGd">
+                                <rect key="frame" x="0.0" y="0.0" width="480" height="70"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </view>
+                            <color key="fillColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        </box>
+                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b9S-bI-6dS" customClass="UberTextField" customModule="UberGo" customModuleProvider="target">
+                            <rect key="frame" x="18" y="20" width="121" height="30"/>
+                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Processing" id="UdA-Bn-JIS">
+                                <font key="font" metaFont="systemThin" size="25"/>
+                                <color key="textColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            </textFieldCell>
+                        </textField>
+                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ptm-cs-XU0" customClass="UberTextField" customModule="UberGo" customModuleProvider="target">
+                            <rect key="frame" x="412" y="27" width="44" height="17"/>
+                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="5 mins" id="RnH-9H-vqX">
+                                <font key="font" metaFont="systemThin" size="13"/>
+                                <color key="textColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            </textFieldCell>
+                        </textField>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="b9S-bI-6dS" firstAttribute="centerY" secondItem="aKs-eE-1K1" secondAttribute="centerY" id="1Ay-42-eC7"/>
+                        <constraint firstAttribute="height" constant="70" id="GIe-68-WPU"/>
+                        <constraint firstAttribute="trailing" secondItem="Uyk-ZR-9Vv" secondAttribute="trailing" id="Lz8-yc-GhB"/>
+                        <constraint firstAttribute="trailing" secondItem="ptm-cs-XU0" secondAttribute="trailing" constant="26" id="Oha-PL-tmc"/>
+                        <constraint firstItem="b9S-bI-6dS" firstAttribute="leading" secondItem="aKs-eE-1K1" secondAttribute="leading" constant="20" id="Ryd-aZ-dYg"/>
+                        <constraint firstItem="ptm-cs-XU0" firstAttribute="centerY" secondItem="aKs-eE-1K1" secondAttribute="centerY" id="S6U-rG-9zu"/>
+                        <constraint firstItem="Uyk-ZR-9Vv" firstAttribute="leading" secondItem="aKs-eE-1K1" secondAttribute="leading" id="gDx-rA-fbQ"/>
+                        <constraint firstAttribute="bottom" secondItem="Uyk-ZR-9Vv" secondAttribute="bottom" id="tuk-5l-b82"/>
+                        <constraint firstItem="Uyk-ZR-9Vv" firstAttribute="top" secondItem="aKs-eE-1K1" secondAttribute="top" id="v6F-Zb-6t3"/>
+                    </constraints>
+                </customView>
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="FeV-XM-xef">
+                    <rect key="frame" x="0.0" y="118" width="480" height="136"/>
+                    <subviews>
+                        <box boxType="custom" borderType="none" borderWidth="0.0" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="Wsr-6E-Rdo">
+                            <rect key="frame" x="0.0" y="0.0" width="480" height="136"/>
+                            <view key="contentView" id="wKm-UP-DhE">
+                                <rect key="frame" x="0.0" y="0.0" width="480" height="136"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </view>
+                            <color key="borderColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                            <color key="fillColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </box>
+                        <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dQ9-Bc-94y">
+                            <rect key="frame" x="23" y="63" width="50" height="50"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="50" id="2yn-TG-eWu"/>
+                                <constraint firstAttribute="height" constant="50" id="uhz-re-scL"/>
+                            </constraints>
+                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="driver_placeholder" id="x3d-gA-65M"/>
+                        </imageView>
+                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9AY-FG-pg8" customClass="UberTextField" customModule="UberGo" customModuleProvider="target">
+                            <rect key="frame" x="87" y="86" width="72" height="19"/>
+                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Trọng Đạt" id="9cr-s3-I0Q">
+                                <font key="font" metaFont="system" size="15"/>
+                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            </textFieldCell>
+                        </textField>
+                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gIv-Sp-8WJ" customClass="UberTextField" customModule="UberGo" customModuleProvider="target">
+                            <rect key="frame" x="157" y="87" width="43" height="17"/>
+                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="4.72★" id="R9e-ub-1Um">
+                                <font key="font" metaFont="system"/>
+                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            </textFieldCell>
+                        </textField>
+                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mdl-Mg-Qum" customClass="UberTextField" customModule="UberGo" customModuleProvider="target">
+                            <rect key="frame" x="87" y="71" width="52" height="17"/>
+                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Yamaha" id="70d-F2-w7i">
+                                <font key="font" metaFont="systemThin" size="13"/>
+                                <color key="textColor" red="0.33333333333333331" green="0.34509803921568627" blue="0.36470588235294116" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            </textFieldCell>
+                        </textField>
+                        <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="R1d-HX-fow" customClass="UberButton" customModule="UberGo" customModuleProvider="target">
+                            <rect key="frame" x="361" y="71" width="95" height="34"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="34" id="vfV-MQ-amO"/>
+                                <constraint firstAttribute="width" constant="95" id="yZF-NR-xGN"/>
+                            </constraints>
+                            <buttonCell key="cell" type="bevel" title="93F1-303.19" bezelStyle="rounded" alignment="center" imageScaling="proportionallyDown" inset="2" id="3Rl-vP-StA">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                        </button>
+                        <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="IH8-Ux-KG7" customClass="UberButton" customModule="UberGo" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="0.0" width="240" height="41"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="240" id="gI5-jh-Dl9"/>
+                                <constraint firstAttribute="height" constant="41" id="gmw-qg-5Gt"/>
+                            </constraints>
+                            <buttonCell key="cell" type="bevel" title="Contact" bezelStyle="rounded" alignment="center" imageScaling="proportionallyDown" inset="2" id="R69-pv-Wlv">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system" size="14"/>
+                            </buttonCell>
+                            <connections>
+                                <action selector="contactDriverBtnOnTap:" target="c22-O7-iKe" id="kpY-nF-Gtn"/>
+                            </connections>
+                        </button>
+                        <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kT9-we-lkN" customClass="UberButton" customModule="UberGo" customModuleProvider="target">
+                            <rect key="frame" x="240" y="0.0" width="240" height="41"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="41" id="IXX-Kh-9QH"/>
+                            </constraints>
+                            <buttonCell key="cell" type="bevel" title="Cancel" bezelStyle="rounded" alignment="center" imageScaling="proportionallyDown" inset="2" id="YgE-O7-Brl">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system" size="14"/>
+                            </buttonCell>
+                            <connections>
+                                <action selector="cancelTripBtnOnTap:" target="c22-O7-iKe" id="GSi-ma-K6O"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="136" id="2PG-iD-K8I"/>
+                        <constraint firstAttribute="trailing" secondItem="Wsr-6E-Rdo" secondAttribute="trailing" id="3Eo-op-sRA"/>
+                        <constraint firstItem="dQ9-Bc-94y" firstAttribute="leading" secondItem="FeV-XM-xef" secondAttribute="leading" constant="23" id="5Tr-U8-KLF"/>
+                        <constraint firstItem="9AY-FG-pg8" firstAttribute="top" secondItem="FeV-XM-xef" secondAttribute="top" constant="31" id="6mj-OP-eYk"/>
+                        <constraint firstAttribute="bottom" secondItem="kT9-we-lkN" secondAttribute="bottom" id="7FM-R5-bfB"/>
+                        <constraint firstItem="mdl-Mg-Qum" firstAttribute="top" secondItem="9AY-FG-pg8" secondAttribute="bottom" constant="-2" id="Eb3-0S-vuM"/>
+                        <constraint firstItem="R1d-HX-fow" firstAttribute="centerY" secondItem="dQ9-Bc-94y" secondAttribute="centerY" id="Gns-7e-De2"/>
+                        <constraint firstItem="IH8-Ux-KG7" firstAttribute="leading" secondItem="FeV-XM-xef" secondAttribute="leading" id="Hf9-Bz-IGM"/>
+                        <constraint firstItem="Wsr-6E-Rdo" firstAttribute="leading" secondItem="FeV-XM-xef" secondAttribute="leading" id="IDJ-LR-96f"/>
+                        <constraint firstItem="Wsr-6E-Rdo" firstAttribute="top" secondItem="FeV-XM-xef" secondAttribute="top" id="JP2-vb-3Ez"/>
+                        <constraint firstItem="kT9-we-lkN" firstAttribute="leading" secondItem="IH8-Ux-KG7" secondAttribute="trailing" id="KjV-cp-8WI"/>
+                        <constraint firstAttribute="bottom" secondItem="IH8-Ux-KG7" secondAttribute="bottom" id="Kvb-3z-dGa"/>
+                        <constraint firstAttribute="trailing" secondItem="kT9-we-lkN" secondAttribute="trailing" id="OBg-iO-ENL"/>
+                        <constraint firstItem="gIv-Sp-8WJ" firstAttribute="centerY" secondItem="9AY-FG-pg8" secondAttribute="centerY" id="OnC-YS-ZKm"/>
+                        <constraint firstItem="gIv-Sp-8WJ" firstAttribute="leading" secondItem="9AY-FG-pg8" secondAttribute="trailing" constant="2" id="TCD-4p-EaQ"/>
+                        <constraint firstItem="dQ9-Bc-94y" firstAttribute="top" secondItem="FeV-XM-xef" secondAttribute="top" constant="23" id="Ztg-xU-n95"/>
+                        <constraint firstItem="9AY-FG-pg8" firstAttribute="leading" secondItem="dQ9-Bc-94y" secondAttribute="trailing" constant="16" id="mIW-vZ-9L8"/>
+                        <constraint firstAttribute="bottom" secondItem="Wsr-6E-Rdo" secondAttribute="bottom" id="oaH-AF-1zP"/>
+                        <constraint firstAttribute="trailing" secondItem="R1d-HX-fow" secondAttribute="trailing" constant="24" id="pyD-oh-RjT"/>
+                        <constraint firstItem="mdl-Mg-Qum" firstAttribute="leading" secondItem="9AY-FG-pg8" secondAttribute="leading" id="qAo-8T-AOg"/>
+                    </constraints>
+                </customView>
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="hSf-zi-5bY">
+                    <rect key="frame" x="0.0" y="0.0" width="480" height="118"/>
+                    <subviews>
+                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="8lQ-sY-yoe">
+                            <rect key="frame" x="0.0" y="80" width="480" height="38"/>
+                            <subviews>
+                                <box boxType="custom" borderType="none" borderWidth="0.0" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="PAW-gA-HLu">
+                                    <rect key="frame" x="0.0" y="0.0" width="480" height="38"/>
+                                    <view key="contentView" id="eGm-7T-d78">
+                                        <rect key="frame" x="0.0" y="0.0" width="480" height="38"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    </view>
+                                    <color key="fillColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </box>
+                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VSp-F0-3lg" customClass="UberTextField" customModule="UberGo" customModuleProvider="target">
+                                    <rect key="frame" x="56" y="11" width="144" height="17"/>
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="16-17 Phạm Viết Chánh" id="TrF-ja-8jm">
+                                        <font key="font" metaFont="systemThin" size="13"/>
+                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="p32-ZB-vms" customClass="UberButton" customModule="UberGo" customModuleProvider="target">
+                                    <rect key="frame" x="404" y="3" width="54" height="32"/>
+                                    <buttonCell key="cell" type="bevel" title="Change" bezelStyle="rounded" alignment="center" imageScaling="proportionallyDown" inset="2" id="bh9-5p-l5D">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="system" size="14"/>
+                                    </buttonCell>
+                                </button>
+                                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="w3I-Ld-xJN">
+                                    <rect key="frame" x="25" y="11" width="11" height="16"/>
+                                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="place" id="zKM-8Z-AIc"/>
+                                </imageView>
+                            </subviews>
+                            <constraints>
+                                <constraint firstItem="w3I-Ld-xJN" firstAttribute="leading" secondItem="8lQ-sY-yoe" secondAttribute="leading" constant="25" id="8cj-zW-57H"/>
+                                <constraint firstAttribute="height" constant="38" id="Azs-PI-Npi"/>
+                                <constraint firstItem="PAW-gA-HLu" firstAttribute="top" secondItem="8lQ-sY-yoe" secondAttribute="top" id="CkO-XJ-Uah"/>
+                                <constraint firstItem="PAW-gA-HLu" firstAttribute="leading" secondItem="8lQ-sY-yoe" secondAttribute="leading" id="NSk-nm-5cf"/>
+                                <constraint firstAttribute="bottom" secondItem="PAW-gA-HLu" secondAttribute="bottom" id="PB2-Gv-SQU"/>
+                                <constraint firstItem="VSp-F0-3lg" firstAttribute="centerY" secondItem="8lQ-sY-yoe" secondAttribute="centerY" id="Ped-To-ndE"/>
+                                <constraint firstItem="p32-ZB-vms" firstAttribute="centerY" secondItem="8lQ-sY-yoe" secondAttribute="centerY" id="U0z-14-0ZD"/>
+                                <constraint firstAttribute="trailing" secondItem="PAW-gA-HLu" secondAttribute="trailing" id="VIX-JB-a2C"/>
+                                <constraint firstItem="VSp-F0-3lg" firstAttribute="leading" secondItem="8lQ-sY-yoe" secondAttribute="leading" constant="58" id="WlB-Gh-R8t"/>
+                                <constraint firstItem="w3I-Ld-xJN" firstAttribute="centerY" secondItem="8lQ-sY-yoe" secondAttribute="centerY" id="iSy-D4-1ex"/>
+                                <constraint firstAttribute="trailing" secondItem="p32-ZB-vms" secondAttribute="trailing" constant="22" id="kDz-DW-Xri"/>
+                            </constraints>
+                        </customView>
+                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="uaU-OH-2f3">
+                            <rect key="frame" x="0.0" y="79" width="480" height="1"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="1" id="MTD-bt-uf2"/>
+                            </constraints>
+                        </customView>
+                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="YRW-tw-qu4">
+                            <rect key="frame" x="0.0" y="41" width="480" height="38"/>
+                            <subviews>
+                                <box boxType="custom" borderType="none" borderWidth="0.0" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="7aE-xI-aA5">
+                                    <rect key="frame" x="0.0" y="0.0" width="480" height="38"/>
+                                    <view key="contentView" id="YIe-bX-ysd">
+                                        <rect key="frame" x="0.0" y="0.0" width="480" height="38"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    </view>
+                                    <color key="fillColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </box>
+                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w3l-He-GBw" customClass="UberTextField" customModule="UberGo" customModuleProvider="target">
+                                    <rect key="frame" x="56" y="11" width="78" height="17"/>
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="18:58 arrvial" id="kIp-22-XOi">
+                                        <font key="font" metaFont="systemThin" size="13"/>
+                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6ry-Wv-x1X" customClass="UberButton" customModule="UberGo" customModuleProvider="target">
+                                    <rect key="frame" x="371" y="3" width="87" height="32"/>
+                                    <buttonCell key="cell" type="bevel" title="Share Status" bezelStyle="rounded" alignment="center" imageScaling="proportionallyDown" inset="2" id="0bs-kg-3yS">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="system" size="14"/>
+                                    </buttonCell>
+                                </button>
+                                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8N5-tw-x1y">
+                                    <rect key="frame" x="22" y="11" width="16" height="16"/>
+                                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="history" id="ezf-gu-5ak"/>
+                                </imageView>
+                            </subviews>
+                            <constraints>
+                                <constraint firstItem="8N5-tw-x1y" firstAttribute="leading" secondItem="YRW-tw-qu4" secondAttribute="leading" constant="22" id="4P0-nj-Ruh"/>
+                                <constraint firstItem="7aE-xI-aA5" firstAttribute="leading" secondItem="YRW-tw-qu4" secondAttribute="leading" id="H3h-b1-4ZD"/>
+                                <constraint firstItem="7aE-xI-aA5" firstAttribute="top" secondItem="YRW-tw-qu4" secondAttribute="top" id="IyB-Yz-zx3"/>
+                                <constraint firstItem="6ry-Wv-x1X" firstAttribute="centerY" secondItem="YRW-tw-qu4" secondAttribute="centerY" id="NNe-iy-JK5"/>
+                                <constraint firstAttribute="bottom" secondItem="7aE-xI-aA5" secondAttribute="bottom" id="QUJ-Ac-9jg"/>
+                                <constraint firstItem="w3l-He-GBw" firstAttribute="leading" secondItem="YRW-tw-qu4" secondAttribute="leading" constant="58" id="UUL-0Q-gCo"/>
+                                <constraint firstAttribute="height" constant="38" id="bf4-7r-aMr"/>
+                                <constraint firstItem="8N5-tw-x1y" firstAttribute="centerY" secondItem="YRW-tw-qu4" secondAttribute="centerY" id="dWw-cN-DvJ"/>
+                                <constraint firstAttribute="trailing" secondItem="7aE-xI-aA5" secondAttribute="trailing" id="tTc-nJ-57e"/>
+                                <constraint firstAttribute="trailing" secondItem="6ry-Wv-x1X" secondAttribute="trailing" constant="22" id="uGy-0t-W9D"/>
+                                <constraint firstItem="w3l-He-GBw" firstAttribute="centerY" secondItem="YRW-tw-qu4" secondAttribute="centerY" id="v6I-Ag-dbU"/>
+                            </constraints>
+                        </customView>
+                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="3h2-rD-tNa">
+                            <rect key="frame" x="0.0" y="40" width="480" height="1"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="1" id="8Ju-Qo-eJ9"/>
+                            </constraints>
+                        </customView>
+                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="9qo-aB-GAc">
+                            <rect key="frame" x="0.0" y="0.0" width="480" height="40"/>
+                            <subviews>
+                                <box boxType="custom" borderType="none" borderWidth="0.0" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="4BR-G6-AK3">
+                                    <rect key="frame" x="0.0" y="0.0" width="480" height="40"/>
+                                    <view key="contentView" id="RJx-4x-Hc9">
+                                        <rect key="frame" x="0.0" y="0.0" width="480" height="40"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    </view>
+                                    <color key="fillColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </box>
+                                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="NuQ-Mv-qYC">
+                                    <rect key="frame" x="28" y="9" width="36" height="22"/>
+                                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="visa_card" id="rzd-E3-aOq"/>
+                                </imageView>
+                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nee-7H-WSo" customClass="UberTextField" customModule="UberGo" customModuleProvider="target">
+                                    <rect key="frame" x="74" y="11" width="72" height="19"/>
+                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="•••• 1234" placeholderString="" id="tQJ-7c-VLH">
+                                        <font key="font" metaFont="system" size="15"/>
+                                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                </textField>
+                            </subviews>
+                            <constraints>
+                                <constraint firstAttribute="trailing" secondItem="4BR-G6-AK3" secondAttribute="trailing" id="0V2-wK-7Xn"/>
+                                <constraint firstAttribute="bottom" secondItem="4BR-G6-AK3" secondAttribute="bottom" id="EvO-HH-288"/>
+                                <constraint firstItem="nee-7H-WSo" firstAttribute="centerY" secondItem="NuQ-Mv-qYC" secondAttribute="centerY" id="LPT-V3-PqV"/>
+                                <constraint firstItem="4BR-G6-AK3" firstAttribute="leading" secondItem="9qo-aB-GAc" secondAttribute="leading" id="QSj-2D-dxb"/>
+                                <constraint firstItem="NuQ-Mv-qYC" firstAttribute="centerY" secondItem="9qo-aB-GAc" secondAttribute="centerY" id="TYI-HP-2yg"/>
+                                <constraint firstItem="4BR-G6-AK3" firstAttribute="top" secondItem="9qo-aB-GAc" secondAttribute="top" id="VVs-6a-Nq1"/>
+                                <constraint firstItem="nee-7H-WSo" firstAttribute="leading" secondItem="NuQ-Mv-qYC" secondAttribute="trailing" constant="12" id="acV-Pa-dAi"/>
+                                <constraint firstItem="NuQ-Mv-qYC" firstAttribute="leading" secondItem="9qo-aB-GAc" secondAttribute="leading" constant="28" id="lTO-Sp-e2T"/>
+                            </constraints>
+                        </customView>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="8lQ-sY-yoe" firstAttribute="leading" secondItem="hSf-zi-5bY" secondAttribute="leading" id="4pf-gg-N2d"/>
+                        <constraint firstAttribute="trailing" secondItem="9qo-aB-GAc" secondAttribute="trailing" id="9AR-6N-U9m"/>
+                        <constraint firstItem="3h2-rD-tNa" firstAttribute="leading" secondItem="hSf-zi-5bY" secondAttribute="leading" id="9id-UJ-cZF"/>
+                        <constraint firstAttribute="trailing" secondItem="3h2-rD-tNa" secondAttribute="trailing" id="FuQ-ku-4Z9"/>
+                        <constraint firstItem="9qo-aB-GAc" firstAttribute="top" secondItem="3h2-rD-tNa" secondAttribute="bottom" id="JD7-fg-97A"/>
+                        <constraint firstItem="uaU-OH-2f3" firstAttribute="leading" secondItem="hSf-zi-5bY" secondAttribute="leading" id="Tcv-rA-tSi"/>
+                        <constraint firstAttribute="bottom" secondItem="9qo-aB-GAc" secondAttribute="bottom" id="VIH-bV-S53"/>
+                        <constraint firstItem="YRW-tw-qu4" firstAttribute="top" secondItem="uaU-OH-2f3" secondAttribute="bottom" id="Xed-hU-llq"/>
+                        <constraint firstItem="8lQ-sY-yoe" firstAttribute="top" secondItem="hSf-zi-5bY" secondAttribute="top" id="XmS-Cg-tsO"/>
+                        <constraint firstItem="uaU-OH-2f3" firstAttribute="top" secondItem="8lQ-sY-yoe" secondAttribute="bottom" id="Y0s-Jg-YzU"/>
+                        <constraint firstAttribute="height" constant="118" id="Y7v-S8-Jup"/>
+                        <constraint firstItem="YRW-tw-qu4" firstAttribute="leading" secondItem="hSf-zi-5bY" secondAttribute="leading" id="ctT-Se-VMd"/>
+                        <constraint firstAttribute="trailing" secondItem="uaU-OH-2f3" secondAttribute="trailing" id="hZ0-9b-8ag"/>
+                        <constraint firstItem="9qo-aB-GAc" firstAttribute="leading" secondItem="hSf-zi-5bY" secondAttribute="leading" id="j8p-FX-aui"/>
+                        <constraint firstItem="3h2-rD-tNa" firstAttribute="top" secondItem="YRW-tw-qu4" secondAttribute="bottom" id="jeT-en-K8g"/>
+                        <constraint firstAttribute="trailing" secondItem="YRW-tw-qu4" secondAttribute="trailing" id="ly7-9K-w1S"/>
+                        <constraint firstAttribute="trailing" secondItem="8lQ-sY-yoe" secondAttribute="trailing" id="mCA-nO-XTa"/>
+                    </constraints>
+                </customView>
+            </subviews>
+            <constraints>
+                <constraint firstItem="hSf-zi-5bY" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" id="5xy-SD-ddw"/>
+                <constraint firstAttribute="trailing" secondItem="aKs-eE-1K1" secondAttribute="trailing" id="ELa-15-4qB"/>
+                <constraint firstAttribute="trailing" secondItem="hSf-zi-5bY" secondAttribute="trailing" id="EeV-WY-TnP"/>
+                <constraint firstItem="FeV-XM-xef" firstAttribute="top" secondItem="aKs-eE-1K1" secondAttribute="bottom" id="IlN-mC-ug0"/>
+                <constraint firstAttribute="trailing" secondItem="FeV-XM-xef" secondAttribute="trailing" id="Kcg-Ei-Eed"/>
+                <constraint firstItem="aKs-eE-1K1" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" id="T7v-ye-QRu"/>
+                <constraint firstItem="FeV-XM-xef" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" id="fV1-4n-89n"/>
+                <constraint firstItem="aKs-eE-1K1" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" id="jhV-JC-nKn"/>
+                <constraint firstItem="hSf-zi-5bY" firstAttribute="top" secondItem="FeV-XM-xef" secondAttribute="bottom" id="tpo-lD-UwQ"/>
+            </constraints>
+            <connections>
+                <outlet property="activityContainerView" destination="hSf-zi-5bY" id="QQm-W2-7ai"/>
+                <outlet property="arrvialTimeLbl" destination="w3l-He-GBw" id="5hv-jh-PKd"/>
+                <outlet property="cancelTripBtn" destination="kT9-we-lkN" id="HVh-Kt-YEG"/>
+                <outlet property="cardNumberLbl" destination="nee-7H-WSo" id="XP6-vm-w50"/>
+                <outlet property="changeDestinationBtn" destination="p32-ZB-vms" id="cHo-78-6mx"/>
+                <outlet property="contactDriverBtn" destination="IH8-Ux-KG7" id="HW6-cG-PZ3"/>
+                <outlet property="destinationContainerView" destination="8lQ-sY-yoe" id="PxJ-aB-a2K"/>
+                <outlet property="destinationLbl" destination="VSp-F0-3lg" id="Tsg-ZZ-5dF"/>
+                <outlet property="dividerFirstView" destination="uaU-OH-2f3" id="P27-7D-HJM"/>
+                <outlet property="dividerSecondView" destination="3h2-rD-tNa" id="nz3-Ur-PLR"/>
+                <outlet property="driverAvatarImageView" destination="dQ9-Bc-94y" id="mrL-Yz-U84"/>
+                <outlet property="driverContainerView" destination="FeV-XM-xef" id="Gpr-65-lnt"/>
+                <outlet property="driverLicensePlateLbl" destination="R1d-HX-fow" id="Ihc-2K-tS5"/>
+                <outlet property="driverModelLbl" destination="mdl-Mg-Qum" id="Kzt-ES-NbC"/>
+                <outlet property="driverNameLbl" destination="9AY-FG-pg8" id="xhf-lG-xkW"/>
+                <outlet property="driverRatingLbl" destination="gIv-Sp-8WJ" id="yCC-1e-xa3"/>
+                <outlet property="etaLbl" destination="ptm-cs-XU0" id="ydK-CL-C8W"/>
+                <outlet property="paymentContainerView" destination="9qo-aB-GAc" id="v08-A8-Ytx"/>
+                <outlet property="paymentImageView" destination="NuQ-Mv-qYC" id="gTt-lJ-s0c"/>
+                <outlet property="shareStatusBtn" destination="6ry-Wv-x1X" id="RER-9M-SES"/>
+                <outlet property="statusContainerView" destination="aKs-eE-1K1" id="b39-4j-8od"/>
+                <outlet property="statusLbl" destination="b9S-bI-6dS" id="lGi-kf-43P"/>
+                <outlet property="timeContainerView" destination="YRW-tw-qu4" id="iFU-d4-Ma0"/>
+            </connections>
+            <point key="canvasLocation" x="-91" y="212"/>
+        </customView>
+    </objects>
+    <resources>
+        <image name="driver_placeholder" width="50" height="50"/>
+        <image name="history" width="16" height="16"/>
+        <image name="place" width="11" height="16"/>
+        <image name="visa_card" width="36" height="22"/>
+    </resources>
+</document>

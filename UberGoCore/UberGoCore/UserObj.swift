@@ -174,6 +174,7 @@ extension UserObj {
         return Static.instance
     }
 
+    @discardableResult
     public class func convertCurrentUser(with credential: OAuthSwiftCredential) -> UserObj {
 
         // Lock

@@ -29,21 +29,9 @@ class SearchBarView: NSView {
 
     // MARK: - Variable
     weak var delegate: SearchBarViewDelegate?
-    fileprivate var _layoutState = MapViewLayoutState.minimal {
+    var layoutState = MapViewLayoutState.minimal {
         didSet {
-            self.delegate?.searchBar(self, layoutStateDidChanged: _layoutState)
             self.animateSearchBarState()
-        }
-    }
-    public var layoutState: MapViewLayoutState {
-        get {
-            return self._layoutState
-        }
-        set {
-            if newValue == _layoutState {
-                return
-            }
-            _layoutState = newValue
         }
     }
     public var textSearchDidChangedDriver: Driver<String> {
@@ -89,6 +77,10 @@ class SearchBarView: NSView {
         self.destinationTxt.window?.makeFirstResponder(self.destinationTxt)
     }
 
+    func resetTextSearch() {
+        self.destinationTxt.stringValue = ""
+    }
+
     func loaderIndicatorView(_ isLoading: Bool) {
         if isLoading {
             self.loaderView.isHidden = false
@@ -98,11 +90,11 @@ class SearchBarView: NSView {
             self.loaderView.stopAnimation(nil)
         }
     }
+
     // MARK: - Action
     @IBAction func backBtnOnTap(_ sender: Any) {
-        self.layoutState = .minimal
+        self.delegate?.searchBar(self, layoutStateDidChanged: .minimal)
     }
-
 }
 
 extension SearchBarView {
@@ -163,7 +155,7 @@ extension SearchBarView {
     }
 
     fileprivate func animateSearchBarState() {
-        switch self._layoutState {
+        switch self.layoutState {
         case .expand:
 
             // Focus
@@ -195,7 +187,11 @@ extension SearchBarView {
                 self.searchContainerView.alphaValue = 0
                 self.superview?.layoutSubtreeIfNeeded()
             })
-        case .navigation:
+        case .tripMinimunActivity:
+            fallthrough
+        case .tripFullActivity:
+            fallthrough
+        case .productSelection:
 
             NSAnimationContext.defaultAnimate({ _ in
                 self.alphaValue = 0
@@ -214,7 +210,7 @@ extension SearchBarView: ActionSearchBarViewDelegate {
     }
 
     func shouldOpenFullSearch() {
-        self.layoutState = .expand
+        self.delegate?.searchBar(self, layoutStateDidChanged: .expand)
     }
 }
 

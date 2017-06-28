@@ -11,7 +11,7 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="c22-O7-iKe" customClass="RequestUberView" customModule="UberGo" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="480" height="305"/>
+            <rect key="frame" x="0.0" y="0.0" width="480" height="324"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ghW-Bi-WIR" customClass="UberButton" customModule="UberGo" customModuleProvider="target">
@@ -71,13 +71,13 @@
                     </constraints>
                 </customView>
                 <scrollView wantsLayer="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" verticalScrollElasticity="none" translatesAutoresizingMaskIntoConstraints="NO" id="oke-Td-REg">
-                    <rect key="frame" x="0.0" y="117" width="480" height="144"/>
-                    <clipView key="contentView" drawsBackground="NO" id="hpl-MZ-107">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="144"/>
+                    <rect key="frame" x="0.0" y="117" width="480" height="151"/>
+                    <clipView key="contentView" id="hpl-MZ-107">
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="151"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView selectable="YES" allowsEmptySelection="NO" id="dk1-FR-KZ5" customClass="UberCollectionView" customModule="UberGo" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="480" height="144"/>
+                                <rect key="frame" x="0.0" y="0.0" width="480" height="151"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumInteritemSpacing="10" minimumLineSpacing="10" scrollDirection="horizontal" id="u2e-WX-B1g">
                                     <size key="itemSize" width="50" height="50"/>
@@ -87,7 +87,7 @@
                         </subviews>
                     </clipView>
                     <constraints>
-                        <constraint firstAttribute="height" constant="144" id="iVw-8s-GY9"/>
+                        <constraint firstAttribute="height" constant="151" id="iVw-8s-GY9"/>
                     </constraints>
                     <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="R4A-bo-Lcv">
                         <rect key="frame" x="-100" y="-100" width="233" height="15"/>
@@ -99,13 +99,13 @@
                     </scroller>
                 </scrollView>
                 <stackView distribution="fillEqually" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yu7-vd-Hdz">
-                    <rect key="frame" x="12" y="261" width="456" height="32"/>
+                    <rect key="frame" x="12" y="280" width="456" height="32"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="32" id="oWN-3m-gB8"/>
                     </constraints>
                 </stackView>
                 <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X27-dh-KrQ">
-                    <rect key="frame" x="109" y="252" width="263" height="17"/>
+                    <rect key="frame" x="109" y="263" width="263" height="17"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Fares are higher due to increased demand" id="b3Q-O5-5BW">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -117,7 +117,7 @@
                 <constraint firstItem="NsZ-1o-kBQ" firstAttribute="centerY" secondItem="cEF-JS-mqq" secondAttribute="centerY" id="0ea-4U-bpE"/>
                 <constraint firstItem="oke-Td-REg" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" id="37Y-AF-30A"/>
                 <constraint firstAttribute="bottom" secondItem="ghW-Bi-WIR" secondAttribute="bottom" constant="12" id="4RH-Lh-euB"/>
-                <constraint firstItem="X27-dh-KrQ" firstAttribute="top" secondItem="yu7-vd-Hdz" secondAttribute="bottom" constant="-8" id="7k0-Fh-2IA"/>
+                <constraint firstItem="X27-dh-KrQ" firstAttribute="top" secondItem="yu7-vd-Hdz" secondAttribute="bottom" id="7k0-Fh-2IA"/>
                 <constraint firstItem="cgU-5U-Odr" firstAttribute="leading" secondItem="ghW-Bi-WIR" secondAttribute="trailing" constant="12" id="C5V-Nh-N5Z"/>
                 <constraint firstItem="X27-dh-KrQ" firstAttribute="centerX" secondItem="c22-O7-iKe" secondAttribute="centerX" id="CaN-Sr-9qo"/>
                 <constraint firstItem="ghW-Bi-WIR" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="24" id="D9F-9G-u6K"/>
@@ -126,7 +126,7 @@
                 <constraint firstItem="1ZR-0r-VNP" firstAttribute="trailing" secondItem="cgU-5U-Odr" secondAttribute="trailing" id="Ghy-IW-c3x"/>
                 <constraint firstItem="Thy-KV-ex9" firstAttribute="centerY" secondItem="NsZ-1o-kBQ" secondAttribute="centerY" id="JlH-EA-5Ov"/>
                 <constraint firstItem="yu7-vd-Hdz" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" constant="12" id="L0o-qv-58u"/>
-                <constraint firstItem="oke-Td-REg" firstAttribute="top" secondItem="yu7-vd-Hdz" secondAttribute="bottom" id="M1p-6p-fcj"/>
+                <constraint firstItem="oke-Td-REg" firstAttribute="top" secondItem="yu7-vd-Hdz" secondAttribute="bottom" constant="12" id="M1p-6p-fcj"/>
                 <constraint firstItem="1ZR-0r-VNP" firstAttribute="leading" secondItem="ghW-Bi-WIR" secondAttribute="leading" id="N8C-mZ-cYc"/>
                 <constraint firstAttribute="trailing" secondItem="cgU-5U-Odr" secondAttribute="trailing" constant="24" id="PBm-GX-mMN"/>
                 <constraint firstItem="yu7-vd-Hdz" firstAttribute="centerX" secondItem="c22-O7-iKe" secondAttribute="centerX" id="QUz-5L-WcX"/>

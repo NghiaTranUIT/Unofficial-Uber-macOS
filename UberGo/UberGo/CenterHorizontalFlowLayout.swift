@@ -11,7 +11,7 @@ import Cocoa
 class CenterHorizontalFlowLayout: NSCollectionViewFlowLayout {
 
     // MARK: - Variable
-    fileprivate var sizeCell = CGSize(width: 124, height: 144)
+    fileprivate var sizeCell = CGSize(width: 124, height: 151)
     fileprivate var cellsAttributes: [NSCollectionViewLayoutAttributes] = []
     fileprivate var contentSize = CGSize.zero
     fileprivate var itemCount = 0

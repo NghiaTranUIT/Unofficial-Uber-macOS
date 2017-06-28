@@ -29,7 +29,8 @@ disabled_rules:
   - nesting
   - force_cast
   - attributes
-
+  - function_body_length
+  
 file_header:
   required_pattern: |
                     \/\/

@@ -17,6 +17,13 @@ open class VehicleObj: BaseObj {
     public var licensePlate: String?
     public var pictureUrl: String?
 
+    public var fullName: String {
+        if self.model == nil && self.make == nil {
+            return "Unknown"
+        }
+        return (self.make ?? "") + (self.model ?? "")
+    }
+
     override public func mapping(map: Map) {
         super.mapping(map: map)
 
