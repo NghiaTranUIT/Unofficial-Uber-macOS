@@ -2,7 +2,8 @@ included:
   - UberGo
 
 excluded:
-
+  - UberGo/TinyConstraints
+  
 opt_in_rules:
   - empty_count
   - explicit_init
