@@ -37,6 +37,11 @@
 		BAB7B8E41EFF67FA00B508A1 /* IMG_6628@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BAB7B8E31EFF67FA00B508A1 /* IMG_6628@2x.jpg */; };
 		BAB7B8E61EFF686600B508A1 /* IMG_6629@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BAB7B8E51EFF686600B508A1 /* IMG_6629@2x.jpg */; };
 		BACC07981F021F1F0092F2F4 /* UberAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACC07971F021F1F0092F2F4 /* UberAlertView.swift */; };
+		BACC07AA1F0367300092F2F4 /* Abstraction.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACC07A51F0367300092F2F4 /* Abstraction.swift */; };
+		BACC07AB1F0367300092F2F4 /* Constrainable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACC07A61F0367300092F2F4 /* Constrainable.swift */; };
+		BACC07AC1F0367300092F2F4 /* Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACC07A71F0367300092F2F4 /* Constraints.swift */; };
+		BACC07AD1F0367300092F2F4 /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACC07A81F0367300092F2F4 /* Stack.swift */; };
+		BACC07AE1F0367300092F2F4 /* TinyConstraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACC07A91F0367300092F2F4 /* TinyConstraints.swift */; };
 		BADB784A1EE5ABD5000536F7 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB78491EE5ABD5000536F7 /* SearchBarView.swift */; };
 		BADB784C1EE5ABDE000536F7 /* SearchBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BADB784B1EE5ABDE000536F7 /* SearchBarView.xib */; };
 		BADB78501EE5AC6A000536F7 /* NSView+Xib.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB784F1EE5AC6A000536F7 /* NSView+Xib.swift */; };
@@ -125,6 +130,11 @@
 		BAB7B8E31EFF67FA00B508A1 /* IMG_6628@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "IMG_6628@2x.jpg"; sourceTree = "<group>"; };
 		BAB7B8E51EFF686600B508A1 /* IMG_6629@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "IMG_6629@2x.jpg"; sourceTree = "<group>"; };
 		BACC07971F021F1F0092F2F4 /* UberAlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UberAlertView.swift; sourceTree = "<group>"; };
+		BACC07A51F0367300092F2F4 /* Abstraction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Abstraction.swift; sourceTree = "<group>"; };
+		BACC07A61F0367300092F2F4 /* Constrainable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constrainable.swift; sourceTree = "<group>"; };
+		BACC07A71F0367300092F2F4 /* Constraints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constraints.swift; sourceTree = "<group>"; };
+		BACC07A81F0367300092F2F4 /* Stack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stack.swift; sourceTree = "<group>"; };
+		BACC07A91F0367300092F2F4 /* TinyConstraints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TinyConstraints.swift; sourceTree = "<group>"; };
 		BADB78491EE5ABD5000536F7 /* SearchBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
 		BADB784B1EE5ABDE000536F7 /* SearchBarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchBarView.xib; sourceTree = "<group>"; };
 		BADB784F1EE5AC6A000536F7 /* NSView+Xib.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSView+Xib.swift"; sourceTree = "<group>"; };
@@ -384,6 +394,18 @@
 			name = "Uber Alert View";
 			sourceTree = "<group>";
 		};
+		BACC07A41F03672F0092F2F4 /* TinyConstraints */ = {
+			isa = PBXGroup;
+			children = (
+				BACC07A51F0367300092F2F4 /* Abstraction.swift */,
+				BACC07A61F0367300092F2F4 /* Constrainable.swift */,
+				BACC07A71F0367300092F2F4 /* Constraints.swift */,
+				BACC07A81F0367300092F2F4 /* Stack.swift */,
+				BACC07A91F0367300092F2F4 /* TinyConstraints.swift */,
+			);
+			path = TinyConstraints;
+			sourceTree = "<group>";
+		};
 		BADB78481EE5ABC5000536F7 /* Search Bar */ = {
 			isa = PBXGroup;
 			children = (
@@ -432,6 +454,7 @@
 		BAE6902A1EE460DF00A4D876 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				BACC07A41F03672F0092F2F4 /* TinyConstraints */,
 				BAB14AC91EF6602F0066267B /* Helper */,
 			);
 			name = Models;
@@ -739,20 +762,25 @@
 				BAED39DD1EE9ADB7003D9BC3 /* SearchCollectionViewFlowLayout.swift in Sources */,
 				BAB7B8E01EFF67D600B508A1 /* TripActivityView.swift in Sources */,
 				BACC07981F021F1F0092F2F4 /* UberAlertView.swift in Sources */,
+				BACC07AE1F0367300092F2F4 /* TinyConstraints.swift in Sources */,
 				BA1C3FBB1EFAB1D6001FD50F /* PaymentAccountCell.swift in Sources */,
 				BAB14ACB1EF668290066267B /* UberGroupButton.swift in Sources */,
 				BADB785B1EE5B93D000536F7 /* NSColor+Hex.swift in Sources */,
 				BAB14AC31EF65FA80066267B /* CenterHorizontalFlowLayout.swift in Sources */,
 				BADB78611EE661A8000536F7 /* UberTextField.swift in Sources */,
+				BACC07AB1F0367300092F2F4 /* Constrainable.swift in Sources */,
 				BAAC441B1EF3A4BE00A9F949 /* UberMapView.swift in Sources */,
 				BA1C3FB41EFA6852001FD50F /* PaymentMethodsController.swift in Sources */,
 				BA2A3A861EED430D002A0343 /* SearchCollectionView.swift in Sources */,
 				BA037F371EDD61F800945C1D /* AppDelegate.swift in Sources */,
+				BACC07AC1F0367300092F2F4 /* Constraints.swift in Sources */,
 				BADB78521EE5AC86000536F7 /* NSView+Identity.swift in Sources */,
+				BACC07AD1F0367300092F2F4 /* Stack.swift in Sources */,
 				BA2A3A751EECFF6E002A0343 /* SearchPlaceCell.swift in Sources */,
 				BAED39DB1EE9A705003D9BC3 /* UberCollectionView.swift in Sources */,
 				BADB785E1EE5BA0C000536F7 /* UberButton.swift in Sources */,
 				BAE3CCEF1EF5812E00F264CA /* RequestUberView.swift in Sources */,
+				BACC07AA1F0367300092F2F4 /* Abstraction.swift in Sources */,
 				BAE6902C1EE460EB00A4D876 /* EventMonitor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
