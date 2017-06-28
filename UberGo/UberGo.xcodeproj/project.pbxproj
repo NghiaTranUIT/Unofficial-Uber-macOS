@@ -24,8 +24,8 @@
 		BA2A3A831EED4298002A0343 /* SearchCollectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA2A3A821EED4298002A0343 /* SearchCollectionView.xib */; };
 		BA2A3A861EED430D002A0343 /* SearchCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2A3A851EED430D002A0343 /* SearchCollectionView.swift */; };
 		BA4796A91EE2C49700620BB0 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA4796A81EE2C49700620BB0 /* MapKit.framework */; };
-		BA67673D1EFA295D00805AC1 /* SurgeHrefConfirmationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA67673B1EFA295D00805AC1 /* SurgeHrefConfirmationController.swift */; };
-		BA67673E1EFA295D00805AC1 /* SurgeHrefConfirmationController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA67673C1EFA295D00805AC1 /* SurgeHrefConfirmationController.xib */; };
+		BA67673D1EFA295D00805AC1 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA67673B1EFA295D00805AC1 /* WebViewController.swift */; };
+		BA67673E1EFA295D00805AC1 /* WebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA67673C1EFA295D00805AC1 /* WebViewController.xib */; };
 		BA7BA9831EE42C060056B0CF /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA7BA9821EE42C060056B0CF /* CoreLocation.framework */; };
 		BAAC441B1EF3A4BE00A9F949 /* UberMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAC441A1EF3A4BE00A9F949 /* UberMapView.swift */; };
 		BAB14AC01EF62DB40066267B /* UberProductCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB14ABE1EF62DB40066267B /* UberProductCell.swift */; };
@@ -118,8 +118,8 @@
 		BA2A3A851EED430D002A0343 /* SearchCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchCollectionView.swift; sourceTree = "<group>"; };
 		BA4796951EE2540D00620BB0 /* UberGoCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = UberGoCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA4796A81EE2C49700620BB0 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		BA67673B1EFA295D00805AC1 /* SurgeHrefConfirmationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SurgeHrefConfirmationController.swift; sourceTree = "<group>"; };
-		BA67673C1EFA295D00805AC1 /* SurgeHrefConfirmationController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SurgeHrefConfirmationController.xib; sourceTree = "<group>"; };
+		BA67673B1EFA295D00805AC1 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		BA67673C1EFA295D00805AC1 /* WebViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WebViewController.xib; sourceTree = "<group>"; };
 		BA7BA9821EE42C060056B0CF /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		BAAC441A1EF3A4BE00A9F949 /* UberMapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UberMapView.swift; sourceTree = "<group>"; };
 		BAB14ABE1EF62DB40066267B /* UberProductCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UberProductCell.swift; sourceTree = "<group>"; };
@@ -266,7 +266,7 @@
 			children = (
 				BAF57FB71EE116FB0013090E /* LoginViewController.swift */,
 				BAF57FBD1EE117300013090E /* MapViewController.swift */,
-				BA67673B1EFA295D00805AC1 /* SurgeHrefConfirmationController.swift */,
+				BA67673B1EFA295D00805AC1 /* WebViewController.swift */,
 				BA1C3FB21EFA6852001FD50F /* PaymentMethodsController.swift */,
 			);
 			name = Controller;
@@ -486,7 +486,7 @@
 			isa = PBXGroup;
 			children = (
 				BA1C3FB31EFA6852001FD50F /* PaymentMethodsController.xib */,
-				BA67673C1EFA295D00805AC1 /* SurgeHrefConfirmationController.xib */,
+				BA67673C1EFA295D00805AC1 /* WebViewController.xib */,
 				BAF57FBE1EE117300013090E /* MapViewController.xib */,
 				BAF57FB81EE116FB0013090E /* LoginViewController.xib */,
 				BA037F3C1EDD61F800945C1D /* Main.storyboard */,
@@ -624,7 +624,7 @@
 				BAB7B8E21EFF67DF00B508A1 /* TripActivityView.xib in Resources */,
 				BAE3CCF21EF5815600F264CA /* RequestUberView.xib in Resources */,
 				BAF57FC01EE117300013090E /* MapViewController.xib in Resources */,
-				BA67673E1EFA295D00805AC1 /* SurgeHrefConfirmationController.xib in Resources */,
+				BA67673E1EFA295D00805AC1 /* WebViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -767,7 +767,7 @@
 				BAB14AC01EF62DB40066267B /* UberProductCell.swift in Sources */,
 				BAF57FB91EE116FB0013090E /* LoginViewController.swift in Sources */,
 				BAE7171E1EF51D0B00E0EFFA /* NSAnimationContext+Helper.swift in Sources */,
-				BA67673D1EFA295D00805AC1 /* SurgeHrefConfirmationController.swift in Sources */,
+				BA67673D1EFA295D00805AC1 /* WebViewController.swift in Sources */,
 				BADB78591EE5B92B000536F7 /* NSView+BackgroundColor.swift in Sources */,
 				BAF57FBF1EE117300013090E /* MapViewController.swift in Sources */,
 				BAED39DD1EE9ADB7003D9BC3 /* SearchCollectionViewFlowLayout.swift in Sources */,
