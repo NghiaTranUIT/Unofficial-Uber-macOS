@@ -231,7 +231,7 @@ class MapViewController: BaseViewController {
 
                 // Start Timer again
                 if tripObj.isValidTrip {
-                    //self.uberViewModel.input.triggerCurrentTripPublisher.onNext()
+                    self.uberViewModel.input.triggerCurrentTripPublisher.onNext()
                 }
             })
             .addDisposableTo(self.disposeBag)
