@@ -38,8 +38,8 @@ public protocol MapViewModelOutput {
     var loadingDriver: Driver<Bool> { get }
 
     // Destination
-    var selectedPlaceObjDriver: Driver<PlaceObj?>! { get }
-    var selectedDirectionRouteObserver: Observable<Route?>! { get }
+    var selectedPlaceObjDriver: Driver<PlaceObj?> { get }
+    var selectedDirectionRouteObserver: Observable<Route?> { get }
     var isSelectedPlace: Driver<Bool> { get }
 
     // Route
@@ -82,9 +82,8 @@ open class MapViewModel:
     public var searchPlaceObjsVariable = Variable<[PlaceObj]>([])
     fileprivate var personalOrHistoryPlaceObjsVariable = Variable<[PlaceObj]>([])
     public let loadingDriver: Driver<Bool>
-
-    public var selectedPlaceObjDriver: Driver<PlaceObj?>!
-    public var selectedDirectionRouteObserver: Observable<Route?>!
+    public var selectedPlaceObjDriver: Driver<PlaceObj?>
+    public var selectedDirectionRouteObserver: Observable<Route?>
     public var isSelectedPlace: Driver<Bool> {
         return self.selectedPlaceObjDriver.map({ $0 != nil })
     }
@@ -148,6 +147,7 @@ open class MapViewModel:
         let searchPlaceOb = shared
             .filter { $0 != "" }
             .debounce(0.3, scheduler: MainScheduler.instance)
+            .filter { $0 != "" }
             .distinctUntilChanged()
             .flatMapLatest {(text) -> Observable<[PlaceObj]> in
                 guard let currentCoordinate = mapManager.currentLocationVariable.value?.coordinate else {
@@ -182,8 +182,7 @@ open class MapViewModel:
         let startLoadingOb = Observable.merge([searchPlaceOb, personalOrHistoryOb]).map { _ in true }
         let stopLoadingOb = searchFinishOb.map { _ in false }
         self.loadingDriver = Observable.merge([startLoadingOb, stopLoadingOb])
-            .map({ !$0
-            })
+            .map({ !$0 })
             .asDriver(onErrorJustReturn: false)
 
         // Selected

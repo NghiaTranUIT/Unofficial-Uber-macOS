@@ -159,11 +159,16 @@ class MapViewController: BaseViewController {
                 self.mapView.addDestinationPlaceObj(placeObj)
 
                 // Request Product + Estimate Uber
-                guard let placeObj = placeObj else { return }
-                guard let currentLocation = self.mapViewModel.currentLocationVariable.value else { return }
+                if let placeObj = placeObj {
+                    guard let currentLocation = self.mapViewModel.currentLocationVariable.value else { return }
+                    let data = UberData(placeObj: placeObj, from: currentLocation.coordinate)
+                    self.uberViewModel.input.selectedPlacePublisher.onNext(data)
+                } else {
+                    // Reset search bar
+                    self.searchBarView.resetTextSearch()
+                    self.searchBarView.loaderIndicatorView(false)
+                }
 
-                let data = UberData(placeObj: placeObj, from: currentLocation.coordinate)
-                self.uberViewModel.input.selectedPlacePublisher.onNext(data)
             })
             .addDisposableTo(self.disposeBag)
 

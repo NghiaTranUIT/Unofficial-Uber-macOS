@@ -77,6 +77,10 @@ class SearchBarView: NSView {
         self.destinationTxt.window?.makeFirstResponder(self.destinationTxt)
     }
 
+    func resetTextSearch() {
+        self.destinationTxt.stringValue = ""
+    }
+
     func loaderIndicatorView(_ isLoading: Bool) {
         if isLoading {
             self.loaderView.isHidden = false
@@ -86,11 +90,11 @@ class SearchBarView: NSView {
             self.loaderView.stopAnimation(nil)
         }
     }
+
     // MARK: - Action
     @IBAction func backBtnOnTap(_ sender: Any) {
         self.delegate?.searchBar(self, layoutStateDidChanged: .minimal)
     }
-
 }
 
 extension SearchBarView {
