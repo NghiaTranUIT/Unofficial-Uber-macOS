@@ -42,6 +42,7 @@
 		BACC07AC1F0367300092F2F4 /* Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACC07A71F0367300092F2F4 /* Constraints.swift */; };
 		BACC07AD1F0367300092F2F4 /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACC07A81F0367300092F2F4 /* Stack.swift */; };
 		BACC07AE1F0367300092F2F4 /* TinyConstraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACC07A91F0367300092F2F4 /* TinyConstraints.swift */; };
+		BACC07B11F036C6E0092F2F4 /* UberPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACC07B01F036C6E0092F2F4 /* UberPopover.swift */; };
 		BADB784A1EE5ABD5000536F7 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB78491EE5ABD5000536F7 /* SearchBarView.swift */; };
 		BADB784C1EE5ABDE000536F7 /* SearchBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BADB784B1EE5ABDE000536F7 /* SearchBarView.xib */; };
 		BADB78501EE5AC6A000536F7 /* NSView+Xib.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB784F1EE5AC6A000536F7 /* NSView+Xib.swift */; };
@@ -135,6 +136,7 @@
 		BACC07A71F0367300092F2F4 /* Constraints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constraints.swift; sourceTree = "<group>"; };
 		BACC07A81F0367300092F2F4 /* Stack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stack.swift; sourceTree = "<group>"; };
 		BACC07A91F0367300092F2F4 /* TinyConstraints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TinyConstraints.swift; sourceTree = "<group>"; };
+		BACC07B01F036C6E0092F2F4 /* UberPopover.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UberPopover.swift; sourceTree = "<group>"; };
 		BADB78491EE5ABD5000536F7 /* SearchBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
 		BADB784B1EE5ABDE000536F7 /* SearchBarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchBarView.xib; sourceTree = "<group>"; };
 		BADB784F1EE5AC6A000536F7 /* NSView+Xib.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSView+Xib.swift"; sourceTree = "<group>"; };
@@ -341,6 +343,7 @@
 		BAB14AC71EF660030066267B /* Uber */ = {
 			isa = PBXGroup;
 			children = (
+				BACC07AF1F036C5A0092F2F4 /* Uber Popover */,
 				BAB7B8DE1EFF67BE00B508A1 /* Trip Activity */,
 				BA1C3FB81EFAB1B5001FD50F /* Payment Account Cell */,
 				BAE3CCF01EF5813300F264CA /* Request Uber View */,
@@ -404,6 +407,14 @@
 				BACC07A91F0367300092F2F4 /* TinyConstraints.swift */,
 			);
 			path = TinyConstraints;
+			sourceTree = "<group>";
+		};
+		BACC07AF1F036C5A0092F2F4 /* Uber Popover */ = {
+			isa = PBXGroup;
+			children = (
+				BACC07B01F036C6E0092F2F4 /* UberPopover.swift */,
+			);
+			name = "Uber Popover";
 			sourceTree = "<group>";
 		};
 		BADB78481EE5ABC5000536F7 /* Search Bar */ = {
@@ -768,6 +779,7 @@
 				BADB785B1EE5B93D000536F7 /* NSColor+Hex.swift in Sources */,
 				BAB14AC31EF65FA80066267B /* CenterHorizontalFlowLayout.swift in Sources */,
 				BADB78611EE661A8000536F7 /* UberTextField.swift in Sources */,
+				BACC07B11F036C6E0092F2F4 /* UberPopover.swift in Sources */,
 				BACC07AB1F0367300092F2F4 /* Constrainable.swift in Sources */,
 				BAAC441B1EF3A4BE00A9F949 /* UberMapView.swift in Sources */,
 				BA1C3FB41EFA6852001FD50F /* PaymentMethodsController.swift in Sources */,

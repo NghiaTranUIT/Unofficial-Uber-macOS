@@ -15,12 +15,11 @@ import UberGoCore
 class AppDelegate: NSObject, NSApplicationDelegate {
 
     // MARK: - Variable
-    fileprivate var viewModel: AppViewModel!
-    fileprivate var authenticationViewModel: AuthenticationViewModel!
-    fileprivate let statusItem = NSStatusBar.system().statusItem(withLength: NSVariableStatusItemLength)
-    fileprivate let popover = NSPopover()
+    fileprivate var viewModel = AppViewModel()
+    fileprivate var authenViewModel = AuthenticationViewModel()
+
+    fileprivate var popover: UberPopover!
     fileprivate let disposeBag = DisposeBag()
-    fileprivate var eventMonitor: EventMonitor!
 
     // MARK: - Action
     func applicationDidFinishLaunching(_ aNotification: Notification) {
@@ -31,34 +30,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                                                      forEventClass: AEEventClass(kInternetEventClass),
                                                      andEventID: AEEventID(kAEGetURL))
 
-        self.viewModel = AppViewModel()
-        self.authenticationViewModel = AuthenticationViewModel()
-
-        self.viewModel.output.popoverStateVariable.asDriver()
-            .skip(1)
-            .drive(onNext: {[unowned self] (state) in
-            switch state {
-            case .close:
-                self.close()
-            case .open:
-                self.show()
-            }
-        }).addDisposableTo(self.disposeBag)
-
-        self.authenticationViewModel.output.authenticateStateDriver.drive(onNext: {[unowned self] state in
-
-            // Setup
-            self.setupPopover(with: state)
-        })
-        .addDisposableTo(self.disposeBag)
-
-        self.eventMonitor = EventMonitor(mask: [NSEventMask.leftMouseDown,
-                                                NSEventMask.rightMouseDown]) { [unowned self] _ in
-            if self.popover.isShown {
-                self.viewModel.actionPopoverPublish.onNext(.close)
-            }
-        }
-        self.eventMonitor.start()
+        self.popover = UberPopover(appViewModel: self.viewModel, authenticationViewModel: self.authenViewModel)
+        self.popover.binding()
+        self.popover.startEventMonitor()
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
@@ -77,7 +51,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
 
         // Uber Authentication
-        self.authenticationViewModel.input.uberCallbackPublish.onNext(event)
+        self.authenViewModel.input.uberCallbackPublish.onNext(event)
     }
 
     // MARK: - Debug
@@ -100,62 +74,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         UberAuth.share.logout()
 
         // Layout
-        self.setupPopover(with: .unAuthenticated)
+        self.popover.setupContentController(with: .unAuthenticated)
     }
 
 }
 
 // MARK: - Private
 extension AppDelegate {
-
-    fileprivate func setupPopover(with state: AuthenticationState) {
-
-        if let button = statusItem.button {
-            button.image = NSImage(imageLiteralResourceName: "StatusBarButtonImage")
-            button.imagePosition = .imageLeft
-            button.action = #selector(togglePopover)
-        }
-
-        popover.appearance = NSAppearance(named: NSAppearanceNameAqua)
-        popover.animates = false
-        popover.behavior = .transient
-
-        switch state {
-        case .authenticated:
-            popover.contentViewController = MapViewController(nibName: "MapViewController", bundle: nil)
-        case .unAuthenticated:
-            let login = LoginViewController(nibName: "LoginViewController", bundle: nil)!
-            login.viewModel = self.authenticationViewModel
-            popover.contentViewController = login
-        }
-    }
-
-    @objc fileprivate func togglePopover() {
-        if self.popover.isShown {
-            self.viewModel.input.actionPopoverPublish.onNext(.close)
-        } else {
-            self.viewModel.input.actionPopoverPublish.onNext(.open)
-        }
-    }
-
-    fileprivate func close() {
-        if self.popover.isShown {
-            return
-        }
-
-        self.popover.close()
-        self.eventMonitor.stop()
-    }
-
-    fileprivate func show() {
-
-        NSRunningApplication.current().activate(options: NSApplicationActivationOptions.activateIgnoringOtherApps)
-
-        guard let button = self.statusItem.button else {
-            return
-        }
-
-        self.popover.show(relativeTo: button.frame, of: button, preferredEdge: .minY)
-        self.eventMonitor.start()
-    }
 }

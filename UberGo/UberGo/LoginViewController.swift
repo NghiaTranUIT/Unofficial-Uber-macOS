@@ -15,7 +15,7 @@ class LoginViewController: BaseViewController {
     @IBOutlet fileprivate weak var loginBtn: NSButton!
 
     // MARK: - Variable
-    var viewModel: AuthenticationViewModel!
+    public var viewModel: AuthenticationViewModel!
 
     // MARK: - View Cycle
     override func viewDidLoad() {
