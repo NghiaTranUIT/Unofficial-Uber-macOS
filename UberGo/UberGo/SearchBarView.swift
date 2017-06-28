@@ -123,35 +123,11 @@ extension SearchBarView {
 
     func configureView(with parentView: NSView) {
         self.translatesAutoresizingMaskIntoConstraints = false
-        self.topConstraint = NSLayoutConstraint(item: self,
-                                     attribute: .top,
-                                     relatedBy: .equal,
-                                     toItem: parentView,
-                                     attribute: .top,
-                                     multiplier: 1,
-                                     constant: 28)
-        self.leftConstraint = NSLayoutConstraint(item: self,
-                                      attribute: .left,
-                                      relatedBy: .equal,
-                                      toItem: parentView,
-                                      attribute: .left,
-                                      multiplier: 1,
-                                      constant: 28)
-        self.rightConstraint = NSLayoutConstraint(item: self,
-                                       attribute: .right,
-                                       relatedBy: .equal,
-                                       toItem: parentView,
-                                       attribute: .right,
-                                       multiplier: 1,
-                                       constant: -28)
-        self.heightConstraint = NSLayoutConstraint(item: self,
-                                       attribute: .height,
-                                       relatedBy: .equal,
-                                       toItem: nil, attribute: .notAnAttribute,
-                                       multiplier: 1,
-                                       constant: 56)
-        parentView.addConstraints([self.topConstraint, self.leftConstraint,
-                                   self.rightConstraint, self.heightConstraint])
+
+        self.topConstraint = self.top(to: parentView, offset: 28)
+        self.leftConstraint = self.left(to: parentView, offset: 28)
+        self.rightConstraint = self.right(to: parentView, offset: -28)
+        self.heightConstraint = self.height(56)
     }
 
     fileprivate func animateSearchBarState() {
