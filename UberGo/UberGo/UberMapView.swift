@@ -51,35 +51,7 @@ class UberMapView: MGLMapView {
     func configureLayout(_ parentView: NSView, exitBtn: NSButton) {
         self.translatesAutoresizingMaskIntoConstraints = false
         parentView.addSubview(self, positioned: .below, relativeTo: exitBtn)
-
-        let top = NSLayoutConstraint(item: self,
-                                                attribute: .top,
-                                                relatedBy: .equal,
-                                                toItem: parentView,
-                                                attribute: .top,
-                                                multiplier: 1,
-                                                constant: 0)
-        let left = NSLayoutConstraint(item: self,
-                                                 attribute: .left,
-                                                 relatedBy: .equal,
-                                                 toItem: parentView,
-                                                 attribute: .left,
-                                                 multiplier: 1,
-                                                 constant: 0)
-        let right = NSLayoutConstraint(item: self,
-                                                  attribute: .right,
-                                                  relatedBy: .equal,
-                                                  toItem: parentView,
-                                                  attribute: .right,
-                                                  multiplier: 1,
-                                                  constant: 0)
-        let bottom = NSLayoutConstraint(item: self,
-                                                   attribute: .bottom,
-                                                   relatedBy: .equal,
-                                                   toItem: parentView, attribute: .bottom,
-                                                   multiplier: 1,
-                                                   constant: 0)
-        parentView.addConstraints([top, left, right, bottom])
+        self.edges(to: parentView)
     }
 
     func addOriginPoint(_ point: CLLocationCoordinate2D) {
