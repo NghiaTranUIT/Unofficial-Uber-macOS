@@ -66,6 +66,7 @@ class UberMapView: MGLMapView {
 
         let newPoint = OriginAnnotation()
         newPoint.coordinate = point
+        newPoint.title = "Here"
 
         // Add
         self.addAnnotation(newPoint)
@@ -239,20 +240,10 @@ extension UberMapView: MGLMapViewDelegate {
 
     func mapView(_ mapView: MGLMapView, imageFor annotation: MGLAnnotation) -> MGLAnnotationImage? {
 
-        // Origin
-        if let origin = annotation as? OriginAnnotation {
-            return origin.imageAnnotation
+        if let obj = annotation as? UberAnnotationType {
+            return obj.imageAnnotation
         }
 
-        // Pickup
-        if let pickup = annotation as? PickupAnnotation {
-            return pickup.imageAnnotation
-        }
-
-        // Destination
-        if let desti = annotation as? DestinationAnnotation {
-            return desti.imageAnnotation
-        }
         return nil
     }
 
@@ -261,6 +252,11 @@ extension UberMapView: MGLMapViewDelegate {
     }
 
     func mapView(_ mapView: MGLMapView, calloutViewControllerFor annotation: MGLAnnotation) -> NSViewController? {
-        
+
+        if let obj = annotation as? UberAnnotationType {
+            return obj.calloutViewController
+        }
+
+        return nil
     }
 }

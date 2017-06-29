@@ -12,9 +12,25 @@ import Mapbox
 class OriginAnnotation: MGLPointAnnotation {
 
     // MARK: - Variable
-    public lazy var imageAnnotation: MGLAnnotationImage = {
+    fileprivate lazy var _imageAnnotation: MGLAnnotationImage = {
         let image = NSImage(imageLiteralResourceName: "current_mark")
         return MGLAnnotationImage(image: image,
                                   reuseIdentifier: "current_mark")
     }()
+
+    fileprivate lazy var _calloutController: NSViewController = {
+        return CalloutAnnotations(nibName: "CalloutAnnotations", bundle: nil)!
+    }()
+}
+
+// MARK: - UberAnnotationType
+extension OriginAnnotation: UberAnnotationType {
+
+    var imageAnnotation: MGLAnnotationImage? {
+        return _imageAnnotation
+    }
+
+    var calloutViewController: NSViewController? {
+        return _calloutController
+    }
 }
