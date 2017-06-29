@@ -259,4 +259,8 @@ extension UberMapView: MGLMapViewDelegate {
     func mapView(_ mapView: MGLMapView, strokeColorForShapeAnnotation annotation: MGLShape) -> NSColor {
         return NSColor.white
     }
+
+    func mapView(_ mapView: MGLMapView, calloutViewControllerFor annotation: MGLAnnotation) -> NSViewController? {
+        
+    }
 }
