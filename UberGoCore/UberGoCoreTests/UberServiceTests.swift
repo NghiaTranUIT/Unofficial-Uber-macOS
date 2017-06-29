@@ -94,7 +94,34 @@ class UberServiceTests: XCTestCase {
                 // Check if product_id != nil
                 for obj in priceObjs {
                     if obj.productId == nil {
-                        XCTFail("Uber Personal Place's adress is invalid")
+                        XCTFail("Uber Estimate Price is invalid")
+                    }
+                }
+
+                promise.fulfill()
+            }, onError: { error in
+                XCTFail(error.localizedDescription)
+            })
+            .addDisposableTo(self.disposeBag)
+
+        // Expect
+        waitForExpectations(timeout: 10, handler: nil)
+    }
+
+    func testEstimateTimeObserver() {
+
+        let promise = expectation(description: "testEstimateTimeObserver")
+        FakeUberCrendential.makeCurrentUser()
+        let from = LocationHelper.originLocation
+
+        // Then
+        UberService().estimateTimeObserver(from: from)
+            .subscribe(onNext: { timeObj in
+
+                // Check if product_id != nil
+                for obj in timeObj {
+                    if obj.productId == nil {
+                        XCTFail("Uber Time Estimate is invalid")
                     }
                 }
 

@@ -52,6 +52,8 @@
 		BAAC44141EF12B7D00A9F949 /* EstimateObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAC44131EF12B7D00A9F949 /* EstimateObj.swift */; };
 		BAAC44161EF1340500A9F949 /* CreateTripObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAC44151EF1340500A9F949 /* CreateTripObj.swift */; };
 		BAAC44181EF1456100A9F949 /* DirectionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAC44171EF1456100A9F949 /* DirectionService.swift */; };
+		BAB082281F05688F00A74665 /* RideEstimateTimeRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB082271F05688F00A74665 /* RideEstimateTimeRequest.swift */; };
+		BAB0822A1F05696700A74665 /* TimeEstimateObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB082291F05696700A74665 /* TimeEstimateObj.swift */; };
 		BAB14ABC1EF627160066267B /* Array+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB14ABB1EF627160066267B /* Array+Helper.swift */; };
 		BAB7B8DD1EFD7E7F00B508A1 /* SandboxUpdateStatusTripRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB7B8DC1EFD7E7F00B508A1 /* SandboxUpdateStatusTripRequest.swift */; };
 		BADB784E1EE5AC07000536F7 /* SearchBarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB784D1EE5AC07000536F7 /* SearchBarViewModel.swift */; };
@@ -141,6 +143,8 @@
 		BAAC44131EF12B7D00A9F949 /* EstimateObj.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EstimateObj.swift; sourceTree = "<group>"; };
 		BAAC44151EF1340500A9F949 /* CreateTripObj.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateTripObj.swift; sourceTree = "<group>"; };
 		BAAC44171EF1456100A9F949 /* DirectionService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectionService.swift; sourceTree = "<group>"; };
+		BAB082271F05688F00A74665 /* RideEstimateTimeRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RideEstimateTimeRequest.swift; sourceTree = "<group>"; };
+		BAB082291F05696700A74665 /* TimeEstimateObj.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeEstimateObj.swift; sourceTree = "<group>"; };
 		BAB14ABB1EF627160066267B /* Array+Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Helper.swift"; sourceTree = "<group>"; };
 		BAB7B8DC1EFD7E7F00B508A1 /* SandboxUpdateStatusTripRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SandboxUpdateStatusTripRequest.swift; sourceTree = "<group>"; };
 		BADB784D1EE5AC07000536F7 /* SearchBarViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBarViewModel.swift; sourceTree = "<group>"; };
@@ -295,6 +299,7 @@
 				BAAC44151EF1340500A9F949 /* CreateTripObj.swift */,
 				BA22191B1EF6FBB100C766A1 /* PaymentObj.swift */,
 				BA22191D1EF6FC6D00C766A1 /* PaymentAccountObj.swift */,
+				BAB082291F05696700A74665 /* TimeEstimateObj.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -308,6 +313,7 @@
 				BADB78661EE70AB0000536F7 /* PlaceSearchRequest.swift */,
 				BADB78701EE7BBA2000536F7 /* UberPersonalPlaceRequest.swift */,
 				BA0C91991EF031FB00BA8B4B /* RideEstimatePriceRequest.swift */,
+				BAB082271F05688F00A74665 /* RideEstimateTimeRequest.swift */,
 				BA0C919D1EF047F000BA8B4B /* GetCurrentTripRequest.swift */,
 				BA0C919F1EF0480400BA8B4B /* UpdateCurrentTripRequest.swift */,
 				BA0C91A11EF0481700BA8B4B /* CancelCurerntTripRequest.swift */,
@@ -693,6 +699,7 @@
 				BADB78711EE7BBA2000536F7 /* UberPersonalPlaceRequest.swift in Sources */,
 				BAF57FAA1EE1166A0013090E /* UserObj.swift in Sources */,
 				BA4796A01EE2BD3A00620BB0 /* Requestable.swift in Sources */,
+				BAB082281F05688F00A74665 /* RideEstimateTimeRequest.swift in Sources */,
 				BA32E7231EDFC8230044C017 /* AppViewModel.swift in Sources */,
 				BA0C91A61EF0499600BA8B4B /* VehicleObj.swift in Sources */,
 				BAED39D81EE9097C003D9BC3 /* UberPersonalPlaceObj.swift in Sources */,
@@ -702,6 +709,7 @@
 				BA0C91A01EF0480400BA8B4B /* UpdateCurrentTripRequest.swift in Sources */,
 				BA0C919A1EF031FB00BA8B4B /* RideEstimatePriceRequest.swift in Sources */,
 				BA6767331EF8E42C00805AC1 /* SandboxUpdateProductRequest.swift in Sources */,
+				BAB0822A1F05696700A74665 /* TimeEstimateObj.swift in Sources */,
 				BAAC44141EF12B7D00A9F949 /* EstimateObj.swift in Sources */,
 				BAAC44121EF124E400A9F949 /* CreateTripRequest.swift in Sources */,
 				BAED39E71EEA5954003D9BC3 /* Reachability.swift in Sources */,
