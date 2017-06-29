@@ -34,6 +34,7 @@
 		BAB082211F0559FB00A74665 /* CalloutAnnotations.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB0821F1F0559FB00A74665 /* CalloutAnnotations.swift */; };
 		BAB082221F0559FB00A74665 /* CalloutAnnotations.xib in Resources */ = {isa = PBXBuildFile; fileRef = BAB082201F0559FB00A74665 /* CalloutAnnotations.xib */; };
 		BAB082241F055AEB00A74665 /* IMG_6619@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BAB082231F055AEB00A74665 /* IMG_6619@2x.jpg */; };
+		BAB082261F05626100A74665 /* UberAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB082251F05626100A74665 /* UberAnnotation.swift */; };
 		BAB14AC01EF62DB40066267B /* UberProductCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB14ABE1EF62DB40066267B /* UberProductCell.swift */; };
 		BAB14AC11EF62DB40066267B /* UberProductCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BAB14ABF1EF62DB40066267B /* UberProductCell.xib */; };
 		BAB14AC31EF65FA80066267B /* CenterHorizontalFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB14AC21EF65FA80066267B /* CenterHorizontalFlowLayout.swift */; };
@@ -134,6 +135,7 @@
 		BAB0821F1F0559FB00A74665 /* CalloutAnnotations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalloutAnnotations.swift; sourceTree = "<group>"; };
 		BAB082201F0559FB00A74665 /* CalloutAnnotations.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CalloutAnnotations.xib; sourceTree = "<group>"; };
 		BAB082231F055AEB00A74665 /* IMG_6619@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "IMG_6619@2x.jpg"; sourceTree = "<group>"; };
+		BAB082251F05626100A74665 /* UberAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UberAnnotation.swift; sourceTree = "<group>"; };
 		BAB14ABE1EF62DB40066267B /* UberProductCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UberProductCell.swift; sourceTree = "<group>"; };
 		BAB14ABF1EF62DB40066267B /* UberProductCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UberProductCell.xib; sourceTree = "<group>"; };
 		BAB14AC21EF65FA80066267B /* CenterHorizontalFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CenterHorizontalFlowLayout.swift; sourceTree = "<group>"; };
@@ -327,6 +329,7 @@
 				BAB082161F04B7A300A74665 /* OriginAnnotation.swift */,
 				BAB082191F04C35900A74665 /* DestinationAnnotation.swift */,
 				BAB0821B1F05569100A74665 /* PickupAnnotation.swift */,
+				BAB082251F05626100A74665 /* UberAnnotation.swift */,
 			);
 			name = Markers;
 			sourceTree = "<group>";
@@ -815,6 +818,7 @@
 				BADB785B1EE5B93D000536F7 /* NSColor+Hex.swift in Sources */,
 				BAB14AC31EF65FA80066267B /* CenterHorizontalFlowLayout.swift in Sources */,
 				BADB78611EE661A8000536F7 /* UberTextField.swift in Sources */,
+				BAB082261F05626100A74665 /* UberAnnotation.swift in Sources */,
 				BACC07B11F036C6E0092F2F4 /* UberPopover.swift in Sources */,
 				BACC07AB1F0367300092F2F4 /* Constrainable.swift in Sources */,
 				BAAC441B1EF3A4BE00A9F949 /* UberMapView.swift in Sources */,
