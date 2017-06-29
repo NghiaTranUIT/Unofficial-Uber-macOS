@@ -29,6 +29,13 @@ class UberMapView: MGLMapView {
     // Visible Route
     fileprivate var visibleRoute: MGLPolyline?
 
+    fileprivate var circleSource: MGLShapeSource?
+
+    fileprivate lazy var testCircleImage: MGLAnnotationImage = {
+        let imageLayer = MGLAnnotationImage(image: NSImage(imageLiteralResourceName: "current_mark"), reuseIdentifier: "current_mark")
+        return imageLayer
+    }()
+
     // MARK: - Initilization
     override init(frame: NSRect) {
         super.init(frame: frame)
@@ -62,9 +69,25 @@ class UberMapView: MGLMapView {
             self.originPoint = nil
         }
 
+        //let newPoint = CirclePolygon.circleForCoordinate(point, withMeterRadius: 100)
+
         let newPoint = MGLPointAnnotation()
         newPoint.coordinate = point
         newPoint.title = "Here"
+
+//        if self.circleSource == nil {
+//
+//            let source = MGLShapeSource(identifier: "circle", shape: newPoint, options: nil)
+//            self.circleSource = source
+//            style?.addSource(source)
+//
+//            let layer = MGLCircleStyleLayer(identifier: "circle", source: source)
+//            let radiusPoints = 40.0 / self.metersPerPoint(atLatitude: point.latitude)
+//            layer.circleRadius = MGLStyleValue(rawValue: NSNumber(value: radiusPoints))
+//            layer.circleColor = MGLStyleValue(rawValue: NSColor.white)
+//            layer.circleOpacity = MGLStyleValue(rawValue: 1)
+//            style?.addLayer(layer)
+//        }
 
         // Add
         self.addAnnotation(newPoint)
@@ -221,17 +244,44 @@ extension UberMapView: MGLMapViewDelegate {
     }
 
     func mapView(_ mapView: MGLMapView, alphaForShapeAnnotation annotation: MGLShape) -> CGFloat {
-        // Set the alpha for all shape annotations to 1 (full opacity)
+
+        // Current Point
+        if annotation is CirclePolygon {
+            return 1.0
+        }
+
+        // Route
         return 0.8
     }
 
     func mapView(_ mapView: MGLMapView, lineWidthForPolylineAnnotation annotation: MGLPolyline) -> CGFloat {
-        // Set the line width for polyline annotations
+
+        // Route
         return 3.0
     }
 
+    func mapView(_ mapView: MGLMapView, imageFor annotation: MGLAnnotation) -> MGLAnnotationImage? {
+        return self.testCircleImage
+    }
+
     func mapView(_ mapView: MGLMapView, strokeColorForShapeAnnotation annotation: MGLShape) -> NSColor {
-        // Give our polyline a unique color by checking for its `title` property
+
+        if annotation is CirclePolygon {
+            return NSColor.black
+        }
+
         return NSColor.white
+    }
+
+    func mapViewRegionIsChanging(_ mapView: MGLMapView) {
+
+        guard let originPoint = self.originPoint else {
+            return
+        }
+
+//        if let layer = mapView.style?.layer(withIdentifier: "circle") as? MGLCircleStyleLayer {
+//            let radiusPoints = 40.0 / self.metersPerPoint(atLatitude: originPoint.coordinate.latitude)
+//            layer.circleRadius = MGLStyleValue(rawValue: NSNumber(value: radiusPoints))
+//        }
     }
 }
