@@ -114,6 +114,11 @@ open class UberService {
             return RideEstimatePriceRequest(param).toObservable()
     }
 
+    public func estimateTimeObserver(from originLocation: CLLocationCoordinate2D) -> Observable<[TimeEstimateObj]> {
+            let param = RideEstimateTimeRequestParam(from: originLocation, productID: nil)
+            return RideEstimateTimeRequest(param).toObservable()
+    }
+
     // MARK: - Payment
     public func paymentMethodObserver() -> Observable<PaymentObj> {
         return GetPaymentMethodRequest().toObservable()

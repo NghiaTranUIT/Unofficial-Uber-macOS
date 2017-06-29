@@ -32,6 +32,7 @@ struct Constants {
         static let HomePersonalPlace = "/v1.2/places/home"
         static let WorkPseronalPlace = "/v1.2/places/work"
         static let RideEstimatePrice = "/v1.2/estimates/price"
+        static let RideEstimateTime = "/v1.2/estimates/time"
         static let GetCurrentTrip = "/v1.2/requests/current"
         static let RequestEstimate = "/v1.2/requests/estimate"
         static let CreateTripRequest = "/v1.2/requests"
@@ -171,11 +172,22 @@ struct Constants {
             static let LastUsed = "last_used"
         }
 
+        // MARK: - PaymentAccount
         struct PaymentAccount {
 
             static let PaymentMethodId = "payment_method_id"
             static let `Type` = "type"
             static let Description = "description"
+        }
+
+        // MARK: - TimeEstimate
+        struct TimeEstimate {
+
+            static let LocalizedDisplayName = "localized_display_name"
+            static let Estimate = "estimate"
+            static let DisplayName = "display_name"
+            static let ProductId = "product_id"
+
         }
     }
 }
