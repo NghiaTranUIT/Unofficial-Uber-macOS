@@ -28,7 +28,8 @@
 		BA67673E1EFA295D00805AC1 /* WebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA67673C1EFA295D00805AC1 /* WebViewController.xib */; };
 		BA7BA9831EE42C060056B0CF /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA7BA9821EE42C060056B0CF /* CoreLocation.framework */; };
 		BAAC441B1EF3A4BE00A9F949 /* UberMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAC441A1EF3A4BE00A9F949 /* UberMapView.swift */; };
-		BAB082171F04B7A300A74665 /* CirclePolygon.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB082161F04B7A300A74665 /* CirclePolygon.swift */; };
+		BAB082171F04B7A300A74665 /* OriginAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB082161F04B7A300A74665 /* OriginAnnotation.swift */; };
+		BAB0821A1F04C35900A74665 /* DestinationAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB082191F04C35900A74665 /* DestinationAnnotation.swift */; };
 		BAB14AC01EF62DB40066267B /* UberProductCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB14ABE1EF62DB40066267B /* UberProductCell.swift */; };
 		BAB14AC11EF62DB40066267B /* UberProductCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BAB14ABF1EF62DB40066267B /* UberProductCell.xib */; };
 		BAB14AC31EF65FA80066267B /* CenterHorizontalFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB14AC21EF65FA80066267B /* CenterHorizontalFlowLayout.swift */; };
@@ -123,7 +124,8 @@
 		BA67673C1EFA295D00805AC1 /* WebViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WebViewController.xib; sourceTree = "<group>"; };
 		BA7BA9821EE42C060056B0CF /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		BAAC441A1EF3A4BE00A9F949 /* UberMapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UberMapView.swift; sourceTree = "<group>"; };
-		BAB082161F04B7A300A74665 /* CirclePolygon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CirclePolygon.swift; sourceTree = "<group>"; };
+		BAB082161F04B7A300A74665 /* OriginAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OriginAnnotation.swift; sourceTree = "<group>"; };
+		BAB082191F04C35900A74665 /* DestinationAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DestinationAnnotation.swift; sourceTree = "<group>"; };
 		BAB14ABE1EF62DB40066267B /* UberProductCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UberProductCell.swift; sourceTree = "<group>"; };
 		BAB14ABF1EF62DB40066267B /* UberProductCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UberProductCell.xib; sourceTree = "<group>"; };
 		BAB14AC21EF65FA80066267B /* CenterHorizontalFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CenterHorizontalFlowLayout.swift; sourceTree = "<group>"; };
@@ -303,10 +305,19 @@
 		BAAC44191EF3A4AB00A9F949 /* Uber Map View */ = {
 			isa = PBXGroup;
 			children = (
+				BAB082181F04C1A200A74665 /* Markers */,
 				BAAC441A1EF3A4BE00A9F949 /* UberMapView.swift */,
-				BAB082161F04B7A300A74665 /* CirclePolygon.swift */,
 			);
 			name = "Uber Map View";
+			sourceTree = "<group>";
+		};
+		BAB082181F04C1A200A74665 /* Markers */ = {
+			isa = PBXGroup;
+			children = (
+				BAB082161F04B7A300A74665 /* OriginAnnotation.swift */,
+				BAB082191F04C35900A74665 /* DestinationAnnotation.swift */,
+			);
+			name = Markers;
 			sourceTree = "<group>";
 		};
 		BAB14ABD1EF62D990066267B /* Product Cell */ = {
@@ -785,11 +796,12 @@
 				BACC07B11F036C6E0092F2F4 /* UberPopover.swift in Sources */,
 				BACC07AB1F0367300092F2F4 /* Constrainable.swift in Sources */,
 				BAAC441B1EF3A4BE00A9F949 /* UberMapView.swift in Sources */,
-				BAB082171F04B7A300A74665 /* CirclePolygon.swift in Sources */,
+				BAB082171F04B7A300A74665 /* OriginAnnotation.swift in Sources */,
 				BA1C3FB41EFA6852001FD50F /* PaymentMethodsController.swift in Sources */,
 				BA2A3A861EED430D002A0343 /* SearchCollectionView.swift in Sources */,
 				BA037F371EDD61F800945C1D /* AppDelegate.swift in Sources */,
 				BACC07AC1F0367300092F2F4 /* Constraints.swift in Sources */,
+				BAB0821A1F04C35900A74665 /* DestinationAnnotation.swift in Sources */,
 				BADB78521EE5AC86000536F7 /* NSView+Identity.swift in Sources */,
 				BACC07AD1F0367300092F2F4 /* Stack.swift in Sources */,
 				BA2A3A751EECFF6E002A0343 /* SearchPlaceCell.swift in Sources */,

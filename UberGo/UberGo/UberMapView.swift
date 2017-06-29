@@ -15,10 +15,10 @@ class UberMapView: MGLMapView {
     // MARK: - Variable
 
     // Origin
-    fileprivate var originPoint: MGLPointAnnotation?
+    fileprivate var originPoint: OriginAnnotation?
 
     // Destination
-    fileprivate var destinationPoint: MGLPointAnnotation?
+    fileprivate var destinationPoint: DestinationAnnotation?
 
     // Pickup place
     fileprivate var pickupPoint: MGLPointAnnotation?
@@ -30,11 +30,6 @@ class UberMapView: MGLMapView {
     fileprivate var visibleRoute: MGLPolyline?
 
     fileprivate var circleSource: MGLShapeSource?
-
-    fileprivate lazy var testCircleImage: MGLAnnotationImage = {
-        let imageLayer = MGLAnnotationImage(image: NSImage(imageLiteralResourceName: "current_mark"), reuseIdentifier: "current_mark")
-        return imageLayer
-    }()
 
     // MARK: - Initilization
     override init(frame: NSRect) {
@@ -69,25 +64,8 @@ class UberMapView: MGLMapView {
             self.originPoint = nil
         }
 
-        //let newPoint = CirclePolygon.circleForCoordinate(point, withMeterRadius: 100)
-
-        let newPoint = MGLPointAnnotation()
+        let newPoint = OriginAnnotation()
         newPoint.coordinate = point
-        newPoint.title = "Here"
-
-//        if self.circleSource == nil {
-//
-//            let source = MGLShapeSource(identifier: "circle", shape: newPoint, options: nil)
-//            self.circleSource = source
-//            style?.addSource(source)
-//
-//            let layer = MGLCircleStyleLayer(identifier: "circle", source: source)
-//            let radiusPoints = 40.0 / self.metersPerPoint(atLatitude: point.latitude)
-//            layer.circleRadius = MGLStyleValue(rawValue: NSNumber(value: radiusPoints))
-//            layer.circleColor = MGLStyleValue(rawValue: NSColor.white)
-//            layer.circleOpacity = MGLStyleValue(rawValue: 1)
-//            style?.addLayer(layer)
-//        }
 
         // Add
         self.addAnnotation(newPoint)
@@ -111,10 +89,14 @@ class UberMapView: MGLMapView {
         // Add
         guard let coordinate = placeObj.coordinate2D else { return }
 
-        self.destinationPoint = MGLPointAnnotation()
+        self.destinationPoint = DestinationAnnotation()
         self.destinationPoint!.coordinate = coordinate
         self.destinationPoint!.title = placeObj.name
         self.addAnnotation(self.destinationPoint!)
+
+        // Reload image
+        self.removeAnnotation(self.originPoint!)
+        self.addAnnotation(self.originPoint!)
 
         // CentralizeMap
         self.centralizeMap()
@@ -245,11 +227,6 @@ extension UberMapView: MGLMapViewDelegate {
 
     func mapView(_ mapView: MGLMapView, alphaForShapeAnnotation annotation: MGLShape) -> CGFloat {
 
-        // Current Point
-        if annotation is CirclePolygon {
-            return 1.0
-        }
-
         // Route
         return 0.8
     }
@@ -261,27 +238,20 @@ extension UberMapView: MGLMapViewDelegate {
     }
 
     func mapView(_ mapView: MGLMapView, imageFor annotation: MGLAnnotation) -> MGLAnnotationImage? {
-        return self.testCircleImage
+        if let origin = annotation as? OriginAnnotation {
+            if self.destinationPoint != nil {
+                return origin.imageDirectionAnnotation
+            } else {
+                return origin.imageAnnotation
+            }
+        }
+        if let desti = annotation as? DestinationAnnotation {
+            return desti.imageAnnotation
+        }
+        return nil
     }
 
     func mapView(_ mapView: MGLMapView, strokeColorForShapeAnnotation annotation: MGLShape) -> NSColor {
-
-        if annotation is CirclePolygon {
-            return NSColor.black
-        }
-
         return NSColor.white
-    }
-
-    func mapViewRegionIsChanging(_ mapView: MGLMapView) {
-
-        guard let originPoint = self.originPoint else {
-            return
-        }
-
-//        if let layer = mapView.style?.layer(withIdentifier: "circle") as? MGLCircleStyleLayer {
-//            let radiusPoints = 40.0 / self.metersPerPoint(atLatitude: originPoint.coordinate.latitude)
-//            layer.circleRadius = MGLStyleValue(rawValue: NSNumber(value: radiusPoints))
-//        }
     }
 }
