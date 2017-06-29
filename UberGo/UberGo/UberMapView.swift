@@ -21,7 +21,7 @@ class UberMapView: MGLMapView {
     fileprivate var destinationPoint: DestinationAnnotation?
 
     // Pickup place
-    fileprivate var pickupPoint: MGLPointAnnotation?
+    fileprivate var pickupPoint: PickupAnnotation?
 
     // Driver Place
     fileprivate var driverPoint: MGLPointAnnotation?
@@ -138,7 +138,7 @@ class UberMapView: MGLMapView {
 
         guard let pickupObj = pickupObj else { return }
 
-        self.pickupPoint = MGLPointAnnotation()
+        self.pickupPoint = PickupAnnotation()
         self.pickupPoint!.coordinate = CLLocationCoordinate2D(latitude: pickupObj.latitude!,
                                                               longitude: pickupObj.longitude!)
         self.pickupPoint!.title = "Pickup"
@@ -238,13 +238,18 @@ extension UberMapView: MGLMapViewDelegate {
     }
 
     func mapView(_ mapView: MGLMapView, imageFor annotation: MGLAnnotation) -> MGLAnnotationImage? {
+
+        // Origin
         if let origin = annotation as? OriginAnnotation {
-            if self.destinationPoint != nil {
-                return origin.imageDirectionAnnotation
-            } else {
-                return origin.imageAnnotation
-            }
+            return origin.imageAnnotation
         }
+
+        // Pickup
+        if let pickup = annotation as? PickupAnnotation {
+            return pickup.imageAnnotation
+        }
+
+        // Destination
         if let desti = annotation as? DestinationAnnotation {
             return desti.imageAnnotation
         }
