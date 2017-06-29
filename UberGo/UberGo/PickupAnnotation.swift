@@ -1,5 +1,5 @@
 //
-//  CircleShape.swift
+//  PickupAnnotation.swift
 //  UberGo
 //
 //  Created by Nghia Tran on 6/29/17.
@@ -9,12 +9,12 @@
 import Foundation
 import Mapbox
 
-class OriginAnnotation: MGLPointAnnotation {
+class PickupAnnotation: MGLPointAnnotation {
 
     // MARK: - Variable
     public lazy var imageAnnotation: MGLAnnotationImage = {
-        let image = NSImage(imageLiteralResourceName: "current_mark")
+        let image = NSImage(imageLiteralResourceName: "pickup_mark")
         return MGLAnnotationImage(image: image,
-                                  reuseIdentifier: "current_mark")
+                                  reuseIdentifier: "pickup_mark")
     }()
 }
