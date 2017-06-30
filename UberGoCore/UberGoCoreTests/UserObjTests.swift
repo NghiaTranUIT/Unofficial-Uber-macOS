@@ -34,9 +34,9 @@ class UserObjTests: XCTestCase {
         let savedUser = FakeUberCrendential.getFromDisk()
 
         // Then
-        XCTAssertEqual(currentUser, UserObj.currentUser, "Current User != UserObj.currentUser is difference")
+        XCTAssertEqual(currentUser, UberAuth.share.currentUser, "Current User != UberAuth.share.currentUser is difference")
         XCTAssertNotNil(savedUser, "Saved User is nil")
-        XCTAssertEqual(UserObj.currentUser?.oauthToken, savedUser?.oauthToken, "Not same Access token")
+        XCTAssertEqual(UberAuth.share.currentUser?.oauthToken, savedUser?.oauthToken, "Not same Access token")
     }
 
     func testAuthenticationStateWithValidToken() {

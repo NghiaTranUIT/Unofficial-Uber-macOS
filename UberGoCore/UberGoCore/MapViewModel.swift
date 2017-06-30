@@ -216,7 +216,7 @@ open class MapViewModel:
         // Save History place
         selectedPlaceObserve.subscribe(onNext: { placeObj in
             guard let placeObj = placeObj else { return }
-            guard let currentUser = UserObj.currentUser else { return }
+            guard let currentUser = UberAuth.share.currentUser else { return }
 
             // Only save normal place to history
             // Don't save personal place

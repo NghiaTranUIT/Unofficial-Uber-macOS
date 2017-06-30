@@ -62,7 +62,7 @@ open class UberService {
 
         return Observable<[PlaceObj]>.create({ (observer) -> Disposable in
 
-            let currentUser = UserObj.currentUser!
+            let currentUser = UberAuth.share.currentUser!
             let histories = currentUser.historyPlace()
 
             observer.onNext(histories)
@@ -174,7 +174,7 @@ extension UberService {
     fileprivate func personalPlaceObserable(_ param: UberPersonalPlaceRequestParam)
         -> Observable<UberPersonalPlaceObj> {
 
-        guard UserObj.currentUser != nil else {
+        guard UberAuth.share.currentUser != nil else {
             return Observable<UberPersonalPlaceObj>.empty()
         }
 

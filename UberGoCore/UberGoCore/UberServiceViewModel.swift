@@ -155,7 +155,7 @@ open class UberServiceViewModel: BaseViewModel,
                 guard let productObj = self.selectedProduct.value else {
                     return Observable.empty()
                 }
-                guard let currentUser = UserObj.currentUser else {
+                guard let currentUser = UberAuth.share.currentUser else {
                     return Observable.empty()
                 }
                 guard let data = self.uberData else {
@@ -194,7 +194,7 @@ open class UberServiceViewModel: BaseViewModel,
                 guard let productObj = self.selectedProduct.value else {
                     return Observable.empty()
                 }
-                guard let currentUser = UserObj.currentUser else {
+                guard let currentUser = UberAuth.share.currentUser else {
                     return Observable.empty()
                 }
                 guard let data = self.uberData else {

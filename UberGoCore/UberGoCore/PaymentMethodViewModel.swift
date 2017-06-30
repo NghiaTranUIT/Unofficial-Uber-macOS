@@ -36,7 +36,7 @@ open class PaymentMethodViewModel: BaseViewModel,
 
     // MARK: - Output
     public var paymentMethodObjVar: Variable<PaymentObj?> {
-        return UserObj.currentUser!.paymentMethodObjVar
+        return UberAuth.share.currentUser!.paymentMethodObjVar
     }
 
     // MARK: - Init

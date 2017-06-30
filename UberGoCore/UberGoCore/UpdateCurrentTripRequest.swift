@@ -37,16 +37,6 @@ class UpdateCurrentTripRequest: Requestable {
     // Type
     typealias Element = BaseObj
 
-    // Header
-    var addionalHeader: Requestable.HeaderParameter? {
-        guard let currentUser = UserObj.currentUser else { return nil }
-        guard let token = currentUser.oauthToken else {
-            return nil
-        }
-        let tokenStr = "Bearer " + token
-        return ["Authorization": tokenStr]
-    }
-
     // Endpoint
     var endpoint: String { return Constants.UberAPI.GetCurrentTrip }
 

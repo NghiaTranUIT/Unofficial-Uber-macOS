@@ -29,16 +29,6 @@ class RideEstimatePriceRequest: Requestable {
     // Type
     typealias Element = [PriceObj]
 
-    // Header
-    var addionalHeader: Requestable.HeaderParameter? {
-        guard let currentUser = UserObj.currentUser else { return nil }
-        guard let token = currentUser.oauthToken else {
-            return nil
-        }
-        let tokenStr = "Bearer " + token
-        return ["Authorization": tokenStr]
-    }
-
     // Endpoint
     var endpoint: String { return Constants.UberAPI.RideEstimatePrice }
 

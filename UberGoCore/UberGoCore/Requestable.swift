@@ -27,6 +27,8 @@ protocol Requestable: URLRequestConvertible {
 
     var parameterEncoding: ParameterEncoding { get }
 
+    var isAuthenticated: Bool { get }
+
     func toObservable() -> Observable<Element>
 
     func decode(data: Any) -> Element?
@@ -49,6 +51,8 @@ extension Requestable {
     var basePath: String { return Constants.UberAPI.BaseSandboxURL }
 
     var param: Parameter? { return nil }
+
+    var isAuthenticated: Bool { return true }
 
     var addionalHeader: HeaderParameter? { return nil }
 
@@ -135,22 +139,27 @@ extension Requestable {
     func buildURLRequest() -> URLRequest {
 
         // Init
-        var urlRequest = URLRequest(url: self.url)
-        urlRequest.httpMethod = self.httpMethod.rawValue
-        urlRequest.timeoutInterval = TimeInterval(10 * 1000)
+        var request = URLRequest(url: self.url)
+        request.httpMethod = self.httpMethod.rawValue
+        request.timeoutInterval = TimeInterval(10 * 1000)
 
         // Encode param
-        guard var request = try? self.parameterEncoding.encode(urlRequest, with: self.param?.toDictionary()) else {
+        guard var finalRequest = try? self.parameterEncoding.encode(request, with: self.param?.toDictionary()) else {
             fatalError("Can't handle unknow request")
         }
 
         // Add addional Header if need
         if let additinalHeaders = self.addionalHeader {
             for (key, value) in additinalHeaders {
-                request.addValue(value, forHTTPHeaderField: key)
+                finalRequest.addValue(value, forHTTPHeaderField: key)
             }
         }
 
-        return request
+        // Add Authentication header
+        if isAuthenticated {
+            let currentUser = UberAuth.share.currentUser!
+            currentUser.authToken.setAuthenticationHeader(request: &finalRequest)
+        }
+        return finalRequest
     }
 }
