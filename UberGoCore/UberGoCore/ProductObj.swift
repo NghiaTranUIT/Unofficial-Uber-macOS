@@ -25,6 +25,7 @@ open class ProductObj: BaseObj {
 
     // Price from Uber
     public var estimatePrice: PriceObj?
+    public var estimateTime: TimeEstimateObj?
 
     override public func mapping(map: Map) {
         super.mapping(map: map)
