@@ -173,7 +173,7 @@ class RequestUberView: NSView {
 
     // MARK: - Payment methods
     fileprivate func updatePaymentMethod() {
-        guard let currentUser = UserObj.currentUser else { return }
+        guard let currentUser = UberAuth.share.currentUser else { return }
 
         // LastUse or select 
         currentUser.currentPaymentAccountObjVar

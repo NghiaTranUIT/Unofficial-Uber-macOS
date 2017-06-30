@@ -113,7 +113,7 @@ class MapViewController: BaseViewController {
             .addDisposableTo(self.disposeBag)
 
         // Force load Uber data
-        UserObj.currentUser?.reloadUberDataPublisher.onNext()
+        UberAuth.share.currentUser?.reloadUberDataPublisher.onNext()
 
         // Nearest place
         self.mapViewModel.output.nearestPlaceDriver

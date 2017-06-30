@@ -224,7 +224,7 @@ extension TripActivityView {
                             self.driverAvatarImageView.image = image
                         }
                     }
-            }
+                }
         }
     }
 
@@ -235,7 +235,7 @@ extension TripActivityView {
     }
 
     fileprivate func updatePayment() {
-        guard let currentUser = UserObj.currentUser else { return }
+        guard let currentUser = UberAuth.share.currentUser else { return }
         guard let account = currentUser.currentPaymentAccountObjVar.value else { return }
         self.paymentImageView.image = NSImage(imageLiteralResourceName: account.type.imageIconName)
         self.cardNumberLbl.stringValue = account.betterAccountDescription
