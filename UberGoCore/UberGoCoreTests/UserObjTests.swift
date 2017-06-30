@@ -21,7 +21,7 @@ class UserObjTests: XCTestCase {
         super.tearDown()
 
         // Remove
-
+        FakeUberCrendential.resetData()
     }
 
     func testCreateUserWithCredentialUber() {
@@ -48,11 +48,16 @@ class UserObjTests: XCTestCase {
         XCTAssertEqual(UberAuth.share.authenState, .authenticated, "Authentication State not work")
     }
 
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
+    func testLogOut() {
 
+        // Create
+        FakeUberCrendential.makeCurrentUser()
+        XCTAssertNotNil(FakeUberCrendential.getFromDisk())
+
+        // Logout
+        UberAuth.share.logout()
+
+        // Nil
+        XCTAssertNil(FakeUberCrendential.getFromDisk())
+    }
 }
