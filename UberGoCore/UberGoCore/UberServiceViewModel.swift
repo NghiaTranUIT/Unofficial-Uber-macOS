@@ -19,7 +19,7 @@ public protocol UberServiceViewModelProtocol {
 
 public protocol UberServiceViewModelInput {
 
-    var selectedPlacePublisher: PublishSubject<UberData> { get }
+    var selectedPlacePublisher: PublishSubject<UberTripData> { get }
     var requestUberPublisher: PublishSubject<Void> { get }
     var requestUberWithSurgeIDPublisher: PublishSubject<String> { get }
 
@@ -28,14 +28,14 @@ public protocol UberServiceViewModelInput {
     var cancelCurrentTripPublisher: PublishSubject<Void> { get }
 }
 
-public struct UberData {
+public struct UberTripData {
 
-    public var placeObj: PlaceObj
+    public var to: PlaceObj
     public var from: CLLocationCoordinate2D
 
-    public init(placeObj: PlaceObj,
+    public init(to: PlaceObj,
                 from: CLLocationCoordinate2D) {
-        self.placeObj = placeObj
+        self.to = to
         self.from = from
     }
 }
@@ -43,13 +43,13 @@ public struct UberData {
 public protocol UberServiceViewModelOutput {
 
     // Request Uber
-    var availableGroupProductsDriver: Driver<[GroupProductObj]>! { get }
-    var isLoadingAvailableProductPublisher: PublishSubject<Bool> { get }
+    var availableGroupProductsDriver: Driver<[GroupProductObj]> { get }
+    var isLoadingDriver: Driver<Bool> { get }
     var selectedGroupProduct: Variable<GroupProductObj?> { get }
     var selectedProduct: Variable<ProductObj?> { get }
 
     // Surge Href
-    var showSurgeHrefDriver: Driver<SurgePriceObj>! { get }
+    var showSurgeHrefDriver: Driver<SurgePriceObj> { get }
 
     // Normal Trip
     var normalTripDriver: Driver<CreateTripObj>! { get }
@@ -62,8 +62,7 @@ public protocol UberServiceViewModelOutput {
     var resetMapDriver: Driver<Void>! { get }
 }
 
-open class UberServiceViewModel: BaseViewModel,
-                                 UberServiceViewModelProtocol,
+open class UberServiceViewModel: UberServiceViewModelProtocol,
                                  UberServiceViewModelInput,
                                  UberServiceViewModelOutput {
 
@@ -72,15 +71,15 @@ open class UberServiceViewModel: BaseViewModel,
     public var output: UberServiceViewModelOutput { return self }
 
     // MARK: - Input
-    public var selectedPlacePublisher = PublishSubject<UberData>()
+    public var selectedPlacePublisher = PublishSubject<UberTripData>()
     public var requestUberPublisher = PublishSubject<Void>()
 
     // MARK: - Output
-    public var availableGroupProductsDriver: Driver<[GroupProductObj]>!
-    public var isLoadingAvailableProductPublisher = PublishSubject<Bool>()
+    public var availableGroupProductsDriver: Driver<[GroupProductObj]>
+    public var isLoadingDriver: Driver<Bool>
     public let selectedGroupProduct = Variable<GroupProductObj?>(nil)
     public let selectedProduct = Variable<ProductObj?>(nil)
-    public var showSurgeHrefDriver: Driver<SurgePriceObj>!
+    public var showSurgeHrefDriver: Driver<SurgePriceObj>
     public var normalTripDriver: Driver<CreateTripObj>!
     public var requestUberWithSurgeIDPublisher = PublishSubject<String>()
     public var currentTripStatusDriver: Driver<TripObj>!
@@ -91,83 +90,75 @@ open class UberServiceViewModel: BaseViewModel,
     public var resetMapDriver: Driver<Void>!
 
     // MARK: - Variable
-    fileprivate var uberService = UberService()
-    fileprivate var uberData: UberData?
-    public var timerDisposeBag: DisposeBag!
+    fileprivate var uberService: UberService
+    fileprivate let uberData = Variable<UberTripData?>(nil)
+
+    // Dispose
+    fileprivate let disposeBag = DisposeBag()
+    fileprivate var timerDisposeBag = DisposeBag()
 
     // MARK: - Init
-    override public init() {
-        super.init()
+    public init(uberService: UberService = UberService()) {
+
+        self.uberService = uberService
 
         // Get available Product + Estimate price
-        let selectionShared =
-            self.selectedPlacePublisher
-            .do(onNext: {[unowned self] _ in
-                self.isLoadingAvailableProductPublisher.onNext(true)
+        let selectionShared = self.selectedPlacePublisher
+            .asObserver()
+            .share()
+
+        // Load
+        self.isLoadingDriver = selectionShared
+            .map({ _ -> Bool in
+                return true
             })
-            .flatMapLatest {[unowned self] data -> Observable<[ProductObj]> in
-                self.uberData = data
-                return self.uberService.productsWithEstimatePriceObserver(from: data.from,
-                                                                          to: data.placeObj.coordinate2D!)
+            .asDriver(onErrorJustReturn: false)
+
+        // Bind to Uber Trip
+        selectionShared
+            .bind(to: self.uberData)
+            .addDisposableTo(self.disposeBag)
+
+        // Request Products + Estimation
+        let groupProductShared = selectionShared
+            .flatMapLatest { data -> Observable<[ProductObj]> in
+                return uberService.productsWithEstimatePriceObserver(from: data.from,
+                                                                       to: data.to.coordinate2D!)
             }
             .map({ GroupProductObj.mapProductGroups(from: $0) })
             .share()
 
         // Data
-        self.availableGroupProductsDriver = selectionShared
+        self.availableGroupProductsDriver = groupProductShared
                                             .asDriver(onErrorJustReturn: [])
 
         // Default selection
-        selectionShared
-            .map { (groups) -> GroupProductObj? in
-                return groups.first
-            }.bind(to: self.selectedGroupProduct)
+        groupProductShared
+            .map { return $0.first }
+            .bind(to: self.selectedGroupProduct)
             .addDisposableTo(self.disposeBag)
 
-        selectionShared
-            .map { (groups) -> ProductObj? in
-                return groups.first?.productObjs.first
-            }.bind(to: self.selectedProduct)
+        groupProductShared
+            .map { $0.first?.productObjs.first }
+            .bind(to: self.selectedProduct)
             .addDisposableTo(self.disposeBag)
 
         // Request Uber service
         let shareRequest = self.requestUberPublisher
-            .flatMapLatest {[unowned self] _ -> Observable<EstimateObj> in
-                guard let productObj = self.selectedProduct.value else {
-                    return Observable.empty()
-                }
-                guard let data = self.uberData else {
-                    return Observable.empty()
-                }
+            .withLatestFrom(self.uberData.asObservable())
+            .filterNil()
+            .withLatestFrom(self.selectedProduct.asObservable(),
+                            resultSelector: { (tripData, productObj) -> (UberTripData, ProductObj) in
+                return (tripData, productObj!)
+            })
+            .flatMapLatest { data -> Observable<EstimateObj> in
+                let productObj = data.1
                 Logger.info("productID = \(productObj.productId ?? "")")
-                return self.uberService.estimateForSpecificProductObserver(productObj,
-                                                                           from: data.from,
-                                                                           to: data.placeObj.coordinate2D!)
+                return uberService.estimateForSpecificProductObserver(productObj,
+                                                                           from: data.0.from,
+                                                                           to: data.0.to.coordinate2D!)
             }
             .share()
-
-        // Normal Price
-        let uberTripUpFareOb = shareRequest
-            .flatMapLatest {[unowned self] (estiamteObj) -> Observable<CreateTripObj>in
-                guard let frontFareObj = estiamteObj.upFrontFareObj else {
-                    return Observable.empty()
-                }
-                guard let productObj = self.selectedProduct.value else {
-                    return Observable.empty()
-                }
-                guard let currentUser = UserObj.currentUser else {
-                    return Observable.empty()
-                }
-                guard let data = self.uberData else {
-                    return Observable.empty()
-                }
-                let payment = currentUser.currentPaymentAccountObjVar.value
-                Logger.info("Normal Price")
-                return self.uberService.requestUpFrontFareTrip(frontFareObj: frontFareObj,
-                                                               productObj: productObj,
-                                                               paymentAccountObj: payment,
-                                                               from: data.from, to: data.placeObj)
-            }
 
         // Show Surge rate confirmation
         self.showSurgeHrefDriver = shareRequest
@@ -182,10 +173,38 @@ open class UberServiceViewModel: BaseViewModel,
             }
             .asDriver(onErrorJustReturn: SurgePriceObj())
 
+        // Normal Price
+        let uberTripUpFareOb = shareRequest
+            .flatMapLatest { (estiamteObj) -> Observable<CreateTripObj>in
+
+                // Guard
+                //FIXME : Should refactor after refactoring JSON Mapping
+                guard let frontFareObj = estiamteObj.upFrontFareObj else {
+                    return Observable.empty()
+                }
+                guard let productObj = self.selectedProduct.value else {
+                    return Observable.empty()
+                }
+                guard let currentUser = UserObj.currentUser else {
+                    return Observable.empty()
+                }
+                guard let data = self.uberData.value else {
+                    return Observable.empty()
+                }
+
+                let payment = currentUser.currentPaymentAccountObjVar.value
+                Logger.info("Normal Price")
+                return self.uberService.requestUpFrontFareTrip(frontFareObj: frontFareObj,
+                                                               productObj: productObj,
+                                                               paymentAccountObj: payment,
+                                                               from: data.from,
+                                                               to: data.to)
+            }
+
         // Handle SurgeCallback
         let uberTripSurgeFareOb = self.requestUberWithSurgeIDPublisher
             .asObserver()
-            .flatMapLatest { (urlPath) -> Observable<CreateTripObj> in
+            .flatMapLatest {[unowned self] (urlPath) -> Observable<CreateTripObj> in
 
                 let url = URL(string: urlPath)!
                 guard let ID = url.queryItemForKey(key: "surge_confirmation_id")?.value else {
@@ -197,24 +216,40 @@ open class UberServiceViewModel: BaseViewModel,
                 guard let currentUser = UserObj.currentUser else {
                     return Observable.empty()
                 }
-                guard let data = self.uberData else {
+                guard let data = self.uberData.value else {
                     return Observable.empty()
                 }
                 let payment = currentUser.currentPaymentAccountObjVar.value
-                return self.uberService.requestSurgeTrip(surgeID: ID,
-                                                         productObj: productObj,
-                                                         paymentAccountObj: payment,
-                                                         from: data.from,
-                                                         to: data.placeObj)
+                return uberService.requestSurgeTrip(surgeID: ID,
+                                                 productObj: productObj,
+                                          paymentAccountObj: payment,
+                                                 from: data.from,
+                                                 to: data.to)
             }
 
         self.normalTripDriver = Observable.merge([uberTripUpFareOb, uberTripSurgeFareOb])
             .asDriver(onErrorJustReturn: CreateTripObj())
 
+        //FIXME : For some reason: Merge<timerObj, manuallyTriggerOb> cause timer didn't fire up
+        // Manually trigger at the first time app open
+        self.manuallyCurrentTripStatusDriver = self.manuallyGetCurrentTripStatusPublisher
+            .asObserver()
+            .flatMapLatest { _ -> Observable<TripObj> in
+                return uberService.getCurrentTrip()
+            }
+            .asDriver(onErrorJustReturn: TripObj.noCurrentTrip())
+
+        // cancel
+        self.resetMapDriver = self.cancelCurrentTripPublisher.asObserver()
+            .flatMapLatest { _ -> Observable<Void> in
+                uberService.cancelCurrentTrip()
+            }
+            .asDriver(onErrorJustReturn: ())
+
         // Current Trip Status
         let timerOb = self.triggerCurrentTripPublisher
             .asObserver()
-            .do(onNext: {[unowned self] _ in
+            .do(onNext: { _ in
 
                 // Invalidate Timer
                 self.timerDisposeBag = DisposeBag()
@@ -225,22 +260,13 @@ open class UberServiceViewModel: BaseViewModel,
                     .startWith(1) // Call instantly
             }
 
-        //FIXME : For some reason: Merge<timerObj, manuallyTriggerOb> cause timer didn't fire up
-        // Manually trigger at the first time app open
-        self.manuallyCurrentTripStatusDriver = self.manuallyGetCurrentTripStatusPublisher
-            .asObserver()
-            .flatMapLatest { _ -> Observable<TripObj> in
-                return self.uberService.getCurrentTrip()
-            }
-            .asDriver(onErrorJustReturn: TripObj.noCurrentTrip())
-
         // Merge
         self.currentTripStatusDriver =
             //Observable.merge([timerOb, tripTriggerManually])
             timerOb
-            .flatMapLatest {[unowned self] _ -> Observable<TripObj> in
+            .flatMapLatest { _ -> Observable<TripObj> in
                 Logger.debug("$$$ TIMER start")
-                return self.uberService.getCurrentTrip()
+                return uberService.getCurrentTrip()
             }
             .do(onNext: { (tripObj) in
                 if tripObj.isValidTrip == false {
@@ -252,12 +278,5 @@ open class UberServiceViewModel: BaseViewModel,
                 self.timerDisposeBag = DisposeBag()
             })
             .asDriver(onErrorJustReturn: TripObj.noCurrentTrip())
-
-        // cancel
-        self.resetMapDriver = self.cancelCurrentTripPublisher.asObserver()
-            .flatMapLatest {[unowned self] _ -> Observable<Void> in
-                self.uberService.cancelCurrentTrip()
-            }
-            .asDriver(onErrorJustReturn: ())
     }
 }
