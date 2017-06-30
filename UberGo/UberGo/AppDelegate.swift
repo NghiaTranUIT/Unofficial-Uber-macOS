@@ -95,8 +95,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     @IBAction func logoutUberOnTap(_ sender: NSMenuItem) {
-        UserDefaults.standard.removeObject(forKey: "currentUser")
-        UserDefaults.standard.synchronize()
+
+        // Logout
+        UberAuth.share.logout()
 
         // Layout
         self.setupPopover(with: .unAuthenticated)

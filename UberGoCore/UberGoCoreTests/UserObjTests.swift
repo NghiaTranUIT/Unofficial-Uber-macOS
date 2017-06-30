@@ -30,33 +30,22 @@ class UserObjTests: XCTestCase {
         let uberCrendential = FakeUberCrendential.valid()
 
         // When
-        let currentUser = UserObj.convertCurrentUser(with: uberCrendential)
+        UberAuth.share.convertToCurrentUser(uberCrendential)
         let savedUser = FakeUberCrendential.getFromDisk()
 
         // Then
-        XCTAssertEqual(currentUser, UberAuth.share.currentUser, "Current User != UberAuth.share.currentUser is difference")
         XCTAssertNotNil(savedUser, "Saved User is nil")
-        XCTAssertEqual(UberAuth.share.currentUser?.oauthToken, savedUser?.oauthToken, "Not same Access token")
+        XCTAssertEqual(UberAuth.share.currentUser?.authToken.token, savedUser?.authToken.token, "Not same Access token")
     }
 
     func testAuthenticationStateWithValidToken() {
 
         // Given
         let uberCrendential = FakeUberCrendential.valid()
-        let currentUser = UserObj.convertCurrentUser(with: uberCrendential)
+        UberAuth.share.convertToCurrentUser(uberCrendential)
 
         // Then
-        XCTAssertEqual(currentUser.authenticateState, .authenticated, "Authentication State not work")
-    }
-
-    func testAuthenticationStateWithInvalidToken() {
-
-        // Given
-        let uberCrendential = FakeUberCrendential.invalid()
-        let currentUser = UserObj.convertCurrentUser(with: uberCrendential)
-
-        // Then
-        XCTAssertEqual(currentUser.authenticateState, .unAuthenticated, "Authentication State not work")
+        XCTAssertEqual(UberAuth.share.authenState, .authenticated, "Authentication State not work")
     }
 
     func testPerformanceExample() {

@@ -10,7 +10,7 @@ import Foundation
 import OAuthSwift
 import RxSwift
 
-class UberAuth {
+open class UberAuth {
 
     // MARK: - Variable
     public var callbackObserverPublish = PublishSubject<NSAppleEventDescriptor>()
@@ -22,6 +22,7 @@ class UberAuth {
 
     // MARK: - Persistant Store
     fileprivate let persistantStore = UserDefaults.standard
+    fileprivate static let PersistantStoreKey = "Uber.CurrentUser"
 
     // MARK: - Current User
     public fileprivate(set) var currentUser: UserObj? {
@@ -29,30 +30,37 @@ class UberAuth {
             if let currentUser = currentUser {
 
                 // Lock
-                lock.lock()
+                storeLock.lock()
                 defer {
-                    self.lock.unlock()
+                    self.storeLock.unlock()
                 }
 
                 let data = NSKeyedArchiver.archivedData(withRootObject: currentUser)
-                persistantStore.set(data, forKey: "currentUser")
+                persistantStore.set(data, forKey: UberAuth.PersistantStoreKey)
                 persistantStore.synchronize()
             } else {
 
                 // Lock
-                lock.lock()
+                storeLock.lock()
                 defer {
-                    self.lock.unlock()
+                    self.storeLock.unlock()
                 }
 
                 // Remove
-                persistantStore.removeObject(forKey: "currentUser")
+                persistantStore.removeObject(forKey: UberAuth.PersistantStoreKey)
                 persistantStore.synchronize()
             }
         }
     }
+    public var authenState: AuthenticationState {
+        if currentUser == nil {
+            return .unAuthenticated
+        }
+        return .authenticated
+    }
     fileprivate let lock = NSLock()
-    
+    fileprivate let storeLock = NSLock()
+
     // MARK: - Init
     public init() {
 
@@ -75,12 +83,22 @@ class UberAuth {
                 .do(onNext: {[unowned self] (credential) in
                     guard let credential = credential else { return }
 
-                    let token = AuthToken(credential: credential)
-                    let user = UserObj(authToken: token)
-                    self.currentUser = user
+                    // Convert to user
+                    self.convertToCurrentUser(credential)
                 })
                 .map({ $0 == nil ? AuthenticationState.authenticated :
                     AuthenticationState.unAuthenticated })
+    }
+
+    public func logout() {
+
+        // Lock
+        lock.lock()
+        defer {
+            self.lock.unlock()
+        }
+
+        self.currentUser = nil
     }
 
     fileprivate class func applicationHandle(url: URL) {
@@ -131,9 +149,27 @@ extension UberAuth {
 
     fileprivate func loadPersistantUser() {
 
-        guard let data = UserDefaults.standard.data(forKey: "currentUser") else { return }
-        guard let userObj = NSKeyedUnarchiver.unarchiveObject(with: data) as? UserObj else { return }
+        // Lock
+        lock.lock()
+        defer {
+            self.lock.unlock()
+        }
 
+        guard let data = UserDefaults.standard.data(forKey: UberAuth.PersistantStoreKey) else { return }
+        guard let userObj = NSKeyedUnarchiver.unarchiveObject(with: data) as? UserObj else { return }
         self.currentUser = userObj
+    }
+
+    public func convertToCurrentUser(_ credential: OAuthSwiftCredential) {
+
+        // Lock
+        lock.lock()
+        defer {
+            self.lock.unlock()
+        }
+
+        let token = AuthToken(credential: credential)
+        let user = UserObj(authToken: token)
+        self.currentUser = user
     }
 }

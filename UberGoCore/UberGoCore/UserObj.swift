@@ -40,7 +40,7 @@ open class UserObj: BaseObj {
         super.init(coder: aDecoder)
         self.name = aDecoder.decodeObject(forKey: Constants.Object.User.Name) as? String
     }
-    
+
     public required init?(map: Map) {
         fatalError("init(map:) has not been implemented")
     }

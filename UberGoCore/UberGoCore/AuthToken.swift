@@ -9,7 +9,7 @@
 import Foundation
 import OAuthSwift
 
-public class AuthToken: NSCoding {
+public class AuthToken: NSObject, NSCoding {
 
     // MARK: - Token
     public var token: String
