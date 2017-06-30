@@ -88,11 +88,7 @@ class UberMapView: MGLMapView {
         guard let placeObj = placeObj else { return }
 
         // Add
-        guard let coordinate = placeObj.coordinate2D else { return }
-
-        self.destinationPoint = DestinationAnnotation()
-        self.destinationPoint!.coordinate = coordinate
-        self.destinationPoint!.title = placeObj.name
+        self.destinationPoint = DestinationAnnotation(placeObj: placeObj)
         self.addAnnotation(self.destinationPoint!)
 
         // CentralizeMap

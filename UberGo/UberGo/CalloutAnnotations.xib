@@ -10,6 +10,9 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="CalloutAnnotations" customModule="UberGo" customModuleProvider="target">
             <connections>
+                <outlet property="addressLbl" destination="BN4-l2-pn8" id="D4y-1d-q6f"/>
+                <outlet property="timeContainerViewWidth" destination="SNL-uq-U5q" id="bo0-CU-pBj"/>
+                <outlet property="timeEstimateLbl" destination="KlH-dV-fTA" id="dZF-0c-rJe"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
         </customObject>

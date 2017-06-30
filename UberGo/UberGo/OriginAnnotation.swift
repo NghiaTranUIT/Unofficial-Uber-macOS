@@ -8,6 +8,7 @@
 
 import Foundation
 import Mapbox
+import UberGoCore
 
 class OriginAnnotation: MGLPointAnnotation {
 
