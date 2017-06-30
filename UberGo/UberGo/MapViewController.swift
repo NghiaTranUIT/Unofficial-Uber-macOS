@@ -159,7 +159,7 @@ class MapViewController: BaseViewController {
                 // Request Product + Estimate Uber
                 if let placeObj = placeObj {
                     guard let currentLocation = self.mapViewModel.currentLocationVariable.value else { return }
-                    let data = UberData(placeObj: placeObj, from: currentLocation.coordinate)
+                    let data = UberTripData(to: placeObj, from: currentLocation.coordinate)
                     self.uberViewModel.input.selectedPlacePublisher.onNext(data)
                 } else {
                     // Reset search bar
@@ -181,8 +181,8 @@ class MapViewController: BaseViewController {
             .addDisposableTo(self.disposeBag)
 
         // Show or hide Bottom bar
-        self.uberViewModel.output.isLoadingAvailableProductPublisher
-            .subscribe(onNext: { isLoading in
+        self.uberViewModel.output.isLoadingDriver
+            .drive(onNext: { isLoading in
                 Logger.info("isLoading Available Products = \(isLoading)")
             })
             .addDisposableTo(self.disposeBag)

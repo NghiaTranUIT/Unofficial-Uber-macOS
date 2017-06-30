@@ -64,7 +64,10 @@ class WebViewController: NSViewController {
 
 extension WebViewController: WKNavigationDelegate, WKUIDelegate {
     // the following function handles target="_blank" links by opening themmin thesame view
-    func webView(_ myWebView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration, for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
+    func webView(_ myWebView: WKWebView,
+                 createWebViewWith configuration: WKWebViewConfiguration,
+                 for navigationAction: WKNavigationAction,
+                 windowFeatures: WKWindowFeatures) -> WKWebView? {
         if navigationAction.targetFrame == nil {
             openSafari(link: navigationAction.request.url!)
         }

@@ -95,10 +95,6 @@ class UberMapView: MGLMapView {
         self.destinationPoint!.title = placeObj.name
         self.addAnnotation(self.destinationPoint!)
 
-        // Reload image
-        self.removeAnnotation(self.originPoint!)
-        self.addAnnotation(self.originPoint!)
-
         // CentralizeMap
         self.centralizeMap()
     }
