@@ -28,13 +28,10 @@ class UberPopover: NSPopover {
         viewModel = appViewModel
 
         // Web Handler - Incase need re-fresh or re-login
-        let webHandler = OauthWebViewHandler()
-        self.authenViewModel = AuthenticationViewModel(uberOauth: UberOauth(webviewHandler: webHandler))
+        self.authenViewModel = AuthenticationViewModel()
 
         super.init()
         self.initCommon()
-
-        webHandler.delegate = self
     }
 
     required init?(coder: NSCoder) {
@@ -142,15 +139,4 @@ extension UberPopover {
         self.eventMonitor.start()
     }
 
-}
-
-extension UberPopover: OauthWebViewHandlerDelegate {
-    func oauthVisibleController() -> NSViewController {
-        return self.contentViewController!
-    }
-
-    func oauthWebviewController(_ url: URL) -> NSViewController {
-        self.webviewController.data = url
-        return webviewController
-    }
 }

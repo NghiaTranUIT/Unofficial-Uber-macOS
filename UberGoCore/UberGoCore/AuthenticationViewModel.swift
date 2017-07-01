@@ -70,7 +70,7 @@ AuthenticationViewModelOutput {
             .asObserver()
             .flatMapLatest {[unowned self] _ -> Observable<AuthenticationState> in
                 return self.uberOauth.authWithUberServiceObserable()
-        }
+            }
 
         // Merge
         self.authenticateStateDriver = Observable.merge([authenticationChanged, loginSuccess])
