@@ -113,7 +113,8 @@ extension UberPopover {
 
     fileprivate func initEventMonitor() -> EventMonitor {
         return EventMonitor(mask: [NSEventMask.leftMouseDown,
-                            NSEventMask.rightMouseDown]) { [unowned self] _ in
+                            NSEventMask.rightMouseDown]) { [weak self] _ in
+                                guard let `self` = self else { return }
                                 if self.isShown {
                                     self.viewModel.actionPopoverPublish.onNext(.close)
                                 }

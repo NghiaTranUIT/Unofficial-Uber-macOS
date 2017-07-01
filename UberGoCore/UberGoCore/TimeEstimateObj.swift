@@ -17,6 +17,14 @@ open class TimeEstimateObj: BaseObj {
     public var displayName: String?
     public var productId: String?
 
+    // Time in minutes
+    public var prettyEstimateTime: Int {
+        guard let estimate = estimate else {
+            return 5
+        }
+        return estimate / 60
+    }
+
     override public func mapping(map: Map) {
         super.mapping(map: map)
 

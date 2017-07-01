@@ -47,11 +47,13 @@ class CalloutAnnotations: NSViewController {
 
     fileprivate func setupData() {
 
-        guard let timeObj = self.timeObj else { return }
-        self.timeEstimateLbl.stringValue = "\(timeObj.estimate ?? 5)"
+        if let timeObj = self.timeObj {
+            self.timeEstimateLbl.stringValue = "\(timeObj.prettyEstimateTime)"
+        }
 
-        guard let destObj = self.destinationObj else { return }
-        self.addressLbl.stringValue = destObj.address ?? ""
+        if let destObj = self.destinationObj {
+            self.addressLbl.stringValue = destObj.name ?? ""
+        }
     }
 
     // MARK: - Public

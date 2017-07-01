@@ -106,9 +106,13 @@ open class UserObj: BaseObj {
     public func saveHistoryPlace(_ place: PlaceObj) {
         var histories = self.historyPlace()
 
-        if histories.contains(place) == false {
-            histories.insert(place, at: 0)
+        // Remove
+        if let index = histories.index(where: { $0.isEqual(place) }) {
+            histories.remove(at: index)
         }
+
+        // Append at top
+        histories.insert(place, at: 0)
 
         // Save
         let data = NSKeyedArchiver.archivedData(withRootObject: histories)
