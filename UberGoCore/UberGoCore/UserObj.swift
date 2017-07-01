@@ -27,6 +27,7 @@ open class UserObj: BaseObj {
     public init(authToken: AuthToken) {
         self.authToken = authToken
         super.init()
+        binding()
     }
 
     override public func mapping(map: Map) {
@@ -39,6 +40,7 @@ open class UserObj: BaseObj {
         self.authToken = aDecoder.decodeObject(forKey: Constants.Object.User.Auth) as! AuthToken
         super.init(coder: aDecoder)
         self.name = aDecoder.decodeObject(forKey: Constants.Object.User.Name) as? String
+        binding()
     }
 
     public required init?(map: Map) {

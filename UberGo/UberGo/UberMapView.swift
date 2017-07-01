@@ -10,9 +10,14 @@ import Mapbox
 import MapboxDirections
 import UberGoCore
 
+protocol UberMapViewDelegate: class {
+    func uberMapViewTimeEstimateForOriginAnnotation() -> TimeEstimateObj?
+}
+
 class UberMapView: MGLMapView {
 
     // MARK: - Variable
+    weak var uberMapDelegate: UberMapViewDelegate?
 
     // Origin
     fileprivate var originPoint: OriginAnnotation?
@@ -246,6 +251,13 @@ extension UberMapView: MGLMapViewDelegate {
     func mapView(_ mapView: MGLMapView, calloutViewControllerFor annotation: MGLAnnotation) -> NSViewController? {
 
         if let obj = annotation as? UberAnnotationType {
+
+            if let annotation = annotation as? OriginAnnotation,
+                destinationPoint != nil {
+                if let timeObj = self.uberMapDelegate?.uberMapViewTimeEstimateForOriginAnnotation() {
+                    annotation.setupCallout(.withTimeEstimation, timeObj: timeObj)
+                }
+            }
             return obj.calloutViewController
         }
 

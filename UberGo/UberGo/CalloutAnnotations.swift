@@ -9,8 +9,8 @@
 import UberGoCore
 
 enum CalloutAnnotationsLayoutMode {
-    case pickup
-    case destination
+    case noTimeEstimation
+    case withTimeEstimation
 }
 
 class CalloutAnnotations: NSViewController {
@@ -23,23 +23,23 @@ class CalloutAnnotations: NSViewController {
     // MARK: - Variable
     fileprivate var timeObj: TimeEstimateObj?
     fileprivate var destinationObj: PlaceObj?
-    fileprivate var layoutMode: CalloutAnnotationsLayoutMode = .pickup
+    fileprivate var layoutMode: CalloutAnnotationsLayoutMode = .noTimeEstimation
 
     // MARK: - View
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.initCommon()
-        self.setupLayout()
+        self.setupLayoutMode(layoutMode)
         self.setupData()
     }
 
-    fileprivate func setupLayout() {
-        switch layoutMode {
-        case .pickup:
+    fileprivate func setupLayoutMode(_ mode: CalloutAnnotationsLayoutMode) {
+        switch mode {
+        case .withTimeEstimation:
             self.timeContainerViewWidth.constant = 36
             self.view.layoutSubtreeIfNeeded()
-        case .destination:
+        case .noTimeEstimation:
             self.timeContainerViewWidth.constant = 0
             self.view.layoutSubtreeIfNeeded()
         }
@@ -59,6 +59,12 @@ class CalloutAnnotations: NSViewController {
         self.layoutMode = mode
         self.timeObj = timeObj
         self.destinationObj = destinationObj
+
+        // Relayout if view hasn't loaded yet
+        if isViewLoaded {
+            self.setupLayoutMode(layoutMode)
+            self.setupData()
+        }
     }
 }
 

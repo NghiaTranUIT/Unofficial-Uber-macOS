@@ -19,7 +19,7 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView focusRingType="none" id="Hz6-mo-xeY">
-            <rect key="frame" x="0.0" y="0.0" width="178" height="36"/>
+            <rect key="frame" x="0.0" y="0.0" width="166" height="36"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="j4Y-E9-jff">
@@ -66,7 +66,7 @@
                     </constraints>
                 </customView>
                 <customView horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="ibB-ch-U92">
-                    <rect key="frame" x="36" y="0.0" width="142" height="36"/>
+                    <rect key="frame" x="36" y="0.0" width="130" height="36"/>
                     <subviews>
                         <textField horizontalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="250" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BN4-l2-pn8">
                             <rect key="frame" x="6" y="10" width="118" height="17"/>
@@ -76,22 +76,13 @@
                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
                         </textField>
-                        <button focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Dc8-IA-uWe">
-                            <rect key="frame" x="127" y="2" width="7" height="32"/>
-                            <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="right-arrow" imagePosition="only" alignment="center" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="Unv-rO-duc">
-                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                <font key="font" metaFont="system"/>
-                            </buttonCell>
-                        </button>
                     </subviews>
                     <constraints>
-                        <constraint firstAttribute="trailing" secondItem="BN4-l2-pn8" secondAttribute="trailing" constant="20" id="28f-WA-B3u"/>
-                        <constraint firstItem="Dc8-IA-uWe" firstAttribute="centerY" secondItem="ibB-ch-U92" secondAttribute="centerY" id="GXG-sU-VEl"/>
+                        <constraint firstAttribute="trailing" secondItem="BN4-l2-pn8" secondAttribute="trailing" constant="8" id="28f-WA-B3u"/>
                         <constraint firstAttribute="width" relation="lessThanOrEqual" constant="160" id="IFm-QY-lD3"/>
                         <constraint firstItem="BN4-l2-pn8" firstAttribute="top" relation="greaterThanOrEqual" secondItem="ibB-ch-U92" secondAttribute="top" priority="750" id="JCe-zP-kwY"/>
                         <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="BN4-l2-pn8" secondAttribute="bottom" priority="750" id="Xce-aE-vBB"/>
                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="ZaD-Vx-Qkz"/>
-                        <constraint firstAttribute="trailing" secondItem="Dc8-IA-uWe" secondAttribute="trailing" constant="8" id="iDI-fF-vz6"/>
                         <constraint firstItem="BN4-l2-pn8" firstAttribute="centerY" secondItem="ibB-ch-U92" secondAttribute="centerY" id="me5-tW-xbG"/>
                         <constraint firstItem="BN4-l2-pn8" firstAttribute="leading" secondItem="ibB-ch-U92" secondAttribute="leading" constant="8" id="swk-5L-Jdc"/>
                     </constraints>
@@ -109,7 +100,4 @@
             <point key="canvasLocation" x="138.5" y="168"/>
         </customView>
     </objects>
-    <resources>
-        <image name="right-arrow" width="7" height="13"/>
-    </resources>
 </document>

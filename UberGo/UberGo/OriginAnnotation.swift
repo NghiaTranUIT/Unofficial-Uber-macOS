@@ -22,6 +22,11 @@ class OriginAnnotation: MGLPointAnnotation {
     fileprivate lazy var _calloutController: NSViewController = {
         return CalloutAnnotations(nibName: "CalloutAnnotations", bundle: nil)!
     }()
+
+    public func setupCallout(_ mode: CalloutAnnotationsLayoutMode, timeObj: TimeEstimateObj) {
+        guard let controller = self._calloutController as? CalloutAnnotations else { return }
+        controller.setupCallout(mode: mode, timeObj: timeObj, destinationObj: nil)
+    }
 }
 
 // MARK: - UberAnnotationType

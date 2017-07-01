@@ -312,6 +312,7 @@ extension MapViewController {
 
     fileprivate func initMapView() {
         self.mapView = UberMapView(frame: self.mapContainerView.bounds)
+        self.mapView.uberMapDelegate = self
         self.mapView.configureLayout(self.mapContainerView, exitBtn: self.exitNavigateBtn)
     }
 
@@ -516,5 +517,11 @@ extension MapViewController: TripActivityViewDelegate {
 
     func tripActivityViewShouldCancelCurrentTrip(_ sender: TripActivityView) {
         self.uberViewModel.input.cancelCurrentTripPublisher.onNext()
+    }
+}
+
+extension MapViewController: UberMapViewDelegate {
+    func uberMapViewTimeEstimateForOriginAnnotation() -> TimeEstimateObj? {
+        return self.uberViewModel.output.selectedProduct.value?.estimateTime
     }
 }
