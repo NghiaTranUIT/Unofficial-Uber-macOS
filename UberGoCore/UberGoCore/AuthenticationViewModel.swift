@@ -40,7 +40,7 @@ AuthenticationViewModelOutput {
     public var output: AuthenticationViewModelOutput { return self }
 
     // MARK: - Variable
-    fileprivate let uberOauth = UberAuth()
+    fileprivate let uberOauth = UberAuth.share
 
     // MARK: - Input
     public var loginBtnOnTabPublish = PublishSubject<Void>()

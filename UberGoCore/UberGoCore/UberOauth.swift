@@ -10,10 +10,6 @@ import Foundation
 import OAuthSwift
 import RxSwift
 
-import Foundation
-import OAuthSwift
-import RxSwift
-
 open class UberAuth {
 
     // MARK: - Variable
@@ -90,7 +86,7 @@ open class UberAuth {
                 // Convert to user
                 self.convertToCurrentUser(credential)
             })
-            .map({ $0 == nil ? AuthenticationState.authenticated :
+            .map({ $0 != nil ? AuthenticationState.authenticated :
                 AuthenticationState.unAuthenticated })
     }
 
@@ -171,7 +167,7 @@ extension UberAuth {
         defer {
             self.lock.unlock()
         }
-        
+
         let token = AuthToken(credential: credential)
         let user = UserObj(authToken: token)
         self.currentUser = user
