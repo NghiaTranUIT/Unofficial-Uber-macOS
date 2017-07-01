@@ -609,7 +609,7 @@
 				TargetAttributes = {
 					BA037F321EDD61F800945C1D = {
 						CreatedOnToolsVersion = 8.3.2;
-						DevelopmentTeam = D54Y88Y9CY;
+						DevelopmentTeam = 37RNQQR3UK;
 						ProvisioningStyle = Automatic;
 					};
 					BA037F431EDD61F800945C1D = {
@@ -982,7 +982,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = D54Y88Y9CY;
+				DEVELOPMENT_TEAM = 37RNQQR3UK;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1003,7 +1003,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = D54Y88Y9CY;
+				DEVELOPMENT_TEAM = 37RNQQR3UK;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",

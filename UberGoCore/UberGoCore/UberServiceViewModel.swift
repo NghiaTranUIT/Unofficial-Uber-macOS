@@ -168,6 +168,7 @@ open class UberServiceViewModel: UberServiceViewModelProtocol,
                 }
                 guard surgePriceObj.surgeConfirmationHref != nil else {
                     assert(false, "surgeConfirmationHref is nill")
+                    return Observable.empty()
                 }
                 return Observable.just(surgePriceObj)
             }
