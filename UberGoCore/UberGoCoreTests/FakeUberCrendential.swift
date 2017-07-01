@@ -32,19 +32,19 @@ class FakeUberCrendential {
 
     class func getFromDisk() -> UserObj? {
 
-        guard let data = UserDefaults.standard.data(forKey: "currentUser") else { return nil }
+        guard let data = UserDefaults.standard.data(forKey: "Uber.CurrentUser") else { return nil }
         guard let userObj = NSKeyedUnarchiver.unarchiveObject(with: data) as? UserObj else { return nil }
 
         return userObj
     }
 
     class func resetData() {
-        UserDefaults.standard.removeObject(forKey: "currentUser")
+        UserDefaults.standard.removeObject(forKey: "Uber.CurrentUser")
         UserDefaults.standard.synchronize()
     }
 
     class func makeCurrentUser() {
         let uberCrendential = FakeUberCrendential.valid()
-        _ = UserObj.convertCurrentUser(with: uberCrendential)
+        UberAuth.share.convertToCurrentUser(uberCrendential)
     }
 }

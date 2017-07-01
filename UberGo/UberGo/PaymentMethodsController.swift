@@ -27,7 +27,7 @@ class PaymentMethodsController: NSViewController {
     fileprivate var selectedAccountObj: PaymentAccountObj? {
         didSet {
             guard let obj = self.selectedAccountObj else { return }
-            guard let currentUser = UserObj.currentUser else { return }
+            guard let currentUser = UberAuth.share.currentUser else { return }
             currentUser.selectedNewPaymentObjVar.value = obj
         }
     }
@@ -40,7 +40,7 @@ class PaymentMethodsController: NSViewController {
         self.initCollectionView()
 
         // Update
-        guard let currentUser = UserObj.currentUser else { return }
+        guard let currentUser = UberAuth.share.currentUser else { return }
         guard let paymentMethod = currentUser.paymentMethodObjVar.value else { return }
         guard let currentAccount = currentUser.currentPaymentAccountObjVar.value else { return }
 

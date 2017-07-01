@@ -21,7 +21,7 @@ class UserObjTests: XCTestCase {
         super.tearDown()
 
         // Remove
-
+        FakeUberCrendential.resetData()
     }
 
     func testCreateUserWithCredentialUber() {
@@ -30,40 +30,34 @@ class UserObjTests: XCTestCase {
         let uberCrendential = FakeUberCrendential.valid()
 
         // When
-        let currentUser = UserObj.convertCurrentUser(with: uberCrendential)
+        UberAuth.share.convertToCurrentUser(uberCrendential)
         let savedUser = FakeUberCrendential.getFromDisk()
 
         // Then
-        XCTAssertEqual(currentUser, UserObj.currentUser, "Current User != UserObj.currentUser is difference")
         XCTAssertNotNil(savedUser, "Saved User is nil")
-        XCTAssertEqual(UserObj.currentUser?.oauthToken, savedUser?.oauthToken, "Not same Access token")
+        XCTAssertEqual(UberAuth.share.currentUser?.authToken.token, savedUser?.authToken.token, "Not same Access token")
     }
 
     func testAuthenticationStateWithValidToken() {
 
         // Given
         let uberCrendential = FakeUberCrendential.valid()
-        let currentUser = UserObj.convertCurrentUser(with: uberCrendential)
+        UberAuth.share.convertToCurrentUser(uberCrendential)
 
         // Then
-        XCTAssertEqual(currentUser.authenticateState, .authenticated, "Authentication State not work")
+        XCTAssertEqual(UberAuth.share.authenState, .authenticated, "Authentication State not work")
     }
 
-    func testAuthenticationStateWithInvalidToken() {
+    func testLogOut() {
 
-        // Given
-        let uberCrendential = FakeUberCrendential.invalid()
-        let currentUser = UserObj.convertCurrentUser(with: uberCrendential)
+        // Create
+        FakeUberCrendential.makeCurrentUser()
+        XCTAssertNotNil(FakeUberCrendential.getFromDisk())
 
-        // Then
-        XCTAssertEqual(currentUser.authenticateState, .unAuthenticated, "Authentication State not work")
+        // Logout
+        UberAuth.share.logout()
+
+        // Nil
+        XCTAssertNil(FakeUberCrendential.getFromDisk())
     }
-
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
-
 }

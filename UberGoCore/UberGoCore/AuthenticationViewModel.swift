@@ -40,7 +40,7 @@ open class AuthenticationViewModel: BaseViewModel,
     public var output: AuthenticationViewModelOutput { return self }
 
     // MARK: - Variable
-    fileprivate let uberOauth = UberOauth()
+    fileprivate let uberOauth = UberAuth()
 
     // MARK: - Input
     public var loginBtnOnTabPublish = PublishSubject<Void>()
@@ -56,33 +56,21 @@ open class AuthenticationViewModel: BaseViewModel,
         // Check authentication
         let authenticationChanged = Observable<AuthenticationState>
             .create({ (observer) -> Disposable in
-                guard let currentUser = UserObj.currentUser else {
+                guard UberAuth.share.currentUser != nil else {
                     observer.onNext(.unAuthenticated)
                     return Disposables.create()
                 }
 
-                observer.onNext(currentUser.authenticateState)
+                observer.onNext(.authenticated)
                 return Disposables.create()
         })
 
         // Login
         let loginSuccess = self.loginBtnOnTabPublish
             .asObserver()
-            .flatMapLatest {[unowned self] _ -> Observable<OAuthSwiftCredential?> in
-                return self.uberOauth.oauthUberObserable()
+            .flatMapLatest {[unowned self] _ -> Observable<AuthenticationState> in
+                return self.uberOauth.authWithUberServiceObserable()
             }
-            .do(onNext: { (credential) in
-                guard let credential = credential else { return }
-                UserObj.convertCurrentUser(with: credential)
-            })
-            .map({ (credential) -> AuthenticationState in
-
-                guard credential != nil else {
-                    return .unAuthenticated
-                }
-
-                return .authenticated
-            })
 
         // Merge
         self.authenticateStateDriver = Observable.merge([authenticationChanged, loginSuccess])
