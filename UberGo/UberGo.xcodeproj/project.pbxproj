@@ -257,7 +257,7 @@
 				BA037F4A1EDD61F800945C1D /* Info.plist */,
 			);
 			path = UberGoTests;
-			sourceTree = "<group>";
+			sourceTree = SOURCE_ROOT;
 		};
 		BA1C3FB81EFAB1B5001FD50F /* Payment Account Cell */ = {
 			isa = PBXGroup;
