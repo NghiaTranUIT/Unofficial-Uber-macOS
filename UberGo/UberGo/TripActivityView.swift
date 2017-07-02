@@ -99,6 +99,7 @@ class TripActivityView: NSView {
     }
 
     @IBAction func contactDriverBtnOnTap(_ sender: Any) {
+
     }
 }
 
