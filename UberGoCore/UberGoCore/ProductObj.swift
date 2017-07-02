@@ -23,6 +23,12 @@ open class ProductObj: BaseObj {
     public var productGroup: String?
     public var descr: String?
 
+    // Pretty
+    public var prettyCapacity: String {
+        let capacity = self.capacity ?? 1
+        return capacity == 1 ? "1" : "1 - \(capacity)"
+    }
+
     // Price from Uber
     public var estimatePrice: PriceObj?
     public var estimateTime: TimeEstimateObj?

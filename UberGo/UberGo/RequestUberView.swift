@@ -166,9 +166,8 @@ class RequestUberView: NSView {
     // MARK: - Stuffs
     fileprivate func updatePersonalStuffs(_ productObj: ProductObj) {
 
-        // Seat number
-        let capacity = productObj.capacity ?? 1
-        self.seatNumberLnl.stringValue = capacity == 1 ? "1" : "1 - \(capacity)"
+        // Capacity
+        self.seatNumberLnl.stringValue = productObj.prettyCapacity
 
         // Select Btn
         self.requestUberBtn.title = "REQUEST \(productObj.displayName ?? "")"

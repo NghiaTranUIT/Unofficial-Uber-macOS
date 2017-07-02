@@ -10,6 +10,15 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="ProductDetailController" customModule="UberGo" customModuleProvider="target">
             <connections>
+                <outlet property="capacityLbl" destination="OvC-Xu-tNS" id="Nmm-D1-lbq"/>
+                <outlet property="descriptionLbl" destination="lQS-Pb-BTs" id="sD3-Gk-os1"/>
+                <outlet property="descriptionLblTop" destination="VOm-HF-Ul0" id="ZsF-Gs-0bi"/>
+                <outlet property="dividerLineTime" destination="rwA-n2-LET" id="RLq-7D-HWi"/>
+                <outlet property="fareLbl" destination="JOM-hb-rjj" id="oiq-71-s5X"/>
+                <outlet property="productImageView" destination="aku-mv-gH4" id="9HZ-Vl-AR3"/>
+                <outlet property="productNameLbl" destination="FOK-lH-HmQ" id="ySJ-iJ-njK"/>
+                <outlet property="timeArrvivalLbl" destination="bvi-y2-KRJ" id="zXa-iw-QQ5"/>
+                <outlet property="timeLbl" destination="x6O-nx-PjT" id="VDk-ux-v2Q"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
         </customObject>
@@ -129,6 +138,9 @@
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="systemMedium" size="16"/>
                     </buttonCell>
+                    <connections>
+                        <action selector="doneBtnOnTap:" target="-2" id="lTw-FZ-f4z"/>
+                    </connections>
                 </button>
             </subviews>
             <constraints>
@@ -168,7 +180,6 @@
                 <constraint firstItem="OvC-Xu-tNS" firstAttribute="trailing" secondItem="JOM-hb-rjj" secondAttribute="trailing" id="mpm-co-Ho3"/>
                 <constraint firstItem="dPN-XC-oH0" firstAttribute="leading" secondItem="6cM-ry-XiS" secondAttribute="trailing" constant="8" id="p4l-Tk-X1X"/>
                 <constraint firstAttribute="trailing" secondItem="gd9-XO-9HM" secondAttribute="trailing" id="pEn-NF-6TV"/>
-                <constraint firstItem="s6d-5i-dhb" firstAttribute="top" secondItem="OvC-Xu-tNS" secondAttribute="bottom" constant="36" id="pUf-Yf-tMp"/>
                 <constraint firstItem="4aw-8u-39o" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="qIa-IV-W3S"/>
                 <constraint firstItem="FOK-lH-HmQ" firstAttribute="top" secondItem="aku-mv-gH4" secondAttribute="bottom" constant="20" id="qsF-dC-7bR"/>
                 <constraint firstItem="aku-mv-gH4" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="48" id="s1A-SZ-3BC"/>
