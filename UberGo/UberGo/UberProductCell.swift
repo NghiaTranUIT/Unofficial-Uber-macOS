@@ -57,7 +57,10 @@ class UberProductCell: NSCollectionViewItem {
         guard let estimatePrice = productObj.estimatePrice else { return }
         priceLbl.stringValue = estimatePrice.estimate ?? "xxx"
     }
-    @IBAction func productDetailBtnOnTap(_ sender: Any) {
+
+    override func mouseDown(with event: NSEvent) {
+        super.mouseDown(with: event)
+
         guard isSelected == true else { return }
         delegate?.uberProductCell(self, shouldShowProductDetail: productObj)
     }
