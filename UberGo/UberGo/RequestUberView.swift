@@ -10,6 +10,11 @@ import Cocoa
 import RxSwift
 import UberGoCore
 
+protocol RequestUberViewDelegate: class {
+
+    func requestUberViewShouldShowProductDetail(_ productObj: ProductObj)
+}
+
 class RequestUberView: NSView {
 
     // MARK: - OUTLET
@@ -30,6 +35,7 @@ class RequestUberView: NSView {
             self.binding()
         }
     }
+    public weak var delegate: RequestUberViewDelegate?
     fileprivate var isBinding = false
     fileprivate let disposeBag = DisposeBag()
     fileprivate var selectedProduct: Variable<ProductObj?> {
@@ -256,6 +262,7 @@ extension RequestUberView: NSCollectionViewDataSource {
             as? UberProductCell else {
             return NSCollectionViewItem()
         }
+        cell.delegate = self
         cell.configureCell(with: productObj)
 
         // Select
@@ -290,6 +297,13 @@ extension RequestUberView: UberGroupButtonDelegate {
         self.collectionView.reloadData()
         self.collectionView.selectItems(at: Set<IndexPath>(arrayLiteral: IndexPath(item: 0, section: 0)),
                                         scrollPosition: .top)
+    }
+}
+
+extension RequestUberView: UberProductCellDelegate {
+
+    func uberProductCell(_ sender: UberProductCell, shouldShowProductDetail productObj: ProductObj) {
+        delegate?.requestUberViewShouldShowProductDetail(productObj)
     }
 }
 

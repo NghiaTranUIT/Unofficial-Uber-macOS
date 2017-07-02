@@ -129,12 +129,12 @@
                 <box verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="4aw-8u-39o">
                     <rect key="frame" x="0.0" y="49" width="480" height="5"/>
                 </box>
-                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="t2B-Ni-PKV">
+                <button focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="t2B-Ni-PKV">
                     <rect key="frame" x="0.0" y="0.0" width="480" height="52"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="52" id="V96-QX-t3U"/>
                     </constraints>
-                    <buttonCell key="cell" type="bevel" title="DONE" bezelStyle="rounded" alignment="center" imageScaling="proportionallyDown" inset="2" id="1P0-DQ-3S3">
+                    <buttonCell key="cell" type="bevel" title="DONE" bezelStyle="rounded" alignment="center" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="1P0-DQ-3S3">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="systemMedium" size="16"/>
                     </buttonCell>

@@ -9,6 +9,10 @@
 import Cocoa
 import UberGoCore
 
+protocol UberProductCellDelegate: class {
+    func uberProductCell(_ sender: UberProductCell, shouldShowProductDetail productObj: ProductObj)
+}
+
 class UberProductCell: NSCollectionViewItem {
 
     // MARK: - OUTLET
@@ -17,6 +21,8 @@ class UberProductCell: NSCollectionViewItem {
     @IBOutlet fileprivate weak var priceLbl: NSTextField!
 
     // MARK: - Variable
+    fileprivate var productObj: ProductObj!
+    weak var delegate: UberProductCellDelegate?
     override var isSelected: Bool {
         didSet {
             if self.isSelected {
@@ -31,24 +37,28 @@ class UberProductCell: NSCollectionViewItem {
     override func awakeFromNib() {
         super.awakeFromNib()
 
-        self.isSelected = false
-
-        self.initCommon()
+        isSelected = false
+        initCommon()
     }
 
     fileprivate func initCommon() {
-        self.productNameLbl.textColor = NSColor.white
-        self.priceLbl.textColor = NSColor.white
+        productNameLbl.textColor = NSColor.white
+        priceLbl.textColor = NSColor.white
     }
 
     // MARK: - Public
     public func configureCell(with productObj: ProductObj) {
-        self.productNameLbl.stringValue = productObj.displayName ?? ""
+        self.productObj = productObj
 
-        guard let estimatePrice = productObj.estimatePrice else {
-            return
-        }
+        // Name
+        productNameLbl.stringValue = productObj.displayName ?? ""
 
-        self.priceLbl.stringValue = estimatePrice.estimate ?? "xxx"
+        // Price
+        guard let estimatePrice = productObj.estimatePrice else { return }
+        priceLbl.stringValue = estimatePrice.estimate ?? "xxx"
+    }
+    @IBAction func productDetailBtnOnTap(_ sender: Any) {
+        guard isSelected == true else { return }
+        delegate?.uberProductCell(self, shouldShowProductDetail: productObj)
     }
 }
