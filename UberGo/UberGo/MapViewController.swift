@@ -41,7 +41,7 @@ class MapViewController: BaseViewController {
 
     fileprivate var searchBarView: SearchBarView!
     fileprivate var isFirstTime = true
-    fileprivate lazy var webController: SurgeHrefConfirmationController = self.lazyInitWebController()
+    fileprivate lazy var webController: WebViewController = self.lazyInitWebController()
     fileprivate var paymentMethodController: PaymentMethodsController?
     fileprivate var searchPlaceObjs: [PlaceObj] {
         return self.mapViewModel.output.searchPlaceObjsVariable.value
@@ -159,7 +159,7 @@ class MapViewController: BaseViewController {
                 // Request Product + Estimate Uber
                 if let placeObj = placeObj {
                     guard let currentLocation = self.mapViewModel.currentLocationVariable.value else { return }
-                    let data = UberData(placeObj: placeObj, from: currentLocation.coordinate)
+                    let data = UberTripData(to: placeObj, from: currentLocation.coordinate)
                     self.uberViewModel.input.selectedPlacePublisher.onNext(data)
                 } else {
                     // Reset search bar
@@ -181,8 +181,8 @@ class MapViewController: BaseViewController {
             .addDisposableTo(self.disposeBag)
 
         // Show or hide Bottom bar
-        self.uberViewModel.output.isLoadingAvailableProductPublisher
-            .subscribe(onNext: { isLoading in
+        self.uberViewModel.output.isLoadingDriver
+            .drive(onNext: { isLoading in
                 Logger.info("isLoading Available Products = \(isLoading)")
             })
             .addDisposableTo(self.disposeBag)
@@ -267,7 +267,7 @@ class MapViewController: BaseViewController {
     }
 
     @objc func showSurgeHrefView(_ surgeObj: SurgePriceObj) {
-        self.webController.configureWebView(with: surgeObj)
+        self.webController.data = surgeObj
         self.presentViewControllerAsSheet(self.webController)
     }
 
@@ -312,6 +312,7 @@ extension MapViewController {
 
     fileprivate func initMapView() {
         self.mapView = UberMapView(frame: self.mapContainerView.bounds)
+        self.mapView.uberMapDelegate = self
         self.mapView.configureLayout(self.mapContainerView, exitBtn: self.exitNavigateBtn)
     }
 
@@ -344,8 +345,8 @@ extension MapViewController {
         return uberView
     }
 
-    fileprivate func lazyInitWebController() -> SurgeHrefConfirmationController {
-        return SurgeHrefConfirmationController(nibName: "SurgeHrefConfirmationController", bundle: nil)!
+    fileprivate func lazyInitWebController() -> WebViewController {
+        return WebViewController.webviewControllerWith(.surgeConfirmation)
     }
 }
 
@@ -516,5 +517,11 @@ extension MapViewController: TripActivityViewDelegate {
 
     func tripActivityViewShouldCancelCurrentTrip(_ sender: TripActivityView) {
         self.uberViewModel.input.cancelCurrentTripPublisher.onNext()
+    }
+}
+
+extension MapViewController: UberMapViewDelegate {
+    func uberMapViewTimeEstimateForOriginAnnotation() -> TimeEstimateObj? {
+        return self.uberViewModel.output.selectedProduct.value?.estimateTime
     }
 }

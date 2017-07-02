@@ -31,16 +31,16 @@ public protocol AuthenticationViewModelOutput {
 
 // MARK: - View Model
 open class AuthenticationViewModel: BaseViewModel,
-                                    AuthenticationViewModelProtocol,
-                                    AuthenticationViewModelInput,
-                                    AuthenticationViewModelOutput {
+    AuthenticationViewModelProtocol,
+    AuthenticationViewModelInput,
+AuthenticationViewModelOutput {
 
     // MARK: - Protocol
     public var input: AuthenticationViewModelInput { return self }
     public var output: AuthenticationViewModelOutput { return self }
 
     // MARK: - Variable
-    fileprivate let uberOauth = UberAuth()
+    fileprivate let uberOauth = UberAuth.share
 
     // MARK: - Input
     public var loginBtnOnTabPublish = PublishSubject<Void>()
@@ -63,7 +63,7 @@ open class AuthenticationViewModel: BaseViewModel,
 
                 observer.onNext(.authenticated)
                 return Disposables.create()
-        })
+            })
 
         // Login
         let loginSuccess = self.loginBtnOnTabPublish
@@ -78,6 +78,6 @@ open class AuthenticationViewModel: BaseViewModel,
 
         // Oauth Callback
         self.uberCallbackPublish.bind(to: self.uberOauth.callbackObserverPublish)
-        .addDisposableTo(self.disposeBag)
+            .addDisposableTo(self.disposeBag)
     }
 }

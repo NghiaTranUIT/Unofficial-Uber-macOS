@@ -38,35 +38,10 @@ class SearchCollectionView: NSView {
 
     func configureView(parenView: NSView, searchBarView: SearchBarView) {
         self.translatesAutoresizingMaskIntoConstraints = false
-        let top = NSLayoutConstraint(item: self,
-                                     attribute: .top,
-                                     relatedBy: .equal,
-                                     toItem: searchBarView,
-                                     attribute: .bottom,
-                                     multiplier: 1,
-                                     constant: 0)
-        let left = NSLayoutConstraint(item: self,
-                                      attribute: .left,
-                                      relatedBy: .equal,
-                                      toItem: parenView,
-                                      attribute: .left,
-                                      multiplier: 1,
-                                      constant: 0)
-        let right = NSLayoutConstraint(item: self,
-                                       attribute: .right,
-                                       relatedBy: .equal,
-                                       toItem: parenView,
-                                       attribute: .right,
-                                       multiplier: 1,
-                                       constant: 0)
-        let bottom = NSLayoutConstraint(item: self,
-                                        attribute: .bottom,
-                                        relatedBy: .equal,
-                                        toItem: parenView,
-                                        attribute: .bottom,
-                                        multiplier: 1,
-                                        constant: 0)
-        parenView.addConstraints([left, top, bottom, right])
+        self.topToBottom(of: searchBarView)
+        self.left(to: parenView)
+        self.right(to: parenView)
+        self.bottom(to: parenView)
     }
 
     func layoutStateChanged(_ newState: MapViewLayoutState) {

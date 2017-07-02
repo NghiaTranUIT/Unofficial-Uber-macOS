@@ -8,7 +8,7 @@
 
 import Cocoa
 
-public typealias UberEmptyBlock = () -> ()
+public typealias UberEmptyBlock = () -> Void
 
 extension NSAlert {
 

@@ -80,14 +80,14 @@ open class UberAuth {
     // MARK: - Public
     public func authWithUberServiceObserable() -> Observable<AuthenticationState> {
         return self.requestOauthWithUber()
-                .do(onNext: {[unowned self] (credential) in
-                    guard let credential = credential else { return }
+            .do(onNext: {[unowned self] (credential) in
+                guard let credential = credential else { return }
 
-                    // Convert to user
-                    self.convertToCurrentUser(credential)
-                })
-                .map({ $0 == nil ? AuthenticationState.authenticated :
-                    AuthenticationState.unAuthenticated })
+                // Convert to user
+                self.convertToCurrentUser(credential)
+            })
+            .map({ $0 != nil ? AuthenticationState.authenticated :
+                AuthenticationState.unAuthenticated })
     }
 
     public func logout() {

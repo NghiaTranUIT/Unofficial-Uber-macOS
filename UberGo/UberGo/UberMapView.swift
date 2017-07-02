@@ -10,24 +10,31 @@ import Mapbox
 import MapboxDirections
 import UberGoCore
 
+protocol UberMapViewDelegate: class {
+    func uberMapViewTimeEstimateForOriginAnnotation() -> TimeEstimateObj?
+}
+
 class UberMapView: MGLMapView {
 
     // MARK: - Variable
+    weak var uberMapDelegate: UberMapViewDelegate?
 
     // Origin
-    fileprivate var originPoint: MGLPointAnnotation?
+    fileprivate var originPoint: OriginAnnotation?
 
     // Destination
-    fileprivate var destinationPoint: MGLPointAnnotation?
+    fileprivate var destinationPoint: DestinationAnnotation?
 
     // Pickup place
-    fileprivate var pickupPoint: MGLPointAnnotation?
+    fileprivate var pickupPoint: PickupAnnotation?
 
     // Driver Place
     fileprivate var driverPoint: MGLPointAnnotation?
 
     // Visible Route
     fileprivate var visibleRoute: MGLPolyline?
+
+    fileprivate var circleSource: MGLShapeSource?
 
     // MARK: - Initilization
     override init(frame: NSRect) {
@@ -51,35 +58,7 @@ class UberMapView: MGLMapView {
     func configureLayout(_ parentView: NSView, exitBtn: NSButton) {
         self.translatesAutoresizingMaskIntoConstraints = false
         parentView.addSubview(self, positioned: .below, relativeTo: exitBtn)
-
-        let top = NSLayoutConstraint(item: self,
-                                                attribute: .top,
-                                                relatedBy: .equal,
-                                                toItem: parentView,
-                                                attribute: .top,
-                                                multiplier: 1,
-                                                constant: 0)
-        let left = NSLayoutConstraint(item: self,
-                                                 attribute: .left,
-                                                 relatedBy: .equal,
-                                                 toItem: parentView,
-                                                 attribute: .left,
-                                                 multiplier: 1,
-                                                 constant: 0)
-        let right = NSLayoutConstraint(item: self,
-                                                  attribute: .right,
-                                                  relatedBy: .equal,
-                                                  toItem: parentView,
-                                                  attribute: .right,
-                                                  multiplier: 1,
-                                                  constant: 0)
-        let bottom = NSLayoutConstraint(item: self,
-                                                   attribute: .bottom,
-                                                   relatedBy: .equal,
-                                                   toItem: parentView, attribute: .bottom,
-                                                   multiplier: 1,
-                                                   constant: 0)
-        parentView.addConstraints([top, left, right, bottom])
+        self.edges(to: parentView)
     }
 
     func addOriginPoint(_ point: CLLocationCoordinate2D) {
@@ -90,7 +69,7 @@ class UberMapView: MGLMapView {
             self.originPoint = nil
         }
 
-        let newPoint = MGLPointAnnotation()
+        let newPoint = OriginAnnotation()
         newPoint.coordinate = point
         newPoint.title = "Here"
 
@@ -114,11 +93,7 @@ class UberMapView: MGLMapView {
         guard let placeObj = placeObj else { return }
 
         // Add
-        guard let coordinate = placeObj.coordinate2D else { return }
-
-        self.destinationPoint = MGLPointAnnotation()
-        self.destinationPoint!.coordinate = coordinate
-        self.destinationPoint!.title = placeObj.name
+        self.destinationPoint = DestinationAnnotation(placeObj: placeObj)
         self.addAnnotation(self.destinationPoint!)
 
         // CentralizeMap
@@ -161,7 +136,7 @@ class UberMapView: MGLMapView {
 
         guard let pickupObj = pickupObj else { return }
 
-        self.pickupPoint = MGLPointAnnotation()
+        self.pickupPoint = PickupAnnotation()
         self.pickupPoint!.coordinate = CLLocationCoordinate2D(latitude: pickupObj.latitude!,
                                                               longitude: pickupObj.longitude!)
         self.pickupPoint!.title = "Pickup"
@@ -249,17 +224,43 @@ extension UberMapView: MGLMapViewDelegate {
     }
 
     func mapView(_ mapView: MGLMapView, alphaForShapeAnnotation annotation: MGLShape) -> CGFloat {
-        // Set the alpha for all shape annotations to 1 (full opacity)
+
+        // Route
         return 0.8
     }
 
     func mapView(_ mapView: MGLMapView, lineWidthForPolylineAnnotation annotation: MGLPolyline) -> CGFloat {
-        // Set the line width for polyline annotations
+
+        // Route
         return 3.0
     }
 
+    func mapView(_ mapView: MGLMapView, imageFor annotation: MGLAnnotation) -> MGLAnnotationImage? {
+
+        if let obj = annotation as? UberAnnotationType {
+            return obj.imageAnnotation
+        }
+
+        return nil
+    }
+
     func mapView(_ mapView: MGLMapView, strokeColorForShapeAnnotation annotation: MGLShape) -> NSColor {
-        // Give our polyline a unique color by checking for its `title` property
         return NSColor.white
+    }
+
+    func mapView(_ mapView: MGLMapView, calloutViewControllerFor annotation: MGLAnnotation) -> NSViewController? {
+
+        if let obj = annotation as? UberAnnotationType {
+
+            if let annotation = annotation as? OriginAnnotation,
+                destinationPoint != nil {
+                if let timeObj = self.uberMapDelegate?.uberMapViewTimeEstimateForOriginAnnotation() {
+                    annotation.setupCallout(.withTimeEstimation, timeObj: timeObj)
+                }
+            }
+            return obj.calloutViewController
+        }
+
+        return nil
     }
 }

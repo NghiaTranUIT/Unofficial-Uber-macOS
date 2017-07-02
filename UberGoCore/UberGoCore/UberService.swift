@@ -78,26 +78,32 @@ open class UberService {
         -> Observable<[ProductObj]> {
 
             let productsOb = self.availableProductsObserver(at: originLocation)
-            let estimateOb = self.estimatePriceObserver(from: originLocation, to: destinationLocation)
+            let estimatePriceOb = self.estimatePriceObserver(from: originLocation, to: destinationLocation)
+            let estimateTimeOb = self.estimateTimeObserver(from: originLocation)
 
-            return Observable.zip(productsOb, estimateOb).map({ (products, estimates) -> [ProductObj] in
+            return Observable.zip(productsOb, estimatePriceOb, estimateTimeOb)
+                .map({ (products, estimatePrices, estimateTimes) -> [ProductObj] in
 
-                // Debug
-                if products.count != estimates.count {
-                    assert(false, "[ERROR]: Products's count != Estimate's count")
-                }
+                    // Map Estimate Prict to individual productObj
+                    // Compare by productID
+                    let _products = products.map({ (product) -> ProductObj in
 
-                // Map Estimate Prict to individual productObj
-                // Compare by productID
-                let _products = products.map({ (product) -> ProductObj in
-                    let price = estimates.first(where: { $0.productId == product.productId })
-                    if let price = price {
-                        product.estimatePrice = price
-                    }
-                    return product
-                })
+                        // Price
+                        let price = estimatePrices.first(where: { $0.productId == product.productId })
+                        if let price = price {
+                            product.estimatePrice = price
+                        }
 
-                return _products
+                        // Time
+                        let time = estimateTimes.first(where: { $0.productId == product.productId })
+                        if let time = time {
+                            product.estimateTime = time
+                        }
+
+                        return product
+                    })
+
+                    return _products
             })
     }
 
@@ -112,6 +118,11 @@ open class UberService {
             let param = RideEstimatePriceRequestParam(from: originLocation,
                                                       to: destinationLocation)
             return RideEstimatePriceRequest(param).toObservable()
+    }
+
+    public func estimateTimeObserver(from originLocation: CLLocationCoordinate2D) -> Observable<[TimeEstimateObj]> {
+            let param = RideEstimateTimeRequestParam(from: originLocation, productID: nil)
+            return RideEstimateTimeRequest(param).toObservable()
     }
 
     // MARK: - Payment
