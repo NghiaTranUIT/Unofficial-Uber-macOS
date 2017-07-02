@@ -15,10 +15,8 @@
 		BA037F491EDD61F800945C1D /* UberGoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA037F481EDD61F800945C1D /* UberGoTests.swift */; };
 		BA1C3FB41EFA6852001FD50F /* PaymentMethodsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1C3FB21EFA6852001FD50F /* PaymentMethodsController.swift */; };
 		BA1C3FB51EFA6852001FD50F /* PaymentMethodsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA1C3FB31EFA6852001FD50F /* PaymentMethodsController.xib */; };
-		BA1C3FB71EFA68DA001FD50F /* IMG_6625@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BA1C3FB61EFA68DA001FD50F /* IMG_6625@2x.jpg */; };
 		BA1C3FBB1EFAB1D6001FD50F /* PaymentAccountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1C3FB91EFAB1D6001FD50F /* PaymentAccountCell.swift */; };
 		BA1C3FBC1EFAB1D6001FD50F /* PaymentAccountCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA1C3FBA1EFAB1D6001FD50F /* PaymentAccountCell.xib */; };
-		BA1C3FBE1EFABE80001FD50F /* IMG_6625_1@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BA1C3FBD1EFABE80001FD50F /* IMG_6625_1@2x.jpg */; };
 		BA2A3A751EECFF6E002A0343 /* SearchPlaceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2A3A731EECFF6E002A0343 /* SearchPlaceCell.swift */; };
 		BA2A3A761EECFF6E002A0343 /* SearchPlaceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA2A3A741EECFF6E002A0343 /* SearchPlaceCell.xib */; };
 		BA2A3A831EED4298002A0343 /* SearchCollectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA2A3A821EED4298002A0343 /* SearchCollectionView.xib */; };
@@ -33,7 +31,6 @@
 		BAB0821C1F05569100A74665 /* PickupAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB0821B1F05569100A74665 /* PickupAnnotation.swift */; };
 		BAB082211F0559FB00A74665 /* CalloutAnnotations.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB0821F1F0559FB00A74665 /* CalloutAnnotations.swift */; };
 		BAB082221F0559FB00A74665 /* CalloutAnnotations.xib in Resources */ = {isa = PBXBuildFile; fileRef = BAB082201F0559FB00A74665 /* CalloutAnnotations.xib */; };
-		BAB082241F055AEB00A74665 /* IMG_6619@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BAB082231F055AEB00A74665 /* IMG_6619@2x.jpg */; };
 		BAB082261F05626100A74665 /* UberAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB082251F05626100A74665 /* UberAnnotation.swift */; };
 		BAB14AC01EF62DB40066267B /* UberProductCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB14ABE1EF62DB40066267B /* UberProductCell.swift */; };
 		BAB14AC11EF62DB40066267B /* UberProductCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BAB14ABF1EF62DB40066267B /* UberProductCell.xib */; };
@@ -41,8 +38,9 @@
 		BAB14ACB1EF668290066267B /* UberGroupButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB14ACA1EF668290066267B /* UberGroupButton.swift */; };
 		BAB7B8E01EFF67D600B508A1 /* TripActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB7B8DF1EFF67D600B508A1 /* TripActivityView.swift */; };
 		BAB7B8E21EFF67DF00B508A1 /* TripActivityView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BAB7B8E11EFF67DF00B508A1 /* TripActivityView.xib */; };
-		BAB7B8E41EFF67FA00B508A1 /* IMG_6628@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BAB7B8E31EFF67FA00B508A1 /* IMG_6628@2x.jpg */; };
-		BAB7B8E61EFF686600B508A1 /* IMG_6629@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BAB7B8E51EFF686600B508A1 /* IMG_6629@2x.jpg */; };
+		BABAC5B91F08F3E9000DACEC /* IMG_6620@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BABAC5B81F08F3E9000DACEC /* IMG_6620@2x.jpg */; };
+		BABAC5BC1F08F3FF000DACEC /* ProductDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BABAC5BA1F08F3FF000DACEC /* ProductDetailController.swift */; };
+		BABAC5BD1F08F3FF000DACEC /* ProductDetailController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BABAC5BB1F08F3FF000DACEC /* ProductDetailController.xib */; };
 		BACC07981F021F1F0092F2F4 /* UberAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACC07971F021F1F0092F2F4 /* UberAlertView.swift */; };
 		BACC07AA1F0367300092F2F4 /* Abstraction.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACC07A51F0367300092F2F4 /* Abstraction.swift */; };
 		BACC07AB1F0367300092F2F4 /* Constrainable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACC07A61F0367300092F2F4 /* Constrainable.swift */; };
@@ -115,10 +113,8 @@
 		BA037F4A1EDD61F800945C1D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BA1C3FB21EFA6852001FD50F /* PaymentMethodsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentMethodsController.swift; sourceTree = "<group>"; };
 		BA1C3FB31EFA6852001FD50F /* PaymentMethodsController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PaymentMethodsController.xib; sourceTree = "<group>"; };
-		BA1C3FB61EFA68DA001FD50F /* IMG_6625@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "IMG_6625@2x.jpg"; sourceTree = "<group>"; };
 		BA1C3FB91EFAB1D6001FD50F /* PaymentAccountCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentAccountCell.swift; sourceTree = "<group>"; };
 		BA1C3FBA1EFAB1D6001FD50F /* PaymentAccountCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PaymentAccountCell.xib; sourceTree = "<group>"; };
-		BA1C3FBD1EFABE80001FD50F /* IMG_6625_1@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "IMG_6625_1@2x.jpg"; sourceTree = "<group>"; };
 		BA2A3A731EECFF6E002A0343 /* SearchPlaceCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchPlaceCell.swift; sourceTree = "<group>"; };
 		BA2A3A741EECFF6E002A0343 /* SearchPlaceCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchPlaceCell.xib; sourceTree = "<group>"; };
 		BA2A3A821EED4298002A0343 /* SearchCollectionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchCollectionView.xib; sourceTree = "<group>"; };
@@ -134,7 +130,6 @@
 		BAB0821B1F05569100A74665 /* PickupAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickupAnnotation.swift; sourceTree = "<group>"; };
 		BAB0821F1F0559FB00A74665 /* CalloutAnnotations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalloutAnnotations.swift; sourceTree = "<group>"; };
 		BAB082201F0559FB00A74665 /* CalloutAnnotations.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CalloutAnnotations.xib; sourceTree = "<group>"; };
-		BAB082231F055AEB00A74665 /* IMG_6619@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "IMG_6619@2x.jpg"; sourceTree = "<group>"; };
 		BAB082251F05626100A74665 /* UberAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UberAnnotation.swift; sourceTree = "<group>"; };
 		BAB14ABE1EF62DB40066267B /* UberProductCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UberProductCell.swift; sourceTree = "<group>"; };
 		BAB14ABF1EF62DB40066267B /* UberProductCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UberProductCell.xib; sourceTree = "<group>"; };
@@ -142,8 +137,9 @@
 		BAB14ACA1EF668290066267B /* UberGroupButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UberGroupButton.swift; sourceTree = "<group>"; };
 		BAB7B8DF1EFF67D600B508A1 /* TripActivityView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripActivityView.swift; sourceTree = "<group>"; };
 		BAB7B8E11EFF67DF00B508A1 /* TripActivityView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TripActivityView.xib; sourceTree = "<group>"; };
-		BAB7B8E31EFF67FA00B508A1 /* IMG_6628@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "IMG_6628@2x.jpg"; sourceTree = "<group>"; };
-		BAB7B8E51EFF686600B508A1 /* IMG_6629@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "IMG_6629@2x.jpg"; sourceTree = "<group>"; };
+		BABAC5B81F08F3E9000DACEC /* IMG_6620@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "IMG_6620@2x.jpg"; sourceTree = "<group>"; };
+		BABAC5BA1F08F3FF000DACEC /* ProductDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductDetailController.swift; sourceTree = "<group>"; };
+		BABAC5BB1F08F3FF000DACEC /* ProductDetailController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProductDetailController.xib; sourceTree = "<group>"; };
 		BACC07971F021F1F0092F2F4 /* UberAlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UberAlertView.swift; sourceTree = "<group>"; };
 		BACC07A51F0367300092F2F4 /* Abstraction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Abstraction.swift; sourceTree = "<group>"; };
 		BACC07A61F0367300092F2F4 /* Constrainable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constrainable.swift; sourceTree = "<group>"; };
@@ -235,11 +231,7 @@
 		BA037F351EDD61F800945C1D /* UberGo */ = {
 			isa = PBXGroup;
 			children = (
-				BAB082231F055AEB00A74665 /* IMG_6619@2x.jpg */,
-				BAB7B8E51EFF686600B508A1 /* IMG_6629@2x.jpg */,
-				BAB7B8E31EFF67FA00B508A1 /* IMG_6628@2x.jpg */,
-				BA1C3FBD1EFABE80001FD50F /* IMG_6625_1@2x.jpg */,
-				BA1C3FB61EFA68DA001FD50F /* IMG_6625@2x.jpg */,
+				BABAC5B81F08F3E9000DACEC /* IMG_6620@2x.jpg */,
 				BA32E7211EDFC79C0044C017 /* Constants */,
 				BA32E7201EDFC7910044C017 /* Resource */,
 				BAE6902A1EE460DF00A4D876 /* Models */,
@@ -283,6 +275,7 @@
 				BAF57FBD1EE117300013090E /* MapViewController.swift */,
 				BA67673B1EFA295D00805AC1 /* WebViewController.swift */,
 				BA1C3FB21EFA6852001FD50F /* PaymentMethodsController.swift */,
+				BABAC5BA1F08F3FF000DACEC /* ProductDetailController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -522,6 +515,7 @@
 		BAF57FBB1EE117000013090E /* Storyboards Xibs */ = {
 			isa = PBXGroup;
 			children = (
+				BABAC5BB1F08F3FF000DACEC /* ProductDetailController.xib */,
 				BA1C3FB31EFA6852001FD50F /* PaymentMethodsController.xib */,
 				BA67673C1EFA295D00805AC1 /* WebViewController.xib */,
 				BAF57FBE1EE117300013090E /* MapViewController.xib */,
@@ -647,18 +641,15 @@
 				BA037F3B1EDD61F800945C1D /* Assets.xcassets in Resources */,
 				BAB14AC11EF62DB40066267B /* UberProductCell.xib in Resources */,
 				BAB082221F0559FB00A74665 /* CalloutAnnotations.xib in Resources */,
-				BA1C3FB71EFA68DA001FD50F /* IMG_6625@2x.jpg in Resources */,
-				BAB7B8E41EFF67FA00B508A1 /* IMG_6628@2x.jpg in Resources */,
+				BABAC5BD1F08F3FF000DACEC /* ProductDetailController.xib in Resources */,
 				BADB784C1EE5ABDE000536F7 /* SearchBarView.xib in Resources */,
 				BADB78571EE5B7FB000536F7 /* ActionSearchBarView.xib in Resources */,
 				BA037F3E1EDD61F800945C1D /* Main.storyboard in Resources */,
 				BA2A3A831EED4298002A0343 /* SearchCollectionView.xib in Resources */,
-				BA1C3FBE1EFABE80001FD50F /* IMG_6625_1@2x.jpg in Resources */,
 				BAF57FBA1EE116FB0013090E /* LoginViewController.xib in Resources */,
 				BA1C3FB51EFA6852001FD50F /* PaymentMethodsController.xib in Resources */,
-				BAB7B8E61EFF686600B508A1 /* IMG_6629@2x.jpg in Resources */,
 				BA2A3A761EECFF6E002A0343 /* SearchPlaceCell.xib in Resources */,
-				BAB082241F055AEB00A74665 /* IMG_6619@2x.jpg in Resources */,
+				BABAC5B91F08F3E9000DACEC /* IMG_6620@2x.jpg in Resources */,
 				BA1C3FBC1EFAB1D6001FD50F /* PaymentAccountCell.xib in Resources */,
 				BAB7B8E21EFF67DF00B508A1 /* TripActivityView.xib in Resources */,
 				BAE3CCF21EF5815600F264CA /* RequestUberView.xib in Resources */,
@@ -804,6 +795,7 @@
 				BADB784A1EE5ABD5000536F7 /* SearchBarView.swift in Sources */,
 				BADB78501EE5AC6A000536F7 /* NSView+Xib.swift in Sources */,
 				BAB14AC01EF62DB40066267B /* UberProductCell.swift in Sources */,
+				BABAC5BC1F08F3FF000DACEC /* ProductDetailController.swift in Sources */,
 				BAF57FB91EE116FB0013090E /* LoginViewController.swift in Sources */,
 				BAE7171E1EF51D0B00E0EFFA /* NSAnimationContext+Helper.swift in Sources */,
 				BA67673D1EFA295D00805AC1 /* WebViewController.swift in Sources */,
