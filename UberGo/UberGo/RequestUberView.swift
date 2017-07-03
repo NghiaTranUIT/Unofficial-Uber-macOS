@@ -139,7 +139,7 @@ class RequestUberView: NSView {
         let groupViews = groupProductObjs.map { UberGroupButton(groupProductObj: $0) }
 
         // add
-        groupViews.forEach { [unowned self] (btn) in
+        for btn in groupViews {
             btn.delegate = self
             self.stackView.addArrangedSubview(btn)
         }

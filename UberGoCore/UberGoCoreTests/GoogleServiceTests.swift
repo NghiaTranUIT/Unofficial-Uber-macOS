@@ -9,6 +9,7 @@
 import XCTest
 import CoreLocation
 import RxSwift
+import Alamofire
 @testable import UberGoCore
 
 class GoogleServiceTests: XCTestCase {
@@ -70,12 +71,4 @@ class GoogleServiceTests: XCTestCase {
         // Expect
         waitForExpectations(timeout: 5, handler: nil)
     }
-
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
-
 }

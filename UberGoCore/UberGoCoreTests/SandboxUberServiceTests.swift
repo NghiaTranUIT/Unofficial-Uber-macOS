@@ -9,6 +9,7 @@
 import XCTest
 import CoreLocation
 import RxSwift
+import Alamofire
 @testable import UberGoCore
 
 class SandboxUberServiceTests: XCTestCase {
