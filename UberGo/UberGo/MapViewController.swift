@@ -43,6 +43,7 @@ class MapViewController: BaseViewController {
     fileprivate var isFirstTime = true
     fileprivate lazy var webController: WebViewController = self.lazyInitWebController()
     fileprivate var paymentMethodController: PaymentMethodsController?
+    fileprivate var productDetailController: ProductDetailController?
     fileprivate var searchPlaceObjs: [PlaceObj] {
         return self.mapViewModel.output.searchPlaceObjsVariable.value
     }
@@ -335,6 +336,7 @@ extension MapViewController {
     fileprivate func lazyInitRequestUberView() -> RequestUberView {
         let uberView = RequestUberView.viewFromNib(with: BundleType.app)!
         uberView.backgroundColor = NSColor.black
+        uberView.delegate = self
         return uberView
     }
 
@@ -523,5 +525,28 @@ extension MapViewController: TripActivityViewDelegate {
 extension MapViewController: UberMapViewDelegate {
     func uberMapViewTimeEstimateForOriginAnnotation() -> TimeEstimateObj? {
         return self.uberViewModel.output.selectedProduct.value?.estimateTime
+    }
+}
+
+extension MapViewController: RequestUberViewDelegate {
+
+    func requestUberViewShouldShowProductDetail(_ productObj: ProductObj) {
+        if productDetailController == nil {
+            let controller = ProductDetailController(nibName: "ProductDetailController", bundle: nil)!
+            controller.delegate = self
+            controller.configureController(with: productObj)
+            productDetailController = controller
+        }
+
+        // Present
+        presentViewControllerAsSheet(productDetailController!)
+    }
+}
+
+extension MapViewController: ProductDetailControllerDelegate {
+
+    func productDetailControllerShouldDimiss() {
+        dismissViewController(productDetailController!)
+        productDetailController = nil
     }
 }

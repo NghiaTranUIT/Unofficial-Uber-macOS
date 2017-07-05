@@ -10,6 +10,11 @@ import Cocoa
 import RxSwift
 import UberGoCore
 
+protocol RequestUberViewDelegate: class {
+
+    func requestUberViewShouldShowProductDetail(_ productObj: ProductObj)
+}
+
 class RequestUberView: NSView {
 
     // MARK: - OUTLET
@@ -30,6 +35,7 @@ class RequestUberView: NSView {
             self.binding()
         }
     }
+    public weak var delegate: RequestUberViewDelegate?
     fileprivate var isBinding = false
     fileprivate let disposeBag = DisposeBag()
     fileprivate var selectedProduct: Variable<ProductObj?> {
@@ -133,7 +139,7 @@ class RequestUberView: NSView {
         let groupViews = groupProductObjs.map { UberGroupButton(groupProductObj: $0) }
 
         // add
-        groupViews.forEach { [unowned self] (btn) in
+        for btn in groupViews {
             btn.delegate = self
             self.stackView.addArrangedSubview(btn)
         }
@@ -166,9 +172,8 @@ class RequestUberView: NSView {
     // MARK: - Stuffs
     fileprivate func updatePersonalStuffs(_ productObj: ProductObj) {
 
-        // Seat number
-        let capacity = productObj.capacity ?? 1
-        self.seatNumberLnl.stringValue = capacity == 1 ? "1" : "1 - \(capacity)"
+        // Capacity
+        self.seatNumberLnl.stringValue = productObj.prettyCapacity
 
         // Select Btn
         self.requestUberBtn.title = "REQUEST \(productObj.displayName ?? "")"
@@ -257,6 +262,7 @@ extension RequestUberView: NSCollectionViewDataSource {
             as? UberProductCell else {
             return NSCollectionViewItem()
         }
+        cell.delegate = self
         cell.configureCell(with: productObj)
 
         // Select
@@ -291,6 +297,13 @@ extension RequestUberView: UberGroupButtonDelegate {
         self.collectionView.reloadData()
         self.collectionView.selectItems(at: Set<IndexPath>(arrayLiteral: IndexPath(item: 0, section: 0)),
                                         scrollPosition: .top)
+    }
+}
+
+extension RequestUberView: UberProductCellDelegate {
+
+    func uberProductCell(_ sender: UberProductCell, shouldShowProductDetail productObj: ProductObj) {
+        delegate?.requestUberViewShouldShowProductDetail(productObj)
     }
 }
 

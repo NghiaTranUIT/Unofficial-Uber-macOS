@@ -17,6 +17,8 @@ class EventMonitor {
     private var monitor: Any?
     private let mask: NSEventMask
     private let handler: EventMonitorHandler
+    private var isMonitoring = false
+    fileprivate let lock = NSLock()
 
     public init(mask: NSEventMask, handler: @escaping EventMonitorHandler) {
         self.mask = mask
@@ -28,13 +30,33 @@ class EventMonitor {
     }
 
     public func start() {
-        self.monitor = NSEvent.addGlobalMonitorForEvents(matching: self.mask, handler: self.handler)
+
+        // Lock
+        lock.lock()
+        defer {
+            self.lock.unlock()
+        }
+
+        guard isMonitoring == false else { return }
+        monitor = NSEvent.addGlobalMonitorForEvents(matching: self.mask, handler: self.handler)
+        isMonitoring = true
     }
 
     public func stop() {
+
+        // Lock
+        lock.lock()
+        defer {
+            self.lock.unlock()
+        }
+
+        guard isMonitoring else { return }
+
         if self.monitor != nil {
             NSEvent.removeMonitor(self.monitor!)
             self.monitor = nil
         }
+
+        isMonitoring = false
     }
 }
