@@ -26,7 +26,7 @@ class MapViewController: BaseViewController {
 
     // MARK: - OUTLET
     fileprivate var mapView: UberMapView!
-    fileprivate var searchCollectionView: SearchCollectionView!
+    fileprivate lazy var searchCollectionView: SearchCollectionView = self.lazyInitSearchCollectionView()
     fileprivate lazy var selectUberView: RequestUberView = self.lazyInitRequestUberView()
     fileprivate lazy var tripActivityView: TripActivityView = self.lazyInitTripActivityView()
     fileprivate lazy var searchBarView: SearchBarView = self.lazyInitSearchBarView()
@@ -40,15 +40,10 @@ class MapViewController: BaseViewController {
     fileprivate var mapViewModel = MapViewModel()
     fileprivate let uberViewModel = UberServiceViewModel()
 
-
-
     fileprivate var isFirstTime = true
     fileprivate lazy var webController: WebViewController = self.lazyInitWebController()
     fileprivate var paymentMethodController: PaymentMethodsController?
     fileprivate var productDetailController: ProductDetailController?
-    fileprivate var searchPlaceObjs: [PlaceObj] {
-        return self.mapViewModel.output.searchPlaceObjsVariable.value
-    }
     fileprivate var isShouldUpdateActivityLayout = true
 
     // Layout State
@@ -77,12 +72,10 @@ class MapViewController: BaseViewController {
         // Map View
         self.initMapView()
 
-        // CollectionView
-        self.initSearchCollectionView()
-
         // View Model
         self.binding()
         searchBarView.setupViewModel(mapViewModel)
+        searchCollectionView.setupViewModel(mapViewModel)
         self.notificationBinding()
     }
 
@@ -115,16 +108,6 @@ class MapViewController: BaseViewController {
 
         // Force load Uber data
         UberAuth.share.currentUser?.reloadUberDataPublisher.onNext()
-
-        // Reload search Place collectionView
-        self.mapViewModel.output.searchPlaceObjsVariable
-            .asObservable()
-            .subscribe(onNext: {[weak self] placeObjs in
-                guard let `self` = self else { return }
-                print("Place Search FOUND = \(placeObjs.count)")
-                self.searchCollectionView.reloadData()
-            })
-            .addDisposableTo(self.disposeBag)
 
         // Selected Place
         self.mapViewModel.output.selectedPlaceObjDriver
@@ -302,13 +285,14 @@ extension MapViewController {
         return searchView
     }
 
-    fileprivate func initSearchCollectionView() {
-        self.searchCollectionView = SearchCollectionView.viewFromNib(with: BundleType.app)!
-        self.searchCollectionView.delegate = self
-        self.mapContainerView.addSubview(self.searchCollectionView,
+    fileprivate func lazyInitSearchCollectionView() -> SearchCollectionView {
+        let collectionView = SearchCollectionView.viewFromNib(with: BundleType.app)!
+        collectionView.delegate = self
+        mapContainerView.addSubview(collectionView,
                                          positioned: .below,
-                                         relativeTo: self.exitNavigateBtn)
-        self.searchCollectionView.configureView(parenView: self.mapContainerView, searchBarView: self.searchBarView)
+                                         relativeTo: exitNavigateBtn)
+        collectionView.configureView(parenView: mapContainerView, searchBarView: searchBarView)
+        return collectionView
     }
 
     fileprivate func lazyInitRequestUberView() -> RequestUberView {
@@ -463,24 +447,11 @@ extension MapViewController: SearchBarViewDelegate {
     }
 }
 
+// MARK: - SearchCollectionViewDelegate
 extension MapViewController: SearchCollectionViewDelegate {
 
-    func searchCollectionViewNumberOfPlace() -> Int {
-        return self.searchPlaceObjs.count
-    }
-
-    func searchCollectionView(_ sender: SearchCollectionView, atIndex: IndexPath) -> PlaceObj {
-        return self.searchPlaceObjs[atIndex.item]
-    }
-
-    func searchCollectionView(_ sender: SearchCollectionView, didSelectItem atIndex: IndexPath) {
-
-        // Select
-        let placeObj = self.searchPlaceObjs[atIndex.item]
-        self.mapViewModel.input.didSelectPlaceObjPublisher.onNext(placeObj)
-
-        // Update layout
-        self.layoutState = .productSelection
+    func searchCollectionViewDidSelectItem() {
+        layoutState = .productSelection
     }
 }
 
