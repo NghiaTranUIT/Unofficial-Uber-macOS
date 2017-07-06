@@ -61,41 +61,43 @@ open class AppViewModel: BaseViewModel, AppViewModelProtocol, AppViewModelInput,
     public override init() {
         super.init()
         // Switch
-        self.switchPopoverPublish.map {[weak self] _ -> PopoverState in
+        switchPopoverPublish
+            .map {[weak self] _ -> PopoverState in
             guard let `self` = self else { return .open }
 
             if self.popoverStateVariable.value == .open {
                 return .close
             }
             return .open
-        }.bind(to: popoverStateVariable)
-        .addDisposableTo(self.disposeBag)
+            }
+            .bind(to: popoverStateVariable)
+            .addDisposableTo(disposeBag)
 
-        self.actionPopoverPublish.bind(to: self.popoverStateVariable)
-        .addDisposableTo(self.disposeBag)
+        actionPopoverPublish.bind(to: popoverStateVariable)
+        .addDisposableTo(disposeBag)
 
         // Debug
-        self.currentTripStatusPublish.asObserver()
+        currentTripStatusPublish.asObserver()
         .flatMapLatest {[unowned self] _ -> Observable<TripObj> in
             return self.uberService.getCurrentTrip()
         }
         .subscribe(onNext: { (tripObj) in
             Logger.info("[DEBUG] CURRENT TRIP = \(tripObj)")
         })
-        .addDisposableTo(self.disposeBag)
+        .addDisposableTo(disposeBag)
 
         // Cancel
-        self.cancelCurrentTripPublish.asObserver()
+        cancelCurrentTripPublish.asObserver()
         .flatMapLatest {[unowned self] (_) -> Observable<Void> in
             return self.uberService.cancelCurrentTrip()
         }
         .subscribe(onNext: { _ in
             Logger.info("[DEBUG] CANCEL TRIP OK")
         })
-        .addDisposableTo(self.disposeBag)
+        .addDisposableTo(disposeBag)
 
         // Update status
-        self.updateStatusTripPublish.asObserver()
+        updateStatusTripPublish.asObserver()
         .do(onNext: {[unowned self] (status) in
             self.sandboxStatus = status
         })
@@ -111,6 +113,6 @@ open class AppViewModel: BaseViewModel, AppViewModelProtocol, AppViewModelInput,
         .subscribe(onNext: {[unowned self] _ in
             Logger.info("[DEBUG] UPDATE TRIP = \(self.sandboxStatus.rawValue)")
         })
-        .addDisposableTo(self.disposeBag)
+        .addDisposableTo(disposeBag)
     }
 }
