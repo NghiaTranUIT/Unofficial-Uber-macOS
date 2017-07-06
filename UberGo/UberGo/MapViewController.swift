@@ -25,7 +25,7 @@ enum MapViewLayoutState {
 class MapViewController: BaseViewController {
 
     // MARK: - OUTLET
-    fileprivate var mapView: UberMapView!
+    fileprivate lazy var mapView: UberMapView = self.lazyInitUberMapView()
     fileprivate lazy var searchCollectionView: SearchCollectionView = self.lazyInitSearchCollectionView()
     fileprivate lazy var selectUberView: RequestUberView = self.lazyInitRequestUberView()
     fileprivate lazy var tripActivityView: TripActivityView = self.lazyInitTripActivityView()
@@ -69,11 +69,9 @@ class MapViewController: BaseViewController {
         // Common
         self.initCommon()
 
-        // Map View
-        self.initMapView()
-
         // View Model
         self.binding()
+        mapView.setupViewModel(mapViewModel)
         searchBarView.setupViewModel(mapViewModel)
         searchCollectionView.setupViewModel(mapViewModel)
         self.notificationBinding()
@@ -94,17 +92,6 @@ class MapViewController: BaseViewController {
 
         // Trigger Get location
         self.mapViewModel.input.startUpdateLocationTriggerPublisher.onNext(true)
-
-        // Update Location on map
-        self.mapViewModel.output.currentLocationDriver
-            .filterNil()
-            .drive(onNext: {[weak self] location in
-                guard let `self` = self else { return }
-
-                print("setCenter \(location)")
-                self.mapView.addOriginPoint(location.coordinate)
-            })
-            .addDisposableTo(self.disposeBag)
 
         // Force load Uber data
         UberAuth.share.currentUser?.reloadUberDataPublisher.onNext()
@@ -128,16 +115,6 @@ class MapViewController: BaseViewController {
                     self.searchBarView.loaderIndicatorView(false)
                 }
 
-            })
-            .addDisposableTo(self.disposeBag)
-
-        // Draw map
-        self.mapViewModel.output.selectedDirectionRouteObserver
-            .subscribe(onNext: {[weak self] (route) in
-                guard let `self` = self else {
-                    return
-                }
-                self.mapView.drawVisbileRoute(route)
             })
             .addDisposableTo(self.disposeBag)
 
@@ -271,10 +248,11 @@ extension MapViewController {
         self.bottomBarView.backgroundColor = NSColor.black
     }
 
-    fileprivate func initMapView() {
-        self.mapView = UberMapView(frame: self.mapContainerView.bounds)
-        self.mapView.uberMapDelegate = self
-        self.mapView.configureLayout(self.mapContainerView, exitBtn: self.exitNavigateBtn)
+    fileprivate func lazyInitUberMapView() -> UberMapView {
+        let map = UberMapView(frame: self.mapContainerView.bounds)
+        map.uberMapDelegate = self
+        map.configureLayout(mapContainerView, exitBtn: exitNavigateBtn)
+        return map
     }
 
     fileprivate func lazyInitSearchBarView() -> SearchBarView {

@@ -8,6 +8,7 @@
 
 import Mapbox
 import MapboxDirections
+import RxSwift
 import UberGoCore
 
 protocol UberMapViewDelegate: class {
@@ -18,6 +19,8 @@ class UberMapView: MGLMapView {
 
     // MARK: - Variable
     weak var uberMapDelegate: UberMapViewDelegate?
+    fileprivate var viewModel: MapViewModel!
+    fileprivate let disposeBag = DisposeBag()
 
     // Origin
     fileprivate var originPoint: OriginAnnotation?
@@ -54,6 +57,32 @@ class UberMapView: MGLMapView {
         self.delegate = self
     }
 
+    public func setupViewModel(_ viewModel: MapViewModel) {
+        self.viewModel = viewModel
+        binding()
+    }
+
+    fileprivate func binding() {
+
+        // Update Location on map
+        viewModel.output.currentLocationDriver
+            .filterNil()
+            .drive(onNext: {[weak self] location in
+                guard let `self` = self else { return }
+                Logger.info("setCenter \(location)")
+                self.addOriginPoint(location.coordinate)
+            })
+            .addDisposableTo(disposeBag)
+
+        // Draw map
+        viewModel.output.selectedDirectionRouteObserver
+            .subscribe(onNext: {[weak self] (route) in
+                guard let `self` = self else { return }
+                self.drawVisbileRoute(route)
+            })
+            .addDisposableTo(self.disposeBag)
+    }
+
     // MARK: - Public
     func configureLayout(_ parentView: NSView, exitBtn: NSButton) {
         self.translatesAutoresizingMaskIntoConstraints = false
@@ -61,7 +90,7 @@ class UberMapView: MGLMapView {
         self.edges(to: parentView)
     }
 
-    func addOriginPoint(_ point: CLLocationCoordinate2D) {
+    fileprivate func addOriginPoint(_ point: CLLocationCoordinate2D) {
 
         // Remove if need
         if let originPoint = self.originPoint {
