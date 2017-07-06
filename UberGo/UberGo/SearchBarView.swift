@@ -44,8 +44,9 @@ class SearchBarView: NSView {
         return self.destinationTxt.stringValue
     }
 
-    fileprivate var viewModel: SearchBarViewModel?
+    fileprivate var viewModel: MapViewModel!
     fileprivate var actionSearchView: ActionSearchBarView!
+    fileprivate let disposeBag = DisposeBag()
 
     // Constraint
     fileprivate var topConstraint: NSLayoutConstraint!
@@ -59,17 +60,40 @@ class SearchBarView: NSView {
 
         self.initCommon()
         self.initActionSearchView()
-        self.binding()
     }
 
     fileprivate func binding() {
-        if self.viewModel == nil {
-            let viewModel = SearchBarViewModel()
-            self.viewModel = viewModel
-        }
+
+        // Nearest place
+        viewModel.output.nearestPlaceDriver
+            .drive(onNext: { [weak self] nearestPlaceObj in
+                guard let `self` = self else { return }
+                self.updateNestestPlace(nearestPlaceObj)
+            })
+            .addDisposableTo(disposeBag)
+
+        // Input search
+        self.textSearchDidChangedDriver
+            .drive(onNext: {[weak self] text in
+                guard let `self` = self else { return }
+                self.viewModel.input.textSearchPublish.onNext(text)
+            })
+            .addDisposableTo(disposeBag)
+
+        // Loader
+        viewModel.output.loadingDriver
+            .drive(onNext: {[weak self] (isLoading) in
+                guard let `self` = self else { return }
+                self.loaderIndicatorView(isLoading)
+            }).addDisposableTo(disposeBag)
     }
 
-    func updateNestestPlace(_ place: PlaceObj) {
+    public func setupViewModel(_ viewModel: MapViewModel) {
+        self.viewModel = viewModel
+        binding()
+    }
+
+    fileprivate func updateNestestPlace(_ place: PlaceObj) {
         self.originTxt.stringValue = place.name ?? "Unknow position"
     }
 
@@ -81,7 +105,7 @@ class SearchBarView: NSView {
         self.destinationTxt.stringValue = ""
     }
 
-    func loaderIndicatorView(_ isLoading: Bool) {
+ func loaderIndicatorView(_ isLoading: Bool) {
         if isLoading {
             self.loaderView.isHidden = false
             self.loaderView.startAnimation(nil)

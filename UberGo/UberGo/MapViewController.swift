@@ -29,6 +29,7 @@ class MapViewController: BaseViewController {
     fileprivate var searchCollectionView: SearchCollectionView!
     fileprivate lazy var selectUberView: RequestUberView = self.lazyInitRequestUberView()
     fileprivate lazy var tripActivityView: TripActivityView = self.lazyInitTripActivityView()
+    fileprivate lazy var searchBarView: SearchBarView = self.lazyInitSearchBarView()
 
     @IBOutlet fileprivate weak var exitNavigateBtn: NSButton!
     @IBOutlet fileprivate weak var mapContainerView: NSView!
@@ -39,7 +40,8 @@ class MapViewController: BaseViewController {
     fileprivate var mapViewModel = MapViewModel()
     fileprivate let uberViewModel = UberServiceViewModel()
 
-    fileprivate var searchBarView: SearchBarView!
+
+
     fileprivate var isFirstTime = true
     fileprivate lazy var webController: WebViewController = self.lazyInitWebController()
     fileprivate var paymentMethodController: PaymentMethodsController?
@@ -75,14 +77,12 @@ class MapViewController: BaseViewController {
         // Map View
         self.initMapView()
 
-        // Search
-        self.initSearchBarView()
-
         // CollectionView
         self.initSearchCollectionView()
 
         // View Model
         self.binding()
+        searchBarView.setupViewModel(mapViewModel)
         self.notificationBinding()
     }
 
@@ -116,22 +116,6 @@ class MapViewController: BaseViewController {
         // Force load Uber data
         UberAuth.share.currentUser?.reloadUberDataPublisher.onNext()
 
-        // Nearest place
-        self.mapViewModel.output.nearestPlaceDriver
-            .drive(onNext: { [weak self] nearestPlaceObj in
-                guard let `self` = self else { return }
-                print("Found Nearst Place = \(nearestPlaceObj)")
-                self.searchBarView.updateNestestPlace(nearestPlaceObj)
-            })
-            .addDisposableTo(self.disposeBag)
-
-        // Input search
-        self.searchBarView.textSearchDidChangedDriver
-            .drive(onNext: {[unowned self] text in
-                self.mapViewModel.input.textSearchPublish.onNext(text)
-            })
-            .addDisposableTo(self.disposeBag)
-
         // Reload search Place collectionView
         self.mapViewModel.output.searchPlaceObjsVariable
             .asObservable()
@@ -141,13 +125,6 @@ class MapViewController: BaseViewController {
                 self.searchCollectionView.reloadData()
             })
             .addDisposableTo(self.disposeBag)
-
-        // Loader
-        self.mapViewModel.output.loadingDriver
-            .drive(onNext: {[weak self] (isLoading) in
-                guard let `self` = self else { return }
-                self.searchBarView.loaderIndicatorView(isLoading)
-            }).addDisposableTo(self.disposeBag)
 
         // Selected Place
         self.mapViewModel.output.selectedPlaceObjDriver
@@ -317,11 +294,12 @@ extension MapViewController {
         self.mapView.configureLayout(self.mapContainerView, exitBtn: self.exitNavigateBtn)
     }
 
-    fileprivate func initSearchBarView() {
-        self.searchBarView = SearchBarView.viewFromNib(with: BundleType.app)!
-        self.searchBarView.delegate = self
-        self.mapContainerView.addSubview(self.searchBarView, positioned: .below, relativeTo: self.exitNavigateBtn)
-        self.searchBarView.configureView(with: self.mapContainerView)
+    fileprivate func lazyInitSearchBarView() -> SearchBarView {
+        let searchView = SearchBarView.viewFromNib(with: BundleType.app)!
+        searchView.delegate = self
+        mapContainerView.addSubview(searchView, positioned: .below, relativeTo: exitNavigateBtn)
+        searchView.configureView(with: mapContainerView)
+        return searchView
     }
 
     fileprivate func initSearchCollectionView() {
