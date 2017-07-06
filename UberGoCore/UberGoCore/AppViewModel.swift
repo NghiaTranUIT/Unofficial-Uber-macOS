@@ -39,7 +39,9 @@ public protocol AppViewModelOutput {
 }
 
 // MARK: - App ViewModel
-open class AppViewModel: BaseViewModel, AppViewModelProtocol, AppViewModelInput, AppViewModelOutput {
+open class AppViewModel: AppViewModelProtocol,
+                         AppViewModelInput,
+                         AppViewModelOutput {
 
     // MARK: - View model
     public var input: AppViewModelInput { return self }
@@ -55,64 +57,57 @@ open class AppViewModel: BaseViewModel, AppViewModelProtocol, AppViewModelInput,
     public var updateStatusTripPublish = PublishSubject<TripObjStatus>()
     fileprivate var sandboxStatus = TripObjStatus.unknown
 
-    fileprivate let uberService = UberService()
+    fileprivate let uberService: UberService
+    fileprivate let disposeBag = DisposeBag()
 
     // MARK: - Init
-    public override init() {
-        super.init()
+    public init(uberService: UberService = UberService()) {
+
+        self.uberService = uberService
+
         // Switch
         switchPopoverPublish
-            .map {[weak self] _ -> PopoverState in
-            guard let `self` = self else { return .open }
-
-            if self.popoverStateVariable.value == .open {
-                return .close
-            }
-            return .open
-            }
+            .withLatestFrom(popoverStateVariable.asObservable())
+            .map({ return $0 == .open ? .close : .open })
             .bind(to: popoverStateVariable)
             .addDisposableTo(disposeBag)
 
-        actionPopoverPublish.bind(to: popoverStateVariable)
-        .addDisposableTo(disposeBag)
+        // Map
+        actionPopoverPublish
+            .bind(to: popoverStateVariable)
+            .addDisposableTo(disposeBag)
 
-        // Debug
-        currentTripStatusPublish.asObserver()
-        .flatMapLatest {[unowned self] _ -> Observable<TripObj> in
-            return self.uberService.getCurrentTrip()
-        }
-        .subscribe(onNext: { (tripObj) in
-            Logger.info("[DEBUG] CURRENT TRIP = \(tripObj)")
-        })
-        .addDisposableTo(disposeBag)
+        // Debug Current Trip
+        currentTripStatusPublish
+            .flatMapLatest { uberService.getCurrentTrip() }
+            .subscribe(onNext: { (tripObj) in
+                Logger.info("[DEBUG] CURRENT TRIP = \(tripObj)")
+            })
+            .addDisposableTo(disposeBag)
 
-        // Cancel
-        cancelCurrentTripPublish.asObserver()
-        .flatMapLatest {[unowned self] (_) -> Observable<Void> in
-            return self.uberService.cancelCurrentTrip()
-        }
-        .subscribe(onNext: { _ in
-            Logger.info("[DEBUG] CANCEL TRIP OK")
-        })
-        .addDisposableTo(disposeBag)
+        // Debug Cancel
+        cancelCurrentTripPublish
+            .flatMapLatest { uberService.cancelCurrentTrip() }
+            .subscribe(onNext: { _ in
+                Logger.info("[DEBUG] CANCEL TRIP OK")
+            })
+            .addDisposableTo(disposeBag)
 
-        // Update status
-        updateStatusTripPublish.asObserver()
-        .do(onNext: {[unowned self] (status) in
-            self.sandboxStatus = status
-        })
-        .flatMapLatest({[unowned self] _ -> Observable<TripObj> in
-            return self.uberService.getCurrentTrip()
-        })
-        .flatMapLatest {[unowned self] (tripObj) -> Observable<Void> in
-            guard let requestID = tripObj.requestId else {
-                return Observable.empty()
+        // Debug Update status
+        updateStatusTripPublish
+            .do(onNext: {[unowned self] (status) in
+                self.sandboxStatus = status
+            })
+            .flatMapLatest({ _ -> Observable<TripObj> in
+                return uberService.getCurrentTrip()
+            })
+            .flatMapLatest {[unowned self] (tripObj) -> Observable<Void> in
+                guard let requestID = tripObj.requestId else { return Observable.empty() }
+                return SandboxUberService().updateTripStateObserver(status: self.sandboxStatus, requestID: requestID)
             }
-            return SandboxUberService().updateTripStateObserver(status: self.sandboxStatus, requestID: requestID)
-        }
-        .subscribe(onNext: {[unowned self] _ in
-            Logger.info("[DEBUG] UPDATE TRIP = \(self.sandboxStatus.rawValue)")
-        })
-        .addDisposableTo(disposeBag)
+            .subscribe(onNext: {[unowned self] _ in
+                Logger.info("[DEBUG] UPDATE TRIP = \(self.sandboxStatus.rawValue)")
+            })
+            .addDisposableTo(disposeBag)
     }
 }
