@@ -29,15 +29,15 @@ class SearchPlaceCell: NSCollectionViewItem {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.initCommon()
-        self.createTrackingAreaIfNeeded()
+        initCommon()
+        createTrackingAreaIfNeeded()
     }
 
     // MARK: - Public
     func configurePlaceCell(_ placeObj: PlaceObj) {
-        self.titleLbl.stringValue = placeObj.name ?? ""
-        self.addressLbl.stringValue = placeObj.address ?? ""
-        self.avatarImageView.image = NSImage(imageLiteralResourceName: placeObj.iconName)
+        titleLbl.stringValue = placeObj.name ?? ""
+        addressLbl.stringValue = placeObj.address ?? ""
+        avatarImageView.image = NSImage(imageLiteralResourceName: placeObj.iconName)
     }
 
     override func mouseEntered(with theEvent: NSEvent) {
@@ -53,10 +53,10 @@ class SearchPlaceCell: NSCollectionViewItem {
 extension SearchPlaceCell {
 
     fileprivate func initCommon() {
-        self.view.backgroundColor = NSColor.white
-        self.titleLbl.textColor = NSColor.black
-        self.addressLbl.textColor = NSColor(hexString: "#A4A4A8")
-        self.separateLine.backgroundColor = NSColor(hexString: "#EDEDED")
+        view.backgroundColor = NSColor.white
+        titleLbl.textColor = NSColor.black
+        addressLbl.textColor = NSColor(hexString: "#A4A4A8")
+        separateLine.backgroundColor = NSColor(hexString: "#EDEDED")
     }
 
     fileprivate func createTrackingAreaIfNeeded() {
@@ -68,8 +68,8 @@ extension SearchPlaceCell {
                                               owner: self,
                                               userInfo: nil)
         }
-        if self.view.trackingAreas.contains(trackingArea!) == false {
-            self.view.addTrackingArea(trackingArea!)
+        if view.trackingAreas.contains(trackingArea!) == false {
+            view.addTrackingArea(trackingArea!)
         }
     }
 
@@ -79,10 +79,10 @@ extension SearchPlaceCell {
             // rapid
             context.duration = 0.11
 
-            if self.mouseInside {
-                self.view.backgroundColor = NSColor(hexString: "#EDEDED")
+            if mouseInside {
+                view.backgroundColor = NSColor(hexString: "#EDEDED")
             } else {
-                self.view.backgroundColor = NSColor.white
+                view.backgroundColor = NSColor.white
             }
         })
     }

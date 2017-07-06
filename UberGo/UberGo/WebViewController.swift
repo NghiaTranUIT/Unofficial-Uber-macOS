@@ -29,10 +29,10 @@ class WebViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.webView.navigationDelegate = self
-        self.webView.uiDelegate = self
+        webView.navigationDelegate = self
+        webView.uiDelegate = self
 
-        self.loadWebview()
+        loadWebview()
     }
 
     // MARK: - Public
@@ -44,17 +44,17 @@ class WebViewController: NSViewController {
 
     fileprivate func loadWebview() {
 
-        switch self.mode {
+        switch mode {
         case .surgeConfirmation:
-
             guard let surgePriceObj = data as? SurgePriceObj else { return }
             guard let urlStr = surgePriceObj.surgeConfirmationHref else { return }
             guard let url = URL(string: urlStr) else { return }
-            self.webView.load(URLRequest(url: url))
+
+            webView.load(URLRequest(url: url))
 
         case .loginUber:
             guard let url = data as? URL else { return }
-            self.webView.load(URLRequest(url: url))
+            webView.load(URLRequest(url: url))
 
         case .none:
             break

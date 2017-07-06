@@ -54,41 +54,41 @@ class TripActivityView: NSView {
     override func awakeFromNib() {
         super.awakeFromNib()
 
-        self.initCommon()
+        initCommon()
     }
 
     // MARK: - Public
     public func configureLayout(_ parentView: NSView) {
-        self.translatesAutoresizingMaskIntoConstraints = false
+        translatesAutoresizingMaskIntoConstraints = false
         parentView.addSubview(self)
 
-        self.edges(to: parentView)
+        edges(to: parentView)
     }
 
     public func updateData(_ tripObj: TripObj) {
 
         // Status
-        self.updateStatus(tripObj)
+        updateStatus(tripObj)
 
         // ETA
-        self.updateETA(tripObj)
+        updateETA(tripObj)
 
         // Driver name 
-        self.updateDriver(tripObj)
+        updateDriver(tripObj)
 
         // Vehicle
-        self.updateVehicle(tripObj)
+        updateVehicle(tripObj)
 
         // Destination ETA
-        //self.arrvialTimeLbl.stringValue = tripObj.destination?.eta
+        //arrvialTimeLbl.stringValue = tripObj.destination?.eta
 
         // Current Payment
-        self.updatePayment()
+        updatePayment()
     }
 
     // MARK: - OUTLET
     @IBAction func cancelTripBtnOnTap(_ sender: Any) {
-        guard let window = self.window else { return }
+        guard let window = window else { return }
         NSAlert.confirmationAlertView(showOn: window, title: "Are you sure",
                                       message: "Maybe cause pay deposit money",
                                       okBlock: { [weak self] in
@@ -108,32 +108,32 @@ extension TripActivityView {
 
     fileprivate func initCommon() {
 
-        self.contactDriverBtn.wantsLayer = true
-        self.contactDriverBtn.layer?.borderWidth = 1
-        self.contactDriverBtn.layer?.borderColor = NSColor(hexString: "#ededed").cgColor
-        self.contactDriverBtn.setTitleColor(NSColor(hexString: "#235a92"))
+        contactDriverBtn.wantsLayer = true
+        contactDriverBtn.layer?.borderWidth = 1
+        contactDriverBtn.layer?.borderColor = NSColor(hexString: "#ededed").cgColor
+        contactDriverBtn.setTitleColor(NSColor(hexString: "#235a92"))
 
-        self.cancelTripBtn.wantsLayer = true
-        self.cancelTripBtn.layer?.borderWidth = 1
-        self.cancelTripBtn.layer?.borderColor = NSColor(hexString: "#ededed").cgColor
-        self.cancelTripBtn.setTitleColor(NSColor(hexString: "#9e191e"))
+        cancelTripBtn.wantsLayer = true
+        cancelTripBtn.layer?.borderWidth = 1
+        cancelTripBtn.layer?.borderColor = NSColor(hexString: "#ededed").cgColor
+        cancelTripBtn.setTitleColor(NSColor(hexString: "#9e191e"))
 
-        self.driverLicensePlateLbl.layer?.borderColor = NSColor(hexString: "#a4a5aa").cgColor
-        self.driverLicensePlateLbl.layer?.borderWidth = 1
+        driverLicensePlateLbl.layer?.borderColor = NSColor(hexString: "#a4a5aa").cgColor
+        driverLicensePlateLbl.layer?.borderWidth = 1
 
-        self.dividerFirstView.backgroundColor = NSColor(hexString: "#ededed")
-        self.dividerSecondView.backgroundColor = NSColor(hexString: "#ededed")
+        dividerFirstView.backgroundColor = NSColor(hexString: "#ededed")
+        dividerSecondView.backgroundColor = NSColor(hexString: "#ededed")
 
         // Kern
-        self.statusLbl.setKern(2.0)
-        self.etaLbl.setKern(1.4)
+        statusLbl.setKern(2.0)
+        etaLbl.setKern(1.4)
 
         // Border
-        self.driverAvatarImageView.wantsLayer = true
-        self.driverAvatarImageView.layer?.cornerRadius = 25
-        self.driverAvatarImageView.layer?.borderColor = NSColor(hexString: "#ededed").cgColor
-        self.driverAvatarImageView.layer?.borderWidth = 1
-        self.driverAvatarImageView.layer?.contentsGravity = kCAGravityResizeAspect
+        driverAvatarImageView.wantsLayer = true
+        driverAvatarImageView.layer?.cornerRadius = 25
+        driverAvatarImageView.layer?.borderColor = NSColor(hexString: "#ededed").cgColor
+        driverAvatarImageView.layer?.borderWidth = 1
+        driverAvatarImageView.layer?.contentsGravity = kCAGravityResizeAspect
     }
 }
 
@@ -143,8 +143,8 @@ extension TripActivityView {
     fileprivate func updateStatus(_ tripObj: TripObj) {
 
         // Name
-        self.statusLbl.stringValue = tripObj.status.prettyValue
-        self.statusLbl.setKern(2.0)
+        statusLbl.stringValue = tripObj.status.prettyValue
+        statusLbl.setKern(2.0)
 
         // Enable - Disable
         if tripObj.status == .processing ||
@@ -153,37 +153,37 @@ extension TripActivityView {
             tripObj.status == .noDriversAvailable ||
             tripObj.status == .unknown {
 
-            self.contactDriverBtn.isEnabled = false
-            self.shareStatusBtn.isEnabled = false
-            self.changeDestinationBtn.isEnabled = false
+            contactDriverBtn.isEnabled = false
+            shareStatusBtn.isEnabled = false
+            changeDestinationBtn.isEnabled = false
         } else {
-            self.contactDriverBtn.isEnabled = true
-            self.shareStatusBtn.isEnabled = true
-            self.changeDestinationBtn.isEnabled = true
+            contactDriverBtn.isEnabled = true
+            shareStatusBtn.isEnabled = true
+            changeDestinationBtn.isEnabled = true
         }
     }
 
     fileprivate func updateETA(_ tripObj: TripObj) {
-        self.etaLbl.isHidden = true
+        etaLbl.isHidden = true
         if tripObj.status == .accepted {
-            self.etaLbl.isHidden = false
-            self.etaLbl.stringValue = "\(tripObj.pickup?.eta ?? 5) mins"
+            etaLbl.isHidden = false
+            etaLbl.stringValue = "\(tripObj.pickup?.eta ?? 5) mins"
         } else if tripObj.status == .arriving {
-            self.etaLbl.isHidden = false
-            self.etaLbl.stringValue = "Arriving shortly"
+            etaLbl.isHidden = false
+            etaLbl.stringValue = "Arriving shortly"
         } else if tripObj.status == .inProgress {
-            self.etaLbl.isHidden = false
-            self.etaLbl.stringValue = "\(tripObj.destination?.eta ?? 5) mins"
+            etaLbl.isHidden = false
+            etaLbl.stringValue = "\(tripObj.destination?.eta ?? 5) mins"
         }
-        self.etaLbl.setKern(1.4)
+        etaLbl.setKern(1.4)
     }
 
     fileprivate func updateDriver(_ tripObj: TripObj) {
         guard let driver = tripObj.driver else { return }
 
         // Name
-        self.driverNameLbl.stringValue = driver.name ?? "Unknow"
-        self.driverRatingLbl.stringValue = "\(driver.rating ?? 4) ★"
+        driverNameLbl.stringValue = driver.name ?? "Unknow"
+        driverRatingLbl.stringValue = "\(driver.rating ?? 4) ★"
 
         // Avatar
         if let avatar = driver.pictureUrl {
@@ -203,16 +203,16 @@ extension TripActivityView {
 
     fileprivate func updateVehicle(_ tripObj: TripObj) {
         guard let vehicle = tripObj.vehicle else { return }
-        self.driverModelLbl.stringValue = vehicle.fullName
-        self.driverLicensePlateLbl.stringValue = vehicle.licensePlate ?? "Unknow"
+        driverModelLbl.stringValue = vehicle.fullName
+        driverLicensePlateLbl.stringValue = vehicle.licensePlate ?? "Unknow"
     }
 
     fileprivate func updatePayment() {
         guard let currentUser = UberAuth.share.currentUser else { return }
         guard let account = currentUser.currentPaymentAccountObjVar.value else { return }
-        self.paymentImageView.image = NSImage(imageLiteralResourceName: account.type.imageIconName)
-        self.cardNumberLbl.stringValue = account.betterAccountDescription
-        self.cardNumberLbl.setKern(1.2)
+        paymentImageView.image = NSImage(imageLiteralResourceName: account.type.imageIconName)
+        cardNumberLbl.stringValue = account.betterAccountDescription
+        cardNumberLbl.setKern(1.2)
     }
 }
 

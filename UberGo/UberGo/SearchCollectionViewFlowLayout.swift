@@ -21,9 +21,9 @@ class SearchCollectionViewFlowLayout: NSCollectionViewFlowLayout {
     public override init() {
         super.init()
 
-        self.scrollDirection = .vertical
-        self.minimumLineSpacing = 0
-        self.minimumInteritemSpacing = 0
+        scrollDirection = .vertical
+        minimumLineSpacing = 0
+        minimumInteritemSpacing = 0
     }
 
     required public init?(coder aDecoder: NSCoder) {
@@ -33,53 +33,53 @@ class SearchCollectionViewFlowLayout: NSCollectionViewFlowLayout {
     //
     // MARK: - Override
     fileprivate func updateDataSource() {
-        guard let collectionView = self.collectionView else { return }
+        guard let collectionView = collectionView else { return }
 
         // Cound
-        self.itemCount = self.collectionView?.dataSource?.collectionView(collectionView, numberOfItemsInSection: 0) ?? 0
+        itemCount = collectionView.dataSource?.collectionView(collectionView, numberOfItemsInSection: 0) ?? 0
     }
 
     override open func prepare() {
         super.prepare()
 
         // Update data
-        self.updateDataSource()
+        updateDataSource()
 
         // Prepare data
         var cell: [NSCollectionViewLayoutAttributes] = []
 
-        for i in 0..<self.itemCount {
+        for i in 0..<itemCount {
 
             let x: CGFloat = 0
-            let y = CGFloat(i) * self.itemSize.height
+            let y = CGFloat(i) * itemSize.height
             let indexPath = IndexPath(item: i, section: 0)
 
             // Create attribute
             let att = NSCollectionViewLayoutAttributes(forItemWith: indexPath)
-            att.frame = CGRect(x: x, y: y, width: self.itemSize.width, height: self.itemSize.height)
+            att.frame = CGRect(x: x, y: y, width: itemSize.width, height: itemSize.height)
 
             // Append
             cell.append(att)
         }
 
         //
-        self.contentSize = self.calculateContentSize()
-        self.cellsAttributes = cell
+        contentSize = calculateContentSize()
+        cellsAttributes = cell
     }
 
     fileprivate func calculateContentSize() -> CGSize {
-        guard let collectionView = self.collectionView else {
+        guard let collectionView = collectionView else {
             return CGSize.zero
         }
 
-        let height = CGFloat(self.itemCount) * self.itemSize.height
+        let height = CGFloat(itemCount) * itemSize.height
         return CGSize(width: collectionView.frame.width, height: height)
     }
 
     //
     // MARK: - Override
     override open func layoutAttributesForItem(at indexPath: IndexPath) -> NSCollectionViewLayoutAttributes? {
-        return self.cellsAttributes[indexPath.item]
+        return cellsAttributes[indexPath.item]
     }
 
     override open func layoutAttributesForElements(in rect: CGRect) -> [NSCollectionViewLayoutAttributes] {
@@ -87,7 +87,7 @@ class SearchCollectionViewFlowLayout: NSCollectionViewFlowLayout {
         var cells: [NSCollectionViewLayoutAttributes] = []
 
         // Cell
-        for att in self.cellsAttributes {
+        for att in cellsAttributes {
             if att.frame.intersects(rect) {
                 cells.append(att)
             }
@@ -97,6 +97,6 @@ class SearchCollectionViewFlowLayout: NSCollectionViewFlowLayout {
     }
 
     override open var collectionViewContentSize: CGSize {
-        return self.contentSize
+        return contentSize
     }
 }
