@@ -28,13 +28,13 @@ class SearchCollectionView: NSView {
     override func awakeFromNib() {
         super.awakeFromNib()
 
-        self.initCommon()
-        self.setupCollectionView()
+        initCommon()
+        setupCollectionView()
     }
 
     // MARK: - Public
     func reloadData() {
-        self.collectionView.reloadData()
+        collectionView.reloadData()
     }
 
     public func setupViewModel(_ viewModel: MapViewModel) {
@@ -60,26 +60,26 @@ class SearchCollectionView: NSView {
 extension SearchCollectionView {
 
     fileprivate func initCommon() {
-        self.translatesAutoresizingMaskIntoConstraints = false
-        self.alphaValue = 0
-        self.isHidden = true
+        translatesAutoresizingMaskIntoConstraints = false
+        alphaValue = 0
+        isHidden = true
     }
 
     fileprivate func setupCollectionView() {
 
-        self.collectionView.delegate = self
-        self.collectionView.dataSource = self
-        self.collectionView.allowsMultipleSelection = false
-        self.collectionView.allowsEmptySelection = false
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.allowsMultipleSelection = false
+        collectionView.allowsEmptySelection = false
 
         // Register
         let nib = NSNib(nibNamed: "SearchPlaceCell", bundle: nil)
-        self.collectionView.register(nib, forItemWithIdentifier: "SearchPlaceCell")
+        collectionView.register(nib, forItemWithIdentifier: "SearchPlaceCell")
 
         // Flow
         let flow = SearchCollectionViewFlowLayout()
-        flow.itemSize = CGSize(width: self.collectionView.bounds.width, height: 57)
-        self.collectionView.collectionViewLayout = flow
+        flow.itemSize = CGSize(width: collectionView.bounds.width, height: 57)
+        collectionView.collectionViewLayout = flow
     }
 }
 
@@ -87,18 +87,18 @@ extension SearchCollectionView {
 extension SearchCollectionView {
 
     public func configureView(parenView: NSView, searchBarView: SearchBarView) {
-        self.translatesAutoresizingMaskIntoConstraints = false
-        self.topToBottom(of: searchBarView)
-        self.left(to: parenView)
-        self.right(to: parenView)
-        self.bottom(to: parenView)
+        translatesAutoresizingMaskIntoConstraints = false
+        topToBottom(of: searchBarView)
+        left(to: parenView)
+        right(to: parenView)
+        bottom(to: parenView)
     }
 
     public func layoutStateChanged(_ newState: MapViewLayoutState) {
         switch newState {
         case .expand:
-            self.isHidden = false
-            self.alphaValue = 0
+            isHidden = false
+            alphaValue = 0
 
             // Animate
             NSAnimationContext.defaultAnimate({ _ in
@@ -111,8 +111,8 @@ extension SearchCollectionView {
         case .tripFullActivity:
             fallthrough
         case .productSelection:
-            self.isHidden = false
-            self.alphaValue = 1
+            isHidden = false
+            alphaValue = 1
 
             // Animate
             NSAnimationContext.defaultAnimate({ _ in
@@ -141,7 +141,7 @@ extension SearchCollectionView: NSCollectionViewDataSource {
 
     func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath)
         -> NSCollectionViewItem {
-            return self.getSearchCell(with: collectionView, indexPath: indexPath)
+            return getSearchCell(with: collectionView, indexPath: indexPath)
     }
 
     fileprivate func getSearchCell(with collectionView: NSCollectionView, indexPath: IndexPath)
@@ -171,7 +171,7 @@ extension SearchCollectionView: NSCollectionViewDelegate, NSCollectionViewDelega
         viewModel.input.didSelectPlaceObjPublisher.onNext(placeObj)
 
         // De-select
-        self.collectionView.deselectItems(at: indexPaths)
+        collectionView.deselectItems(at: indexPaths)
 
         // Notify delegate
         delegate?.searchCollectionViewDidSelectItem()

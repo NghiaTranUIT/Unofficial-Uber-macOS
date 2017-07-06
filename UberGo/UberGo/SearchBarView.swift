@@ -31,17 +31,17 @@ class SearchBarView: NSView {
     weak var delegate: SearchBarViewDelegate?
     var layoutState = MapViewLayoutState.minimal {
         didSet {
-            self.animateSearchBarState()
+            animateSearchBarState()
         }
     }
     public var textSearchDidChangedDriver: Driver<String> {
-        return self.destinationTxt.rx.text
+        return destinationTxt.rx.text
             .asObservable()
             .filterNil()
             .asDriver(onErrorJustReturn: "")
     }
     public var textSearch: String {
-        return self.destinationTxt.stringValue
+        return destinationTxt.stringValue
     }
 
     fileprivate var viewModel: MapViewModel!
@@ -58,8 +58,8 @@ class SearchBarView: NSView {
     override func awakeFromNib() {
         super.awakeFromNib()
 
-        self.initCommon()
-        self.initActionSearchView()
+        initCommon()
+        initActionSearchView()
     }
 
     fileprivate func binding() {
@@ -73,7 +73,7 @@ class SearchBarView: NSView {
             .addDisposableTo(disposeBag)
 
         // Input search
-        self.textSearchDidChangedDriver
+        textSearchDidChangedDriver
             .drive(onNext: {[weak self] text in
                 guard let `self` = self else { return }
                 self.viewModel.input.textSearchPublish.onNext(text)
@@ -94,30 +94,30 @@ class SearchBarView: NSView {
     }
 
     fileprivate func updateNestestPlace(_ place: PlaceObj) {
-        self.originTxt.stringValue = place.name ?? "Unknow position"
+        originTxt.stringValue = place.name ?? "Unknow position"
     }
 
     func makeDestinationFirstResponse() {
-        self.destinationTxt.window?.makeFirstResponder(self.destinationTxt)
+        destinationTxt.window?.makeFirstResponder(destinationTxt)
     }
 
     func resetTextSearch() {
-        self.destinationTxt.stringValue = ""
+        destinationTxt.stringValue = ""
     }
 
  func loaderIndicatorView(_ isLoading: Bool) {
         if isLoading {
-            self.loaderView.isHidden = false
-            self.loaderView.startAnimation(nil)
+            loaderView.isHidden = false
+            loaderView.startAnimation(nil)
         } else {
-            self.loaderView.isHidden = true
-            self.loaderView.stopAnimation(nil)
+            loaderView.isHidden = true
+            loaderView.stopAnimation(nil)
         }
     }
 
     // MARK: - Action
     @IBAction func backBtnOnTap(_ sender: Any) {
-        self.delegate?.searchBar(self, layoutStateDidChanged: .minimal)
+        delegate?.searchBar(self, layoutStateDidChanged: .minimal)
     }
 }
 
@@ -126,46 +126,46 @@ extension SearchBarView {
     fileprivate func initCommon() {
 
         // Background
-        self.backgroundColor = NSColor.white
-        self.squareBarView.backgroundColor = NSColor.black
-        self.lineVerticalView.backgroundColor = NSColor(hexString: "#A4A4AC")
-        self.roundBarView.backgroundColor = NSColor(hexString: "#A4A4AC")
-        self.roundBarView.wantsLayer = true
-        self.roundBarView.layer?.masksToBounds = true
-        self.roundBarView.layer?.cornerRadius = 3
+        backgroundColor = NSColor.white
+        squareBarView.backgroundColor = NSColor.black
+        lineVerticalView.backgroundColor = NSColor(hexString: "#A4A4AC")
+        roundBarView.backgroundColor = NSColor(hexString: "#A4A4AC")
+        roundBarView.wantsLayer = true
+        roundBarView.layer?.masksToBounds = true
+        roundBarView.layer?.cornerRadius = 3
 
         // Default
-        self.searchContainerView.alphaValue = 0
+        searchContainerView.alphaValue = 0
     }
 
     fileprivate func initActionSearchView() {
         let actionView = ActionSearchBarView.viewFromNib(with: BundleType.app)!
         actionView.configureView(with: self)
         actionView.delegate = self
-        self.actionSearchView = actionView
+        actionSearchView = actionView
     }
 
     func configureView(with parentView: NSView) {
-        self.translatesAutoresizingMaskIntoConstraints = false
+        translatesAutoresizingMaskIntoConstraints = false
 
-        self.topConstraint = self.top(to: parentView, offset: 28)
-        self.leftConstraint = self.left(to: parentView, offset: 28)
-        self.rightConstraint = self.right(to: parentView, offset: -28)
-        self.heightConstraint = self.height(56)
+        topConstraint = top(to: parentView, offset: 28)
+        leftConstraint = left(to: parentView, offset: 28)
+        rightConstraint = right(to: parentView, offset: -28)
+        heightConstraint = height(56)
     }
 
     fileprivate func animateSearchBarState() {
-        switch self.layoutState {
+        switch layoutState {
         case .expand:
 
             // Focus
-            self.makeDestinationFirstResponse()
+            makeDestinationFirstResponse()
 
-            self.isHidden = false
-            self.leftConstraint.constant = 0
-            self.topConstraint.constant = 0
-            self.rightConstraint.constant = 0
-            self.heightConstraint.constant = 142
+            isHidden = false
+            leftConstraint.constant = 0
+            topConstraint.constant = 0
+            rightConstraint.constant = 0
+            heightConstraint.constant = 142
 
             // Animate
             NSAnimationContext.defaultAnimate({ _ in
@@ -175,11 +175,11 @@ extension SearchBarView {
                 self.superview?.layoutSubtreeIfNeeded()
             })
         case .minimal:
-            self.isHidden = false
-            self.leftConstraint.constant = 28
-            self.topConstraint.constant = 28
-            self.rightConstraint.constant = -28
-            self.heightConstraint.constant = 56
+            isHidden = false
+            leftConstraint.constant = 28
+            topConstraint.constant = 28
+            rightConstraint.constant = -28
+            heightConstraint.constant = 56
 
             NSAnimationContext.defaultAnimate({ _ in
                 self.alphaValue = 1
@@ -210,7 +210,7 @@ extension SearchBarView: ActionSearchBarViewDelegate {
     }
 
     func shouldOpenFullSearch() {
-        self.delegate?.searchBar(self, layoutStateDidChanged: .expand)
+        delegate?.searchBar(self, layoutStateDidChanged: .expand)
     }
 }
 

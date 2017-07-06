@@ -408,12 +408,6 @@ extension MapViewController {
 
         // Get Route
         self.mapViewModel.input.routeForCurrentTripPublisher.onNext(tripObj)
-        self.mapViewModel.output.routeCurrentTrip
-            .drive(onNext: {[weak self] (route) in
-                guard let `self` = self else { return }
-                self.mapView.drawVisbileRoute(route)
-            })
-            .addDisposableTo(self.disposeBag)
     }
 }
 
