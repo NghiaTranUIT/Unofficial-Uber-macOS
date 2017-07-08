@@ -51,7 +51,6 @@ class ProductDetailController: NSViewController {
 extension ProductDetailController {
 
     fileprivate func initCommon() {
-        
     }
 
     fileprivate func setupLayout() {

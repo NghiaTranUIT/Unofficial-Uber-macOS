@@ -20,9 +20,9 @@ class CenterHorizontalFlowLayout: NSCollectionViewFlowLayout {
     public override init() {
         super.init()
 
-        self.scrollDirection = .horizontal
-        self.minimumLineSpacing = 0
-        self.minimumInteritemSpacing = 0
+        scrollDirection = .horizontal
+        minimumLineSpacing = 0
+        minimumInteritemSpacing = 0
     }
 
     required public init?(coder aDecoder: NSCoder) {
@@ -31,49 +31,49 @@ class CenterHorizontalFlowLayout: NSCollectionViewFlowLayout {
 
     // MARK: - Override
     fileprivate func updateDataSource() {
-        guard let collectionView = self.collectionView else { return }
-        self.itemCount = self.collectionView?.dataSource?.collectionView(collectionView, numberOfItemsInSection: 0) ?? 0
+        guard let collectionView = collectionView else { return }
+        itemCount = collectionView.dataSource?.collectionView(collectionView, numberOfItemsInSection: 0) ?? 0
     }
 
     override open func prepare() {
         super.prepare()
 
         // Update data
-        self.updateDataSource()
+        updateDataSource()
 
         // Prepare data
         var cell: [NSCollectionViewLayoutAttributes] = []
 
         // Origin position
-        let haflfContentSize = (self.sizeCell.width * CGFloat(self.itemCount)) / 2.0
-        let halfBound = self.collectionView!.bounds.width / 2.0
+        let haflfContentSize = (sizeCell.width * CGFloat(itemCount)) / 2.0
+        let halfBound = collectionView!.bounds.width / 2.0
         let padding: CGFloat = halfBound - haflfContentSize
 
-        for i in 0..<self.itemCount {
+        for i in 0..<itemCount {
 
             let y: CGFloat = 0
-            let x = padding + CGFloat(i) * self.sizeCell.width
+            let x = padding + CGFloat(i) * sizeCell.width
             let indexPath = IndexPath(item: i, section: 0)
 
             // Create attribute
             let att = NSCollectionViewLayoutAttributes(forItemWith: indexPath)
-            att.frame = CGRect(x: x, y: y, width: self.sizeCell.width, height: self.sizeCell.height)
+            att.frame = CGRect(x: x, y: y, width: sizeCell.width, height: sizeCell.height)
 
             // Append
             cell.append(att)
         }
 
         //
-        self.contentSize = self.calculateContentSize()
-        self.cellsAttributes = cell
+        contentSize = calculateContentSize()
+        cellsAttributes = cell
     }
 
     fileprivate func calculateContentSize() -> CGSize {
-        guard let collectionView = self.collectionView else {
+        guard let collectionView = collectionView else {
             return CGSize.zero
         }
 
-        let width = CGFloat(self.itemCount) * self.sizeCell.width
+        let width = CGFloat(itemCount) * sizeCell.width
         if width < collectionView.frame.width {
             return collectionView.bounds.size
         }
@@ -82,7 +82,7 @@ class CenterHorizontalFlowLayout: NSCollectionViewFlowLayout {
 
     // MARK: - Override
     override open func layoutAttributesForItem(at indexPath: IndexPath) -> NSCollectionViewLayoutAttributes? {
-        return self.cellsAttributes[indexPath.item]
+        return cellsAttributes[indexPath.item]
     }
 
     override open func layoutAttributesForElements(in rect: CGRect) -> [NSCollectionViewLayoutAttributes] {
@@ -90,7 +90,7 @@ class CenterHorizontalFlowLayout: NSCollectionViewFlowLayout {
         var cells: [NSCollectionViewLayoutAttributes] = []
 
         // Cell
-        for att in self.cellsAttributes {
+        for att in cellsAttributes {
             if att.frame.intersects(rect) {
                 cells.append(att)
             }
@@ -100,6 +100,6 @@ class CenterHorizontalFlowLayout: NSCollectionViewFlowLayout {
     }
 
     override open var collectionViewContentSize: CGSize {
-        return self.contentSize
+        return contentSize
     }
 }

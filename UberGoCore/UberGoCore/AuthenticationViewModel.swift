@@ -66,18 +66,18 @@ AuthenticationViewModelOutput {
             })
 
         // Login
-        let loginSuccess = self.loginBtnOnTabPublish
+        let loginSuccess = loginBtnOnTabPublish
             .asObserver()
             .flatMapLatest {[unowned self] _ -> Observable<AuthenticationState> in
                 return self.uberOauth.authWithUberServiceObserable()
             }
 
         // Merge
-        self.authenticateStateDriver = Observable.merge([authenticationChanged, loginSuccess])
+        authenticateStateDriver = Observable.merge([authenticationChanged, loginSuccess])
             .asDriver(onErrorJustReturn: AuthenticationState.unAuthenticated)
 
         // Oauth Callback
-        self.uberCallbackPublish.bind(to: self.uberOauth.callbackObserverPublish)
-            .addDisposableTo(self.disposeBag)
+        uberCallbackPublish.bind(to: uberOauth.callbackObserverPublish)
+            .addDisposableTo(disposeBag)
     }
 }

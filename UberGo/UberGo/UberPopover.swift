@@ -28,10 +28,10 @@ class UberPopover: NSPopover {
         viewModel = appViewModel
 
         // Web Handler - Incase need re-fresh or re-login
-        self.authenViewModel = AuthenticationViewModel()
+        authenViewModel = AuthenticationViewModel()
 
         super.init()
-        self.initCommon()
+        initCommon()
     }
 
     required init?(coder: NSCoder) {
@@ -42,16 +42,16 @@ class UberPopover: NSPopover {
     public func binding() {
 
         // Update Layout
-        self.authenViewModel.output.authenticateStateDriver
+        authenViewModel.output.authenticateStateDriver
             .drive(onNext: {[weak self] state in
                 guard let `self` = self else { return }
 
                 // Setup
                 self.setupContentController(with: state)
             })
-            .addDisposableTo(self.disposeBag)
+            .addDisposableTo(disposeBag)
 
-        self.viewModel.output.popoverStateVariable.asDriver()
+        viewModel.output.popoverStateVariable.asDriver()
             .skip(1)
             .drive(onNext: {[unowned self] (state) in
                 switch state {
@@ -60,7 +60,7 @@ class UberPopover: NSPopover {
                 case .open:
                     self.show()
                 }
-            }).addDisposableTo(self.disposeBag)
+            }).addDisposableTo(disposeBag)
     }
 
     public func setupContentController(with state: AuthenticationState) {
@@ -71,20 +71,20 @@ class UberPopover: NSPopover {
 
         case .unAuthenticated:
             let login = LoginViewController(nibName: "LoginViewController", bundle: nil)!
-            login.viewModel = self.authenViewModel
+            login.viewModel = authenViewModel
             contentViewController = login
         }
     }
 
     public func startEventMonitor() {
-        self.eventMonitor.start()
+        eventMonitor.start()
     }
 
     @objc func togglePopover() {
         if isShown {
-            self.viewModel.input.actionPopoverPublish.onNext(.close)
+            viewModel.input.actionPopoverPublish.onNext(.close)
         } else {
-            self.viewModel.input.actionPopoverPublish.onNext(.open)
+            viewModel.input.actionPopoverPublish.onNext(.open)
         }
     }
 
@@ -125,19 +125,19 @@ extension UberPopover {
         if isShown { return }
 
         super.close()
-        self.eventMonitor.stop()
+        eventMonitor.stop()
     }
 
     fileprivate func show() {
 
         NSRunningApplication.current().activate(options: NSApplicationActivationOptions.activateIgnoringOtherApps)
 
-        guard let button = self.statusItem.button else {
+        guard let button = statusItem.button else {
             return
         }
 
-        self.show(relativeTo: button.frame, of: button, preferredEdge: .minY)
-        self.eventMonitor.start()
+        show(relativeTo: button.frame, of: button, preferredEdge: .minY)
+        eventMonitor.start()
     }
 
 }

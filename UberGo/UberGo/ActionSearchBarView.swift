@@ -29,26 +29,26 @@ class ActionSearchBarView: NSView {
     override func awakeFromNib() {
         super.awakeFromNib()
 
-        self.initCommon()
+        initCommon()
     }
 
     // MARK: - Action
     @IBAction func whereToBtnOnTap(_ sender: Any) {
-        self.delegate?.shouldOpenFullSearch()
+        delegate?.shouldOpenFullSearch()
     }
 
     @IBAction func schedulerBtnOnTap(_ sender: Any) {
-        self.delegate?.shouldOpenScheduler()
+        delegate?.shouldOpenScheduler()
     }
 
     func configureView(with parentView: NSView) {
 
-        self.translatesAutoresizingMaskIntoConstraints = false
+        translatesAutoresizingMaskIntoConstraints = false
         parentView.addSubview(self)
 
-        self.size(CGSize(width: 424, height: 56))
-        self.bottom(to: parentView)
-        self.centerX(to: parentView)
+        size(CGSize(width: 424, height: 56))
+        bottom(to: parentView)
+        centerX(to: parentView)
     }
 }
 
@@ -58,10 +58,10 @@ extension ActionSearchBarView {
     fileprivate func initCommon() {
 
         // Background
-        self.backgroundColor = NSColor.white
-        self.dotSquareView.backgroundColor = NSColor.black
-        self.whereToBtn.setTitleColor(NSColor(hexString: "#525760"), kern: 2)
-        self.verticalBarView.backgroundColor = NSColor(hexString: "#E5E5E5")
+        backgroundColor = NSColor.white
+        dotSquareView.backgroundColor = NSColor.black
+        whereToBtn.setTitleColor(NSColor(hexString: "#525760"), kern: 2)
+        verticalBarView.backgroundColor = NSColor(hexString: "#E5E5E5")
     }
 }
 

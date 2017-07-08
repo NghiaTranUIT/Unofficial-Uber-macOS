@@ -16,7 +16,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     // MARK: - Variable
     fileprivate var viewModel = AppViewModel()
-
     fileprivate var popover: UberPopover!
     fileprivate let disposeBag = DisposeBag()
 
@@ -29,9 +28,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                                                      forEventClass: AEEventClass(kInternetEventClass),
                                                      andEventID: AEEventID(kAEGetURL))
 
-        self.popover = UberPopover(appViewModel: self.viewModel)
-        self.popover.binding()
-        self.popover.startEventMonitor()
+        popover = UberPopover(appViewModel: viewModel)
+        popover.binding()
+        popover.startEventMonitor()
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
@@ -54,21 +53,21 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
 
         // Uber Authentication
-        self.popover.authenViewModel.input.uberCallbackPublish.onNext(event)
+        popover.authenViewModel.input.uberCallbackPublish.onNext(event)
     }
 
     // MARK: - Debug
     @IBAction func currentTripStatusOnTap(_ sender: Any) {
-        self.viewModel.input.currentTripStatusPublish.onNext()
+        viewModel.input.currentTripStatusPublish.onNext()
     }
 
     @IBAction func cancelCurrentTripOnTab(_ sender: Any) {
-        self.viewModel.input.cancelCurrentTripPublish.onNext()
+        viewModel.input.cancelCurrentTripPublish.onNext()
     }
 
     @IBAction func updateStateOnTap(_ sender: NSMenuItem) {
         let status = TripObjStatus.createTripStatus(rawValue: sender.title)
-        self.viewModel.input.updateStatusTripPublish.onNext(status)
+        viewModel.input.updateStatusTripPublish.onNext(status)
     }
 
     @IBAction func logoutUberOnTap(_ sender: NSMenuItem) {
@@ -77,7 +76,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         UberAuth.share.logout()
 
         // Layout
-        self.popover.setupContentController(with: .unAuthenticated)
+        popover.setupContentController(with: .unAuthenticated)
     }
 
 }

@@ -8,6 +8,7 @@
 
 import Mapbox
 import MapboxDirections
+import RxSwift
 import UberGoCore
 
 protocol UberMapViewDelegate: class {
@@ -18,6 +19,8 @@ class UberMapView: MGLMapView {
 
     // MARK: - Variable
     weak var uberMapDelegate: UberMapViewDelegate?
+    fileprivate var viewModel: MapViewModel!
+    fileprivate let disposeBag = DisposeBag()
 
     // Origin
     fileprivate var originPoint: OriginAnnotation?
@@ -40,7 +43,7 @@ class UberMapView: MGLMapView {
     override init(frame: NSRect) {
         super.init(frame: frame)
 
-        self.initCommon()
+        initCommon()
     }
 
     required init?(coder: NSCoder) {
@@ -49,23 +52,56 @@ class UberMapView: MGLMapView {
 
     // MARK: - Private
     fileprivate func initCommon() {
-        self.zoomLevel = 14
-        self.styleURL = MGLStyle.darkStyleURL(withVersion: 9)
-        self.delegate = self
+        zoomLevel = 14
+        styleURL = MGLStyle.darkStyleURL(withVersion: 9)
+        delegate = self
+    }
+
+    public func setupViewModel(_ viewModel: MapViewModel) {
+        self.viewModel = viewModel
+        binding()
+    }
+
+    fileprivate func binding() {
+
+        // Update Location on map
+        viewModel.output.currentLocationDriver
+            .filterNil()
+            .drive(onNext: {[weak self] location in
+                guard let `self` = self else { return }
+                Logger.info("setCenter \(location)")
+                self.addOriginPoint(location.coordinate)
+            })
+            .addDisposableTo(disposeBag)
+
+        // Draw map
+        viewModel.output.selectedDirectionRouteObserver
+            .subscribe(onNext: {[weak self] (route) in
+                guard let `self` = self else { return }
+                self.drawVisbileRoute(route)
+            })
+            .addDisposableTo(disposeBag)
+
+        viewModel.output.routeCurrentTrip
+            .drive(onNext: {[weak self] (route) in
+                guard let `self` = self else { return }
+                self.drawVisbileRoute(route)
+            })
+            .addDisposableTo(disposeBag)
     }
 
     // MARK: - Public
     func configureLayout(_ parentView: NSView, exitBtn: NSButton) {
-        self.translatesAutoresizingMaskIntoConstraints = false
+        translatesAutoresizingMaskIntoConstraints = false
         parentView.addSubview(self, positioned: .below, relativeTo: exitBtn)
-        self.edges(to: parentView)
+        edges(to: parentView)
     }
 
-    func addOriginPoint(_ point: CLLocationCoordinate2D) {
+    fileprivate func addOriginPoint(_ point: CLLocationCoordinate2D) {
 
         // Remove if need
-        if let originPoint = self.originPoint {
-            self.removeAnnotation(originPoint)
+        if let originPoint = originPoint {
+            removeAnnotation(originPoint)
             self.originPoint = nil
         }
 
@@ -74,92 +110,91 @@ class UberMapView: MGLMapView {
         newPoint.title = "Here"
 
         // Add
-        self.addAnnotation(newPoint)
-        self.originPoint = newPoint
+        addAnnotation(newPoint)
+        originPoint = newPoint
 
         // CentralizeMap
-        self.centralizeMap()
+        centralizeMap()
     }
 
     func addDestinationPlaceObj(_ placeObj: PlaceObj?) {
 
         // Remove if need
-        if let currentPoint = self.destinationPoint {
-            self.removeAnnotation(currentPoint)
-            self.destinationPoint = nil
+        if let currentPoint = destinationPoint {
+            removeAnnotation(currentPoint)
+            destinationPoint = nil
         }
 
         // Remove
         guard let placeObj = placeObj else { return }
 
         // Add
-        self.destinationPoint = DestinationAnnotation(placeObj: placeObj)
-        self.addAnnotation(self.destinationPoint!)
+        destinationPoint = DestinationAnnotation(placeObj: placeObj)
+        addAnnotation(destinationPoint!)
 
         // CentralizeMap
-        self.centralizeMap()
+        centralizeMap()
     }
 
     func centralizeMap() {
-        guard let annotations = self.annotations else {
+        guard let annotations = annotations else {
             return
         }
 
         // Center
         if annotations.count == 1 {
             let centerPoint = annotations.first!
-            self.setCenter(centerPoint.coordinate, animated: true)
+            setCenter(centerPoint.coordinate, animated: true)
             return
         }
 
         // Centeralize all visible annotations
         let edge = EdgeInsets(top: 200, left: 70, bottom: 70, right: 70)
-        self.showAnnotations(annotations, edgePadding: edge, animated: true)
+        showAnnotations(annotations, edgePadding: edge, animated: true)
     }
 
     func updateCurrentTripLayout(_ tripObj: TripObj) {
 
         // Pickup
-        self.addPickupPoint(tripObj.pickup)
+        addPickupPoint(tripObj.pickup)
 
         // Driver
-        self.addDriverPoint(tripObj.driver, location: tripObj.location)
+        addDriverPoint(tripObj.driver, location: tripObj.location)
     }
 
     fileprivate func addPickupPoint(_ pickupObj: UberCoordinateObj?) {
 
         // Remove if need
-        if let pickupPoint = self.pickupPoint {
-            self.removeAnnotation(pickupPoint)
+        if let pickupPoint = pickupPoint {
+            removeAnnotation(pickupPoint)
             self.pickupPoint = nil
         }
 
         guard let pickupObj = pickupObj else { return }
 
-        self.pickupPoint = PickupAnnotation()
-        self.pickupPoint!.coordinate = CLLocationCoordinate2D(latitude: pickupObj.latitude!,
+        pickupPoint = PickupAnnotation()
+        pickupPoint!.coordinate = CLLocationCoordinate2D(latitude: pickupObj.latitude!,
                                                               longitude: pickupObj.longitude!)
-        self.pickupPoint!.title = "Pickup"
-        self.addAnnotation(self.pickupPoint!)
+        pickupPoint!.title = "Pickup"
+        addAnnotation(pickupPoint!)
     }
 
     fileprivate func addDriverPoint(_ driverObj: DriverObj?, location: UberCoordinateObj?) {
 
         // Remove if need
-        if let driverPoint = self.driverPoint {
-            self.removeAnnotation(driverPoint)
+        if let driverPoint = driverPoint {
+            removeAnnotation(driverPoint)
             self.driverPoint = nil
         }
 
         guard let location = location else { return }
 
-        self.driverPoint = MGLPointAnnotation()
-        self.driverPoint!.coordinate = CLLocationCoordinate2D(latitude: location.latitude!,
+        driverPoint = MGLPointAnnotation()
+        driverPoint!.coordinate = CLLocationCoordinate2D(latitude: location.latitude!,
                                                               longitude: location.longitude!)
-        self.driverPoint!.title = "Driver"
-        self.addAnnotation(self.driverPoint!)
+        driverPoint!.title = "Driver"
+        addAnnotation(driverPoint!)
     }
-
 }
 
 // MARK: - Route
@@ -168,7 +203,7 @@ extension UberMapView {
     func drawVisbileRoute(_ route: Route?) {
 
         // Reset all Draw
-        self.resetCurrentRoute()
+        resetCurrentRoute()
 
         guard let route = route else { return }
 
@@ -179,11 +214,11 @@ extension UberMapView {
             let routeLine = MGLPolyline(coordinates: &routeCoordinates, count: route.coordinateCount)
 
             // Add the polyline to the map and fit the viewport to the polyline.
-            self.addAnnotation(routeLine)
-            self.visibleRoute = routeLine
+            addAnnotation(routeLine)
+            visibleRoute = routeLine
 
             // Centerizal
-            self.centralizeMap()
+            centralizeMap()
         } else {
             assert(false, "route.coordinateCount == 0")
         }
@@ -196,21 +231,21 @@ extension UberMapView {
     public func resetAllData() {
 
         // Reset Route
-        self.resetCurrentRoute()
+        resetCurrentRoute()
 
         // Remove point
-        if let anno = self.annotations {
-            self.removeAnnotations(anno)
+        if let anno = annotations {
+            removeAnnotations(anno)
         }
-        self.originPoint = nil
-        self.destinationPoint = nil
-        self.pickupPoint = nil
-        self.driverPoint = nil
+        originPoint = nil
+        destinationPoint = nil
+        pickupPoint = nil
+        driverPoint = nil
     }
 
     public func resetCurrentRoute() {
-        if let visibleRoute = self.visibleRoute {
-            self.removeAnnotation(visibleRoute)
+        if let visibleRoute = visibleRoute {
+            removeAnnotation(visibleRoute)
             self.visibleRoute = nil
         }
     }
@@ -224,23 +259,17 @@ extension UberMapView: MGLMapViewDelegate {
     }
 
     func mapView(_ mapView: MGLMapView, alphaForShapeAnnotation annotation: MGLShape) -> CGFloat {
-
-        // Route
         return 0.8
     }
 
     func mapView(_ mapView: MGLMapView, lineWidthForPolylineAnnotation annotation: MGLPolyline) -> CGFloat {
-
-        // Route
         return 3.0
     }
 
     func mapView(_ mapView: MGLMapView, imageFor annotation: MGLAnnotation) -> MGLAnnotationImage? {
-
         if let obj = annotation as? UberAnnotationType {
             return obj.imageAnnotation
         }
-
         return nil
     }
 
@@ -251,10 +280,9 @@ extension UberMapView: MGLMapViewDelegate {
     func mapView(_ mapView: MGLMapView, calloutViewControllerFor annotation: MGLAnnotation) -> NSViewController? {
 
         if let obj = annotation as? UberAnnotationType {
-
             if let annotation = annotation as? OriginAnnotation,
                 destinationPoint != nil {
-                if let timeObj = self.uberMapDelegate?.uberMapViewTimeEstimateForOriginAnnotation() {
+                if let timeObj = uberMapDelegate?.uberMapViewTimeEstimateForOriginAnnotation() {
                     annotation.setupCallout(.withTimeEstimation, timeObj: timeObj)
                 }
             }

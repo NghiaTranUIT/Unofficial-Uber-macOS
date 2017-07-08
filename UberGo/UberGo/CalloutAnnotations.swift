@@ -29,43 +29,43 @@ class CalloutAnnotations: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.initCommon()
-        self.setupLayoutMode(layoutMode)
-        self.setupData()
+        initCommon()
+        setupLayoutMode(layoutMode)
+        setupData()
     }
 
     fileprivate func setupLayoutMode(_ mode: CalloutAnnotationsLayoutMode) {
         switch mode {
         case .withTimeEstimation:
-            self.timeContainerViewWidth.constant = 36
-            self.view.layoutSubtreeIfNeeded()
+            timeContainerViewWidth.constant = 36
+            view.layoutSubtreeIfNeeded()
         case .noTimeEstimation:
-            self.timeContainerViewWidth.constant = 0
-            self.view.layoutSubtreeIfNeeded()
+            timeContainerViewWidth.constant = 0
+            view.layoutSubtreeIfNeeded()
         }
     }
 
     fileprivate func setupData() {
 
-        if let timeObj = self.timeObj {
-            self.timeEstimateLbl.stringValue = "\(timeObj.prettyEstimateTime)"
+        if let timeObj = timeObj {
+            timeEstimateLbl.stringValue = "\(timeObj.prettyEstimateTime)"
         }
 
-        if let destObj = self.destinationObj {
-            self.addressLbl.stringValue = destObj.name ?? ""
+        if let destObj = destinationObj {
+            addressLbl.stringValue = destObj.name ?? ""
         }
     }
 
     // MARK: - Public
     public func setupCallout(mode: CalloutAnnotationsLayoutMode, timeObj: TimeEstimateObj?, destinationObj: PlaceObj?) {
-        self.layoutMode = mode
+        layoutMode = mode
         self.timeObj = timeObj
         self.destinationObj = destinationObj
 
         // Relayout if view hasn't loaded yet
         if isViewLoaded {
-            self.setupLayoutMode(layoutMode)
-            self.setupData()
+            setupLayoutMode(layoutMode)
+            setupData()
         }
     }
 }
@@ -74,6 +74,6 @@ class CalloutAnnotations: NSViewController {
 extension CalloutAnnotations {
 
     fileprivate func initCommon() {
-        self.view.backgroundColor = NSColor.white
+        view.backgroundColor = NSColor.white
     }
 }

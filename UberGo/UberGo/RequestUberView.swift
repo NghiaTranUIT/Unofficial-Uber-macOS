@@ -39,40 +39,40 @@ class RequestUberView: NSView {
     fileprivate var isBinding = false
     fileprivate let disposeBag = DisposeBag()
     fileprivate var selectedProduct: Variable<ProductObj?> {
-        return self.viewModel.output.selectedProduct
+        return viewModel.output.selectedProduct
     }
     fileprivate var selectedGroupProduct: Variable<GroupProductObj?> {
-        return self.viewModel.output.selectedGroupProduct
+        return viewModel.output.selectedGroupProduct
     }
 
     // MARK: - Init
     override func awakeFromNib() {
         super.awakeFromNib()
 
-        self.initCommon()
-        self.initCollectionView()
+        initCommon()
+        initCollectionView()
     }
 
     // MARK: - Binding
     fileprivate func binding() {
 
         // Selecte Group
-        guard self.isBinding == false else { return }
-        self.isBinding = true
+        guard isBinding == false else { return }
+        isBinding = true
 
         // Payment
-        self.updatePaymentMethod()
+        updatePaymentMethod()
 
         // Request Uber service
-        self.viewModel.output.availableGroupProductsDriver
+        viewModel.output.availableGroupProductsDriver
             .drive(onNext: {[weak self] (groups) in
                 guard let `self` = self else { return }
                 self.updateAvailableGroupProducts(groups)
             })
-            .addDisposableTo(self.disposeBag)
+            .addDisposableTo(disposeBag)
 
         // Select Group
-        self.viewModel.output.selectedGroupProduct
+        viewModel.output.selectedGroupProduct
             .asObservable()
             .filterNil()
             .observeOn(MainScheduler.instance)
@@ -89,10 +89,10 @@ class RequestUberView: NSView {
                     }
                 })
             })
-            .addDisposableTo(self.disposeBag)
+            .addDisposableTo(disposeBag)
 
         // Select specific product
-        self.viewModel.output.selectedProduct.asObservable()
+        viewModel.output.selectedProduct.asObservable()
             .filterNil()
             .subscribe(onNext: {[weak self] (productObj) in
                 guard let `self` = self else {
@@ -102,28 +102,28 @@ class RequestUberView: NSView {
                 // Stuffs
                 self.updatePersonalStuffs(productObj)
             })
-            .addDisposableTo(self.disposeBag)
+            .addDisposableTo(disposeBag)
     }
 
     // MARK: - Public
     func configureLayout(_ parentView: NSView) {
-        self.translatesAutoresizingMaskIntoConstraints = false
+        translatesAutoresizingMaskIntoConstraints = false
         parentView.addSubview(self)
 
-        self.edges(to: parentView)
+        edges(to: parentView)
     }
 
     fileprivate func updateAvailableGroupProducts(_ groupProductObjs: [GroupProductObj]) {
 
         // Update Stack
-        self.updateStackView(groupProductObjs)
+        updateStackView(groupProductObjs)
 
         // Reload
-        self.collectionView.reloadData()
+        collectionView.reloadData()
 
         // Manually selection
         if groupProductObjs.isEmpty == false {
-            self.collectionView.selectItems(at: Set<IndexPath>(arrayLiteral: IndexPath(item: 0, section: 0)),
+            collectionView.selectItems(at: Set<IndexPath>(arrayLiteral: IndexPath(item: 0, section: 0)),
                                             scrollPosition: .top)
         }
     }
@@ -132,7 +132,7 @@ class RequestUberView: NSView {
     fileprivate func updateStackView(_ groupProductObjs: [GroupProductObj]) {
 
         // Remove all
-        self.stackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
+        stackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
 
         guard groupProductObjs.isEmpty == false else { return }
         // Create
@@ -141,7 +141,7 @@ class RequestUberView: NSView {
         // add
         for btn in groupViews {
             btn.delegate = self
-            self.stackView.addArrangedSubview(btn)
+            stackView.addArrangedSubview(btn)
         }
 
         // Default selection at first obj
@@ -166,30 +166,30 @@ class RequestUberView: NSView {
             self.cardNumberLbl.stringValue = accountObj.betterAccountDescription
             self.cardNumberLbl.setKern(1.2)
         })
-        .addDisposableTo(self.disposeBag)
+        .addDisposableTo(disposeBag)
     }
 
     // MARK: - Stuffs
     fileprivate func updatePersonalStuffs(_ productObj: ProductObj) {
 
         // Capacity
-        self.seatNumberLnl.stringValue = productObj.prettyCapacity
+        seatNumberLnl.stringValue = productObj.prettyCapacity
 
         // Select Btn
-        self.requestUberBtn.title = "REQUEST \(productObj.displayName ?? "")"
+        requestUberBtn.title = "REQUEST \(productObj.displayName ?? "")"
 
         // High Fare
         if let priceObj = productObj.estimatePrice,
             let rate = priceObj.surgeMultiplier,
             rate >= 1.0 {
-            self.highFareLbl.isHidden = false
+            highFareLbl.isHidden = false
         } else {
-            self.highFareLbl.isHidden = true
+            highFareLbl.isHidden = true
         }
     }
 
     @IBAction func requestBtnOnTapped(_ sender: Any) {
-        self.viewModel.input.requestUberPublisher.onNext()
+        viewModel.input.requestUberPublisher.onNext()
     }
 
     @IBAction func paymentMethodsOnTap(_ sender: Any) {
@@ -202,39 +202,39 @@ class RequestUberView: NSView {
 extension RequestUberView {
 
     fileprivate func initCommon() {
-        self.backgroundColor = NSColor.black
-        self.requestUberBtn.backgroundColor = NSColor.white
-        self.requestUberBtn.setTitleColor(NSColor.black, kern: 2)
-        self.cardNumberLbl.textColor = NSColor.white
-        self.scrollView.backgroundColor = NSColor.black
-        self.collectionView.backgroundColor = NSColor.black
-        self.seatNumberLnl.textColor = NSColor.white
-        self.dividerLineView.backgroundColor = NSColor.white
-        self.highFareLbl.textColor = NSColor.lightGray
+        backgroundColor = NSColor.black
+        requestUberBtn.backgroundColor = NSColor.white
+        requestUberBtn.setTitleColor(NSColor.black, kern: 2)
+        cardNumberLbl.textColor = NSColor.white
+        scrollView.backgroundColor = NSColor.black
+        collectionView.backgroundColor = NSColor.black
+        seatNumberLnl.textColor = NSColor.white
+        dividerLineView.backgroundColor = NSColor.white
+        highFareLbl.textColor = NSColor.lightGray
 
         // Border
-        self.scheduleUberBtn.wantsLayer = true
-        self.scheduleUberBtn.layer?.borderColor = NSColor.white.cgColor
-        self.scheduleUberBtn.layer?.borderWidth = 1
-        self.scheduleUberBtn.layer?.cornerRadius = 4
-        self.scheduleUberBtn.layer?.masksToBounds = true
+        scheduleUberBtn.wantsLayer = true
+        scheduleUberBtn.layer?.borderColor = NSColor.white.cgColor
+        scheduleUberBtn.layer?.borderWidth = 1
+        scheduleUberBtn.layer?.cornerRadius = 4
+        scheduleUberBtn.layer?.masksToBounds = true
 
         // Kern
-        self.cardNumberLbl.setKern(1.2)
+        cardNumberLbl.setKern(1.2)
     }
 
     fileprivate func initCollectionView() {
 
-        self.collectionView.dataSource = self
-        self.collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.delegate = self
 
         // Cell
         let nib = NSNib(nibNamed: "UberProductCell", bundle: nil)
-        self.collectionView.register(nib, forItemWithIdentifier: "UberProductCell")
+        collectionView.register(nib, forItemWithIdentifier: "UberProductCell")
 
         // Flow
         let flow = CenterHorizontalFlowLayout()
-        self.collectionView.collectionViewLayout = flow
+        collectionView.collectionViewLayout = flow
     }
 }
 
@@ -245,7 +245,7 @@ extension RequestUberView: NSCollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard let group = self.selectedGroupProduct.value else {
+        guard let group = selectedGroupProduct.value else {
             return 0
         }
         return group.productObjs.count
@@ -253,7 +253,7 @@ extension RequestUberView: NSCollectionViewDataSource {
 
     func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath)
     -> NSCollectionViewItem {
-        guard let group = self.selectedGroupProduct.value else {
+        guard let group = selectedGroupProduct.value else {
             return NSCollectionViewItem()
         }
 
@@ -266,7 +266,7 @@ extension RequestUberView: NSCollectionViewDataSource {
         cell.configureCell(with: productObj)
 
         // Select
-        let isSelected = productObj === self.selectedProduct.value!
+        let isSelected = productObj === selectedProduct.value!
         cell.isSelected = isSelected
 
         return cell
@@ -274,10 +274,10 @@ extension RequestUberView: NSCollectionViewDataSource {
 
     func collectionView(_ collectionView: NSCollectionView, didSelectItemsAt indexPaths: Set<IndexPath>) {
         guard let indexPath = indexPaths.first else { return }
-        guard let group = self.selectedGroupProduct.value else { return }
+        guard let group = selectedGroupProduct.value else { return }
 
         let obj = group.productObjs[indexPath.item]
-        self.selectedProduct.value = obj
+        selectedProduct.value = obj
     }
 }
 
@@ -292,10 +292,10 @@ extension RequestUberView: UberGroupButtonDelegate {
     func uberGroupButton(_ sender: UberGroupButton, didSelectedGroupObj groupObj: GroupProductObj) {
 
         // Make selection
-        self.selectedGroupProduct.value = groupObj
-        self.selectedProduct.value = groupObj.productObjs.first!
-        self.collectionView.reloadData()
-        self.collectionView.selectItems(at: Set<IndexPath>(arrayLiteral: IndexPath(item: 0, section: 0)),
+        selectedGroupProduct.value = groupObj
+        selectedProduct.value = groupObj.productObjs.first!
+        collectionView.reloadData()
+        collectionView.selectItems(at: Set<IndexPath>(arrayLiteral: IndexPath(item: 0, section: 0)),
                                         scrollPosition: .top)
     }
 }

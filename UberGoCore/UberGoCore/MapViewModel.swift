@@ -77,7 +77,7 @@ open class MapViewModel:
         return mapManager.currentLocationVariable.asDriver()
     }
     public var nearestPlaceDriver: Driver<PlaceObj> {
-        return self.mapManager.nearestPlaceObverser.asDriver(onErrorJustReturn: PlaceObj.unknowPlace)
+        return mapManager.nearestPlaceObverser.asDriver(onErrorJustReturn: PlaceObj.unknowPlace)
     }
     public var searchPlaceObjsVariable = Variable<[PlaceObj]>([])
     fileprivate var personalOrHistoryPlaceObjsVariable = Variable<[PlaceObj]>([])
@@ -85,7 +85,7 @@ open class MapViewModel:
     public var selectedPlaceObjDriver: Driver<PlaceObj?>
     public var selectedDirectionRouteObserver: Observable<Route?>
     public var isSelectedPlace: Driver<Bool> {
-        return self.selectedPlaceObjDriver.map({ $0 != nil })
+        return selectedPlaceObjDriver.map({ $0 != nil })
     }
     public var routeCurrentTrip: Driver<Route?>
 
@@ -99,7 +99,7 @@ open class MapViewModel:
         self.directionService = directionService
 
         // Start update location
-        self.startUpdateLocationTriggerPublisher
+        startUpdateLocationTriggerPublisher
             .asObserver()
             .distinctUntilChanged()
             .subscribe(onNext: {(trigger) in
@@ -109,30 +109,30 @@ open class MapViewModel:
                     mapManager.stopUpdatingLocation()
                 }
             })
-            .addDisposableTo(self.disposeBag)
+            .addDisposableTo(disposeBag)
 
         // Load personal or history place
-        let personalPlace = self.uberService
+        let personalPlace = uberService
             .personalPlaceObserver()
             .startWith([]) // Don't need to wait -> Should show history palce first
             // Map in map: [UberPersonalPlaceObj] -> [PlaceObj]
             .map({ $0.map({ PlaceObj(personalPlaceObj: $0) }) })
 
-        let historyPlace = self.uberService.historyObserver
+        let historyPlace = uberService.historyObserver
 
         Observable.combineLatest([personalPlace, historyPlace])
         .map { (combine) -> [PlaceObj] in
             let personPlaces = combine.first!
             let historyPlaces = combine.last!
             return personPlaces + historyPlaces
-        }.bind(to: self.personalOrHistoryPlaceObjsVariable)
-        .addDisposableTo(self.disposeBag)
+        }.bind(to: personalOrHistoryPlaceObjsVariable)
+        .addDisposableTo(disposeBag)
 
         // Trigger
-        self.uberService.reloadHistoryTrigger.onNext()
+        uberService.reloadHistoryTrigger.onNext()
 
         // Text Search
-        let shared = self.textSearchPublish
+        let shared = textSearchPublish
             .asObservable()
             .share()
 
@@ -163,34 +163,34 @@ open class MapViewModel:
         let personalOrHistoryOb = shared
             .distinctUntilChanged()
             .filter({ $0 == "" })
-            .withLatestFrom(self.personalOrHistoryPlaceObjsVariable.asObservable())
+            .withLatestFrom(personalOrHistoryPlaceObjsVariable.asObservable())
             .share()
 
         // Merage into searchPlace
         let searchFinishOb = Observable.merge([searchPlaceOb,
                           personalOrHistoryOb,
                           emptyOb,
-                          self.personalOrHistoryPlaceObjsVariable.asObservable()])
+                          personalOrHistoryPlaceObjsVariable.asObservable()])
             .skip(1)
             .share()
 
         searchFinishOb
-            .bind(to: self.searchPlaceObjsVariable)
-            .addDisposableTo(self.disposeBag)
+            .bind(to: searchPlaceObjsVariable)
+            .addDisposableTo(disposeBag)
 
         // Loader
         let startLoadingOb = Observable.merge([searchPlaceOb, personalOrHistoryOb]).map { _ in true }
         let stopLoadingOb = searchFinishOb.map { _ in false }
-        self.loadingDriver = Observable.merge([startLoadingOb, stopLoadingOb])
+        loadingDriver = Observable.merge([startLoadingOb, stopLoadingOb])
             .map({ !$0 })
             .asDriver(onErrorJustReturn: false)
 
         // Selected
-        let selectedPlaceObserve = self.didSelectPlaceObjPublisher
+        let selectedPlaceObserve = didSelectPlaceObjPublisher
             .asObserver()
             .share()
 
-        self.selectedPlaceObjDriver = selectedPlaceObserve.asDriver(onErrorJustReturn: nil)
+        selectedPlaceObjDriver = selectedPlaceObserve.asDriver(onErrorJustReturn: nil)
         let clearCurrentDirectionRoute = selectedPlaceObserve.map { _ -> Route? in return nil }
         let getDirection = selectedPlaceObserve
             .flatMapLatest { toPlace -> Observable<Route?> in
@@ -211,7 +211,7 @@ open class MapViewModel:
             }
             .observeOn(MainScheduler.instance)
 
-        self.selectedDirectionRouteObserver = Observable.merge([getDirection, clearCurrentDirectionRoute])
+        selectedDirectionRouteObserver = Observable.merge([getDirection, clearCurrentDirectionRoute])
 
         // Save History place
         selectedPlaceObserve.subscribe(onNext: { placeObj in
@@ -228,10 +228,10 @@ open class MapViewModel:
             // Load again
             uberService.reloadHistoryTrigger.onNext()
         })
-        .addDisposableTo(self.disposeBag)
+        .addDisposableTo(disposeBag)
 
         // Request Route for Current Trip
-        self.routeCurrentTrip = self.routeForCurrentTripPublisher
+        routeCurrentTrip = routeForCurrentTripPublisher
             .asObserver()
             .flatMapLatest { tripObj -> Observable<Route?> in
                 guard let pickup = tripObj.pickup else {

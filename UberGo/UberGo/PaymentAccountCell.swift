@@ -19,10 +19,10 @@ class PaymentAccountCell: NSCollectionViewItem {
     // MARK: - Variable
     override var isSelected: Bool {
         didSet {
-            if self.isSelected {
-                self.tickBtn.isHidden = false
+            if isSelected {
+                tickBtn.isHidden = false
             } else {
-                self.tickBtn.isHidden = true
+                tickBtn.isHidden = true
             }
         }
     }
@@ -31,14 +31,14 @@ class PaymentAccountCell: NSCollectionViewItem {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.initCommon()
+        initCommon()
     }
 
     // MARK: - Public
     func configureCell(with account: PaymentAccountObj) {
-        self.paymentImageView.image = NSImage(imageLiteralResourceName: account.type.imageIconName)
-        self.cardNumberLbl.stringValue = account.betterAccountDescription
-        self.cardNumberLbl.setKern(1.2)
+        paymentImageView.image = NSImage(imageLiteralResourceName: account.type.imageIconName)
+        cardNumberLbl.stringValue = account.betterAccountDescription
+        cardNumberLbl.setKern(1.2)
     }
 }
 
@@ -46,8 +46,8 @@ class PaymentAccountCell: NSCollectionViewItem {
 extension PaymentAccountCell {
 
     fileprivate func initCommon() {
-        self.cardNumberLbl.textColor = NSColor(hexString: "#030303")
-        self.view.backgroundColor = NSColor.white
-        self.dividerLineView.backgroundColor = NSColor(hexString: "#ededed")
+        cardNumberLbl.textColor = NSColor(hexString: "#030303")
+        view.backgroundColor = NSColor.white
+        dividerLineView.backgroundColor = NSColor(hexString: "#ededed")
     }
 }

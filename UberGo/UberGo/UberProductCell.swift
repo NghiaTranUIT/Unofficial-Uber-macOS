@@ -25,10 +25,10 @@ class UberProductCell: NSCollectionViewItem {
     weak var delegate: UberProductCellDelegate?
     override var isSelected: Bool {
         didSet {
-            if self.isSelected {
-                self.productImageView.image = NSImage(imageLiteralResourceName: "uber_car_selected")
+            if isSelected {
+                productImageView.image = NSImage(imageLiteralResourceName: "uber_car_selected")
             } else {
-                self.productImageView.image = NSImage(imageLiteralResourceName: "uber_car")
+                productImageView.image = NSImage(imageLiteralResourceName: "uber_car")
             }
         }
     }

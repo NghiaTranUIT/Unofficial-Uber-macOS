@@ -26,7 +26,7 @@ class PaymentMethodsController: NSViewController {
     fileprivate var paymentObj: PaymentObj!
     fileprivate var selectedAccountObj: PaymentAccountObj? {
         didSet {
-            guard let obj = self.selectedAccountObj else { return }
+            guard let obj = selectedAccountObj else { return }
             guard let currentUser = UberAuth.share.currentUser else { return }
             currentUser.selectedNewPaymentObjVar.value = obj
         }
@@ -36,8 +36,8 @@ class PaymentMethodsController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.initCommon()
-        self.initCollectionView()
+        initCommon()
+        initCollectionView()
 
         // Update
         guard let currentUser = UberAuth.share.currentUser else { return }
@@ -45,11 +45,11 @@ class PaymentMethodsController: NSViewController {
         guard let currentAccount = currentUser.currentPaymentAccountObjVar.value else { return }
 
         // Fill
-        self.paymentObj = paymentMethod
-        self.collectionView.reloadData()
+        paymentObj = paymentMethod
+        collectionView.reloadData()
 
         // Selection
-        guard let paymentAccountObjs = self.paymentObj.paymentAccountObjs else { return }
+        guard let paymentAccountObjs = paymentObj.paymentAccountObjs else { return }
         var index = 0
         for (i, e) in paymentAccountObjs.enumerated()
             where e.paymentMethodId == currentAccount.paymentMethodId {
@@ -57,11 +57,11 @@ class PaymentMethodsController: NSViewController {
             break
         }
         let set = Set<IndexPath>([IndexPath(item: index, section: 0)])
-        self.collectionView.selectItems(at: set, scrollPosition: .top)
+        collectionView.selectItems(at: set, scrollPosition: .top)
     }
 
     @IBAction func exitBtnOnTap(_ sender: Any) {
-        self.delegate?.paymentMethodsControllerShouldDismiss(self)
+        delegate?.paymentMethodsControllerShouldDismiss(self)
     }
 }
 
@@ -70,27 +70,27 @@ extension PaymentMethodsController {
 
     fileprivate func initCommon() {
 
-        self.topBarView.backgroundColor = NSColor.black
-        self.collectionView.backgroundColor = NSColor.white
-        self.titileLbl.textColor = NSColor.white
-        self.titileLbl.setKern(2)
+        topBarView.backgroundColor = NSColor.black
+        collectionView.backgroundColor = NSColor.white
+        titileLbl.textColor = NSColor.white
+        titileLbl.setKern(2)
     }
 
     fileprivate func initCollectionView() {
 
-        self.collectionView.delegate = self
-        self.collectionView.dataSource = self
-        self.collectionView.allowsMultipleSelection = false
-        self.collectionView.allowsEmptySelection = false
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.allowsMultipleSelection = false
+        collectionView.allowsEmptySelection = false
 
         // Register
         let nib = NSNib(nibNamed: "PaymentAccountCell", bundle: nil)
-        self.collectionView.register(nib, forItemWithIdentifier: "PaymentAccountCell")
+        collectionView.register(nib, forItemWithIdentifier: "PaymentAccountCell")
 
         // Flow
         let flow = SearchCollectionViewFlowLayout()
-        flow.itemSize = NSSize(width: self.collectionView.bounds.width, height: 55)
-        self.collectionView.collectionViewLayout = flow
+        flow.itemSize = NSSize(width: collectionView.bounds.width, height: 55)
+        collectionView.collectionViewLayout = flow
     }
 }
 
@@ -101,7 +101,7 @@ extension PaymentMethodsController: NSCollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard let accounts = self.paymentObj.paymentAccountObjs else {
+        guard let accounts = paymentObj.paymentAccountObjs else {
             return 0
         }
         return accounts.count
@@ -112,7 +112,7 @@ extension PaymentMethodsController: NSCollectionViewDataSource {
         // Guard
         guard let cell = collectionView.makeItem(withIdentifier: "PaymentAccountCell", for: indexPath)
             as? PaymentAccountCell,
-        let accounts = self.paymentObj.paymentAccountObjs else {
+        let accounts = paymentObj.paymentAccountObjs else {
                 return NSCollectionViewItem()
         }
         let obj = accounts[indexPath.item]
@@ -125,8 +125,8 @@ extension PaymentMethodsController: NSCollectionViewDataSource {
 extension PaymentMethodsController: NSCollectionViewDelegate {
 
     func collectionView(_ collectionView: NSCollectionView, didSelectItemsAt indexPaths: Set<IndexPath>) {
-        guard let accounts = self.paymentObj.paymentAccountObjs else { return }
+        guard let accounts = paymentObj.paymentAccountObjs else { return }
         guard let indexPath = indexPaths.first else { return }
-        self.selectedAccountObj = accounts[indexPath.item]
+        selectedAccountObj = accounts[indexPath.item]
     }
 }

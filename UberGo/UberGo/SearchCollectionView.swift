@@ -7,12 +7,11 @@
 //
 
 import Cocoa
+import RxSwift
 import UberGoCore
 
 protocol SearchCollectionViewDelegate: class {
-    func searchCollectionViewNumberOfPlace() -> Int
-    func searchCollectionView(_ sender: SearchCollectionView, atIndex: IndexPath) -> PlaceObj
-    func searchCollectionView(_ sender: SearchCollectionView, didSelectItem atIndex: IndexPath)
+    func searchCollectionViewDidSelectItem()
 }
 
 class SearchCollectionView: NSView {
@@ -21,34 +20,85 @@ class SearchCollectionView: NSView {
     @IBOutlet fileprivate weak var collectionView: UberCollectionView!
 
     // MARK: - Variable
+    fileprivate var viewModel: MapViewModel!
+    fileprivate let disposeBag = DisposeBag()
     weak var delegate: SearchCollectionViewDelegate?
 
     // MARK: - View Cycle
     override func awakeFromNib() {
         super.awakeFromNib()
 
-        self.initCommon()
-        self.setupCollectionView()
+        initCommon()
+        setupCollectionView()
     }
 
     // MARK: - Public
     func reloadData() {
-        self.collectionView.reloadData()
+        collectionView.reloadData()
     }
 
-    func configureView(parenView: NSView, searchBarView: SearchBarView) {
-        self.translatesAutoresizingMaskIntoConstraints = false
-        self.topToBottom(of: searchBarView)
-        self.left(to: parenView)
-        self.right(to: parenView)
-        self.bottom(to: parenView)
+    public func setupViewModel(_ viewModel: MapViewModel) {
+        self.viewModel = viewModel
+        binding()
     }
 
-    func layoutStateChanged(_ newState: MapViewLayoutState) {
+    fileprivate func binding() {
+
+        // Reload search Place collectionView
+        viewModel.output.searchPlaceObjsVariable
+            .asObservable()
+            .subscribe(onNext: {[weak self] placeObjs in
+                guard let `self` = self else { return }
+                Logger.info("Place Search FOUND = \(placeObjs.count)")
+                self.reloadData()
+            })
+            .addDisposableTo(disposeBag)
+    }
+}
+
+// MARK: - Private
+extension SearchCollectionView {
+
+    fileprivate func initCommon() {
+        translatesAutoresizingMaskIntoConstraints = false
+        alphaValue = 0
+        isHidden = true
+    }
+
+    fileprivate func setupCollectionView() {
+
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.allowsMultipleSelection = false
+        collectionView.allowsEmptySelection = false
+
+        // Register
+        let nib = NSNib(nibNamed: "SearchPlaceCell", bundle: nil)
+        collectionView.register(nib, forItemWithIdentifier: "SearchPlaceCell")
+
+        // Flow
+        let flow = SearchCollectionViewFlowLayout()
+        flow.itemSize = CGSize(width: collectionView.bounds.width, height: 57)
+        collectionView.collectionViewLayout = flow
+    }
+}
+
+// MARK: - Layout
+extension SearchCollectionView {
+
+    public func configureView(parenView: NSView, searchBarView: SearchBarView) {
+        translatesAutoresizingMaskIntoConstraints = false
+        topToBottom(of: searchBarView)
+        left(to: parenView)
+        right(to: parenView)
+        bottom(to: parenView)
+    }
+
+    public func layoutStateChanged(_ newState: MapViewLayoutState) {
         switch newState {
         case .expand:
-            self.isHidden = false
-            self.alphaValue = 0
+            isHidden = false
+            alphaValue = 0
 
             // Animate
             NSAnimationContext.defaultAnimate({ _ in
@@ -61,8 +111,8 @@ class SearchCollectionView: NSView {
         case .tripFullActivity:
             fallthrough
         case .productSelection:
-            self.isHidden = false
-            self.alphaValue = 1
+            isHidden = false
+            alphaValue = 1
 
             // Animate
             NSAnimationContext.defaultAnimate({ _ in
@@ -71,32 +121,6 @@ class SearchCollectionView: NSView {
                 self.isHidden = true
             })
         }
-    }
-}
-
-// MARK: - Private
-extension SearchCollectionView {
-    fileprivate func initCommon() {
-        self.translatesAutoresizingMaskIntoConstraints = false
-        self.alphaValue = 0
-        self.isHidden = true
-    }
-
-    fileprivate func setupCollectionView() {
-
-        self.collectionView.delegate = self
-        self.collectionView.dataSource = self
-        self.collectionView.allowsMultipleSelection = false
-        self.collectionView.allowsEmptySelection = false
-
-        // Register
-        let nib = NSNib(nibNamed: "SearchPlaceCell", bundle: nil)
-        self.collectionView.register(nib, forItemWithIdentifier: "SearchPlaceCell")
-
-        // Flow
-        let flow = SearchCollectionViewFlowLayout()
-        flow.itemSize = CGSize(width: self.collectionView.bounds.width, height: 57)
-        self.collectionView.collectionViewLayout = flow
     }
 }
 
@@ -112,15 +136,12 @@ extension SearchCollectionView: NSCollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard let delegate = self.delegate else {
-            return 0
-        }
-        return delegate.searchCollectionViewNumberOfPlace()
+        return viewModel.output.searchPlaceObjsVariable.value.count
     }
 
     func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath)
         -> NSCollectionViewItem {
-            return self.getSearchCell(with: collectionView, indexPath: indexPath)
+            return getSearchCell(with: collectionView, indexPath: indexPath)
     }
 
     fileprivate func getSearchCell(with collectionView: NSCollectionView, indexPath: IndexPath)
@@ -131,11 +152,8 @@ extension SearchCollectionView: NSCollectionViewDataSource {
                 as? SearchPlaceCell else {
                     return NSCollectionViewItem()
             }
-            guard let delegate = self.delegate else {
-                return NSCollectionViewItem()
-            }
 
-            let placeObj = delegate.searchCollectionView(self, atIndex: indexPath)
+            let placeObj = viewModel.output.searchPlaceObjsVariable.value[indexPath.item]
             cell.configurePlaceCell(placeObj)
             return cell
     }
@@ -147,9 +165,15 @@ extension SearchCollectionView: NSCollectionViewDelegate, NSCollectionViewDelega
     func collectionView(_ collectionView: NSCollectionView, didSelectItemsAt indexPaths: Set<IndexPath>) {
         let selection = indexPaths as NSSet
         guard let selectedIndexPath = selection.allObjects.last as? IndexPath else { return }
-        self.delegate?.searchCollectionView(self, didSelectItem: selectedIndexPath)
+
+        // Select
+        let placeObj = viewModel.output.searchPlaceObjsVariable.value[selectedIndexPath.item]
+        viewModel.input.didSelectPlaceObjPublisher.onNext(placeObj)
 
         // De-select
-        self.collectionView.deselectItems(at: indexPaths)
+        collectionView.deselectItems(at: indexPaths)
+
+        // Notify delegate
+        delegate?.searchCollectionViewDidSelectItem()
     }
 }
