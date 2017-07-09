@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13122.19" systemVersion="16F73" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12120"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13122.19"/>
+        <capability name="box content view" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
         <capability name="system font weights other than Regular or Bold" minToolsVersion="7.0"/>
     </dependencies>
@@ -13,6 +14,14 @@
         <customView translatesAutoresizingMaskIntoConstraints="NO" id="IHV-1v-vM8" customClass="ActionSearchBarView" customModule="UberGo" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="480" height="56"/>
             <subviews>
+                <box boxType="custom" borderType="none" borderWidth="0.0" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="osL-yK-hq5">
+                    <rect key="frame" x="0.0" y="0.0" width="480" height="56"/>
+                    <view key="contentView" id="IGc-uh-kdW">
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="56"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    </view>
+                    <color key="fillColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </box>
                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="Ekp-Lu-wUt">
                     <rect key="frame" x="20" y="25" width="6" height="6"/>
                     <constraints>
@@ -51,9 +60,13 @@
                 </button>
             </subviews>
             <constraints>
+                <constraint firstItem="osL-yK-hq5" firstAttribute="leading" secondItem="IHV-1v-vM8" secondAttribute="leading" id="0KJ-44-iIT"/>
+                <constraint firstItem="osL-yK-hq5" firstAttribute="top" secondItem="IHV-1v-vM8" secondAttribute="top" id="4nx-7p-Adt"/>
                 <constraint firstItem="rzZ-Qt-n7b" firstAttribute="centerY" secondItem="IHV-1v-vM8" secondAttribute="centerY" id="7Ed-jB-at6"/>
                 <constraint firstItem="Ekp-Lu-wUt" firstAttribute="centerY" secondItem="IHV-1v-vM8" secondAttribute="centerY" id="ACE-4V-qaA"/>
+                <constraint firstAttribute="trailing" secondItem="osL-yK-hq5" secondAttribute="trailing" id="As0-c4-fhD"/>
                 <constraint firstItem="6lM-DA-2RR" firstAttribute="centerY" secondItem="IHV-1v-vM8" secondAttribute="centerY" id="EHp-N8-MKC"/>
+                <constraint firstAttribute="bottom" secondItem="osL-yK-hq5" secondAttribute="bottom" id="Rio-Vd-XIP"/>
                 <constraint firstItem="aRJ-3G-Ijx" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6lM-DA-2RR" secondAttribute="trailing" priority="750" constant="18" id="Whf-2x-VBq"/>
                 <constraint firstItem="6lM-DA-2RR" firstAttribute="leading" secondItem="Ekp-Lu-wUt" secondAttribute="trailing" constant="15" id="aGl-Iu-fmq"/>
                 <constraint firstItem="Ekp-Lu-wUt" firstAttribute="leading" secondItem="IHV-1v-vM8" secondAttribute="leading" constant="20" id="hyW-0O-ZIy"/>

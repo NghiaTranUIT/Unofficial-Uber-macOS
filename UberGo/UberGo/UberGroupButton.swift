@@ -23,10 +23,10 @@ class UberGroupButton: UberButton {
         didSet {
             if state == NSOnState {
                 self.font = NSFont.systemFont(ofSize: 14)
-                self.setTitleColor(NSColor.white, kern: 2)
+                self.setTitleColor(NSColor.black, kern: 2)
             } else {
                 self.font = NSFont.systemFont(ofSize: 13)
-                self.setTitleColor(NSColor.lightGray, kern: 2)
+                self.setTitleColor(NSColor.darkGray, kern: 2)
             }
         }
     }

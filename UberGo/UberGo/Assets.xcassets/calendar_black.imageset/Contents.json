@@ -2,12 +2,12 @@
   "images" : [
     {
       "idiom" : "mac",
-      "filename" : "calendar_white.png",
+      "filename" : "calendar_black.png",
       "scale" : "1x"
     },
     {
       "idiom" : "mac",
-      "filename" : "calendar_white@2x.png",
+      "filename" : "calendar_black@2x.png",
       "scale" : "2x"
     }
   ],

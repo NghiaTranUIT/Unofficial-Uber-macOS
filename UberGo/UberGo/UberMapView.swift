@@ -53,7 +53,7 @@ class UberMapView: MGLMapView {
     // MARK: - Private
     fileprivate func initCommon() {
         zoomLevel = 14
-        styleURL = MGLStyle.darkStyleURL(withVersion: 9)
+        styleURL = MGLStyle.streetsStyleURL(withVersion: 9)
         delegate = self
     }
 
@@ -263,7 +263,7 @@ extension UberMapView: MGLMapViewDelegate {
     }
 
     func mapView(_ mapView: MGLMapView, lineWidthForPolylineAnnotation annotation: MGLPolyline) -> CGFloat {
-        return 3.0
+        return 4.0
     }
 
     func mapView(_ mapView: MGLMapView, imageFor annotation: MGLAnnotation) -> MGLAnnotationImage? {
@@ -274,7 +274,7 @@ extension UberMapView: MGLMapViewDelegate {
     }
 
     func mapView(_ mapView: MGLMapView, strokeColorForShapeAnnotation annotation: MGLShape) -> NSColor {
-        return NSColor.white
+        return NSColor(hexString: "#52565f")
     }
 
     func mapView(_ mapView: MGLMapView, calloutViewControllerFor annotation: MGLAnnotation) -> NSViewController? {

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13122.19" systemVersion="16F73" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12120"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13122.19"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -29,7 +29,7 @@
                     </constraints>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="uber_car" id="8Nd-dL-ZH2"/>
                 </imageView>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MKs-1A-5xj">
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="MKs-1A-5xj">
                     <rect key="frame" x="-2" y="42" width="128" height="19"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Moto" id="Bhx-jJ-LPe">
                         <font key="font" metaFont="system" size="16"/>
@@ -37,7 +37,7 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rCy-hs-erc">
+                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="rCy-hs-erc">
                     <rect key="frame" x="-2" y="24" width="128" height="16"/>
                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="35.000d" id="kwF-no-0zP">
                         <font key="font" metaFont="cellTitle"/>
@@ -60,6 +60,6 @@
         </customView>
     </objects>
     <resources>
-        <image name="uber_car" width="64" height="64"/>
+        <image name="uber_car" width="96" height="96"/>
     </resources>
 </document>

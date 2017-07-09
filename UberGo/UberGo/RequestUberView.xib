@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13122.19" systemVersion="16F73" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12120"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13122.19"/>
+        <capability name="box content view" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
         <capability name="stacking Non-gravity area distributions on NSStackView" minToolsVersion="7.0" minSystemVersion="10.11"/>
+        <capability name="system font weights other than Regular or Bold" minToolsVersion="7.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner"/>
@@ -14,6 +16,14 @@
             <rect key="frame" x="0.0" y="0.0" width="480" height="324"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
+                <box boxType="custom" borderType="none" borderWidth="0.0" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="tn7-gE-xhR">
+                    <rect key="frame" x="0.0" y="0.0" width="480" height="324"/>
+                    <view key="contentView" id="f4a-Xi-rCL">
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="324"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    </view>
+                    <color key="fillColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </box>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ghW-Bi-WIR" customClass="UberButton" customModule="UberGo" customModuleProvider="target">
                     <rect key="frame" x="24" y="12" width="368" height="52"/>
                     <constraints>
@@ -33,7 +43,7 @@
                         <constraint firstAttribute="width" constant="52" id="EMB-3Y-1ZY"/>
                         <constraint firstAttribute="height" constant="52" id="ncv-Nf-Sou"/>
                     </constraints>
-                    <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="calendar_white" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="uZj-tV-cxd">
+                    <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="calendar_black" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="uZj-tV-cxd">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
@@ -48,16 +58,16 @@
                         <action selector="paymentMethodsOnTap:" target="c22-O7-iKe" id="wLx-G8-fMO"/>
                     </connections>
                 </button>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NsZ-1o-kBQ" customClass="UberTextField" customModule="UberGo" customModuleProvider="target">
-                    <rect key="frame" x="70" y="78" width="72" height="19"/>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="NsZ-1o-kBQ" customClass="UberTextField" customModule="UberGo" customModuleProvider="target">
+                    <rect key="frame" x="70" y="77.5" width="72" height="19"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="•••• 1234" placeholderString="" id="6iC-Ld-REG">
                         <font key="font" metaFont="system" size="15"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Thy-KV-ex9">
-                    <rect key="frame" x="422" y="78" width="36" height="19"/>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Thy-KV-ex9">
+                    <rect key="frame" x="422" y="77.5" width="36" height="19"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="1 - 4" placeholderString="" id="Lr6-Il-t6P">
                         <font key="font" metaFont="system" size="15"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -72,7 +82,7 @@
                 </customView>
                 <scrollView wantsLayer="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" verticalScrollElasticity="none" translatesAutoresizingMaskIntoConstraints="NO" id="oke-Td-REg">
                     <rect key="frame" x="0.0" y="117" width="480" height="151"/>
-                    <clipView key="contentView" id="hpl-MZ-107">
+                    <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="hpl-MZ-107">
                         <rect key="frame" x="0.0" y="0.0" width="480" height="151"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -104,10 +114,10 @@
                         <constraint firstAttribute="height" constant="32" id="oWN-3m-gB8"/>
                     </constraints>
                 </stackView>
-                <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X27-dh-KrQ">
-                    <rect key="frame" x="109" y="263" width="263" height="17"/>
+                <textField hidden="YES" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="X27-dh-KrQ">
+                    <rect key="frame" x="110" y="263" width="261" height="17"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Fares are higher due to increased demand" id="b3Q-O5-5BW">
-                        <font key="font" metaFont="system"/>
+                        <font key="font" metaFont="systemLight" size="13"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
@@ -121,9 +131,12 @@
                 <constraint firstItem="cgU-5U-Odr" firstAttribute="leading" secondItem="ghW-Bi-WIR" secondAttribute="trailing" constant="12" id="C5V-Nh-N5Z"/>
                 <constraint firstItem="X27-dh-KrQ" firstAttribute="centerX" secondItem="c22-O7-iKe" secondAttribute="centerX" id="CaN-Sr-9qo"/>
                 <constraint firstItem="ghW-Bi-WIR" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="24" id="D9F-9G-u6K"/>
+                <constraint firstItem="tn7-gE-xhR" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" id="Dop-tZ-fcj"/>
                 <constraint firstItem="Thy-KV-ex9" firstAttribute="trailing" secondItem="cgU-5U-Odr" secondAttribute="trailing" id="EZ6-Th-hIH"/>
+                <constraint firstAttribute="bottom" secondItem="tn7-gE-xhR" secondAttribute="bottom" id="Fyq-lh-0dG"/>
                 <constraint firstItem="yu7-vd-Hdz" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="12" id="GDK-XC-6AW"/>
                 <constraint firstItem="1ZR-0r-VNP" firstAttribute="trailing" secondItem="cgU-5U-Odr" secondAttribute="trailing" id="Ghy-IW-c3x"/>
+                <constraint firstItem="tn7-gE-xhR" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" id="Ixm-Qz-12B"/>
                 <constraint firstItem="Thy-KV-ex9" firstAttribute="centerY" secondItem="NsZ-1o-kBQ" secondAttribute="centerY" id="JlH-EA-5Ov"/>
                 <constraint firstItem="yu7-vd-Hdz" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" constant="12" id="L0o-qv-58u"/>
                 <constraint firstItem="oke-Td-REg" firstAttribute="top" secondItem="yu7-vd-Hdz" secondAttribute="bottom" constant="12" id="M1p-6p-fcj"/>
@@ -133,6 +146,7 @@
                 <constraint firstAttribute="trailing" secondItem="yu7-vd-Hdz" secondAttribute="trailing" constant="12" id="WKJ-iy-nhV"/>
                 <constraint firstAttribute="bottom" secondItem="cgU-5U-Odr" secondAttribute="bottom" constant="12" id="aTb-sC-wFT"/>
                 <constraint firstItem="NsZ-1o-kBQ" firstAttribute="leading" secondItem="cEF-JS-mqq" secondAttribute="trailing" constant="12" id="bdm-P0-09z"/>
+                <constraint firstAttribute="trailing" secondItem="tn7-gE-xhR" secondAttribute="trailing" id="cwl-d8-7Z8"/>
                 <constraint firstItem="1ZR-0r-VNP" firstAttribute="top" secondItem="oke-Td-REg" secondAttribute="bottom" constant="6" id="iki-C1-XtN"/>
                 <constraint firstAttribute="trailing" secondItem="oke-Td-REg" secondAttribute="trailing" id="nUM-Mg-3Ka"/>
                 <constraint firstItem="ghW-Bi-WIR" firstAttribute="top" secondItem="cEF-JS-mqq" secondAttribute="bottom" constant="7" id="sV4-ad-5Qt"/>
@@ -155,7 +169,7 @@
         </customView>
     </objects>
     <resources>
-        <image name="calendar_white" width="24" height="24"/>
+        <image name="calendar_black" width="24" height="24"/>
         <image name="visa_card" width="36" height="22"/>
     </resources>
 </document>

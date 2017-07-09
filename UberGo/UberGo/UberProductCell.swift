@@ -42,8 +42,8 @@ class UberProductCell: NSCollectionViewItem {
     }
 
     fileprivate func initCommon() {
-        productNameLbl.textColor = NSColor.white
-        priceLbl.textColor = NSColor.white
+        productNameLbl.textColor = NSColor.black
+        priceLbl.textColor = NSColor(hexString: "#555555")
     }
 
     // MARK: - Public

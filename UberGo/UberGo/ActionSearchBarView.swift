@@ -58,7 +58,6 @@ extension ActionSearchBarView {
     fileprivate func initCommon() {
 
         // Background
-        backgroundColor = NSColor.white
         dotSquareView.backgroundColor = NSColor.black
         whereToBtn.setTitleColor(NSColor(hexString: "#525760"), kern: 2)
         verticalBarView.backgroundColor = NSColor(hexString: "#E5E5E5")
