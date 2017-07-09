@@ -45,6 +45,10 @@ class ProductDetailController: NSViewController {
     @IBAction func doneBtnOnTap(_ sender: Any) {
         delegate?.productDetailControllerShouldDimiss()
     }
+
+    @IBAction func breakdownBtnOnTap(_ sender: Any) {
+
+    }
 }
 
 // MARK: - Private
