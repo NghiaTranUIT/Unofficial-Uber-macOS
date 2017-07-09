@@ -177,6 +177,7 @@ class RequestUberView: NSView {
 
         // Select Btn
         requestUberBtn.title = "REQUEST \(productObj.displayName ?? "")"
+        requestUberBtn.setTitleColor(NSColor.white, kern: 2)
 
         // High Fare
         if let priceObj = productObj.estimatePrice,
@@ -202,19 +203,15 @@ class RequestUberView: NSView {
 extension RequestUberView {
 
     fileprivate func initCommon() {
-        backgroundColor = NSColor.black
-        requestUberBtn.backgroundColor = NSColor.white
-        requestUberBtn.setTitleColor(NSColor.black, kern: 2)
-        cardNumberLbl.textColor = NSColor.white
-        scrollView.backgroundColor = NSColor.black
-        collectionView.backgroundColor = NSColor.black
-        seatNumberLnl.textColor = NSColor.white
-        dividerLineView.backgroundColor = NSColor.white
-        highFareLbl.textColor = NSColor.lightGray
+        requestUberBtn.setTitleColor(NSColor.white, kern: 2)
+        cardNumberLbl.textColor = NSColor.black
+        seatNumberLnl.textColor = NSColor(hexString: "#989898")
+        highFareLbl.textColor = NSColor.darkGray
+        requestUberBtn.backgroundColor = NSColor.black
 
         // Border
         scheduleUberBtn.wantsLayer = true
-        scheduleUberBtn.layer?.borderColor = NSColor.white.cgColor
+        scheduleUberBtn.layer?.borderColor = NSColor.black.cgColor
         scheduleUberBtn.layer?.borderWidth = 1
         scheduleUberBtn.layer?.cornerRadius = 4
         scheduleUberBtn.layer?.masksToBounds = true
