@@ -189,5 +189,25 @@ struct Constants {
             static let ProductId = "product_id"
 
         }
+
+        // MARK: - Product Detail
+        struct ProductDetail {
+
+            static let ServiceFees = "service_fees"
+            static let CostPerMinute = "cost_per_minute"
+            static let DistanceUnit = "distance_unit"
+            static let Minimum = "minimum"
+            static let CostPerDistance = "cost_per_distance"
+            static let Base = "base"
+            static let CancellationFee = "cancellation_fee"
+            static let CurrencyCode = "currency_code"
+        }
+
+        // MARK: - Service Fee
+        struct ServiceFee {
+
+            static let Fee = "fee"
+            static let Name = "name"
+        }
     }
 }
