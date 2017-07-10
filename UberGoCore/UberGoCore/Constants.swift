@@ -37,6 +37,7 @@ struct Constants {
         static let RequestEstimate = "/v1.2/requests/estimate"
         static let CreateTripRequest = "/v1.2/requests"
         static let GetPaymentMethod = "/v1.2/payment-methods"
+        static let ProductDetail = "/v1.2/products/:id"
 
         // Sandbox
         static let SandboxUpdateProduct = "/v1.2/sandbox/products/:id"
@@ -90,6 +91,7 @@ struct Constants {
             static let DisplayName = "display_name"
             static let ProductGroup = "product_group"
             static let Description = "description"
+            static let PriceDetails = "price_details"
         }
 
         // MARK: - Uber Personal Place

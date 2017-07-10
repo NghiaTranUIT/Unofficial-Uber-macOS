@@ -177,6 +177,12 @@ open class UberService {
                                        endPlaceType: nil)
         return CreateTripRequest(param).toObservable()
     }
+
+    // MARK: - Product Detail
+    public func requestProductDetail(_ productID: String) -> Observable<ProductObj> {
+        let param = ProductDetailRequestParam(productID: productID)
+        return ProductDetailRequest(param).toObservable()
+    }
 }
 
 // MARK: - Private

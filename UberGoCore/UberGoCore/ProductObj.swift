@@ -6,8 +6,8 @@
 //  Copyright © 2017 Nghia Tran. All rights reserved.
 //
 
-import Cocoa
 import ObjectMapper
+import RxSwift
 
 open class ProductObj: BaseObj {
 
@@ -33,6 +33,11 @@ open class ProductObj: BaseObj {
     public var estimatePrice: PriceObj?
     public var estimateTime: TimeEstimateObj?
 
+    // Product Detail
+    public var productDetail: ProductDetailObj?
+    public lazy var productDetailVariable: Variable<ProductDetailObj?> = self.initLazyProductDetail()
+
+    // Map
     override public func mapping(map: Map) {
         super.mapping(map: map)
 
@@ -46,6 +51,14 @@ open class ProductObj: BaseObj {
         self.displayName <- map[Constants.Object.Product.DisplayName]
         self.productGroup <- map[Constants.Object.Product.ProductGroup]
         self.descr <- map[Constants.Object.Product.Description]
+        self.productDetail <- map[Constants.Object.Product.PriceDetails]
+    }
+
+    fileprivate func initLazyProductDetail() -> Variable<ProductDetailObj?> {
+
+        
+
+        return Variable<ProductDetailObj?>(nil)
     }
 }
 
