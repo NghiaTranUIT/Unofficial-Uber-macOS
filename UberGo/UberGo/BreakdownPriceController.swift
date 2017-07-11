@@ -34,7 +34,7 @@ class BreakdownPriceController: NSViewController {
         self.productObj = productObj
     }
     @IBAction func exitBtnOnTap(_ sender: Any) {
-
+        presenting?.dismissViewController(self)
     }
 }
 

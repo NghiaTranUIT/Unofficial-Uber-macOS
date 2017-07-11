@@ -47,7 +47,9 @@ class ProductDetailController: NSViewController {
     }
 
     @IBAction func breakdownBtnOnTap(_ sender: Any) {
-
+        let controller = BreakdownPriceController(nibName: "BreakdownPriceController", bundle: nil)!
+        controller.configureController(productObj)
+        presentViewControllerAsSheet(controller)
     }
 }
 

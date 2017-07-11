@@ -14,16 +14,17 @@
                 <outlet property="descriptionLbl" destination="vLN-7y-fpz" id="nnY-I4-FOP"/>
                 <outlet property="stackView" destination="mFq-5R-B3n" id="Exd-LC-UZJ"/>
                 <outlet property="titleLbl" destination="i2c-I6-PUj" id="xqw-jw-5zD"/>
+                <outlet property="view" destination="13v-T8-xof" id="byp-C1-0TQ"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="13v-T8-xof">
-            <rect key="frame" x="0.0" y="0.0" width="480" height="380"/>
+            <rect key="frame" x="0.0" y="0.0" width="480" height="513"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="ipm-Vi-CVC">
-                    <rect key="frame" x="0.0" y="280" width="480" height="100"/>
+                    <rect key="frame" x="0.0" y="413" width="480" height="100"/>
                     <subviews>
                         <box boxType="custom" borderType="none" borderWidth="0.0" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="lIU-In-qkQ">
                             <rect key="frame" x="0.0" y="0.0" width="480" height="100"/>
@@ -69,18 +70,18 @@
                     </constraints>
                 </customView>
                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="NFp-Aa-Yoa">
-                    <rect key="frame" x="0.0" y="0.0" width="480" height="280"/>
+                    <rect key="frame" x="0.0" y="0.0" width="480" height="413"/>
                     <subviews>
                         <box boxType="custom" borderType="none" borderWidth="0.0" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="bWV-mE-CVL">
-                            <rect key="frame" x="0.0" y="0.0" width="480" height="280"/>
+                            <rect key="frame" x="0.0" y="0.0" width="480" height="413"/>
                             <view key="contentView" id="mfo-uY-5kd">
-                                <rect key="frame" x="0.0" y="0.0" width="480" height="280"/>
+                                <rect key="frame" x="0.0" y="0.0" width="480" height="413"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </view>
                             <color key="fillColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </box>
                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="vLN-7y-fpz">
-                            <rect key="frame" x="38" y="217" width="404" height="34"/>
+                            <rect key="frame" x="38" y="350" width="404" height="34"/>
                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" id="RYw-SL-yUy">
                                 <font key="font" metaFont="system"/>
                                 <string key="title">Your fare will be the price presented before the trip or based on the rates below and other applicable surcharges and adjustments.</string>
@@ -89,15 +90,15 @@
                             </textFieldCell>
                         </textField>
                         <stackView distribution="equalSpacing" orientation="vertical" alignment="centerX" spacing="6" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mFq-5R-B3n">
-                            <rect key="frame" x="40" y="188" width="400" height="0.0"/>
+                            <rect key="frame" x="40" y="321" width="400" height="0.0"/>
                         </stackView>
                     </subviews>
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="vLN-7y-fpz" secondAttribute="trailing" constant="40" id="2He-Oo-0Ic"/>
                         <constraint firstItem="vLN-7y-fpz" firstAttribute="top" secondItem="NFp-Aa-Yoa" secondAttribute="top" constant="29" id="G0A-O8-KoF"/>
+                        <constraint firstAttribute="height" constant="413" id="GPX-CG-id7"/>
                         <constraint firstAttribute="bottom" secondItem="bWV-mE-CVL" secondAttribute="bottom" id="GSH-bq-GLc"/>
                         <constraint firstItem="mFq-5R-B3n" firstAttribute="leading" secondItem="NFp-Aa-Yoa" secondAttribute="leading" constant="40" id="IQ0-fP-rlX"/>
-                        <constraint firstAttribute="height" constant="280" id="JO0-Ke-4kD"/>
                         <constraint firstItem="bWV-mE-CVL" firstAttribute="top" secondItem="NFp-Aa-Yoa" secondAttribute="top" id="JPg-sb-abg"/>
                         <constraint firstItem="vLN-7y-fpz" firstAttribute="leading" secondItem="NFp-Aa-Yoa" secondAttribute="leading" constant="40" id="KsB-Uq-Udd"/>
                         <constraint firstAttribute="trailing" secondItem="mFq-5R-B3n" secondAttribute="trailing" constant="40" id="Pbw-Fy-hGg"/>
@@ -117,7 +118,7 @@
                 <constraint firstItem="ipm-Vi-CVC" firstAttribute="top" secondItem="13v-T8-xof" secondAttribute="top" id="XPX-Sb-bHg"/>
                 <constraint firstItem="NFp-Aa-Yoa" firstAttribute="top" secondItem="ipm-Vi-CVC" secondAttribute="bottom" id="nUz-yq-ntT"/>
             </constraints>
-            <point key="canvasLocation" x="76" y="256"/>
+            <point key="canvasLocation" x="76" y="322.5"/>
         </customView>
     </objects>
     <resources>

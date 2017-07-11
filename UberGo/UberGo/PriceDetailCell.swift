@@ -12,8 +12,8 @@ import UberGoCore
 class PriceDetailCell: NSView {
 
     // MARK: - Variable
-    @IBOutlet weak var titleLbl: NSTextField!
-    @IBOutlet weak var priceLbl: NSTextField!
+    @IBOutlet weak fileprivate var titleLbl: NSTextField!
+    @IBOutlet weak fileprivate var priceLbl: NSTextField!
     fileprivate var serviceFeeObj: ServiceFeeObj!
 
     // MARK: - View Cycle
@@ -21,7 +21,6 @@ class PriceDetailCell: NSView {
         super.awakeFromNib()
 
         initCommon()
-        setupData()
     }
 
     // MARK: - Public
