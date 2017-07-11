@@ -7,13 +7,43 @@
 //
 
 import Cocoa
+import UberGoCore
 
 class PriceDetailCell: NSView {
 
-    override func draw(_ dirtyRect: NSRect) {
-        super.draw(dirtyRect)
+    // MARK: - Variable
+    @IBOutlet weak var titleLbl: NSTextField!
+    @IBOutlet weak var priceLbl: NSTextField!
+    fileprivate var serviceFeeObj: ServiceFeeObj!
 
-        // Drawing code here.
+    // MARK: - View Cycle
+    override func awakeFromNib() {
+        super.awakeFromNib()
+
+        initCommon()
+        setupData()
     }
-    
+
+    // MARK: - Public
+    public func configureCell(_ feeObj: ServiceFeeObj) {
+        serviceFeeObj = feeObj
+        setupData()
+    }
+}
+
+// MARK: - Private
+extension PriceDetailCell {
+
+    fileprivate func initCommon() {
+
+    }
+
+    fileprivate func setupData() {
+        titleLbl.stringValue = serviceFeeObj.name ?? ""
+        priceLbl.stringValue = "\(serviceFeeObj.fee ?? 0)"
+    }
+}
+
+extension PriceDetailCell: XIBInitializable {
+    typealias XibType = PriceDetailCell
 }

@@ -20,6 +20,33 @@ open class PriceDetailObj: BaseObj {
     public var cancellationFee: Float?
     public var currencyCode: String?
 
+    // Get all available services
+    // The list isn't always fixed
+    public lazy var allAvailableServiceFees: [ServiceFeeObj] = {
+        var services: [ServiceFeeObj] = []
+
+        // Base
+        if let base = self.base {
+            services.append(ServiceFeeObj.serviceFee(name: "Base Fare", fee: base))
+        }
+        if let minimun = self.minimum {
+            services.append(ServiceFeeObj.serviceFee(name: "Minimum Fare", fee: minimun))
+        }
+        if let costPerMinute = self.costPerMinute {
+            services.append(ServiceFeeObj.serviceFee(name: "+ Per Minute", fee: costPerMinute))
+        }
+        if let costPerDistance = self.costPerDistance {
+            services.append(ServiceFeeObj.serviceFee(name: "+ Per \(self.distanceUnit ?? "KM")", fee: costPerDistance))
+        }
+
+        // Append
+        if let fees = self.serviceFees {
+            services.append(contentsOf: fees)
+        }
+
+        return services
+    }()
+
     override public func mapping(map: Map) {
         super.mapping(map: map)
 

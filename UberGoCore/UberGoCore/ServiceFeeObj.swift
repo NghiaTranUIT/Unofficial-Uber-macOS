@@ -20,4 +20,11 @@ open class ServiceFeeObj: BaseObj {
         self.fee <- map[Constants.Object.ServiceFee.Fee]
         self.name <- map[Constants.Object.ServiceFee.Name]
     }
+
+    public class func serviceFee(name: String, fee: Float) -> ServiceFeeObj {
+        let obj = ServiceFeeObj()
+        obj.name = name
+        obj.fee = fee
+        return obj
+    }
 }

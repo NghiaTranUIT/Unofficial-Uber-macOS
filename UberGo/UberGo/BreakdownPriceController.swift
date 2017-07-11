@@ -7,16 +7,33 @@
 //
 
 import Cocoa
+import RxSwift
 import UberGoCore
 
 class BreakdownPriceController: NSViewController {
 
+    // MARK: - OUTLET
+    @IBOutlet weak fileprivate var titleLbl: UberTextField!
+    @IBOutlet weak fileprivate var descriptionLbl: NSTextField!
+    @IBOutlet weak fileprivate var stackView: NSStackView!
+    
     // MARK: - Variable
     fileprivate var productObj: ProductObj!
+    fileprivate var disposeBag = DisposeBag()
 
     // MARK: - View Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        initCommon()
+        setupData()
+    }
+
+    // MARK: - Public
+    public func configureController(_ productObj: ProductObj) {
+        self.productObj = productObj
+    }
+    @IBAction func exitBtnOnTap(_ sender: Any) {
 
     }
 }
@@ -25,10 +42,44 @@ class BreakdownPriceController: NSViewController {
 extension BreakdownPriceController {
 
     fileprivate func initCommon() {
-
+        titleLbl.setKern(2)
     }
 
-    fileprivate func updatePriceDetail() {
+    fileprivate func setupData() {
         productObj.updatePriceDetail()
+
+        // Setup if data available
+        if let priceObj = productObj.priceDetailVariable.value {
+            setupStackView(priceObj)
+            return
+        }
+
+        // Observe
+        productObj.priceDetailVariable.asDriver()
+            .filterNil()
+            .drive(onNext: {[weak self] (priceObj) in
+                guard let `self` = self else { return }
+                self.setupStackView(priceObj)
+            })
+            .addDisposableTo(disposeBag)
+    }
+
+    fileprivate func setupStackView(_ priceObjs: PriceDetailObj) {
+
+        // Remove all
+        stackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
+
+        // Data
+        let services = priceObjs.allAvailableServiceFees
+
+        // Create
+        let groupViews = services.map { (serviceFee) -> PriceDetailCell in
+            let cell = PriceDetailCell.viewFromNib(with: BundleType.app)!
+            cell.configureCell(serviceFee)
+            return cell
+        }
+
+        // add
+        groupViews.forEach { stackView.addArrangedSubview($0) }
     }
 }

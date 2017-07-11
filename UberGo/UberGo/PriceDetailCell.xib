@@ -43,6 +43,10 @@
                 <constraint firstItem="M8g-x6-v3c" firstAttribute="leading" secondItem="RWE-Iz-Ach" secondAttribute="trailing" constant="8" id="vAw-hX-GZQ"/>
                 <constraint firstAttribute="bottom" secondItem="QTM-r8-yfc" secondAttribute="bottom" id="ygT-Hi-Ole"/>
             </constraints>
+            <connections>
+                <outlet property="priceLbl" destination="M8g-x6-v3c" id="OQx-Ap-O2W"/>
+                <outlet property="titleLbl" destination="QTM-r8-yfc" id="VvE-ri-LVJ"/>
+            </connections>
         </customView>
     </objects>
 </document>
