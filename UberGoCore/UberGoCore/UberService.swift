@@ -179,9 +179,9 @@ open class UberService {
     }
 
     // MARK: - Product Detail
-    public func requestProductDetail(_ productID: String) -> Observable<ProductObj> {
-        let param = ProductDetailRequestParam(productID: productID)
-        return ProductDetailRequest(param).toObservable()
+    public func requestPriceDetail(_ productID: String) -> Observable<ProductObj> {
+        let param = PriceDetailRequestParam(productID: productID)
+        return PriceDetailRequest(param).toObservable()
     }
 }
 

@@ -7,12 +7,28 @@
 //
 
 import Cocoa
+import UberGoCore
 
 class BreakdownPriceController: NSViewController {
 
+    // MARK: - Variable
+    fileprivate var productObj: ProductObj!
+
+    // MARK: - View Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do view setup here.
+
     }
-    
+}
+
+// MARK: - Private
+extension BreakdownPriceController {
+
+    fileprivate func initCommon() {
+
+    }
+
+    fileprivate func updatePriceDetail() {
+        productObj.updatePriceDetail()
+    }
 }

@@ -34,7 +34,7 @@ open class ProductObj: BaseObj {
     public var estimateTime: TimeEstimateObj?
 
     // Product Detail
-    fileprivate var priceDetailDetail: PriceDetailObj?
+    public var priceDetail: PriceDetailObj?
     public lazy var priceDetailVariable: Variable<PriceDetailObj?> = self.initLazyPriceDetail()
 
     // Map
@@ -51,16 +51,21 @@ open class ProductObj: BaseObj {
         self.displayName <- map[Constants.Object.Product.DisplayName]
         self.productGroup <- map[Constants.Object.Product.ProductGroup]
         self.descr <- map[Constants.Object.Product.Description]
-        self.priceDetailDetail <- map[Constants.Object.Product.PriceDetails]
+        self.priceDetail <- map[Constants.Object.Product.PriceDetails]
     }
 
     fileprivate func initLazyPriceDetail() -> Variable<PriceDetailObj?> {
-        return Variable<PriceDetailObj?>(priceDetailDetail)
+        return Variable<PriceDetailObj?>(priceDetail)
     }
 
     // MARK: - Public
-    public func fetchPriceDetail() {
-
+    public func updatePriceDetail() {
+        guard let productId = self.productId else { return }
+        UberService().requestPriceDetail(productId)
+            .map { $0.priceDetail }
+            .filterNil()
+            .bind(to: priceDetailVariable)
+            .addDisposableTo(disposeBag)
     }
 }
 

@@ -24,6 +24,8 @@
 		BA4796A91EE2C49700620BB0 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA4796A81EE2C49700620BB0 /* MapKit.framework */; };
 		BA5895D41F1287C300235041 /* BreakdownPriceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5895D21F1287C300235041 /* BreakdownPriceController.swift */; };
 		BA5895D51F1287C300235041 /* BreakdownPriceController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA5895D31F1287C300235041 /* BreakdownPriceController.xib */; };
+		BA657DA71F149B6E007E4821 /* PriceDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA657DA61F149B6E007E4821 /* PriceDetailCell.swift */; };
+		BA657DA91F149B7A007E4821 /* PriceDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA657DA81F149B7A007E4821 /* PriceDetailCell.xib */; };
 		BA67673D1EFA295D00805AC1 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA67673B1EFA295D00805AC1 /* WebViewController.swift */; };
 		BA67673E1EFA295D00805AC1 /* WebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA67673C1EFA295D00805AC1 /* WebViewController.xib */; };
 		BA7BA9831EE42C060056B0CF /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA7BA9821EE42C060056B0CF /* CoreLocation.framework */; };
@@ -126,6 +128,8 @@
 		BA5895D21F1287C300235041 /* BreakdownPriceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreakdownPriceController.swift; sourceTree = "<group>"; };
 		BA5895D31F1287C300235041 /* BreakdownPriceController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BreakdownPriceController.xib; sourceTree = "<group>"; };
 		BA5895D91F1288AE00235041 /* IMG_6636@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "IMG_6636@2x.jpg"; sourceTree = "<group>"; };
+		BA657DA61F149B6E007E4821 /* PriceDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceDetailCell.swift; sourceTree = "<group>"; };
+		BA657DA81F149B7A007E4821 /* PriceDetailCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PriceDetailCell.xib; sourceTree = "<group>"; };
 		BA67673B1EFA295D00805AC1 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		BA67673C1EFA295D00805AC1 /* WebViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WebViewController.xib; sourceTree = "<group>"; };
 		BA7BA9821EE42C060056B0CF /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -315,6 +319,15 @@
 			name = View;
 			sourceTree = "<group>";
 		};
+		BA657DA51F149B46007E4821 /* Price Detail Cell */ = {
+			isa = PBXGroup;
+			children = (
+				BA657DA61F149B6E007E4821 /* PriceDetailCell.swift */,
+				BA657DA81F149B7A007E4821 /* PriceDetailCell.xib */,
+			);
+			name = "Price Detail Cell";
+			sourceTree = "<group>";
+		};
 		BAAC44191EF3A4AB00A9F949 /* Uber Map View */ = {
 			isa = PBXGroup;
 			children = (
@@ -382,6 +395,7 @@
 		BAB14AC71EF660030066267B /* Uber */ = {
 			isa = PBXGroup;
 			children = (
+				BA657DA51F149B46007E4821 /* Price Detail Cell */,
 				BACC07AF1F036C5A0092F2F4 /* Uber Popover */,
 				BAB7B8DE1EFF67BE00B508A1 /* Trip Activity */,
 				BA1C3FB81EFAB1B5001FD50F /* Payment Account Cell */,
@@ -669,6 +683,7 @@
 				BA5895D51F1287C300235041 /* BreakdownPriceController.xib in Resources */,
 				BAB7B8E21EFF67DF00B508A1 /* TripActivityView.xib in Resources */,
 				BAE3CCF21EF5815600F264CA /* RequestUberView.xib in Resources */,
+				BA657DA91F149B7A007E4821 /* PriceDetailCell.xib in Resources */,
 				BAF57FC01EE117300013090E /* MapViewController.xib in Resources */,
 				BA67673E1EFA295D00805AC1 /* WebViewController.xib in Resources */,
 			);
@@ -831,6 +846,7 @@
 				BACC07B11F036C6E0092F2F4 /* UberPopover.swift in Sources */,
 				BACC07AB1F0367300092F2F4 /* Constrainable.swift in Sources */,
 				BAAC441B1EF3A4BE00A9F949 /* UberMapView.swift in Sources */,
+				BA657DA71F149B6E007E4821 /* PriceDetailCell.swift in Sources */,
 				BAB082171F04B7A300A74665 /* OriginAnnotation.swift in Sources */,
 				BA1C3FB41EFA6852001FD50F /* PaymentMethodsController.swift in Sources */,
 				BA2A3A861EED430D002A0343 /* SearchCollectionView.swift in Sources */,

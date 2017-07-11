@@ -243,7 +243,7 @@ class UberServiceTests: XCTestCase {
                 }
 
                 // Then
-                UberService().requestProductDetail(firstObj.productId!)
+                UberService().requestPriceDetail(firstObj.productId!)
                     .subscribe(onNext: { product in
                         if product.priceDetailVariable.value == nil {
                             XCTFail("productDetail is nil")

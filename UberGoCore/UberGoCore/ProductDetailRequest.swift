@@ -1,5 +1,5 @@
 //
-//  ProductDetailRequest.swift
+//  PriceDetailRequest.swift
 //  UberGoCore
 //
 //  Created by Nghia Tran on 7/10/17.
@@ -11,7 +11,7 @@ import CoreLocation
 import Foundation
 import ObjectMapper
 
-public struct ProductDetailRequestParam: Parameter {
+public struct PriceDetailRequestParam: Parameter {
 
     public let productID: String
 
@@ -20,14 +20,14 @@ public struct ProductDetailRequestParam: Parameter {
     }
 }
 
-open class ProductDetailRequest: Requestable {
+open class PriceDetailRequest: Requestable {
 
     // Type
     typealias Element = ProductObj
 
     // Endpoint
     var endpoint: String {
-        guard let param = self.param as? ProductDetailRequestParam else {
+        guard let param = self.param as? PriceDetailRequestParam else {
             return Constants.UberAPI.ProductDetail
         }
         return Constants.UberAPI.ProductDetail.replacingOccurrences(of: ":id",
@@ -39,10 +39,10 @@ open class ProductDetailRequest: Requestable {
 
     // Param
     var param: Parameter? { return _param }
-    fileprivate var _param: ProductDetailRequestParam
+    fileprivate var _param: PriceDetailRequestParam
 
     // MARK: - Init
-    init(_ param: ProductDetailRequestParam) {
+    init(_ param: PriceDetailRequestParam) {
         self._param = param
     }
 
