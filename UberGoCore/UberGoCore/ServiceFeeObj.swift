@@ -27,4 +27,22 @@ open class ServiceFeeObj: BaseObj {
         obj.fee = fee
         return obj
     }
+
+    // MARK: - Public
+    public var prettyName: String {
+        guard let name = self.name else { return "" }
+        return name.localizedCapitalized
+    }
+
+    public var prettyFee: String {
+        guard let fee = self.fee else { return "0" }
+        return "\(fee)"
+    }
+
+    public func prettyFeeWithCurrency(_ currency: String?) -> String {
+        if let currency = currency {
+            return "\(prettyFee) \(currency)"
+        }
+        return prettyFee
+    }
 }

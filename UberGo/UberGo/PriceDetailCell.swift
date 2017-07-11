@@ -14,19 +14,17 @@ class PriceDetailCell: NSView {
     // MARK: - Variable
     @IBOutlet weak fileprivate var titleLbl: NSTextField!
     @IBOutlet weak fileprivate var priceLbl: NSTextField!
-    fileprivate var serviceFeeObj: ServiceFeeObj!
 
     // MARK: - View Cycle
     override func awakeFromNib() {
         super.awakeFromNib()
-
         initCommon()
     }
 
     // MARK: - Public
-    public func configureCell(_ feeObj: ServiceFeeObj) {
-        serviceFeeObj = feeObj
-        setupData()
+    public func configureCell(_ feeObj: ServiceFeeObj, currency: String?) {
+        titleLbl.stringValue = feeObj.prettyName
+        priceLbl.stringValue = feeObj.prettyFeeWithCurrency(currency)
     }
 }
 
@@ -35,11 +33,6 @@ extension PriceDetailCell {
 
     fileprivate func initCommon() {
 
-    }
-
-    fileprivate func setupData() {
-        titleLbl.stringValue = serviceFeeObj.name ?? ""
-        priceLbl.stringValue = "\(serviceFeeObj.fee ?? 0)"
     }
 }
 

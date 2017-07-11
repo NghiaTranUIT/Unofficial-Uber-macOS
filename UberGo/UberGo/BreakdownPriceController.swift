@@ -64,18 +64,18 @@ extension BreakdownPriceController {
             .addDisposableTo(disposeBag)
     }
 
-    fileprivate func setupStackView(_ priceObjs: PriceDetailObj) {
+    fileprivate func setupStackView(_ priceObj: PriceDetailObj) {
 
         // Remove all
         stackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
 
         // Data
-        let services = priceObjs.allAvailableServiceFees
+        let services = priceObj.allAvailableServiceFees
 
         // Create
         let groupViews = services.map { (serviceFee) -> PriceDetailCell in
             let cell = PriceDetailCell.viewFromNib(with: BundleType.app)!
-            cell.configureCell(serviceFee)
+            cell.configureCell(serviceFee, currency: priceObj.currencyCode)
             return cell
         }
 
