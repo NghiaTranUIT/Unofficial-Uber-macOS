@@ -245,7 +245,7 @@ class UberServiceTests: XCTestCase {
                 // Then
                 UberService().requestProductDetail(firstObj.productId!)
                     .subscribe(onNext: { product in
-                        if product.productDetail == nil {
+                        if product.priceDetailVariable.value == nil {
                             XCTFail("productDetail is nil")
                         }
                         promise.fulfill()

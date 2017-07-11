@@ -34,8 +34,8 @@ open class ProductObj: BaseObj {
     public var estimateTime: TimeEstimateObj?
 
     // Product Detail
-    public var productDetail: ProductDetailObj?
-    public lazy var productDetailVariable: Variable<ProductDetailObj?> = self.initLazyProductDetail()
+    fileprivate var priceDetailDetail: PriceDetailObj?
+    public lazy var priceDetailVariable: Variable<PriceDetailObj?> = self.initLazyPriceDetail()
 
     // Map
     override public func mapping(map: Map) {
@@ -51,14 +51,16 @@ open class ProductObj: BaseObj {
         self.displayName <- map[Constants.Object.Product.DisplayName]
         self.productGroup <- map[Constants.Object.Product.ProductGroup]
         self.descr <- map[Constants.Object.Product.Description]
-        self.productDetail <- map[Constants.Object.Product.PriceDetails]
+        self.priceDetailDetail <- map[Constants.Object.Product.PriceDetails]
     }
 
-    fileprivate func initLazyProductDetail() -> Variable<ProductDetailObj?> {
+    fileprivate func initLazyPriceDetail() -> Variable<PriceDetailObj?> {
+        return Variable<PriceDetailObj?>(priceDetailDetail)
+    }
 
-        
+    // MARK: - Public
+    public func fetchPriceDetail() {
 
-        return Variable<ProductDetailObj?>(nil)
     }
 }
 

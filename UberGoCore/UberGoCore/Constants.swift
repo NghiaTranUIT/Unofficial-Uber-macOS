@@ -192,8 +192,8 @@ struct Constants {
 
         }
 
-        // MARK: - Product Detail
-        struct ProductDetail {
+        // MARK: - Price Detail
+        struct PriceDetail {
 
             static let ServiceFees = "service_fees"
             static let CostPerMinute = "cost_per_minute"
