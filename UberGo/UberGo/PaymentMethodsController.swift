@@ -69,9 +69,6 @@ class PaymentMethodsController: NSViewController {
 extension PaymentMethodsController {
 
     fileprivate func initCommon() {
-
-        topBarView.backgroundColor = NSColor.black
-        collectionView.backgroundColor = NSColor.white
         titileLbl.textColor = NSColor.white
         titileLbl.setKern(2)
     }

@@ -226,4 +226,41 @@ class UberServiceTests: XCTestCase {
         // Expect
         waitForExpectations(timeout: 10, handler: nil)
     }
+
+    func testRequestProductDetailObserver() {
+
+        let promise = expectation(description: "testRequestProductDetailObserver")
+        FakeUberCrendential.makeCurrentUser()
+        let location = LocationHelper.originLocation
+
+        // Then
+        UberService().availableProductsObserver(at: location)
+            .subscribe(onNext: { [unowned self] products in
+
+                guard let firstObj = products.first else {
+                    XCTFail("No Product available")
+                    return
+                }
+
+                // Then
+                UberService().requestPriceDetail(firstObj.productId!)
+                    .subscribe(onNext: { product in
+                        if product.priceDetailVariable.value == nil {
+                            XCTFail("productDetail is nil")
+                        }
+                        promise.fulfill()
+                    }, onError: { error in
+                        XCTFail(error.localizedDescription)
+                    })
+                    .addDisposableTo(self.disposeBag)
+
+            }, onError: { error in
+                XCTFail(error.localizedDescription)
+            })
+            .addDisposableTo(self.disposeBag)
+
+        // Expect
+        waitForExpectations(timeout: 10, handler: nil)
+    }
+
 }

@@ -37,6 +37,7 @@ struct Constants {
         static let RequestEstimate = "/v1.2/requests/estimate"
         static let CreateTripRequest = "/v1.2/requests"
         static let GetPaymentMethod = "/v1.2/payment-methods"
+        static let ProductDetail = "/v1.2/products/:id"
 
         // Sandbox
         static let SandboxUpdateProduct = "/v1.2/sandbox/products/:id"
@@ -90,6 +91,7 @@ struct Constants {
             static let DisplayName = "display_name"
             static let ProductGroup = "product_group"
             static let Description = "description"
+            static let PriceDetails = "price_details"
         }
 
         // MARK: - Uber Personal Place
@@ -188,6 +190,26 @@ struct Constants {
             static let DisplayName = "display_name"
             static let ProductId = "product_id"
 
+        }
+
+        // MARK: - Price Detail
+        struct PriceDetail {
+
+            static let ServiceFees = "service_fees"
+            static let CostPerMinute = "cost_per_minute"
+            static let DistanceUnit = "distance_unit"
+            static let Minimum = "minimum"
+            static let CostPerDistance = "cost_per_distance"
+            static let Base = "base"
+            static let CancellationFee = "cancellation_fee"
+            static let CurrencyCode = "currency_code"
+        }
+
+        // MARK: - Service Fee
+        struct ServiceFee {
+
+            static let Fee = "fee"
+            static let Name = "name"
         }
     }
 }

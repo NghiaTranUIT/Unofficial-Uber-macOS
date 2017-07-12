@@ -6,8 +6,8 @@
 //  Copyright © 2017 Nghia Tran. All rights reserved.
 //
 
-import Cocoa
 import ObjectMapper
+import RxSwift
 
 open class ProductObj: BaseObj {
 
@@ -33,6 +33,11 @@ open class ProductObj: BaseObj {
     public var estimatePrice: PriceObj?
     public var estimateTime: TimeEstimateObj?
 
+    // Product Detail
+    public var priceDetail: PriceDetailObj?
+    public lazy var priceDetailVariable: Variable<PriceDetailObj?> = self.initLazyPriceDetail()
+
+    // Map
     override public func mapping(map: Map) {
         super.mapping(map: map)
 
@@ -46,6 +51,21 @@ open class ProductObj: BaseObj {
         self.displayName <- map[Constants.Object.Product.DisplayName]
         self.productGroup <- map[Constants.Object.Product.ProductGroup]
         self.descr <- map[Constants.Object.Product.Description]
+        self.priceDetail <- map[Constants.Object.Product.PriceDetails]
+    }
+
+    fileprivate func initLazyPriceDetail() -> Variable<PriceDetailObj?> {
+        return Variable<PriceDetailObj?>(priceDetail)
+    }
+
+    // MARK: - Public
+    public func updatePriceDetail() {
+        guard let productId = self.productId else { return }
+        UberService().requestPriceDetail(productId)
+            .map { $0.priceDetail }
+            .filterNil()
+            .bind(to: priceDetailVariable)
+            .addDisposableTo(disposeBag)
     }
 }
 

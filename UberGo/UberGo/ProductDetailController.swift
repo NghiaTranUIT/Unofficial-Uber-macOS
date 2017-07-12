@@ -45,6 +45,12 @@ class ProductDetailController: NSViewController {
     @IBAction func doneBtnOnTap(_ sender: Any) {
         delegate?.productDetailControllerShouldDimiss()
     }
+
+    @IBAction func breakdownBtnOnTap(_ sender: Any) {
+        let controller = BreakdownPriceController(nibName: "BreakdownPriceController", bundle: nil)!
+        controller.configureController(productObj)
+        presentViewControllerAsSheet(controller)
+    }
 }
 
 // MARK: - Private

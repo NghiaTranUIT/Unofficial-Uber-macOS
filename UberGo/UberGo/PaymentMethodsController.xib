@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13122.19" systemVersion="16F73" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12120"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13122.19"/>
+        <capability name="box content view" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
         <capability name="system font weights other than Regular or Bold" minToolsVersion="7.0"/>
     </dependencies>
@@ -25,8 +26,16 @@
                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="mDs-3K-63A">
                     <rect key="frame" x="0.0" y="380" width="480" height="100"/>
                     <subviews>
+                        <box boxType="custom" borderType="none" borderWidth="0.0" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="gUW-S9-jky">
+                            <rect key="frame" x="0.0" y="0.0" width="480" height="100"/>
+                            <view key="contentView" id="jHt-lo-pZZ">
+                                <rect key="frame" x="0.0" y="0.0" width="480" height="100"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </view>
+                            <color key="fillColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        </box>
                         <button focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dLl-cY-4vL" customClass="UberButton" customModule="UberGo" customModuleProvider="target">
-                            <rect key="frame" x="25" y="67" width="16" height="16"/>
+                            <rect key="frame" x="25" y="68" width="16" height="16"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="16" id="Jxx-sh-daR"/>
                                 <constraint firstAttribute="height" constant="16" id="lep-NX-0fD"/>
@@ -39,26 +48,30 @@
                                 <action selector="exitBtnOnTap:" target="-2" id="gHN-cs-OwG"/>
                             </connections>
                         </button>
-                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WgL-bb-UQd" customClass="UberTextField" customModule="UberGo" customModuleProvider="target">
-                            <rect key="frame" x="24" y="18" width="177" height="29"/>
-                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Payment Options" id="xYN-Rc-CDJ">
-                                <font key="font" metaFont="systemThin" size="24"/>
+                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="WgL-bb-UQd" customClass="UberTextField" customModule="UberGo" customModuleProvider="target">
+                            <rect key="frame" x="24" y="18" width="184" height="30"/>
+                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Payment Options" id="xYN-Rc-CDJ">
+                                <font key="font" metaFont="systemThin" size="25"/>
                                 <color key="textColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
                         </textField>
                     </subviews>
                     <constraints>
+                        <constraint firstItem="gUW-S9-jky" firstAttribute="leading" secondItem="mDs-3K-63A" secondAttribute="leading" id="I4U-OA-8I5"/>
                         <constraint firstItem="WgL-bb-UQd" firstAttribute="leading" secondItem="mDs-3K-63A" secondAttribute="leading" constant="26" id="IDO-La-fOK"/>
                         <constraint firstItem="WgL-bb-UQd" firstAttribute="top" secondItem="dLl-cY-4vL" secondAttribute="bottom" constant="20" id="NwQ-3N-mne"/>
                         <constraint firstAttribute="bottom" secondItem="WgL-bb-UQd" secondAttribute="bottom" constant="18" id="U2x-Fg-BKU"/>
+                        <constraint firstItem="gUW-S9-jky" firstAttribute="top" secondItem="mDs-3K-63A" secondAttribute="top" id="lbG-Qi-meA"/>
+                        <constraint firstAttribute="bottom" secondItem="gUW-S9-jky" secondAttribute="bottom" id="nVi-bo-gCl"/>
                         <constraint firstAttribute="height" constant="100" id="rhB-ap-acn"/>
                         <constraint firstItem="dLl-cY-4vL" firstAttribute="leading" secondItem="mDs-3K-63A" secondAttribute="leading" constant="25" id="uhk-t9-89X"/>
+                        <constraint firstAttribute="trailing" secondItem="gUW-S9-jky" secondAttribute="trailing" id="zvl-6r-3De"/>
                     </constraints>
                 </customView>
                 <scrollView wantsLayer="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6K0-C1-vqN">
                     <rect key="frame" x="0.0" y="0.0" width="480" height="380"/>
-                    <clipView key="contentView" drawsBackground="NO" id="iHB-xH-MgQ">
+                    <clipView key="contentView" id="iHB-xH-MgQ">
                         <rect key="frame" x="0.0" y="0.0" width="480" height="380"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -77,7 +90,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                     <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="76c-Cw-W1A">
-                        <rect key="frame" x="464" y="0.0" width="16" height="377"/>
+                        <rect key="frame" x="-100" y="-100" width="16" height="377"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                 </scrollView>
