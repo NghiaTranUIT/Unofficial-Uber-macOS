@@ -13,3 +13,9 @@ public extension Float {
         return Double(self)
     }
 }
+
+public extension Double {
+    public var toFloat: Float {
+        return Float(self)
+    }
+}

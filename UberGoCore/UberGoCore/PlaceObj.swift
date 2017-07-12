@@ -37,17 +37,40 @@ open class PlaceObj: Unboxable, Equatable {
     public var isHistory = false
 
     public lazy var coordinate2D: CLLocationCoordinate2D = {
-        let lat = Double(self.location["lat"]!)
-        let lng = Double(self.location["lng"]!)
+        let lat = self.location["lat"]!.toDouble
+        let lng = self.location["lng"]!.toDouble
         return CLLocationCoordinate2D(latitude: lat, longitude: lng)
     }()
 
+    // Invalid
+    static var invalid: PlaceObj {
+        return PlaceObj(placeType: PlaceType.place, name: "", address: "", placeID: "", location: [:])
+    }
+
     // MARK: - Init
-    public init(personalPlaceObj: UberPersonalPlaceObj) {
-        self.name = personalPlaceObj.placeType.rawValue
-        self.address = personalPlaceObj.address
-        self.placeType = PlaceType.fromUberPersonalPlaceType(personalPlaceObj.placeType)
-        self.placeID = self.placeType.rawValue
+    public init(placeType: PlaceType, name: String, address: String, placeID: String, location: [String: Float]) {
+        self.placeType = placeType
+        self.name = name
+        self.address = address
+        self.placeID = placeID
+        self.location = location
+    }
+
+    public convenience init(coordinate: CLLocationCoordinate2D) {
+        self.init(placeType: .place,
+                  name: "Current Location",
+                  address: "Current Location",
+                  placeID: "Current Location",
+                  location: ["lat": coordinate.latitude.toFloat,
+                             "lng": coordinate.longitude.toFloat])
+    }
+
+    public convenience init(personalPlaceObj: UberPersonalPlaceObj) {
+        let name = personalPlaceObj.placeType.rawValue
+        let address = personalPlaceObj.address
+        let placeType = PlaceType.fromUberPersonalPlaceType(personalPlaceObj.placeType)
+        let placeID = placeType.rawValue
+        self.init(placeType: placeType, name: name, address: address, placeID: placeID, location: [:])
     }
 
     public func encode(with aCoder: NSCoder) {

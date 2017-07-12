@@ -77,7 +77,7 @@ open class MapViewModel:
         return mapManager.currentLocationVariable.asDriver()
     }
     public var nearestPlaceDriver: Driver<PlaceObj> {
-        return mapManager.nearestPlaceObverser.asDriver(onErrorJustReturn: PlaceObj.unknowPlace)
+        return mapManager.nearestPlaceObverser.asDriver(onErrorJustReturn: PlaceObj.invalid)
     }
     public var searchPlaceObjsVariable = Variable<[PlaceObj]>([])
     fileprivate var personalOrHistoryPlaceObjsVariable = Variable<[PlaceObj]>([])
@@ -204,9 +204,7 @@ open class MapViewModel:
                 // is Observable<PlaceObj>
                 // PlaceObj maybe work/home or coordinate or googleplace
                 let current = mapManager.currentLocationVariable.value!
-                let place = PlaceObj()
-                place.coordinate2D = current.coordinate
-                place.name = "Current location"
+                let place = PlaceObj(coordinate: current.coordinate)
                 return directionService.generateDirectionRoute(from: place, to: toPlace)
             }
             .observeOn(MainScheduler.instance)

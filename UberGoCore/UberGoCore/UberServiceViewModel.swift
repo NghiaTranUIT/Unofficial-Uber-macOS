@@ -123,7 +123,7 @@ open class UberServiceViewModel: UberServiceViewModelProtocol,
         let groupProductShared = selectionShared
             .flatMapLatest { data -> Observable<[ProductObj]> in
                 return uberService.productsWithEstimatePriceObserver(from: data.from,
-                                                                       to: data.to.coordinate2D!)
+                                                                       to: data.to.coordinate2D)
             }
             .map({ GroupProductObj.mapProductGroups(from: $0) })
             .share()
@@ -153,10 +153,10 @@ open class UberServiceViewModel: UberServiceViewModelProtocol,
             })
             .flatMapLatest { data -> Observable<EstimateObj> in
                 let productObj = data.1
-                Logger.info("productID = \(productObj.productId ?? "")")
+                Logger.info("productID = \(productObj.productId)")
                 return uberService.estimateForSpecificProductObserver(productObj,
                                                                            from: data.0.from,
-                                                                           to: data.0.to.coordinate2D!)
+                                                                           to: data.0.to.coordinate2D)
             }
             .share()
 
@@ -172,7 +172,7 @@ open class UberServiceViewModel: UberServiceViewModelProtocol,
                 }
                 return Observable.just(surgePriceObj)
             }
-            .asDriver(onErrorJustReturn: SurgePriceObj())
+            .asDriver(onErrorJustReturn: SurgePriceObj.invalid)
 
         // Normal Price
         let uberTripUpFareOb = shareRequest
@@ -228,8 +228,9 @@ open class UberServiceViewModel: UberServiceViewModelProtocol,
                                                  to: data.to)
             }
 
-        normalTripDriver = Observable.merge([uberTripUpFareOb, uberTripSurgeFareOb])
-            .asDriver(onErrorJustReturn: CreateTripObj())
+        normalTripDriver = Observable
+            .merge([uberTripUpFareOb, uberTripSurgeFareOb])
+            .asDriver(onErrorJustReturn: CreateTripObj.invalid)
 
         //FIXME : For some reason: Merge<timerObj, manuallyTriggerOb> cause timer didn't fire up
         // Manually trigger at the first time app open

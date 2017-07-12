@@ -52,6 +52,6 @@ class RideEstimatePriceRequest: Requestable {
         guard let products = result["prices"] as? [[String: Any]] else {
             return []
         }
-        return try? unbox(dictionaries: result)
+        return try? unbox(dictionaries: products)
     }
 }

@@ -7,8 +7,8 @@
 //
 
 import Cocoa
-import Unbox
 import RxSwift
+import Unbox
 
 open class BaseObj: NSObject, Unboxable, NSCoding {
 
@@ -38,6 +38,4 @@ open class BaseObj: NSObject, Unboxable, NSCoding {
         aCoder.encode(createdAt)
         aCoder.encode(updatedAt)
     }
-
 }
-

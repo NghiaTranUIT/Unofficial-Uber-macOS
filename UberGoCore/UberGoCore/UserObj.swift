@@ -32,10 +32,10 @@ open class UserObj: BaseObj {
 
     public required init(unboxer: Unboxer) throws {
         name = unboxer.unbox(key: Constants.Object.User.Name)
-        authToken = AuthToken(token: unboxer.unbox(key: "token"),
-                              refreshToken: unboxer.unbox(key: "token"),
-                              tokenSecret: unboxer.unbox(key: "token"),
-                              tokenExpires: unboxer.unbox(key: "token"))
+        authToken = AuthToken(token: try unboxer.unbox(key: "token"),
+                              refreshToken: try unboxer.unbox(key: "refreshToken"),
+                              tokenSecret: try unboxer.unbox(key: "tokenSecret"),
+                              tokenExpires: nil)
 
         try super.init(unboxer: unboxer)
     }

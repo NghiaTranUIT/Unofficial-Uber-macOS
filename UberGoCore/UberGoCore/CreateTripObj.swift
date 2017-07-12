@@ -43,6 +43,13 @@ open class CreateTripObj: Unboxable {
     public var errorTitle: String?
 
     // MARK: - Init
+    public init(requestId: String, productId: String, status: String, eta: Float) {
+        self.requestId = requestId
+        self.productId = productId
+        self.status = status
+        self.eta = eta
+    }
+
     public required init(unboxer: Unboxer) throws {
         self.requestId = try unboxer.unbox(key: "request_id")
         self.productId = try unboxer.unbox(key: "product_id")
@@ -56,5 +63,9 @@ open class CreateTripObj: Unboxable {
         // 409
         self.surgeConfirmationObj = unboxer.unbox(keyPath: "meta.surge_confirmation")
         self.errorTitle = unboxer.unbox(keyPath: "errors.0.title")
+    }
+
+    static var invalid: CreateTripObj {
+        return CreateTripObj(requestId: "", productId: "", status: "Unknow", eta: 0)
     }
 }

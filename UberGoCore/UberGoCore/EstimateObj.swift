@@ -46,7 +46,7 @@ open class FareBreakdownObj: Unboxable {
 open class SurgePriceObj: Unboxable {
 
     // MARK: - Variable
-    public var surgeConfirmationHref: String
+    public var surgeConfirmationHref: String? // Nil before sometime. It's nil for no reason (Tested on Sandbox)
     public var highEstimate: Int
     public var surgeConfirmationId: String
     public var minimum: Int
@@ -56,9 +56,39 @@ open class SurgePriceObj: Unboxable {
     public var display: String
     public var currencyCode: String
 
+    static var invalid: SurgePriceObj {
+        return SurgePriceObj(surgeConfirmationHref: nil,
+                             highEstimate: 0,
+                             surgeConfirmationId: "",
+                             minimum: 0,
+                             lowEstimate: 0,
+                             fareBreakdownObjs: [],
+                             surgeMultiplier: 0,
+                             display: "",
+                             currencyCode: "")
+    }
+
     // MARK: - init
+    public init(surgeConfirmationHref: String?,
+                highEstimate: Int,
+                surgeConfirmationId: String, minimum: Int,
+                lowEstimate: Int, fareBreakdownObjs: [FareBreakdownObj],
+                surgeMultiplier: Float,
+                display: String,
+                currencyCode: String) {
+        self.surgeConfirmationHref = surgeConfirmationHref
+        self.highEstimate = highEstimate
+        self.surgeConfirmationId = surgeConfirmationId
+        self.minimum = minimum
+        self.lowEstimate = lowEstimate
+        self.fareBreakdownObjs = fareBreakdownObjs
+        self.surgeMultiplier = surgeMultiplier
+        self.display = display
+        self.currencyCode = currencyCode
+    }
+
     public required init(unboxer: Unboxer) throws {
-        self.surgeConfirmationHref = try unboxer.unbox(key: "surge_confirmation_href")
+        self.surgeConfirmationHref = unboxer.unbox(key: "surge_confirmation_href")
         self.highEstimate = try unboxer.unbox(key: "high_estimate")
         self.surgeConfirmationId = try unboxer.unbox(key: "surge_confirmation_id")
         self.minimum = try unboxer.unbox(key: "minimum")
