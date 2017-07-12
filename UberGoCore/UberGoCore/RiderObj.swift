@@ -13,14 +13,18 @@ open class RiderObj: BaseObj {
 
     // MARK: - Variable
     public var riderId: String?
-    public var firstName: String?
-    public var me: Bool?
+    public var firstName: String
+    public var me: Bool
 
-    override public func mapping(map: Map) {
-        super.mapping(map: map)
-
-        self.riderId = try unboxer.unbox(key: Constants.Object.Rider.RiderId)
+    // MARK: - Init
+    public required init(unboxer: Unboxer) throws {
+        self.riderId = unboxer.unbox(key: Constants.Object.Rider.RiderId)
         self.firstName = try unboxer.unbox(key: Constants.Object.Rider.FirstName)
         self.me = try unboxer.unbox(key: Constants.Object.Rider.Me)
+        try super.init(unboxer: unboxer)
+    }
+
+    public required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
     }
 }

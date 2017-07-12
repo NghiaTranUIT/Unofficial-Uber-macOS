@@ -53,11 +53,11 @@ public enum TripObjStatus: String {
 open class TripObj: BaseObj {
 
     // MARK: - Variable
-    public var productId: String?
-    public var requestId: String?
-    fileprivate var _status: String?
-    public var surgeMultiplier: Double?
-    public var shared: Bool?
+    public var productId: String
+    public var requestId: String
+    fileprivate var _status: String
+    public var surgeMultiplier: Double
+    public var shared: Bool
     public var driver: DriverObj?
     public var vehicle: VehicleObj?
     public var location: UberCoordinateObj?
@@ -66,9 +66,6 @@ open class TripObj: BaseObj {
     public var waypoints: [WaypointObj]?
     public var riders: [RiderObj]?
     public lazy var status: TripObjStatus = {
-        guard let _status = self._status else {
-            return .unknown
-        }
         return TripObjStatus.createTripStatus(rawValue: _status)
     }()
 
@@ -96,21 +93,24 @@ open class TripObj: BaseObj {
         }
     }
 
-    override public func mapping(map: Map) {
-        super.mapping(map: map)
-
+    // MARK: - Init
+    public required init(unboxer: Unboxer) throws {
         self.productId = try unboxer.unbox(key: Constants.Object.Trip.ProductId)
         self.requestId = try unboxer.unbox(key: Constants.Object.Trip.RequestId)
         self._status = try unboxer.unbox(key: Constants.Object.Trip.Status)
         self.surgeMultiplier = try unboxer.unbox(key: Constants.Object.Trip.SurgeMultiplier)
         self.shared = try unboxer.unbox(key: Constants.Object.Trip.Shared)
-        self.driver = try unboxer.unbox(key: Constants.Object.Trip.Driver)
-        self.vehicle = try unboxer.unbox(key: Constants.Object.Trip.Vehicle)
-        self.location = try unboxer.unbox(key: Constants.Object.Trip.Location)
-        self.pickup = try unboxer.unbox(key: Constants.Object.Trip.Pickup)
-        self.destination = try unboxer.unbox(key: Constants.Object.Trip.Destination)
-        self.waypoints = try unboxer.unbox(key: Constants.Object.Trip.Waypoints)
-        self.riders = try unboxer.unbox(key: Constants.Object.Trip.Riders)
+        self.driver = unboxer.unbox(key: Constants.Object.Trip.Driver)
+        self.vehicle = unboxer.unbox(key: Constants.Object.Trip.Vehicle)
+        self.location = unboxer.unbox(key: Constants.Object.Trip.Location)
+        self.pickup = unboxer.unbox(key: Constants.Object.Trip.Pickup)
+        self.destination = unboxer.unbox(key: Constants.Object.Trip.Destination)
+        self.waypoints = unboxer.unbox(key: Constants.Object.Trip.Waypoints)
+        self.riders = unboxer.unbox(key: Constants.Object.Trip.Riders)
+    }
+    
+    public required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
     }
 
     class func noCurrentTrip() -> TripObj {

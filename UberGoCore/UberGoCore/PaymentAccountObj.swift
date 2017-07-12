@@ -41,27 +41,28 @@ public enum PaymentAccountType: String {
 open class PaymentAccountObj: BaseObj {
 
     // MARK: - Variable
-    public var paymentMethodId: String?
-    public var typeCode: String?
+    public var paymentMethodId: String
+    public var typeCode: String
     public var accountDescription: String?
-    public var type: PaymentAccountType {
-        guard let code = self.typeCode else {
-            return .unknown
-        }
-        return PaymentAccountType(rawValue: code) ?? .unknown
-    }
+
+    // Type Enum
+    public var type: PaymentAccountType { return PaymentAccountType(rawValue: self.typeCode) ?? .unknown }
+
+    // Better desciption
     public lazy var betterAccountDescription: String = {
-        guard let desc = self.accountDescription else {
-            return "No description"
-        }
+        guard let desc = self.accountDescription else { return "No description" }
         return desc.replacingOccurrences(of: "*", with: "•")
     }()
 
-    public override func mapping(map: Map) {
-        super.mapping(map: map)
+    // MARK: - Mapping
+    public required init(unboxer: Unboxer) throws {
+        paymentMethodId = try unboxer.unbox(key: Constants.Object.PaymentAccount.PaymentMethodId)
+        typeCode = try unboxer.unbox(key: Constants.Object.PaymentAccount.Type)
+        accountDescription = unboxer.unbox(key: Constants.Object.PaymentAccount.Description)
+        try super.init(unboxer: unboxer)
+    }
 
-        self.paymentMethodId = try unboxer.unbox(key: Constants.Object.PaymentAccount.PaymentMethodId)
-        self.typeCode = try unboxer.unbox(key: Constants.Object.PaymentAccount.Type)
-        self.accountDescription = try unboxer.unbox(key: Constants.Object.PaymentAccount.Description)
+    public required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
     }
 }

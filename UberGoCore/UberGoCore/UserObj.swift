@@ -30,10 +30,9 @@ open class UserObj: BaseObj {
         binding()
     }
 
-    override public func mapping(map: Map) {
-        super.mapping(map: map)
-
-        self.name = try unboxer.unbox(key: Constants.Object.User.Name)
+    public required init(unboxer: Unboxer) throws {
+        self.name = unboxer.unbox(key: Constants.Object.User.Name)
+        try super.init(unboxer: unboxer)
     }
 
     required public init?(coder aDecoder: NSCoder) {

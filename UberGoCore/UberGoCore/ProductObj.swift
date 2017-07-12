@@ -12,20 +12,19 @@ import RxSwift
 open class ProductObj: BaseObj {
 
     // MARK: - Variable
-    public var upfrontFareEnabled: Bool?
-    public var capacity: Int?
-    public var productId: String?
-    public var image: String?
-    public var cashEnabled: Bool?
-    public var shared: Bool?
-    public var shortDescription: String?
-    public var displayName: String?
-    public var productGroup: String?
-    public var descr: String?
+    public var upfrontFareEnabled: Bool
+    public var capacity: Int
+    public var productId: String
+    public var image: String
+    public var cashEnabled: Bool
+    public var shared: Bool
+    public var shortDescription: String
+    public var displayName: String
+    public var productGroup: String
+    public var descr: String
 
     // Pretty
     public var prettyCapacity: String {
-        let capacity = self.capacity ?? 1
         return capacity == 1 ? "1" : "1 - \(capacity)"
     }
 
@@ -37,8 +36,8 @@ open class ProductObj: BaseObj {
     public var priceDetail: PriceDetailObj?
     public lazy var priceDetailVariable: Variable<PriceDetailObj?> = self.initLazyPriceDetail()
 
-    // Map
-    override public func mapping(map: Map) {
+    // MARK: - Init
+    public required init(unboxer: Unboxer) throws {
         self.upfrontFareEnabled = try unboxer.unbox(key: Constants.Object.Product.UpfrontFareEnabled)
         self.capacity = try unboxer.unbox(key: Constants.Object.Product.Capacity)
         self.productId = try unboxer.unbox(key: Constants.Object.Product.ProductId)
@@ -49,7 +48,12 @@ open class ProductObj: BaseObj {
         self.displayName = try unboxer.unbox(key: Constants.Object.Product.DisplayName)
         self.productGroup = try unboxer.unbox(key: Constants.Object.Product.ProductGroup)
         self.descr = try unboxer.unbox(key: Constants.Object.Product.Description)
-        self.priceDetail = try unboxer.unbox(key: Constants.Object.Product.PriceDetails)
+        self.priceDetail = unboxer.unbox(key: Constants.Object.Product.PriceDetails)
+        try super.init(unboxer: unboxer)
+    }
+
+    public required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
     }
 
     fileprivate func initLazyPriceDetail() -> Variable<PriceDetailObj?> {
@@ -58,7 +62,6 @@ open class ProductObj: BaseObj {
 
     // MARK: - Public
     public func updatePriceDetail() {
-        guard let productId = self.productId else { return }
         UberService().requestPriceDetail(productId)
             .map { $0.priceDetail }
             .filterNil()
@@ -70,28 +73,36 @@ open class ProductObj: BaseObj {
 open class GroupProductObj: BaseObj {
 
     // MARK: - Variable
-    public var productGroup: String!
+    public var productGroup: String
     public var productObjs: [ProductObj] = []
 
     // MARK: - Init
-    public convenience init(productGroup: String, productObjs: [ProductObj]) {
-        self.init()
+    public init(productGroup: String, productObjs: [ProductObj]) {
         self.productGroup = productGroup
         self.productObjs = productObjs
+        super.init()
+    }
+
+    public required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+
+    public required init(unboxer: Unboxer) throws {
+
     }
 
     // MARK: - Public
     public class func mapProductGroups(from productObjs: [ProductObj]) -> [GroupProductObj] {
 
         // Get unique group name
-        let groupNames = productObjs.map { $0.productGroup! }
+        let groupNames = productObjs.map { $0.productGroup }
                                     .uniqueElements
 
         // Map
         return groupNames.map({ name -> GroupProductObj in
 
             // Get all product with same GroupName
-            let subProducts = productObjs.filter({ $0.productGroup! == name })
+            let subProducts = productObjs.filter({ $0.productGroup == name })
 
             // Map to Group
             return GroupProductObj(productGroup: name, productObjs: subProducts)

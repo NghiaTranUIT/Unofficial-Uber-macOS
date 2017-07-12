@@ -18,14 +18,17 @@ open class UberPersonalPlaceObj: BaseObj {
 
     // MARK: - Variable
     public var placeType: UberPersonalPlaceType = .work
-    public var address: String?
+    public var address: String
     public fileprivate(set) var invalid = false
 
     // MARK: - Map
-    override public func mapping(map: Map) {
-        super.mapping(map: map)
-
+    public required init(unboxer: Unboxer) throws {
         self.address = try unboxer.unbox(key: Constants.Object.UberPersonalPlace.Address)
+        try super.init(unboxer: unboxer)
+    }
+
+    public required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
     }
 }
 

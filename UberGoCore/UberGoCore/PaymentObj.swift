@@ -11,20 +11,22 @@ import Unbox
 open class PaymentObj: BaseObj {
 
     // MARK: - Variable
-    public var paymentAccountObjs: [PaymentAccountObj]?
-    public var lastUsed: String?
-    public var lastUsedPaymentAccount: PaymentAccountObj? {
-        guard let paymentAccountObjs = self.paymentAccountObjs else { return nil }
-        guard let lastUsed = self.lastUsed else { return nil }
+    public var paymentAccountObjs: [PaymentAccountObj]
+    public var lastUsed: String
 
-        // Get matched account
-        return paymentAccountObjs.first(where: { $0.paymentMethodId! == lastUsed })
+    // Last Used
+    public var lastUsedPaymentAccount: PaymentAccountObj? {
+        return paymentAccountObjs.first(where: { $0.paymentMethodId == lastUsed })
     }
 
-    public override func mapping(map: Map) {
-        super.mapping(map: map)
-
+    // MARK: - Init
+    public required init(unboxer: Unboxer) throws {
         self.paymentAccountObjs = try unboxer.unbox(key: Constants.Object.Payment.PaymentMethods)
         self.lastUsed = try unboxer.unbox(key: Constants.Object.Payment.LastUsed)
+        try super.init(unboxer: unboxer)
+    }
+
+    public required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
     }
 }

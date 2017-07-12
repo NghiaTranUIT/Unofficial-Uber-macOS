@@ -73,13 +73,9 @@ open class PlaceObj: BaseObj {
         self.placeType = PlaceType(rawValue: aDecoder.decodeObject(forKey: "placeType") as! String)!
         self.placeID = aDecoder.decodeObject(forKey: "placeID") as? String
     }
-
-    public required init?(map: Map) {
-        super.init(map: map)
-    }
-
+    
     // Map
-    override public func mapping(map: Map) {
+    public required init(unboxer: Unboxer) throws {
         self.name = try unboxer.unbox(key: "name")
         self.address = try unboxer.unbox(key: "vicinity")
         self.location = try unboxer.unbox(key: "geometry.location")

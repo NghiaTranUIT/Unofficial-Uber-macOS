@@ -14,10 +14,19 @@ open class ServiceFeeObj: BaseObj {
     public var fee: Float
     public var name: String
 
+    // MARK: - Init
     public required init(unboxer: Unboxer) throws {
         self.fee = try unboxer.unbox(key: Constants.Object.ServiceFee.Fee)
         self.name = try unboxer.unbox(key: Constants.Object.ServiceFee.Name)
         try super.init(unboxer: unboxer)
+    }
+
+    public override init() {
+        super.init()
+    }
+
+    public required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
     }
 
     public class func serviceFee(name: String, fee: Float) -> ServiceFeeObj {
@@ -29,12 +38,10 @@ open class ServiceFeeObj: BaseObj {
 
     // MARK: - Public
     public var prettyName: String {
-        guard let name = self.name else { return "" }
         return name.localizedCapitalized
     }
 
     public var prettyFee: String {
-        guard let fee = self.fee else { return "0" }
         return "\(fee)"
     }
 

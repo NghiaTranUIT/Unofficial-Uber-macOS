@@ -12,21 +12,26 @@ import Unbox
 open class UberCoordinateObj: BaseObj {
 
     // MARK: - Variable
-    public var latitude: Double?
-    public var longitude: Double?
-    public var bearing: Double?
-    public var eta: Int?
+    public var latitude: Float
+    public var longitude: Float
+    public var bearing: Float
+    public var eta: Int
 
     public var coordinate: CLLocationCoordinate2D {
-        return CLLocationCoordinate2D(latitude: self.latitude!, longitude: self.longitude!)
+        return CLLocationCoordinate2D(latitude: self.latitude.toDouble,
+                                      longitude: self.longitude.toDouble)
     }
-    
-    override public func mapping(map: Map) {
-        super.mapping(map: map)
 
+    // MARK: - Init
+    public required init(unboxer: Unboxer) throws {
         self.latitude = try unboxer.unbox(key: "latitude")
         self.longitude = try unboxer.unbox(key: "longitude")
         self.bearing = try unboxer.unbox(key: "bearing")
         self.eta = try unboxer.unbox(key: "eta")
+        try super.init(unboxer: unboxer)
+    }
+
+    public required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
     }
 }

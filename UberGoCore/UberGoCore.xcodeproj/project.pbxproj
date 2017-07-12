@@ -31,6 +31,7 @@
 		BA32E71E1EDFC76A0044C017 /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA32E71D1EDFC76A0044C017 /* AuthenticationViewModel.swift */; };
 		BA32E7231EDFC8230044C017 /* AppViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA32E7221EDFC8230044C017 /* AppViewModel.swift */; };
 		BA32E7271EDFC84F0044C017 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA32E7261EDFC84F0044C017 /* Constants.swift */; };
+		BA3EAB891F15E408003E3EF4 /* Float+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3EAB881F15E408003E3EF4 /* Float+Helper.swift */; };
 		BA4796A01EE2BD3A00620BB0 /* Requestable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA47969F1EE2BD3A00620BB0 /* Requestable.swift */; };
 		BA4796A31EE2BF0800620BB0 /* NSError+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4796A21EE2BF0800620BB0 /* NSError+Helper.swift */; };
 		BA4796A71EE2C0C700620BB0 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4796A61EE2C0C700620BB0 /* MapViewModel.swift */; };
@@ -126,6 +127,7 @@
 		BA32E71D1EDFC76A0044C017 /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
 		BA32E7221EDFC8230044C017 /* AppViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppViewModel.swift; sourceTree = "<group>"; };
 		BA32E7261EDFC84F0044C017 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		BA3EAB881F15E408003E3EF4 /* Float+Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Float+Helper.swift"; sourceTree = "<group>"; };
 		BA47969F1EE2BD3A00620BB0 /* Requestable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Requestable.swift; sourceTree = "<group>"; };
 		BA4796A21EE2BF0800620BB0 /* NSError+Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSError+Helper.swift"; sourceTree = "<group>"; };
 		BA4796A61EE2C0C700620BB0 /* MapViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
@@ -355,6 +357,7 @@
 				BA0C91971EEF919B00BA8B4B /* Coordinate2DTransform.swift */,
 				BAB14ABB1EF627160066267B /* Array+Helper.swift */,
 				BAA2BD7D1EFD57AD00296395 /* URL+Helper.swift */,
+				BA3EAB881F15E408003E3EF4 /* Float+Helper.swift */,
 			);
 			name = Helper;
 			sourceTree = "<group>";
@@ -731,6 +734,7 @@
 				BADB784E1EE5AC07000536F7 /* SearchBarViewModel.swift in Sources */,
 				BADB78671EE70AB0000536F7 /* PlaceSearchRequest.swift in Sources */,
 				BAF57FAC1EE116710013090E /* BaseObj.swift in Sources */,
+				BA3EAB891F15E408003E3EF4 /* Float+Helper.swift in Sources */,
 				BAB7B8DD1EFD7E7F00B508A1 /* SandboxUpdateStatusTripRequest.swift in Sources */,
 				BAED39E21EE9B67C003D9BC3 /* RxCLLocationManagerDelegateProxy.swift in Sources */,
 				BAF57FC21EE11A080013090E /* BaseViewModel.swift in Sources */,
