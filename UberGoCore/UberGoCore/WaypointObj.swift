@@ -26,7 +26,7 @@ public enum WaypointType: String {
     }
 }
 
-open class WaypointObj: BaseObj {
+open class WaypointObj: Unboxable {
 
     // MARK: - Variable
     public var riderId: String?
@@ -51,10 +51,5 @@ open class WaypointObj: BaseObj {
         self.typeStr = try unboxer.unbox(key: Constants.Object.Waypoint.Type)
         self.latitude = try unboxer.unbox(key: Constants.Object.Waypoint.Latitude)
         self.longitude = try unboxer.unbox(key: Constants.Object.Waypoint.Longitude)
-        try super.init(unboxer: unboxer)
-    }
-
-    public required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
     }
 }

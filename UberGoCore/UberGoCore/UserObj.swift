@@ -31,7 +31,12 @@ open class UserObj: BaseObj {
     }
 
     public required init(unboxer: Unboxer) throws {
-        self.name = unboxer.unbox(key: Constants.Object.User.Name)
+        name = unboxer.unbox(key: Constants.Object.User.Name)
+        authToken = AuthToken(token: unboxer.unbox(key: "token"),
+                              refreshToken: unboxer.unbox(key: "token"),
+                              tokenSecret: unboxer.unbox(key: "token"),
+                              tokenExpires: unboxer.unbox(key: "token"))
+
         try super.init(unboxer: unboxer)
     }
 
@@ -40,10 +45,6 @@ open class UserObj: BaseObj {
         super.init(coder: aDecoder)
         self.name = aDecoder.decodeObject(forKey: Constants.Object.User.Name) as? String
         binding()
-    }
-
-    public required init?(map: Map) {
-        fatalError("init(map:) has not been implemented")
     }
 
     override public func encode(with aCoder: NSCoder) {
@@ -62,7 +63,7 @@ open class UserObj: BaseObj {
                 return UberService().paymentMethodObserver()
             }
             .do(onNext: { (paymentObj) in
-                Logger.info("Curent PaymentMethods count = \(paymentObj.paymentAccountObjs?.count ?? 0 )")
+                Logger.info("Curent PaymentMethods count = \(paymentObj.paymentAccountObjs.count)")
             })
             .bind(to: self.paymentMethodObjVar)
             .addDisposableTo(self.disposeBag)
@@ -106,7 +107,7 @@ open class UserObj: BaseObj {
         var histories = self.historyPlace()
 
         // Remove
-        if let index = histories.index(where: { $0.isEqual(place) }) {
+        if let index = histories.index(where: { $0 == place }) {
             histories.remove(at: index)
         }
 

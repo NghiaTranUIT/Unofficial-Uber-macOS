@@ -54,6 +54,6 @@ class RideEstimateTimeRequest: Requestable {
         guard let products = result["times"] as? [[String: Any]] else {
             return []
         }
-        return Mapper<TimeEstimateObj>().mapArray(JSONArray: products)
+        return try? unbox(dictionaries: products)
     }
 }

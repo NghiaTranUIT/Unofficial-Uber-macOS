@@ -8,7 +8,7 @@
 
 import Unbox
 
-open class PaymentObj: BaseObj {
+open class PaymentObj: Unboxable {
 
     // MARK: - Variable
     public var paymentAccountObjs: [PaymentAccountObj]
@@ -21,12 +21,7 @@ open class PaymentObj: BaseObj {
 
     // MARK: - Init
     public required init(unboxer: Unboxer) throws {
-        self.paymentAccountObjs = try unboxer.unbox(key: Constants.Object.Payment.PaymentMethods)
-        self.lastUsed = try unboxer.unbox(key: Constants.Object.Payment.LastUsed)
-        try super.init(unboxer: unboxer)
-    }
-
-    public required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+        paymentAccountObjs = try unboxer.unbox(key: Constants.Object.Payment.PaymentMethods)
+        lastUsed = try unboxer.unbox(key: Constants.Object.Payment.LastUsed)
     }
 }

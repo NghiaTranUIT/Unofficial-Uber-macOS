@@ -8,7 +8,7 @@
 
 import Unbox
 
-open class SurgeConfirmationObj: BaseObj {
+open class SurgeConfirmationObj: Unboxable {
 
     // MARK: - Variable
     public var href: String
@@ -22,15 +22,10 @@ open class SurgeConfirmationObj: BaseObj {
         self.surgeConfirmationId = try unboxer.unbox(key: "surge_confirmation_id")
         self.multiplier = try unboxer.unbox(key: "multiplier")
         self.expiresAt = try unboxer.unbox(key: "expires_at")
-        try super.init(unboxer: unboxer)
-    }
-
-    public required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
     }
 }
 
-open class CreateTripObj: BaseObj {
+open class CreateTripObj: Unboxable {
 
     // MARK: - Variable
     public var requestId: String
@@ -61,10 +56,5 @@ open class CreateTripObj: BaseObj {
         // 409
         self.surgeConfirmationObj = unboxer.unbox(keyPath: "meta.surge_confirmation")
         self.errorTitle = unboxer.unbox(keyPath: "errors.0.title")
-        try super.init(unboxer: unboxer)
-    }
-
-    public required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
     }
 }

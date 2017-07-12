@@ -57,6 +57,6 @@ public class UberPersonalPlaceRequest: Requestable {
         guard let result = data as? [String: Any] else {
             return nil
         }
-        return Mapper<UberPersonalPlaceObj>().map(JSON: result)
+        return try? unbox(dictionary: result)
     }
 }

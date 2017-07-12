@@ -13,7 +13,6 @@
 		BA037F211EDD61E600945C1D /* UberGoCore.h in Headers */ = {isa = PBXBuildFile; fileRef = BA037F131EDD61E600945C1D /* UberGoCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BA0A9F431F03F73000EB0CE7 /* OauthWebViewHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0A9F421F03F73000EB0CE7 /* OauthWebViewHandler.swift */; };
 		BA0C91961EEF8B4E00BA8B4B /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0C91951EEF8B4E00BA8B4B /* Logger.swift */; };
-		BA0C91981EEF919B00BA8B4B /* Coordinate2DTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0C91971EEF919B00BA8B4B /* Coordinate2DTransform.swift */; };
 		BA0C919A1EF031FB00BA8B4B /* RideEstimatePriceRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0C91991EF031FB00BA8B4B /* RideEstimatePriceRequest.swift */; };
 		BA0C919C1EF0420E00BA8B4B /* LocationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0C919B1EF0420E00BA8B4B /* LocationHelper.swift */; };
 		BA0C919E1EF047F000BA8B4B /* GetCurrentTripRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0C919D1EF047F000BA8B4B /* GetCurrentTripRequest.swift */; };
@@ -109,7 +108,6 @@
 		BA037F201EDD61E600945C1D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BA0A9F421F03F73000EB0CE7 /* OauthWebViewHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OauthWebViewHandler.swift; sourceTree = "<group>"; };
 		BA0C91951EEF8B4E00BA8B4B /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
-		BA0C91971EEF919B00BA8B4B /* Coordinate2DTransform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coordinate2DTransform.swift; sourceTree = "<group>"; };
 		BA0C91991EF031FB00BA8B4B /* RideEstimatePriceRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RideEstimatePriceRequest.swift; sourceTree = "<group>"; };
 		BA0C919B1EF0420E00BA8B4B /* LocationHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationHelper.swift; sourceTree = "<group>"; };
 		BA0C919D1EF047F000BA8B4B /* GetCurrentTripRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetCurrentTripRequest.swift; sourceTree = "<group>"; };
@@ -354,7 +352,6 @@
 				BA0C91951EEF8B4E00BA8B4B /* Logger.swift */,
 				BA4796A21EE2BF0800620BB0 /* NSError+Helper.swift */,
 				BA4796B21EE3C93900620BB0 /* UUID+Helper.swift */,
-				BA0C91971EEF919B00BA8B4B /* Coordinate2DTransform.swift */,
 				BAB14ABB1EF627160066267B /* Array+Helper.swift */,
 				BAA2BD7D1EFD57AD00296395 /* URL+Helper.swift */,
 				BA3EAB881F15E408003E3EF4 /* Float+Helper.swift */,
@@ -746,7 +743,6 @@
 				BA2467FA1EFB793600E95E6D /* PaymentMethodViewModel.swift in Sources */,
 				BA4796A71EE2C0C700620BB0 /* MapViewModel.swift in Sources */,
 				BA7BA9811EE415D10056B0CF /* MapService.swift in Sources */,
-				BA0C91981EEF919B00BA8B4B /* Coordinate2DTransform.swift in Sources */,
 				BAED39E11EE9B67C003D9BC3 /* CLLocationManager+Rx.swift in Sources */,
 				BAE6902F1EE513EF00A4D876 /* UberProductsRequest.swift in Sources */,
 				BAB14ABC1EF627160066267B /* Array+Helper.swift in Sources */,

@@ -136,12 +136,8 @@ open class MapService: NSObject {
     fileprivate func nearestPlaceObverser(_ location: CLLocation) -> Observable<PlaceObj> {
         let param = PlaceSearchRequestParam(location: location.coordinate)
         return PlaceSearchRequest(param).toObservable()
-        .map({ (placeObjs) -> PlaceObj in
-            guard let nearestPlaceObj = placeObjs.first else {
-                return PlaceObj.unknowPlace
-            }
-            return nearestPlaceObj
-        })
+            .map({ return $0.first })
+            .filterNil()
     }
 }
 

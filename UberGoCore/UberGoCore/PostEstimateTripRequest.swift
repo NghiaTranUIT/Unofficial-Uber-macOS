@@ -78,6 +78,6 @@ class PostEstimateTripRequest: Requestable {
         guard let result = data as? [String: Any] else {
             return nil
         }
-        return Mapper<EstimateObj>().map(JSON: result)
+        return try? unbox(dictionary: result)
     }
 }

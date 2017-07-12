@@ -8,7 +8,7 @@
 
 import Unbox
 
-open class UpFrontFareOb: BaseObj {
+open class UpFrontFareOb: Unboxable {
 
     // MARK: - Variable
     public var value: Double
@@ -24,15 +24,10 @@ open class UpFrontFareOb: BaseObj {
         self.expiresAt = try unboxer.unbox(key: "expires_at")
         self.display = try unboxer.unbox(key: "display")
         self.currencyCode = try unboxer.unbox(key: "currency_code")
-        try super.unboxer(unboxer)
-    }
-
-    public required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
     }
 }
 
-open class FareBreakdownObj: BaseObj {
+open class FareBreakdownObj: Unboxable {
 
     // MARK: - Variable
     public var lowAmount: Double
@@ -45,15 +40,10 @@ open class FareBreakdownObj: BaseObj {
         self.highAmount = try unboxer.unbox(key: "high_amount")
         self.displayAmount = try unboxer.unbox(key: "display_amount")
         self.displayName = try unboxer.unbox(key: "display_name")
-        try super.init(unboxer: unboxer)
-    }
-
-    public required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
     }
 }
 
-open class SurgePriceObj: BaseObj {
+open class SurgePriceObj: Unboxable {
 
     // MARK: - Variable
     public var surgeConfirmationHref: String
@@ -77,11 +67,6 @@ open class SurgePriceObj: BaseObj {
         self.surgeMultiplier = try unboxer.unbox(key: "surge_multiplier")
         self.display = try unboxer.unbox(key: "display")
         self.currencyCode = try unboxer.unbox(key: "currency_code")
-        try super.init(unboxer: unboxer)
-    }
-
-    public required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
     }
 }
 
@@ -91,7 +76,7 @@ public enum EstimateObjType {
     case unknown
 }
 
-open class EstimateObj: BaseObj {
+open class EstimateObj: Unboxable {
 
     // MARK: - Variable
     public var distanceUnit: String
@@ -124,10 +109,5 @@ open class EstimateObj: BaseObj {
         self.pickupEstimate = try unboxer.unbox(key: "pickup_estimate")
         self.upFrontFareObj = unboxer.unbox(key: "fare")
         self.surgePriceObj = unboxer.unbox(key: "estimate")
-        try super.init(unboxer: unboxer)
-    }
-
-    public required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
     }
 }

@@ -9,6 +9,7 @@
 import Unbox
 
 public enum PaymentAccountType: String {
+
     case airtelMoney = "airtel_money"
     case alipay
     case applePay = "apple_pay"
@@ -38,7 +39,7 @@ public enum PaymentAccountType: String {
     }
 }
 
-open class PaymentAccountObj: BaseObj {
+open class PaymentAccountObj: Unboxable {
 
     // MARK: - Variable
     public var paymentMethodId: String
@@ -59,10 +60,5 @@ open class PaymentAccountObj: BaseObj {
         paymentMethodId = try unboxer.unbox(key: Constants.Object.PaymentAccount.PaymentMethodId)
         typeCode = try unboxer.unbox(key: Constants.Object.PaymentAccount.Type)
         accountDescription = unboxer.unbox(key: Constants.Object.PaymentAccount.Description)
-        try super.init(unboxer: unboxer)
-    }
-
-    public required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
     }
 }

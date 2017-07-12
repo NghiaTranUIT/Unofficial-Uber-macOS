@@ -50,13 +50,13 @@ public enum TripObjStatus: String {
     }
 }
 
-open class TripObj: BaseObj {
+open class TripObj: Unboxable {
 
     // MARK: - Variable
     public var productId: String
     public var requestId: String
     fileprivate var _status: String
-    public var surgeMultiplier: Double
+    public var surgeMultiplier: Float
     public var shared: Bool
     public var driver: DriverObj?
     public var vehicle: VehicleObj?
@@ -65,8 +65,9 @@ open class TripObj: BaseObj {
     public var destination: UberCoordinateObj?
     public var waypoints: [WaypointObj]?
     public var riders: [RiderObj]?
+
     public lazy var status: TripObjStatus = {
-        return TripObjStatus.createTripStatus(rawValue: _status)
+        return TripObjStatus.createTripStatus(rawValue: self._status)
     }()
 
     public var isValidTrip: Bool {
@@ -94,6 +95,14 @@ open class TripObj: BaseObj {
     }
 
     // MARK: - Init
+    public init(productId: String, requestId: String, status: String, surgeMultiplier: Float, shared: Bool) {
+        self.productId = productId
+        self.requestId = requestId
+        self._status = status
+        self.surgeMultiplier = surgeMultiplier
+        self.shared = shared
+    }
+
     public required init(unboxer: Unboxer) throws {
         self.productId = try unboxer.unbox(key: Constants.Object.Trip.ProductId)
         self.requestId = try unboxer.unbox(key: Constants.Object.Trip.RequestId)
@@ -108,14 +117,12 @@ open class TripObj: BaseObj {
         self.waypoints = unboxer.unbox(key: Constants.Object.Trip.Waypoints)
         self.riders = unboxer.unbox(key: Constants.Object.Trip.Riders)
     }
-    
-    public required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
 
     class func noCurrentTrip() -> TripObj {
-        let obj = TripObj()
-        obj._status = TripObjStatus.unknown.rawValue
-        return obj
+        return TripObj(productId: "",
+                       requestId: "",
+                       status: TripObjStatus.unknown.rawValue,
+                       surgeMultiplier: 1,
+                       shared: true)
     }
 }

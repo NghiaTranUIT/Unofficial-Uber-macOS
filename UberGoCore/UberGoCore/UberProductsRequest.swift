@@ -49,6 +49,6 @@ public class UberProductsRequest: Requestable {
         guard let products = result["products"] as? [[String: Any]] else {
             return []
         }
-        return Mapper<ProductObj>().mapArray(JSONArray: products)
+        return try? unbox(dictionaries: products)
     }
 }

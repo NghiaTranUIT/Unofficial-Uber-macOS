@@ -9,7 +9,7 @@
 import Foundation
 import Unbox
 
-open class DriverObj: BaseObj {
+open class DriverObj: Unboxable {
 
     // MARK: - Variable
     public var phoneNumber: String
@@ -25,10 +25,5 @@ open class DriverObj: BaseObj {
         self.rating = try unboxer.unbox(key: Constants.Object.Driver.Rating)
         self.pictureUrl = try unboxer.unbox(key: Constants.Object.Driver.PictureUrl)
         self.name = try unboxer.unbox(key: Constants.Object.Driver.Name)
-        try super.init(unboxer: unboxer)
-    }
-
-    public required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
     }
 }

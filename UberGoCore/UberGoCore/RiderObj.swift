@@ -9,7 +9,7 @@
 import Foundation
 import Unbox
 
-open class RiderObj: BaseObj {
+open class RiderObj: Unboxable {
 
     // MARK: - Variable
     public var riderId: String?
@@ -21,10 +21,5 @@ open class RiderObj: BaseObj {
         self.riderId = unboxer.unbox(key: Constants.Object.Rider.RiderId)
         self.firstName = try unboxer.unbox(key: Constants.Object.Rider.FirstName)
         self.me = try unboxer.unbox(key: Constants.Object.Rider.Me)
-        try super.init(unboxer: unboxer)
-    }
-
-    public required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
     }
 }

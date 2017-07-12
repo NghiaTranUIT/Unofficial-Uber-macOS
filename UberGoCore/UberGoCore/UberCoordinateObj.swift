@@ -9,7 +9,7 @@
 import CoreLocation
 import Unbox
 
-open class UberCoordinateObj: BaseObj {
+open class UberCoordinateObj: Unboxable {
 
     // MARK: - Variable
     public var latitude: Float
@@ -28,10 +28,5 @@ open class UberCoordinateObj: BaseObj {
         self.longitude = try unboxer.unbox(key: "longitude")
         self.bearing = try unboxer.unbox(key: "bearing")
         self.eta = try unboxer.unbox(key: "eta")
-        try super.init(unboxer: unboxer)
-    }
-
-    public required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
     }
 }

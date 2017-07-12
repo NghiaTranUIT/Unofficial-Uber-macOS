@@ -14,7 +14,7 @@ public enum UberPersonalPlaceType: String {
     case home = "Home"
 }
 
-open class UberPersonalPlaceObj: BaseObj {
+open class UberPersonalPlaceObj: Unboxable {
 
     // MARK: - Variable
     public var placeType: UberPersonalPlaceType = .work
@@ -22,13 +22,12 @@ open class UberPersonalPlaceObj: BaseObj {
     public fileprivate(set) var invalid = false
 
     // MARK: - Map
-    public required init(unboxer: Unboxer) throws {
-        self.address = try unboxer.unbox(key: Constants.Object.UberPersonalPlace.Address)
-        try super.init(unboxer: unboxer)
+    public init(address: String, invalid: Bool = false) {
+        self.address = address
     }
 
-    public required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+    public required init(unboxer: Unboxer) throws {
+        self.address = try unboxer.unbox(key: Constants.Object.UberPersonalPlace.Address)
     }
 }
 
@@ -36,8 +35,6 @@ open class UberPersonalPlaceObj: BaseObj {
 extension UberPersonalPlaceObj {
 
     public static var invalidPlace: UberPersonalPlaceObj {
-        let place = UberPersonalPlaceObj()
-        place.invalid = true
-        return place
+        return UberPersonalPlaceObj(address: "Invalid", invalid: true)
     }
 }

@@ -9,7 +9,7 @@
 import Unbox
 import RxSwift
 
-open class ProductObj: BaseObj {
+open class ProductObj: Unboxable {
 
     // MARK: - Variable
     public var upfrontFareEnabled: Bool
@@ -22,6 +22,7 @@ open class ProductObj: BaseObj {
     public var displayName: String
     public var productGroup: String
     public var descr: String
+    fileprivate let disposeBag = DisposeBag()
 
     // Pretty
     public var prettyCapacity: String {
@@ -49,11 +50,6 @@ open class ProductObj: BaseObj {
         self.productGroup = try unboxer.unbox(key: Constants.Object.Product.ProductGroup)
         self.descr = try unboxer.unbox(key: Constants.Object.Product.Description)
         self.priceDetail = unboxer.unbox(key: Constants.Object.Product.PriceDetails)
-        try super.init(unboxer: unboxer)
-    }
-
-    public required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
     }
 
     fileprivate func initLazyPriceDetail() -> Variable<PriceDetailObj?> {
@@ -70,7 +66,7 @@ open class ProductObj: BaseObj {
     }
 }
 
-open class GroupProductObj: BaseObj {
+open class GroupProductObj {
 
     // MARK: - Variable
     public var productGroup: String
@@ -80,15 +76,6 @@ open class GroupProductObj: BaseObj {
     public init(productGroup: String, productObjs: [ProductObj]) {
         self.productGroup = productGroup
         self.productObjs = productObjs
-        super.init()
-    }
-
-    public required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
-
-    public required init(unboxer: Unboxer) throws {
-
     }
 
     // MARK: - Public

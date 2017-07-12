@@ -30,6 +30,6 @@ class GetCurrentTripRequest: Requestable {
         guard let result = data as? [String: Any] else {
             return nil
         }
-        return Mapper<TripObj>().map(JSON: result)
+        return try? unbox(dictionary: result)
     }
 }

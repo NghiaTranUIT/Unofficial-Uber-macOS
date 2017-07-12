@@ -26,33 +26,31 @@ public enum PlaceType: String {
 }
 
 // Google Place
-open class PlaceObj: BaseObj {
+open class PlaceObj: Unboxable, Equatable {
 
     // MARK: - Variable
     public var placeType = PlaceType.place
-    public var name: String?
-    public var address: String?
-    public var placeID: String?
-    public var coordinate2D: CLLocationCoordinate2D?
-    public var location: [String: Float]?
+    public var name: String
+    public var address: String
+    public var placeID: String
+    public var location: [String: Float]
     public var isHistory = false
 
+    public lazy var coordinate2D: CLLocationCoordinate2D = {
+        let lat = Double(self.location["lat"]!)
+        let lng = Double(self.location["lng"]!)
+        return CLLocationCoordinate2D(latitude: lat, longitude: lng)
+    }()
+
     // MARK: - Init
-    override public init() {
-        super.init()
-    }
-
     public init(personalPlaceObj: UberPersonalPlaceObj) {
-        super.init()
-
         self.name = personalPlaceObj.placeType.rawValue
         self.address = personalPlaceObj.address
         self.placeType = PlaceType.fromUberPersonalPlaceType(personalPlaceObj.placeType)
         self.placeID = self.placeType.rawValue
     }
 
-    public override func encode(with aCoder: NSCoder) {
-        super.encode(with: aCoder)
+    public func encode(with aCoder: NSCoder) {
         aCoder.encode(self.name, forKey: "name")
         aCoder.encode(self.address, forKey: "vicinity")
         aCoder.encode(self.location, forKey: "geometry.location")
@@ -60,33 +58,26 @@ open class PlaceObj: BaseObj {
         aCoder.encode(self.placeID, forKey: "placeID")
     }
 
-    public required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        self.name = aDecoder.decodeObject(forKey: "name") as? String
-        self.address = aDecoder.decodeObject(forKey: "vicinity") as? String
-        self.location = aDecoder.decodeObject(forKey: "geometry.location") as? [String: Float]
-        let lat = Double(self.location!["lat"]!)
-        let lng = Double(self.location!["lng"]!)
-        self.coordinate2D = CLLocationCoordinate2D(latitude: lat, longitude: lng)
-
+    public init?(coder aDecoder: NSCoder) {
+        self.name = aDecoder.decodeObject(forKey: "name") as! String
+        self.address = aDecoder.decodeObject(forKey: "vicinity") as! String
+        self.location = aDecoder.decodeObject(forKey: "geometry.location") as! [String: Float]
         self.isHistory = true
         self.placeType = PlaceType(rawValue: aDecoder.decodeObject(forKey: "placeType") as! String)!
-        self.placeID = aDecoder.decodeObject(forKey: "placeID") as? String
+        self.placeID = aDecoder.decodeObject(forKey: "placeID") as! String
     }
     
     // Map
     public required init(unboxer: Unboxer) throws {
         self.name = try unboxer.unbox(key: "name")
         self.address = try unboxer.unbox(key: "vicinity")
-        self.location = try unboxer.unbox(key: "geometry.location")
-        self.coordinate2D = try unboxer.unbox(key:"geometry.location")
+        self.location = try unboxer.unbox(keyPath: "geometry.location")
         self.placeID = try unboxer.unbox(key: "place_id")
     }
 
+    // MARK: - Public
     public var iconName: String {
-        if self.isHistory {
-            return "history"
-        }
+        if self.isHistory { return "history" }
         switch self.placeType {
         case .home:
             return "home"
@@ -97,29 +88,9 @@ open class PlaceObj: BaseObj {
         }
     }
 
-    override open func isEqual(_ object: Any?) -> Bool {
-        guard let object = object as? PlaceObj else {
-            return false
-        }
-        guard let placeID = self.placeID else {
-            return false
-        }
-        guard let _placeID = object.placeID else {
-            return false
-        }
-
-        if placeID == _placeID {
-            return true
-        }
+    public static func ==(lhs: PlaceObj, rhs: PlaceObj) -> Bool {
+        if lhs.placeID == rhs.placeID { return true }
         return false
     }
 }
 
-extension PlaceObj {
-
-    public static var unknowPlace: PlaceObj {
-        let place = PlaceObj()
-        place.name = "Unknow location"
-        return place
-    }
-}

@@ -9,7 +9,7 @@
 import Foundation
 import Unbox
 
-open class TimeEstimateObj: BaseObj {
+open class TimeEstimateObj: Unboxable {
 
     // MARK: - Variable
     public var localizedDisplayName: String
@@ -24,15 +24,9 @@ open class TimeEstimateObj: BaseObj {
 
     // MARK: - Init
     public required init(unboxer: Unboxer) throws {
-        self.localizedDisplayName = try unboxer.unbox(key: Constants.Object.TimeEstimate.LocalizedDisplayName)
-        self.estimate = try unboxer.unbox(key: Constants.Object.TimeEstimate.Estimate)
-        self.displayName = try unboxer.unbox(key: Constants.Object.TimeEstimate.DisplayName)
-        self.productId = try unboxer.unbox(key: Constants.Object.TimeEstimate.ProductId)
-        try super.init(unboxer: unboxer)
+        localizedDisplayName = try unboxer.unbox(key: Constants.Object.TimeEstimate.LocalizedDisplayName)
+        estimate = try unboxer.unbox(key: Constants.Object.TimeEstimate.Estimate)
+        displayName = try unboxer.unbox(key: Constants.Object.TimeEstimate.DisplayName)
+        productId = try unboxer.unbox(key: Constants.Object.TimeEstimate.ProductId)
     }
-
-    public required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
-
 }

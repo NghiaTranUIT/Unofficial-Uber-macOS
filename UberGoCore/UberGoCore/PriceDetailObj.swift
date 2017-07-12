@@ -8,7 +8,7 @@
 
 import Unbox
 
-open class PriceDetailObj: BaseObj {
+open class PriceDetailObj: Unboxable {
 
     // MARK: - Variable
     public var serviceFees: [ServiceFeeObj]
@@ -30,11 +30,6 @@ open class PriceDetailObj: BaseObj {
         base = try unboxer.unbox(key: Constants.Object.PriceDetail.Base)
         cancellationFee = try unboxer.unbox(key: Constants.Object.PriceDetail.CancellationFee)
         currencyCode = try unboxer.unbox(key: Constants.Object.PriceDetail.CurrencyCode)
-        try super.init(unboxer: unboxer)
-    }
-
-    public required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
     }
 
     // Get all available services
@@ -43,14 +38,13 @@ open class PriceDetailObj: BaseObj {
         var services: [ServiceFeeObj] = []
 
         // Base
-        services.append(ServiceFeeObj.serviceFee(name: "Base Fare", fee: self.base))
-        services.append(ServiceFeeObj.serviceFee(name: "Minimum Fare", fee: self.minimum))
-        services.append(ServiceFeeObj.serviceFee(name: "+ Per Minute", fee: self.costPerMinute))
-        services.append(ServiceFeeObj.serviceFee(name: "+ Per \(self.distanceUnit)", fee: self.costPerDistance))
+        services.append(ServiceFeeObj(name: "Base Fare", fee: self.base))
+        services.append(ServiceFeeObj(name: "Minimum Fare", fee: self.minimum))
+        services.append(ServiceFeeObj(name: "+ Per Minute", fee: self.costPerMinute))
+        services.append(ServiceFeeObj(name: "+ Per \(self.distanceUnit)", fee: self.costPerDistance))
 
         // Append
-         services.append(contentsOf: self.serviceFees)
-
+        services.append(contentsOf: self.serviceFees)
         return services
     }()
 }

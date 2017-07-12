@@ -9,7 +9,7 @@
 import Foundation
 import Unbox
 
-open class VehicleObj: BaseObj {
+open class VehicleObj: Unboxable {
 
     // MARK: - Variable
     public var make: String
@@ -28,10 +28,5 @@ open class VehicleObj: BaseObj {
         self.model = try unboxer.unbox(key: Constants.Object.Vehicle.Model)
         self.licensePlate = try unboxer.unbox(key: Constants.Object.Vehicle.LicensePlate)
         self.pictureUrl = unboxer.unbox(key: Constants.Object.Vehicle.PictureUrl)
-        try super.init(unboxer: unboxer)
-    }
-
-    public required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
     }
 }

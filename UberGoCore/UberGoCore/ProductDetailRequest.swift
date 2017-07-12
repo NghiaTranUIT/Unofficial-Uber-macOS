@@ -51,6 +51,6 @@ open class PriceDetailRequest: Requestable {
         guard let result = data as? [String: Any] else {
             return nil
         }
-        return Mapper<Element>().map(JSON: result)
+        return try? unbox(dictionary: result)
     }
 }

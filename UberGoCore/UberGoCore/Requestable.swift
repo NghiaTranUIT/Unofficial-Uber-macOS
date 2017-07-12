@@ -94,7 +94,7 @@ extension Requestable {
                         //FIXME : Smell code
                         // Get rid of baseObj
                         // Because sometime, there are no response
-                        let base = BaseObj(JSON: [:])
+                        let base = BaseObj()
                         observer.on(.next(base as! Element))
                         observer.on(.completed)
                         return

@@ -93,6 +93,6 @@ open class CreateTripRequest: Requestable {
         guard let result = data as? [String: Any] else {
             return nil
         }
-        return Mapper<CreateTripObj>().map(JSON: result)
+        return try? unbox(dictionary: result)
     }
 }

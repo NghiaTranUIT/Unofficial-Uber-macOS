@@ -59,6 +59,6 @@ open class SandboxUpdateProductRequest: Requestable {
         guard let result = data as? [String: Any] else {
             return nil
         }
-        return Mapper<BaseObj>().map(JSON: result)
+        return try? unbox(dictionary: result)
     }
 }

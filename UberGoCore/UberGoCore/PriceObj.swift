@@ -8,7 +8,7 @@
 
 import Unbox
 
-open class PriceObj: BaseObj {
+open class PriceObj: Unboxable {
 
     // MARK: - Variable
     public var localizedDisplayName: String
@@ -34,10 +34,5 @@ open class PriceObj: BaseObj {
         self.estimate = try unboxer.unbox(key: Constants.Object.Price.Estimate)
         self.currencyCode = unboxer.unbox(key: Constants.Object.Price.CurrencyCode)
         self.surgeMultiplier = try unboxer.unbox(key: Constants.Object.Price.SurgeMultiplier)
-        try super.init(unboxer: unboxer)
-    }
-
-    public required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
     }
 }

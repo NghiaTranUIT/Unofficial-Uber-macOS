@@ -83,6 +83,6 @@ open class PlaceSearchRequest: Requestable {
         guard let places = result["results"] as? [[String: Any]] else {
             return []
         }
-        return Mapper<PlaceObj>().mapArray(JSONArray: places)
+        return try? unbox(dictionaries: places)
     }
 }
