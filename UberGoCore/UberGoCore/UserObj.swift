@@ -8,7 +8,7 @@
 
 import Cocoa
 import OAuthSwift
-import ObjectMapper
+import Unbox
 import RxSwift
 
 open class UserObj: BaseObj {

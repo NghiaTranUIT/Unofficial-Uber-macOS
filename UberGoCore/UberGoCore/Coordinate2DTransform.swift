@@ -8,7 +8,7 @@
 
 import Cocoa
 import CoreLocation
-import ObjectMapper
+import Unbox
 
 open class Coordinate2DTransform: TransformType {
     public typealias Object = CLLocationCoordinate2D

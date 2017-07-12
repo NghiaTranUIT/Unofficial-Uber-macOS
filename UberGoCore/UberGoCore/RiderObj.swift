@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import ObjectMapper
+import Unbox
 
 open class RiderObj: BaseObj {
 

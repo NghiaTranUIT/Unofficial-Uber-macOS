@@ -7,7 +7,7 @@
 //
 
 import CoreLocation
-import ObjectMapper
+import Unbox
 
 open class UberCoordinateObj: BaseObj {
 

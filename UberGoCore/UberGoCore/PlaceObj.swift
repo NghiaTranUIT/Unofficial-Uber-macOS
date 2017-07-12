@@ -7,7 +7,7 @@
 //
 
 import CoreLocation
-import ObjectMapper
+import Unbox
 
 // PlaceType
 public enum PlaceType: String {

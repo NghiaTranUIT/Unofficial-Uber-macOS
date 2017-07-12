@@ -9,7 +9,7 @@
 import Alamofire
 import CoreLocation
 import Foundation
-import ObjectMapper
+import Unbox
 
 class GetPaymentMethodRequest: Requestable {
 
@@ -30,6 +30,6 @@ class GetPaymentMethodRequest: Requestable {
         guard let result = data as? [String: Any] else {
             return nil
         }
-        return Mapper<Element>().map(JSON: result)
+        return try? unbox(dictionary: result)
     }
 }

@@ -8,7 +8,7 @@
 
 import Alamofire
 import CoreLocation
-import ObjectMapper
+import Unbox
 
 public struct CreateTripRequestParam: Parameter {
 

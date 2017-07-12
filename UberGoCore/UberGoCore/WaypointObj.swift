@@ -8,7 +8,7 @@
 
 import CoreLocation
 import Foundation
-import ObjectMapper
+import Unbox
 
 public enum WaypointType: String {
     case pickup

@@ -6,7 +6,7 @@
 //  Copyright © 2017 Nghia Tran. All rights reserved.
 //
 
-import ObjectMapper
+import Unbox
 
 open class PaymentObj: BaseObj {
 

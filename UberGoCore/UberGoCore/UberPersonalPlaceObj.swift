@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import ObjectMapper
+import Unbox
 
 public enum UberPersonalPlaceType: String {
     case work = "Work"

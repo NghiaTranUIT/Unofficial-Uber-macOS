@@ -8,7 +8,7 @@
 
 import Alamofire
 import CoreLocation
-import ObjectMapper
+import Unbox
 
 struct PostEstimateTripRequestParamter: Parameter {
 

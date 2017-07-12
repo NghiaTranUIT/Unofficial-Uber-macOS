@@ -9,7 +9,7 @@
 import Alamofire
 import CoreLocation
 import Foundation
-import ObjectMapper
+import Unbox
 
 public struct RideEstimatePriceRequestParam: Parameter {
 

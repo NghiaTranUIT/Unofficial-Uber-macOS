@@ -7,7 +7,7 @@
 //
 
 import Alamofire
-import ObjectMapper
+import Unbox
 import RxSwift
 
 public struct SandboxUpdateProductRequestParam: Parameter {

@@ -7,16 +7,15 @@
 //
 
 import Cocoa
-import ObjectMapper
+import Unbox
 import RxSwift
 
-open class BaseObj: NSObject, Mappable, NSCoding {
+open class BaseObj: NSObject, Unboxable, NSCoding {
 
     // MARK: - Variable
-    public var objectId: String? = UUID.shortUUID()
-    public var createdAt: Date? = Date()
-    public var updatedAt: Date? = Date()
-
+    public var objectId = UUID.shortUUID()
+    public var createdAt = Date()
+    public var updatedAt = Date()
     public let disposeBag = DisposeBag()
 
     // MARK: - Init
@@ -24,38 +23,21 @@ open class BaseObj: NSObject, Mappable, NSCoding {
         super.init()
     }
 
-    public required init?(map: Map) {
-    }
+    public required init(unboxer: Unboxer) throws {
 
-    public func mapping(map: Map) {
-        self.objectId <- map[Constants.Object.ObjectId]
-        self.createdAt <- map[Constants.Object.CreatedAt]
-        self.updatedAt <- map[Constants.Object.UpdatedAt]
     }
 
     public required init?(coder aDecoder: NSCoder) {
-        self.objectId = aDecoder.decodeObject(forKey: Constants.Object.ObjectId) as? String
-        self.createdAt = aDecoder.decodeObject(forKey: Constants.Object.CreatedAt) as? Date
-        self.updatedAt = aDecoder.decodeObject(forKey: Constants.Object.UpdatedAt) as? Date
+        objectId = aDecoder.decodeObject(forKey: Constants.Object.ObjectId) as! String
+        createdAt = aDecoder.decodeObject(forKey: Constants.Object.CreatedAt) as! Date
+        updatedAt = aDecoder.decodeObject(forKey: Constants.Object.UpdatedAt) as! Date
     }
 
     public func encode(with aCoder: NSCoder) {
-        aCoder.encode(self.objectId)
-        aCoder.encode(self.createdAt)
-        aCoder.encode(self.updatedAt)
+        aCoder.encode(objectId)
+        aCoder.encode(createdAt)
+        aCoder.encode(updatedAt)
     }
 
-    // MARK: - Debug
-    override open var debugDescription: String {
-        guard let json = self.toJSONString() else {
-            return super.debugDescription
-        }
-        return json
-    }
-    override open var description: String {
-        guard let json = self.toJSONString() else {
-            return super.debugDescription
-        }
-        return json
-    }
 }
+

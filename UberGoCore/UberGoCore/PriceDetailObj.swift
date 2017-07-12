@@ -6,19 +6,32 @@
 //  Copyright © 2017 Nghia Tran. All rights reserved.
 //
 
-import ObjectMapper
+import Unbox
 
 open class PriceDetailObj: BaseObj {
 
     // MARK: - Variable
-    public var serviceFees: [ServiceFeeObj]?
-    public var costPerMinute: Float?
-    public var distanceUnit: String?
-    public var minimum: Float?
-    public var costPerDistance: Float?
-    public var base: Float?
-    public var cancellationFee: Float?
-    public var currencyCode: String?
+    public var serviceFees: [ServiceFeeObj]
+    public var costPerMinute: Float
+    public var distanceUnit: String
+    public var minimum: Float
+    public var costPerDistance: Float
+    public var base: Float
+    public var cancellationFee: Float
+    public var currencyCode: String
+
+    // MARK: - Init
+    override init(unboxer: Unboxer) throws {
+        self.serviceFees = try unboxer.unbox(key: Constants.Object.PriceDetail.ServiceFees)
+        self.costPerMinute = try unboxer.unbox(key: Constants.Object.PriceDetail.CostPerMinute)
+        self.distanceUnit = try unboxer.unbox(key: Constants.Object.PriceDetail.DistanceUnit)
+        self.minimum = try unboxer.unbox(key: Constants.Object.PriceDetail.Minimum)
+        self.costPerDistance = try unboxer.unbox(key: Constants.Object.PriceDetail.CostPerDistance)
+        self.base = try unboxer.unbox(key: Constants.Object.PriceDetail.Base)
+        self.cancellationFee = try unboxer.unbox(key: Constants.Object.PriceDetail.CancellationFee)
+        self.currencyCode = try unboxer.unbox(key: Constants.Object.PriceDetail.CurrencyCode)
+        super.init(unboxer: unboxer)
+    }
 
     // Get all available services
     // The list isn't always fixed
@@ -46,19 +59,6 @@ open class PriceDetailObj: BaseObj {
 
         return services
     }()
-
-    override public func mapping(map: Map) {
-        super.mapping(map: map)
-
-        self.serviceFees <- map[Constants.Object.PriceDetail.ServiceFees]
-        self.costPerMinute <- map[Constants.Object.PriceDetail.CostPerMinute]
-        self.distanceUnit <- map[Constants.Object.PriceDetail.DistanceUnit]
-        self.minimum <- map[Constants.Object.PriceDetail.Minimum]
-        self.costPerDistance <- map[Constants.Object.PriceDetail.CostPerDistance]
-        self.base <- map[Constants.Object.PriceDetail.Base]
-        self.cancellationFee <- map[Constants.Object.PriceDetail.CancellationFee]
-        self.currencyCode <- map[Constants.Object.PriceDetail.CurrencyCode]
-    }
 }
 
 
