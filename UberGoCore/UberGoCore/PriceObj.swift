@@ -25,15 +25,15 @@ open class PriceObj: BaseObj {
     override public func mapping(map: Map) {
         super.mapping(map: map)
 
-        self.localizedDisplayName <- map[Constants.Object.Price.LocalizedDisplayName]
-        self.distance <- map[Constants.Object.Price.Distance]
-        self.displayName <- map[Constants.Object.Price.DisplayName]
-        self.productId <- map[Constants.Object.Price.ProductId]
-        self.highEstimate <- map[Constants.Object.Price.HighEstimate]
-        self.lowEstimate <- map[Constants.Object.Price.LowEstimate]
-        self.duration <- map[Constants.Object.Price.Duration]
-        self.estimate <- map[Constants.Object.Price.Estimate]
-        self.currencyCode <- map[Constants.Object.Price.CurrencyCode]
-        self.surgeMultiplier <- map[Constants.Object.Price.SurgeMultiplier]
+        self.localizedDisplayName = try unboxer.unbox(key: Constants.Object.Price.LocalizedDisplayName)
+        self.distance = try unboxer.unbox(key: Constants.Object.Price.Distance)
+        self.displayName = try unboxer.unbox(key: Constants.Object.Price.DisplayName)
+        self.productId = try unboxer.unbox(key: Constants.Object.Price.ProductId)
+        self.highEstimate = try unboxer.unbox(key: Constants.Object.Price.HighEstimate)
+        self.lowEstimate = try unboxer.unbox(key: Constants.Object.Price.LowEstimate)
+        self.duration = try unboxer.unbox(key: Constants.Object.Price.Duration)
+        self.estimate = try unboxer.unbox(key: Constants.Object.Price.Estimate)
+        self.currencyCode = try unboxer.unbox(key: Constants.Object.Price.CurrencyCode)
+        self.surgeMultiplier = try unboxer.unbox(key: Constants.Object.Price.SurgeMultiplier)
     }
 }

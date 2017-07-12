@@ -21,16 +21,20 @@ open class PriceDetailObj: BaseObj {
     public var currencyCode: String
 
     // MARK: - Init
-    override init(unboxer: Unboxer) throws {
-        self.serviceFees = try unboxer.unbox(key: Constants.Object.PriceDetail.ServiceFees)
-        self.costPerMinute = try unboxer.unbox(key: Constants.Object.PriceDetail.CostPerMinute)
-        self.distanceUnit = try unboxer.unbox(key: Constants.Object.PriceDetail.DistanceUnit)
-        self.minimum = try unboxer.unbox(key: Constants.Object.PriceDetail.Minimum)
-        self.costPerDistance = try unboxer.unbox(key: Constants.Object.PriceDetail.CostPerDistance)
-        self.base = try unboxer.unbox(key: Constants.Object.PriceDetail.Base)
-        self.cancellationFee = try unboxer.unbox(key: Constants.Object.PriceDetail.CancellationFee)
-        self.currencyCode = try unboxer.unbox(key: Constants.Object.PriceDetail.CurrencyCode)
-        super.init(unboxer: unboxer)
+    public required init(unboxer: Unboxer) throws {
+        serviceFees = try unboxer.unbox(key: Constants.Object.PriceDetail.ServiceFees)
+        costPerMinute = try unboxer.unbox(key: Constants.Object.PriceDetail.CostPerMinute)
+        distanceUnit = try unboxer.unbox(key: Constants.Object.PriceDetail.DistanceUnit)
+        minimum = try unboxer.unbox(key: Constants.Object.PriceDetail.Minimum)
+        costPerDistance = try unboxer.unbox(key: Constants.Object.PriceDetail.CostPerDistance)
+        base = try unboxer.unbox(key: Constants.Object.PriceDetail.Base)
+        cancellationFee = try unboxer.unbox(key: Constants.Object.PriceDetail.CancellationFee)
+        currencyCode = try unboxer.unbox(key: Constants.Object.PriceDetail.CurrencyCode)
+        try super.init(unboxer: unboxer)
+    }
+
+    public required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
     }
 
     // Get all available services
@@ -39,23 +43,13 @@ open class PriceDetailObj: BaseObj {
         var services: [ServiceFeeObj] = []
 
         // Base
-        if let base = self.base {
-            services.append(ServiceFeeObj.serviceFee(name: "Base Fare", fee: base))
-        }
-        if let minimun = self.minimum {
-            services.append(ServiceFeeObj.serviceFee(name: "Minimum Fare", fee: minimun))
-        }
-        if let costPerMinute = self.costPerMinute {
-            services.append(ServiceFeeObj.serviceFee(name: "+ Per Minute", fee: costPerMinute))
-        }
-        if let costPerDistance = self.costPerDistance {
-            services.append(ServiceFeeObj.serviceFee(name: "+ Per \(self.distanceUnit ?? "KM")", fee: costPerDistance))
-        }
+        services.append(ServiceFeeObj.serviceFee(name: "Base Fare", fee: self.base))
+        services.append(ServiceFeeObj.serviceFee(name: "Minimum Fare", fee: self.minimum))
+        services.append(ServiceFeeObj.serviceFee(name: "+ Per Minute", fee: self.costPerMinute))
+        services.append(ServiceFeeObj.serviceFee(name: "+ Per \(self.distanceUnit)", fee: self.costPerDistance))
 
         // Append
-        if let fees = self.serviceFees {
-            services.append(contentsOf: fees)
-        }
+         services.append(contentsOf: self.serviceFees)
 
         return services
     }()

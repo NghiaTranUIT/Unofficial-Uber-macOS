@@ -80,13 +80,11 @@ open class PlaceObj: BaseObj {
 
     // Map
     override public func mapping(map: Map) {
-        super.mapping(map: map)
-
-        self.name <- map["name"]
-        self.address <- map["vicinity"]
-        self.location <- map["geometry.location"]
-        self.coordinate2D <- (map["geometry.location"], Coordinate2DTransform())
-        self.placeID <- map["place_id"]
+        self.name = try unboxer.unbox(key: "name")
+        self.address = try unboxer.unbox(key: "vicinity")
+        self.location = try unboxer.unbox(key: "geometry.location")
+        self.coordinate2D = try unboxer.unbox(key:"geometry.location")
+        self.placeID = try unboxer.unbox(key: "place_id")
     }
 
     public var iconName: String {

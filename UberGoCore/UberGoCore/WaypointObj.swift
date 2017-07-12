@@ -49,9 +49,9 @@ open class WaypointObj: BaseObj {
     override public func mapping(map: Map) {
         super.mapping(map: map)
 
-        self.riderId <- map[Constants.Object.Waypoint.RiderId]
-        self.typeStr <- map[Constants.Object.Waypoint.Type]
-        self.latitude <- map[Constants.Object.Waypoint.Latitude]
-        self.longitude <- map[Constants.Object.Waypoint.Longitude]
+        self.riderId = try unboxer.unbox(key: Constants.Object.Waypoint.RiderId)
+        self.typeStr = try unboxer.unbox(key: Constants.Object.Waypoint.Type)
+        self.latitude = try unboxer.unbox(key: Constants.Object.Waypoint.Latitude)
+        self.longitude = try unboxer.unbox(key: Constants.Object.Waypoint.Longitude)
     }
 }

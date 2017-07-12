@@ -19,10 +19,10 @@ open class SurgeConfirmationObj: BaseObj {
     public override func mapping(map: Map) {
         super.mapping(map: map)
 
-        self.href <- map["href"]
-        self.surgeConfirmationId <- map["surge_confirmation_id"]
-        self.multiplier <- map["multiplier"]
-        self.expiresAt <- map["expires_at"]
+        self.href = try unboxer.unbox(key: "href")
+        self.surgeConfirmationId = try unboxer.unbox(key: "surge_confirmation_id")
+        self.multiplier = try unboxer.unbox(key: "multiplier")
+        self.expiresAt = try unboxer.unbox(key: "expires_at")
     }
 }
 
@@ -46,17 +46,17 @@ open class CreateTripObj: BaseObj {
     public override func mapping(map: Map) {
         super.mapping(map: map)
 
-        self.requestId <- map["request_id"]
-        self.productId <- map["product_id"]
-        self.status <- map["status"]
-        self.vehicleObj <- map["vehicle"]
-        self.driverObj <- map["driver"]
-        self.locationObj <- map["location"]
-        self.eta <- map["eta"]
-        self.surgeMultiplier <- map["surge_multiplier"]
+        self.requestId = try unboxer.unbox(key: "request_id")
+        self.productId = try unboxer.unbox(key: "product_id")
+        self.status = try unboxer.unbox(key: "status")
+        self.vehicleObj = try unboxer.unbox(key: "vehicle")
+        self.driverObj = try unboxer.unbox(key: "driver")
+        self.locationObj = try unboxer.unbox(key: "location")
+        self.eta = try unboxer.unbox(key: "eta")
+        self.surgeMultiplier = try unboxer.unbox(key: "surge_multiplier")
 
         // 409
-        self.surgeConfirmationObj <- map["meta.surge_confirmation"]
-        self.errorTitle <- map["errors.0.title"]
+        self.surgeConfirmationObj = try unboxer.unbox(keyPath: "meta.surge_confirmation")
+        self.errorTitle = try unboxer.unbox(keyPath: "errors.0.title")
     }
 }

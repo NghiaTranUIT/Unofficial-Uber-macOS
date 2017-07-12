@@ -27,9 +27,9 @@ open class VehicleObj: BaseObj {
     override public func mapping(map: Map) {
         super.mapping(map: map)
 
-        self.make <- map[Constants.Object.Vehicle.Make]
-        self.model <- map[Constants.Object.Vehicle.Model]
-        self.licensePlate <- map[Constants.Object.Vehicle.LicensePlate]
-        self.pictureUrl <- map[Constants.Object.Vehicle.PictureUrl]
+        self.make = try unboxer.unbox(key: Constants.Object.Vehicle.Make)
+        self.model = try unboxer.unbox(key: Constants.Object.Vehicle.Model)
+        self.licensePlate = try unboxer.unbox(key: Constants.Object.Vehicle.LicensePlate)
+        self.pictureUrl = try unboxer.unbox(key: Constants.Object.Vehicle.PictureUrl)
     }
 }

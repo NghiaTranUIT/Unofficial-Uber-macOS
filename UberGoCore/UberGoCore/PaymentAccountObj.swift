@@ -60,8 +60,8 @@ open class PaymentAccountObj: BaseObj {
     public override func mapping(map: Map) {
         super.mapping(map: map)
 
-        self.paymentMethodId <- map[Constants.Object.PaymentAccount.PaymentMethodId]
-        self.typeCode <- map[Constants.Object.PaymentAccount.Type]
-        self.accountDescription <- map[Constants.Object.PaymentAccount.Description]
+        self.paymentMethodId = try unboxer.unbox(key: Constants.Object.PaymentAccount.PaymentMethodId)
+        self.typeCode = try unboxer.unbox(key: Constants.Object.PaymentAccount.Type)
+        self.accountDescription = try unboxer.unbox(key: Constants.Object.PaymentAccount.Description)
     }
 }

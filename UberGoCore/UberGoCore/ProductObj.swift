@@ -39,19 +39,17 @@ open class ProductObj: BaseObj {
 
     // Map
     override public func mapping(map: Map) {
-        super.mapping(map: map)
-
-        self.upfrontFareEnabled <- map[Constants.Object.Product.UpfrontFareEnabled]
-        self.capacity <- map[Constants.Object.Product.Capacity]
-        self.productId <- map[Constants.Object.Product.ProductId]
-        self.image <- map[Constants.Object.Product.Image]
-        self.cashEnabled <- map[Constants.Object.Product.CashEnabled]
-        self.shared <- map[Constants.Object.Product.Shared]
-        self.shortDescription <- map[Constants.Object.Product.ShortDescription]
-        self.displayName <- map[Constants.Object.Product.DisplayName]
-        self.productGroup <- map[Constants.Object.Product.ProductGroup]
-        self.descr <- map[Constants.Object.Product.Description]
-        self.priceDetail <- map[Constants.Object.Product.PriceDetails]
+        self.upfrontFareEnabled = try unboxer.unbox(key: Constants.Object.Product.UpfrontFareEnabled)
+        self.capacity = try unboxer.unbox(key: Constants.Object.Product.Capacity)
+        self.productId = try unboxer.unbox(key: Constants.Object.Product.ProductId)
+        self.image = try unboxer.unbox(key: Constants.Object.Product.Image)
+        self.cashEnabled = try unboxer.unbox(key: Constants.Object.Product.CashEnabled)
+        self.shared = try unboxer.unbox(key: Constants.Object.Product.Shared)
+        self.shortDescription = try unboxer.unbox(key: Constants.Object.Product.ShortDescription)
+        self.displayName = try unboxer.unbox(key: Constants.Object.Product.DisplayName)
+        self.productGroup = try unboxer.unbox(key: Constants.Object.Product.ProductGroup)
+        self.descr = try unboxer.unbox(key: Constants.Object.Product.Description)
+        self.priceDetail = try unboxer.unbox(key: Constants.Object.Product.PriceDetails)
     }
 
     fileprivate func initLazyPriceDetail() -> Variable<PriceDetailObj?> {

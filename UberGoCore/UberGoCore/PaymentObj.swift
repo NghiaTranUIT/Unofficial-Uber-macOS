@@ -24,7 +24,7 @@ open class PaymentObj: BaseObj {
     public override func mapping(map: Map) {
         super.mapping(map: map)
 
-        self.paymentAccountObjs <- map[Constants.Object.Payment.PaymentMethods]
-        self.lastUsed <- map[Constants.Object.Payment.LastUsed]
+        self.paymentAccountObjs = try unboxer.unbox(key: Constants.Object.Payment.PaymentMethods)
+        self.lastUsed = try unboxer.unbox(key: Constants.Object.Payment.LastUsed)
     }
 }

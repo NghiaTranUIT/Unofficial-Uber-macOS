@@ -25,7 +25,7 @@ open class UberPersonalPlaceObj: BaseObj {
     override public func mapping(map: Map) {
         super.mapping(map: map)
 
-        self.address <- map[Constants.Object.UberPersonalPlace.Address]
+        self.address = try unboxer.unbox(key: Constants.Object.UberPersonalPlace.Address)
     }
 }
 

@@ -19,8 +19,8 @@ open class RiderObj: BaseObj {
     override public func mapping(map: Map) {
         super.mapping(map: map)
 
-        self.riderId <- map[Constants.Object.Rider.RiderId]
-        self.firstName <- map[Constants.Object.Rider.FirstName]
-        self.me <- map[Constants.Object.Rider.Me]
+        self.riderId = try unboxer.unbox(key: Constants.Object.Rider.RiderId)
+        self.firstName = try unboxer.unbox(key: Constants.Object.Rider.FirstName)
+        self.me = try unboxer.unbox(key: Constants.Object.Rider.Me)
     }
 }

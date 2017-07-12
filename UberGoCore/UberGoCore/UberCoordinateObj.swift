@@ -24,9 +24,9 @@ open class UberCoordinateObj: BaseObj {
     override public func mapping(map: Map) {
         super.mapping(map: map)
 
-        self.latitude <- map["latitude"]
-        self.longitude <- map["longitude"]
-        self.bearing <- map["bearing"]
-        self.eta <- map["eta"]
+        self.latitude = try unboxer.unbox(key: "latitude")
+        self.longitude = try unboxer.unbox(key: "longitude")
+        self.bearing = try unboxer.unbox(key: "bearing")
+        self.eta = try unboxer.unbox(key: "eta")
     }
 }

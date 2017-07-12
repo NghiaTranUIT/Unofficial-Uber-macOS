@@ -11,14 +11,13 @@ import Unbox
 open class ServiceFeeObj: BaseObj {
 
     // MARK: - Variable
-    public var fee: Float?
-    public var name: String?
+    public var fee: Float
+    public var name: String
 
-    override public func mapping(map: Map) {
-        super.mapping(map: map)
-
-        self.fee <- map[Constants.Object.ServiceFee.Fee]
-        self.name <- map[Constants.Object.ServiceFee.Name]
+    public required init(unboxer: Unboxer) throws {
+        self.fee = try unboxer.unbox(key: Constants.Object.ServiceFee.Fee)
+        self.name = try unboxer.unbox(key: Constants.Object.ServiceFee.Name)
+        try super.init(unboxer: unboxer)
     }
 
     public class func serviceFee(name: String, fee: Float) -> ServiceFeeObj {

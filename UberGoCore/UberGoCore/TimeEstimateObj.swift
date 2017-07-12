@@ -28,9 +28,9 @@ open class TimeEstimateObj: BaseObj {
     override public func mapping(map: Map) {
         super.mapping(map: map)
 
-        self.localizedDisplayName <- map[Constants.Object.TimeEstimate.LocalizedDisplayName]
-        self.estimate <- map[Constants.Object.TimeEstimate.Estimate]
-        self.displayName <- map[Constants.Object.TimeEstimate.DisplayName]
-        self.productId <- map[Constants.Object.TimeEstimate.ProductId]
+        self.localizedDisplayName = try unboxer.unbox(key: Constants.Object.TimeEstimate.LocalizedDisplayName)
+        self.estimate = try unboxer.unbox(key: Constants.Object.TimeEstimate.Estimate)
+        self.displayName = try unboxer.unbox(key: Constants.Object.TimeEstimate.DisplayName)
+        self.productId = try unboxer.unbox(key: Constants.Object.TimeEstimate.ProductId)
     }
 }

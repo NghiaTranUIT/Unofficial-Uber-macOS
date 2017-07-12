@@ -20,11 +20,11 @@ open class UpFrontFareOb: BaseObj {
     public override func mapping(map: Map) {
         super.mapping(map: map)
 
-        self.value <- map["value"]
-        self.fareId <- map["fare_id"]
-        self.expiresAt <- map["expires_at"]
-        self.display <- map["display"]
-        self.currencyCode <- map["currency_code"]
+        self.value = try unboxer.unbox(key: "value"]
+        self.fareId = try unboxer.unbox(key: "fare_id"]
+        self.expiresAt = try unboxer.unbox(key: "expires_at"]
+        self.display = try unboxer.unbox(key: "display"]
+        self.currencyCode = try unboxer.unbox(key: "currency_code"]
     }
 }
 
@@ -39,10 +39,10 @@ open class FareBreakdownObj: BaseObj {
     public override func mapping(map: Map) {
         super.mapping(map: map)
 
-        self.lowAmount <- map["low_amount"]
-        self.highAmount <- map["high_amount"]
-        self.displayAmount <- map["display_amount"]
-        self.displayName <- map["display_name"]
+        self.lowAmount = try unboxer.unbox(key: "low_amount"]
+        self.highAmount = try unboxer.unbox(key: "high_amount"]
+        self.displayAmount = try unboxer.unbox(key: "display_amount"]
+        self.displayName = try unboxer.unbox(key: "display_name"]
     }
 }
 
@@ -62,15 +62,15 @@ open class SurgePriceObj: BaseObj {
     public override func mapping(map: Map) {
         super.mapping(map: map)
 
-        self.surgeConfirmationHref <- map["surge_confirmation_href"]
-        self.highEstimate <- map["high_estimate"]
-        self.surgeConfirmationId <- map["surge_confirmation_id"]
-        self.minimum <- map["minimum"]
-        self.lowEstimate <- map["low_estimate"]
-        self.fareBreakdownObjs <- map["fare_breakdown"]
-        self.surgeMultiplier <- map["surge_multiplier"]
-        self.display <- map["display"]
-        self.currencyCode <- map["currency_code"]
+        self.surgeConfirmationHref = try unboxer.unbox(key: "surge_confirmation_href")
+        self.highEstimate = try unboxer.unbox(key: "high_estimate")
+        self.surgeConfirmationId = try unboxer.unbox(key: "surge_confirmation_id")
+        self.minimum = try unboxer.unbox(key: "minimum")
+        self.lowEstimate = try unboxer.unbox(key: "low_estimate")
+        self.fareBreakdownObjs = try unboxer.unbox(key: "fare_breakdown")
+        self.surgeMultiplier = try unboxer.unbox(key: "surge_multiplier")
+        self.display = try unboxer.unbox(key: "display")
+        self.currencyCode = try unboxer.unbox(key: "currency_code")
     }
 }
 
@@ -108,13 +108,12 @@ open class EstimateObj: BaseObj {
     public override func mapping(map: Map) {
         super.mapping(map: map)
 
-        self.distanceUnit <- map["trip.distance_unit"]
-        self.durationEstimate <- map["trip.duration_estimate"]
-        self.distanceEstimate <- map["trip.distance_estimate"]
-        self.pickupEstimate <- map["pickup_estimate"]
-
-        self.upFrontFareObj <- map["fare"]
-        self.surgePriceObj <- map["estimate"]
+        self.distanceUnit = try unboxer.unbox(key: "trip.distance_unit")
+        self.durationEstimate = try unboxer.unbox(key: "trip.duration_estimate")
+        self.distanceEstimate = try unboxer.unbox(key: "trip.distance_estimate")
+        self.pickupEstimate = try unboxer.unbox(key: "pickup_estimate")
+        self.upFrontFareObj = try unboxer.unbox(key: "fare")
+        self.surgePriceObj = try unboxer.unbox(key: "estimate")
     }
 
 }

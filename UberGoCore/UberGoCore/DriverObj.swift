@@ -21,10 +21,10 @@ open class DriverObj: BaseObj {
     override public func mapping(map: Map) {
         super.mapping(map: map)
 
-        self.phoneNumber <- map[Constants.Object.Driver.PhoneNumber]
-        self.smsNumber <- map[Constants.Object.Driver.SmsNumber]
-        self.rating <- map[Constants.Object.Driver.Rating]
-        self.pictureUrl <- map[Constants.Object.Driver.PictureUrl]
-        self.name <- map[Constants.Object.Driver.Name]
+        self.phoneNumber = try unboxer.unbox(key: Constants.Object.Driver.PhoneNumber)
+        self.smsNumber = try unboxer.unbox(key: Constants.Object.Driver.SmsNumber)
+        self.rating = try unboxer.unbox(key: Constants.Object.Driver.Rating)
+        self.pictureUrl = try unboxer.unbox(key: Constants.Object.Driver.PictureUrl)
+        self.name = try unboxer.unbox(key: Constants.Object.Driver.Name)
     }
 }

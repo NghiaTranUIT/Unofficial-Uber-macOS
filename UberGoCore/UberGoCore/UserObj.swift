@@ -33,7 +33,7 @@ open class UserObj: BaseObj {
     override public func mapping(map: Map) {
         super.mapping(map: map)
 
-        self.name <- map[Constants.Object.User.Name]
+        self.name = try unboxer.unbox(key: Constants.Object.User.Name)
     }
 
     required public init?(coder aDecoder: NSCoder) {

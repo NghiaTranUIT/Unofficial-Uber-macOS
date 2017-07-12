@@ -99,18 +99,18 @@ open class TripObj: BaseObj {
     override public func mapping(map: Map) {
         super.mapping(map: map)
 
-        self.productId <- map[Constants.Object.Trip.ProductId]
-        self.requestId <- map[Constants.Object.Trip.RequestId]
-        self._status <- map[Constants.Object.Trip.Status]
-        self.surgeMultiplier <- map[Constants.Object.Trip.SurgeMultiplier]
-        self.shared <- map[Constants.Object.Trip.Shared]
-        self.driver <- map[Constants.Object.Trip.Driver]
-        self.vehicle <- map[Constants.Object.Trip.Vehicle]
-        self.location <- map[Constants.Object.Trip.Location]
-        self.pickup <- map[Constants.Object.Trip.Pickup]
-        self.destination <- map[Constants.Object.Trip.Destination]
-        self.waypoints <- map[Constants.Object.Trip.Waypoints]
-        self.riders <- map[Constants.Object.Trip.Riders]
+        self.productId = try unboxer.unbox(key: Constants.Object.Trip.ProductId)
+        self.requestId = try unboxer.unbox(key: Constants.Object.Trip.RequestId)
+        self._status = try unboxer.unbox(key: Constants.Object.Trip.Status)
+        self.surgeMultiplier = try unboxer.unbox(key: Constants.Object.Trip.SurgeMultiplier)
+        self.shared = try unboxer.unbox(key: Constants.Object.Trip.Shared)
+        self.driver = try unboxer.unbox(key: Constants.Object.Trip.Driver)
+        self.vehicle = try unboxer.unbox(key: Constants.Object.Trip.Vehicle)
+        self.location = try unboxer.unbox(key: Constants.Object.Trip.Location)
+        self.pickup = try unboxer.unbox(key: Constants.Object.Trip.Pickup)
+        self.destination = try unboxer.unbox(key: Constants.Object.Trip.Destination)
+        self.waypoints = try unboxer.unbox(key: Constants.Object.Trip.Waypoints)
+        self.riders = try unboxer.unbox(key: Constants.Object.Trip.Riders)
     }
 
     class func noCurrentTrip() -> TripObj {
