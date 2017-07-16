@@ -41,11 +41,6 @@ class UberServiceTests: XCTestCase {
             if products.count == 0 {
                 XCTFail("None available product at testAvailableProductsObserver")
             }
-            for obj in products {
-                if obj.productId == nil {
-                    XCTFail("Uber Product's productID is invalid")
-                }
-            }
             promise.fulfill()
         }, onError: { error in
             XCTFail(error.localizedDescription)
@@ -64,13 +59,6 @@ class UberServiceTests: XCTestCase {
         // Then 
         UberService().personalPlaceObserver()
             .subscribe(onNext: { uberPlaceObjs in
-
-                // Check if addrees != nil
-                for obj in uberPlaceObjs {
-                    if obj.address == nil {
-                        XCTFail("Uber Personal Place's adress is invalid")
-                    }
-                }
                 promise.fulfill()
             }, onError: { error in
                 XCTFail(error.localizedDescription)
@@ -91,14 +79,6 @@ class UberServiceTests: XCTestCase {
         // Then
         UberService().estimatePriceObserver(from: from, to: to)
             .subscribe(onNext: { priceObjs in
-
-                // Check if product_id != nil
-                for obj in priceObjs {
-                    if obj.productId == nil {
-                        XCTFail("Uber Estimate Price is invalid")
-                    }
-                }
-
                 promise.fulfill()
             }, onError: { error in
                 XCTFail(error.localizedDescription)
@@ -118,14 +98,6 @@ class UberServiceTests: XCTestCase {
         // Then
         UberService().estimateTimeObserver(from: from)
             .subscribe(onNext: { timeObj in
-
-                // Check if product_id != nil
-                for obj in timeObj {
-                    if obj.productId == nil {
-                        XCTFail("Uber Time Estimate is invalid")
-                    }
-                }
-
                 promise.fulfill()
             }, onError: { error in
                 XCTFail(error.localizedDescription)
@@ -146,21 +118,6 @@ class UberServiceTests: XCTestCase {
         // Then
         UberService().productsWithEstimatePriceObserver(from: from, to: to)
             .subscribe(onNext: { productObjs in
-
-                // Check if product_id != nil
-                for obj in productObjs {
-                    if obj.productId == nil {
-                        XCTFail("Product's productID is invalid")
-                    }
-                }
-
-                // Check if there is estimatePrice = nil
-                for obj in productObjs {
-                    if obj.estimatePrice == nil {
-                        XCTFail("Product's estimatePrice is invalid")
-                    }
-                }
-
                 promise.fulfill()
             }, onError: { error in
                 XCTFail(error.localizedDescription)

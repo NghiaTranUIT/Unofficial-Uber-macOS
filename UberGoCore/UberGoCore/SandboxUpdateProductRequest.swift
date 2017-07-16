@@ -55,7 +55,7 @@ open class SandboxUpdateProductRequest: Requestable {
     }
 
     // MARK: - Decode
-    func decode(data: Any) -> Element? {
+    func decode(data: Any) throws -> Element? {
         return nil
     }
 }

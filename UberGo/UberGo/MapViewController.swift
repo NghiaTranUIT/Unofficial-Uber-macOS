@@ -202,7 +202,7 @@ class MapViewController: BaseViewController {
                                                     object: nil)
     }
 
-    @objc func showSurgeHrefView(_ surgeObj: SurgePriceObj) {
+    func showSurgeHrefView(_ surgeObj: SurgePriceObj) {
         webController.data = surgeObj
         presentViewControllerAsSheet(webController)
     }

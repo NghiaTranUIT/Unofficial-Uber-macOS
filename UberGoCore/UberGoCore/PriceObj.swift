@@ -20,7 +20,7 @@ open class PriceObj: Unboxable {
     public var duration: Float
     public var estimate: String
     public var currencyCode: String?
-    public var surgeMultiplier: Double
+    public var surgeMultiplier: Double?
 
     // MARK: - Init
     public required init(unboxer: Unboxer) throws {
@@ -33,6 +33,6 @@ open class PriceObj: Unboxable {
         self.duration = try unboxer.unbox(key: Constants.Object.Price.Duration)
         self.estimate = try unboxer.unbox(key: Constants.Object.Price.Estimate)
         self.currencyCode = unboxer.unbox(key: Constants.Object.Price.CurrencyCode)
-        self.surgeMultiplier = try unboxer.unbox(key: Constants.Object.Price.SurgeMultiplier)
+        self.surgeMultiplier = try? unboxer.unbox(key: Constants.Object.Price.SurgeMultiplier)
     }
 }

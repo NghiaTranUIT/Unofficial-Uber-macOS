@@ -47,10 +47,10 @@ open class PriceDetailRequest: Requestable {
     }
 
     // MARK: - Decode
-    func decode(data: Any) -> Element? {
+    func decode(data: Any) throws -> Element? {
         guard let result = data as? [String: Any] else {
             return nil
         }
-        return try? unbox(dictionary: result)
+        return try unbox(dictionary: result)
     }
 }

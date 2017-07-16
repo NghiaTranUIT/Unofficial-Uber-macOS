@@ -11,7 +11,7 @@ import OAuthSwift
 import Unbox
 import RxSwift
 
-open class UserObj {
+open class UserObj: NSObject, NSCoding {
 
     // MARK: - Variable
     public var name: String?
@@ -22,6 +22,7 @@ open class UserObj {
     public let paymentMethodObjVar = Variable<PaymentObj?>(nil)
     public var selectedNewPaymentObjVar = Variable<PaymentAccountObj?>(nil)
     public var currentPaymentAccountObjVar = Variable<PaymentAccountObj?>(nil)
+    fileprivate let disposeBag = DisposeBag()
 
     // MARK: - Init
     public init(authToken: AuthToken) {
@@ -36,28 +37,25 @@ open class UserObj {
                               refreshToken: try unboxer.unbox(key: "refreshToken"),
                               tokenSecret: try unboxer.unbox(key: "tokenSecret"),
                               tokenExpires: nil)
-
-        try super.init(unboxer: unboxer)
     }
 
-    required public init?(coder aDecoder: NSCoder) {
-        self.authToken = aDecoder.decodeObject(forKey: Constants.Object.User.Auth) as! AuthToken
-        super.init(coder: aDecoder)
-        self.name = aDecoder.decodeObject(forKey: Constants.Object.User.Name) as? String
+    @objc required public init?(coder aDecoder: NSCoder) {
+        authToken = aDecoder.decodeObject(forKey: Constants.Object.User.Auth) as! AuthToken
+        name = aDecoder.decodeObject(forKey: Constants.Object.User.Name) as? String
+        super.init()
         binding()
     }
 
-    override public func encode(with aCoder: NSCoder) {
-        super.encode(with: aCoder)
-        aCoder.encode(self.name, forKey: Constants.Object.User.Name)
-        aCoder.encode(self.authToken, forKey: Constants.Object.User.Auth)
+    @objc public func encode(with aCoder: NSCoder) {
+        aCoder.encode(name, forKey: Constants.Object.User.Name)
+        aCoder.encode(authToken, forKey: Constants.Object.User.Auth)
     }
 
     // MARK: - Binding
     public func binding() {
 
         // Payment
-        self.reloadUberDataPublisher
+        reloadUberDataPublisher
             .asObserver()
             .flatMapLatest { _ -> Observable<PaymentObj> in
                 return UberService().paymentMethodObserver()
@@ -65,11 +63,11 @@ open class UserObj {
             .do(onNext: { (paymentObj) in
                 Logger.info("Curent PaymentMethods count = \(paymentObj.paymentAccountObjs.count)")
             })
-            .bind(to: self.paymentMethodObjVar)
-            .addDisposableTo(self.disposeBag)
+            .bind(to: paymentMethodObjVar)
+            .addDisposableTo(disposeBag)
 
         // Last User or select
-        let lastUsed = self.paymentMethodObjVar.asObservable()
+        let lastUsed = paymentMethodObjVar.asObservable()
             .filterNil()
             .flatMapLatest({ (paymentObj) -> Observable<PaymentAccountObj> in
                 guard let lastUser = paymentObj.lastUsedPaymentAccount else {
@@ -78,14 +76,14 @@ open class UserObj {
                 return Observable.just(lastUser)
             })
 
-        let newSelectAccount = self.selectedNewPaymentObjVar
+        let newSelectAccount = selectedNewPaymentObjVar
             .asObservable()
             .filterNil()
 
         // Combine
         Observable.merge([lastUsed, newSelectAccount])
-        .bind(to: self.currentPaymentAccountObjVar)
-        .addDisposableTo(self.disposeBag)
+        .bind(to: currentPaymentAccountObjVar)
+        .addDisposableTo(disposeBag)
     }
 
     //TODO: Don't use UserDefault
@@ -104,7 +102,7 @@ open class UserObj {
     }
 
     public func saveHistoryPlace(_ place: PlaceObj) {
-        var histories = self.historyPlace()
+        var histories = historyPlace()
 
         // Remove
         if let index = histories.index(where: { $0 == place }) {

@@ -45,11 +45,11 @@ class RideEstimatePriceRequest: Requestable {
     }
 
     // MARK: - Decode
-    func decode(data: Any) -> Element? {
+    func decode(data: Any) throws -> Element? {
         guard let result = data as? [String: Any],
             let products = result["prices"] as? [[String: Any]] else {
                 return nil
             }
-        return try? unbox(dictionaries: products)
+        return try unbox(dictionaries: products)
     }
 }

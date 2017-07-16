@@ -42,11 +42,11 @@ public class UberProductsRequest: Requestable {
     }
 
     // MARK: - Decode
-    func decode(data: Any) -> [ProductObj]? {
+    func decode(data: Any) throws -> [ProductObj]? {
         guard let result = data as? [String: Any],
             let products = result["products"] as? [[String: Any]] else {
                 return nil
             }
-        return try? unbox(dictionaries: products)
+        return try unbox(dictionaries: products)
     }
 }

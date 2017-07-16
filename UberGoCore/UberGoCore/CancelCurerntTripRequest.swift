@@ -23,7 +23,7 @@ class CancelCurrentTripRequest: Requestable {
     var param: Parameter? { return nil }
 
     // MARK: - Decode
-    func decode(data: Any) -> Element? {
+    func decode(data: Any) throws -> Element? {
         return nil
     }
 }

@@ -31,7 +31,7 @@ protocol Requestable: URLRequestConvertible {
 
     func toObservable() -> Observable<Element>
 
-    func decode(data: Any) -> Element?
+    func decode(data: Any) throws -> Element?
 }
 
 //
@@ -109,17 +109,16 @@ extension Requestable {
                     if statusCode >= 200 && statusCode < 300 {
 
                         // Parse here
-                        guard let result = self.decode(data: data) else {
-                            observer.onError(NSError.jsonMapperError())
-                            return
+                        do {
+                            let result = try self.decode(data: data)
+                            Logger.info(result!)
+                            observer.onNext(result!)
+                        } catch let error {
+                            Logger.error("[JSON Mapping] = \(error)")
+                            observer.onError(error)
                         }
 
-                        // Loger
-                        Logger.info(result)
-
-                        // Fill
-                        observer.on(.next(result))
-                        observer.on(.completed)
+                        observer.onCompleted()
                         return
                     }
 

@@ -39,8 +39,7 @@ class FakeUberCrendential {
     }
 
     class func resetData() {
-        UserDefaults.standard.removeObject(forKey: "Uber.CurrentUser")
-        UserDefaults.standard.synchronize()
+        UberAuth.share.logout()
     }
 
     class func makeCurrentUser() {
