@@ -26,7 +26,7 @@ public enum PlaceType: String {
 }
 
 // Google Place
-open class PlaceObj: Unboxable, Equatable {
+open class PlaceObj: NSObject, Unboxable, NSCoding {
 
     // MARK: - Variable
     public var placeType = PlaceType.place
@@ -81,7 +81,7 @@ open class PlaceObj: Unboxable, Equatable {
         aCoder.encode(self.placeID, forKey: "placeID")
     }
 
-    public init?(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         self.name = aDecoder.decodeObject(forKey: "name") as! String
         self.address = aDecoder.decodeObject(forKey: "vicinity") as! String
         self.location = aDecoder.decodeObject(forKey: "geometry.location") as! [String: Float]
@@ -89,7 +89,7 @@ open class PlaceObj: Unboxable, Equatable {
         self.placeType = PlaceType(rawValue: aDecoder.decodeObject(forKey: "placeType") as! String)!
         self.placeID = aDecoder.decodeObject(forKey: "placeID") as! String
     }
-    
+
     // Map
     public required init(unboxer: Unboxer) throws {
         self.name = try unboxer.unbox(key: "name")

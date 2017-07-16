@@ -8,8 +8,8 @@
 
 import Cocoa
 import OAuthSwift
-import Unbox
 import RxSwift
+import Unbox
 
 open class UserObj: NSObject, NSCoding {
 
@@ -90,7 +90,7 @@ open class UserObj: NSObject, NSCoding {
     // Should try CoreData or Realm instead
     public func historyPlace() -> [PlaceObj] {
         let userDefault = UserDefaults.standard
-        guard let data = userDefault.data(forKey: "history") else {
+        guard let data = userDefault.data(forKey: "PlaceHistories") else {
             return []
         }
 
@@ -115,7 +115,7 @@ open class UserObj: NSObject, NSCoding {
         // Save
         let data = NSKeyedArchiver.archivedData(withRootObject: histories)
         let userDefault = UserDefaults.standard
-        userDefault.set(data, forKey: "history")
+        userDefault.set(data, forKey: "PlaceHistories")
         userDefault.synchronize()
     }
 }

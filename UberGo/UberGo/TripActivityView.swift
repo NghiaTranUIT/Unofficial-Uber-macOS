@@ -182,21 +182,16 @@ extension TripActivityView {
         guard let driver = tripObj.driver else { return }
 
         // Name
-        driverNameLbl.stringValue = driver.name ?? "Unknow"
-        driverRatingLbl.stringValue = "\(driver.rating ?? 4) ★"
+        driverNameLbl.stringValue = driver.name
+        driverRatingLbl.stringValue = "\(driver.rating)"
 
         // Avatar
-        if let avatar = driver.pictureUrl {
-            DispatchQueue.global(qos: DispatchQoS.QoSClass.background)
-                .async {
-                    if let url = URL(string: avatar) {
-                        let image = NSImage(contentsOf: url)
-
-                        // Update
-                        DispatchQueue.main.async {
-                            self.driverAvatarImageView.image = image
-                        }
-                    }
+        DispatchQueue.global(qos: DispatchQoS.QoSClass.background)
+            .async { [weak self] in
+                guard let url = URL(string: driver.pictureUrl) else { return }
+                let image = NSImage(contentsOf: url)
+                DispatchQueue.main.async { [weak self] in
+                    self?.driverAvatarImageView.image = image
                 }
         }
     }
@@ -204,7 +199,7 @@ extension TripActivityView {
     fileprivate func updateVehicle(_ tripObj: TripObj) {
         guard let vehicle = tripObj.vehicle else { return }
         driverModelLbl.stringValue = vehicle.fullName
-        driverLicensePlateLbl.stringValue = vehicle.licensePlate ?? "Unknow"
+        driverLicensePlateLbl.stringValue = vehicle.licensePlate
     }
 
     fileprivate func updatePayment() {
