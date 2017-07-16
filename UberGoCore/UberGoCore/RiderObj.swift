@@ -18,8 +18,8 @@ open class RiderObj: Unboxable {
 
     // MARK: - Init
     public required init(unboxer: Unboxer) throws {
-        self.riderId = unboxer.unbox(key: Constants.Object.Rider.RiderId)
-        self.firstName = try unboxer.unbox(key: Constants.Object.Rider.FirstName)
-        self.me = try unboxer.unbox(key: Constants.Object.Rider.Me)
+        riderId = unboxer.unbox(key: Constants.Object.Rider.RiderId)
+        firstName = try unboxer.unbox(key: Constants.Object.Rider.FirstName)
+        me = try unboxer.unbox(key: Constants.Object.Rider.Me)
     }
 }

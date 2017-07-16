@@ -72,7 +72,7 @@ open class TripObj: Unboxable {
     }()
 
     public var isValidTrip: Bool {
-        switch self.status {
+        switch status {
             case .unknown:
                 fallthrough
             case .completed:
@@ -105,18 +105,18 @@ open class TripObj: Unboxable {
     }
 
     public required init(unboxer: Unboxer) throws {
-        self.productId = try unboxer.unbox(key: Constants.Object.Trip.ProductId)
-        self.requestId = try unboxer.unbox(key: Constants.Object.Trip.RequestId)
-        self._status = try unboxer.unbox(key: Constants.Object.Trip.Status)
-        self.surgeMultiplier = unboxer.unbox(key: Constants.Object.Trip.SurgeMultiplier)
-        self.shared = try unboxer.unbox(key: Constants.Object.Trip.Shared)
-        self.driver = unboxer.unbox(key: Constants.Object.Trip.Driver)
-        self.vehicle = unboxer.unbox(key: Constants.Object.Trip.Vehicle)
-        self.location = unboxer.unbox(key: Constants.Object.Trip.Location)
-        self.pickup = unboxer.unbox(key: Constants.Object.Trip.Pickup)
-        self.destination = unboxer.unbox(key: Constants.Object.Trip.Destination)
-        self.waypoints = unboxer.unbox(key: Constants.Object.Trip.Waypoints)
-        self.riders = unboxer.unbox(key: Constants.Object.Trip.Riders)
+        productId = try unboxer.unbox(key: Constants.Object.Trip.ProductId)
+        requestId = try unboxer.unbox(key: Constants.Object.Trip.RequestId)
+        _status = try unboxer.unbox(key: Constants.Object.Trip.Status)
+        surgeMultiplier = unboxer.unbox(key: Constants.Object.Trip.SurgeMultiplier)
+        shared = try unboxer.unbox(key: Constants.Object.Trip.Shared)
+        driver = unboxer.unbox(key: Constants.Object.Trip.Driver)
+        vehicle = unboxer.unbox(key: Constants.Object.Trip.Vehicle)
+        location = unboxer.unbox(key: Constants.Object.Trip.Location)
+        pickup = unboxer.unbox(key: Constants.Object.Trip.Pickup)
+        destination = unboxer.unbox(key: Constants.Object.Trip.Destination)
+        waypoints = unboxer.unbox(key: Constants.Object.Trip.Waypoints)
+        riders = unboxer.unbox(key: Constants.Object.Trip.Riders)
     }
 
     class func noCurrentTrip() -> TripObj {

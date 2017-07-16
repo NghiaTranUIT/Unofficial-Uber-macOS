@@ -74,34 +74,34 @@ open class PlaceObj: NSObject, Unboxable, NSCoding {
     }
 
     public func encode(with aCoder: NSCoder) {
-        aCoder.encode(self.name, forKey: "name")
-        aCoder.encode(self.address, forKey: "vicinity")
-        aCoder.encode(self.location, forKey: "geometry.location")
-        aCoder.encode(self.placeType.rawValue, forKey: "placeType")
-        aCoder.encode(self.placeID, forKey: "placeID")
+        aCoder.encode(name, forKey: "name")
+        aCoder.encode(address, forKey: "vicinity")
+        aCoder.encode(location, forKey: "geometry.location")
+        aCoder.encode(placeType.rawValue, forKey: "placeType")
+        aCoder.encode(placeID, forKey: "placeID")
     }
 
     public required init?(coder aDecoder: NSCoder) {
-        self.name = aDecoder.decodeObject(forKey: "name") as! String
-        self.address = aDecoder.decodeObject(forKey: "vicinity") as! String
-        self.location = aDecoder.decodeObject(forKey: "geometry.location") as! [String: Float]
-        self.isHistory = true
-        self.placeType = PlaceType(rawValue: aDecoder.decodeObject(forKey: "placeType") as! String)!
-        self.placeID = aDecoder.decodeObject(forKey: "placeID") as! String
+        name = aDecoder.decodeObject(forKey: "name") as! String
+        address = aDecoder.decodeObject(forKey: "vicinity") as! String
+        location = aDecoder.decodeObject(forKey: "geometry.location") as! [String: Float]
+        isHistory = true
+        placeType = PlaceType(rawValue: aDecoder.decodeObject(forKey: "placeType") as! String)!
+        placeID = aDecoder.decodeObject(forKey: "placeID") as! String
     }
 
     // Map
     public required init(unboxer: Unboxer) throws {
-        self.name = try unboxer.unbox(key: "name")
-        self.address = try unboxer.unbox(key: "vicinity")
-        self.location = try unboxer.unbox(keyPath: "geometry.location")
-        self.placeID = try unboxer.unbox(key: "place_id")
+        name = try unboxer.unbox(key: "name")
+        address = try unboxer.unbox(key: "vicinity")
+        location = try unboxer.unbox(keyPath: "geometry.location")
+        placeID = try unboxer.unbox(key: "place_id")
     }
 
     // MARK: - Public
     public var iconName: String {
-        if self.isHistory { return "history" }
-        switch self.placeType {
+        if isHistory { return "history" }
+        switch placeType {
         case .home:
             return "home"
         case .work:
@@ -111,9 +111,8 @@ open class PlaceObj: NSObject, Unboxable, NSCoding {
         }
     }
 
-    public static func ==(lhs: PlaceObj, rhs: PlaceObj) -> Bool {
+    public static func == (lhs: PlaceObj, rhs: PlaceObj) -> Bool {
         if lhs.placeID == rhs.placeID { return true }
         return false
     }
 }
-

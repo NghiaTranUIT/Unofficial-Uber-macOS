@@ -41,15 +41,15 @@ open class WaypointObj: Unboxable {
 
     // Coordinate
     public var location: CLLocationCoordinate2D {
-        return CLLocationCoordinate2D(latitude: self.latitude.toDouble,
-                                      longitude: self.longitude.toDouble)
+        return CLLocationCoordinate2D(latitude: latitude.toDouble,
+                                      longitude: longitude.toDouble)
     }
 
     // MARK: - Init
     public required init(unboxer: Unboxer) throws {
-        self.riderId = unboxer.unbox(key: Constants.Object.Waypoint.RiderId)
-        self.typeStr = try unboxer.unbox(key: Constants.Object.Waypoint.Type)
-        self.latitude = try unboxer.unbox(key: Constants.Object.Waypoint.Latitude)
-        self.longitude = try unboxer.unbox(key: Constants.Object.Waypoint.Longitude)
+        riderId = unboxer.unbox(key: Constants.Object.Waypoint.RiderId)
+        typeStr = try unboxer.unbox(key: Constants.Object.Waypoint.Type)
+        latitude = try unboxer.unbox(key: Constants.Object.Waypoint.Latitude)
+        longitude = try unboxer.unbox(key: Constants.Object.Waypoint.Longitude)
     }
 }

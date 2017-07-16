@@ -18,15 +18,15 @@ open class UberCoordinateObj: Unboxable {
     public var eta: Int?
 
     public var coordinate: CLLocationCoordinate2D {
-        return CLLocationCoordinate2D(latitude: self.latitude.toDouble,
-                                      longitude: self.longitude.toDouble)
+        return CLLocationCoordinate2D(latitude: latitude.toDouble,
+                                      longitude: longitude.toDouble)
     }
 
     // MARK: - Init
     public required init(unboxer: Unboxer) throws {
-        self.latitude = try unboxer.unbox(key: "latitude")
-        self.longitude = try unboxer.unbox(key: "longitude")
-        self.bearing = unboxer.unbox(key: "bearing")
-        self.eta = unboxer.unbox(key: "eta")
+        latitude = try unboxer.unbox(key: "latitude")
+        longitude = try unboxer.unbox(key: "longitude")
+        bearing = unboxer.unbox(key: "bearing")
+        eta = unboxer.unbox(key: "eta")
     }
 }

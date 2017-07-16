@@ -27,7 +27,7 @@ open class UberPersonalPlaceObj: Unboxable {
     }
 
     public required init(unboxer: Unboxer) throws {
-        self.address = try unboxer.unbox(key: Constants.Object.UberPersonalPlace.Address)
+        address = try unboxer.unbox(key: Constants.Object.UberPersonalPlace.Address)
     }
 }
 

@@ -16,8 +16,8 @@ open class ServiceFeeObj: Unboxable {
 
     // MARK: - Init
     public required init(unboxer: Unboxer) throws {
-        self.fee = try unboxer.unbox(key: Constants.Object.ServiceFee.Fee)
-        self.name = try unboxer.unbox(key: Constants.Object.ServiceFee.Name)
+        fee = try unboxer.unbox(key: Constants.Object.ServiceFee.Fee)
+        name = try unboxer.unbox(key: Constants.Object.ServiceFee.Name)
     }
 
     public init(name: String, fee: Float) {

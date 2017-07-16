@@ -48,5 +48,3 @@ open class PriceDetailObj: Unboxable {
         return services
     }()
 }
-
-

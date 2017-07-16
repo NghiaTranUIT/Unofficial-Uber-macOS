@@ -24,15 +24,15 @@ open class PriceObj: Unboxable {
 
     // MARK: - Init
     public required init(unboxer: Unboxer) throws {
-        self.localizedDisplayName = try unboxer.unbox(key: Constants.Object.Price.LocalizedDisplayName)
-        self.distance = try unboxer.unbox(key: Constants.Object.Price.Distance)
-        self.displayName = try unboxer.unbox(key: Constants.Object.Price.DisplayName)
-        self.productId = try unboxer.unbox(key: Constants.Object.Price.ProductId)
-        self.highEstimate = unboxer.unbox(key: Constants.Object.Price.HighEstimate)
-        self.lowEstimate = unboxer.unbox(key: Constants.Object.Price.LowEstimate)
-        self.duration = try unboxer.unbox(key: Constants.Object.Price.Duration)
-        self.estimate = try unboxer.unbox(key: Constants.Object.Price.Estimate)
-        self.currencyCode = unboxer.unbox(key: Constants.Object.Price.CurrencyCode)
-        self.surgeMultiplier = try? unboxer.unbox(key: Constants.Object.Price.SurgeMultiplier)
+        localizedDisplayName = try unboxer.unbox(key: Constants.Object.Price.LocalizedDisplayName)
+        distance = try unboxer.unbox(key: Constants.Object.Price.Distance)
+        displayName = try unboxer.unbox(key: Constants.Object.Price.DisplayName)
+        productId = try unboxer.unbox(key: Constants.Object.Price.ProductId)
+        highEstimate = unboxer.unbox(key: Constants.Object.Price.HighEstimate)
+        lowEstimate = unboxer.unbox(key: Constants.Object.Price.LowEstimate)
+        duration = try unboxer.unbox(key: Constants.Object.Price.Duration)
+        estimate = try unboxer.unbox(key: Constants.Object.Price.Estimate)
+        currencyCode = unboxer.unbox(key: Constants.Object.Price.CurrencyCode)
+        surgeMultiplier = try? unboxer.unbox(key: Constants.Object.Price.SurgeMultiplier)
     }
 }

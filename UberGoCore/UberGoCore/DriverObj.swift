@@ -20,10 +20,10 @@ open class DriverObj: Unboxable {
 
     // MARK: - Init
     public required init(unboxer: Unboxer) throws {
-        self.phoneNumber = try unboxer.unbox(key: Constants.Object.Driver.PhoneNumber)
-        self.smsNumber = try unboxer.unbox(key: Constants.Object.Driver.SmsNumber)
-        self.rating = try unboxer.unbox(key: Constants.Object.Driver.Rating)
-        self.pictureUrl = try unboxer.unbox(key: Constants.Object.Driver.PictureUrl)
-        self.name = try unboxer.unbox(key: Constants.Object.Driver.Name)
+        phoneNumber = try unboxer.unbox(key: Constants.Object.Driver.PhoneNumber)
+        smsNumber = try unboxer.unbox(key: Constants.Object.Driver.SmsNumber)
+        rating = try unboxer.unbox(key: Constants.Object.Driver.Rating)
+        pictureUrl = try unboxer.unbox(key: Constants.Object.Driver.PictureUrl)
+        name = try unboxer.unbox(key: Constants.Object.Driver.Name)
     }
 }

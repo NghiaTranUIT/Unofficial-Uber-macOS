@@ -193,7 +193,7 @@ extension TripActivityView {
                 DispatchQueue.main.async { [weak self] in
                     self?.driverAvatarImageView.image = image
                 }
-        }
+            }
     }
 
     fileprivate func updateVehicle(_ tripObj: TripObj) {

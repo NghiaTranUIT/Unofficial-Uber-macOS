@@ -35,8 +35,8 @@ class SearchPlaceCell: NSCollectionViewItem {
 
     // MARK: - Public
     func configurePlaceCell(_ placeObj: PlaceObj) {
-        titleLbl.stringValue = placeObj.name ?? ""
-        addressLbl.stringValue = placeObj.address ?? ""
+        titleLbl.stringValue = placeObj.name
+        addressLbl.stringValue = placeObj.address
         avatarImageView.image = NSImage(imageLiteralResourceName: placeObj.iconName)
     }
 

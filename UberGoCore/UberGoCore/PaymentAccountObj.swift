@@ -47,7 +47,7 @@ open class PaymentAccountObj: Unboxable {
     public var accountDescription: String?
 
     // Type Enum
-    public var type: PaymentAccountType { return PaymentAccountType(rawValue: self.typeCode) ?? .unknown }
+    public var type: PaymentAccountType { return PaymentAccountType(rawValue: typeCode) ?? .unknown }
 
     // Better desciption
     public lazy var betterAccountDescription: String = {

@@ -19,11 +19,11 @@ open class UpFrontFareOb: Unboxable {
 
     // MARK: - Init
     public required init(unboxer: Unboxer) throws {
-        self.value = try unboxer.unbox(key: "value")
-        self.fareId = try unboxer.unbox(key: "fare_id")
-        self.expiresAt = try unboxer.unbox(key: "expires_at")
-        self.display = try unboxer.unbox(key: "display")
-        self.currencyCode = try unboxer.unbox(key: "currency_code")
+        value = try unboxer.unbox(key: "value")
+        fareId = try unboxer.unbox(key: "fare_id")
+        expiresAt = try unboxer.unbox(key: "expires_at")
+        display = try unboxer.unbox(key: "display")
+        currencyCode = try unboxer.unbox(key: "currency_code")
     }
 }
 
@@ -36,10 +36,10 @@ open class FareBreakdownObj: Unboxable {
     public var displayName: String
 
     public required init(unboxer: Unboxer) throws {
-        self.lowAmount = try unboxer.unbox(key: "low_amount")
-        self.highAmount = try unboxer.unbox(key: "high_amount")
-        self.displayAmount = try unboxer.unbox(key: "display_amount")
-        self.displayName = try unboxer.unbox(key: "display_name")
+        lowAmount = try unboxer.unbox(key: "low_amount")
+        highAmount = try unboxer.unbox(key: "high_amount")
+        displayAmount = try unboxer.unbox(key: "display_amount")
+        displayName = try unboxer.unbox(key: "display_name")
     }
 }
 
@@ -88,15 +88,15 @@ open class SurgePriceObj: Unboxable {
     }
 
     public required init(unboxer: Unboxer) throws {
-        self.surgeConfirmationHref = unboxer.unbox(key: "surge_confirmation_href")
-        self.highEstimate = try unboxer.unbox(key: "high_estimate")
-        self.surgeConfirmationId = try unboxer.unbox(key: "surge_confirmation_id")
-        self.minimum = try unboxer.unbox(key: "minimum")
-        self.lowEstimate = try unboxer.unbox(key: "low_estimate")
-        self.fareBreakdownObjs = try unboxer.unbox(key: "fare_breakdown")
-        self.surgeMultiplier = try unboxer.unbox(key: "surge_multiplier")
-        self.display = try unboxer.unbox(key: "display")
-        self.currencyCode = try unboxer.unbox(key: "currency_code")
+        surgeConfirmationHref = unboxer.unbox(key: "surge_confirmation_href")
+        highEstimate = try unboxer.unbox(key: "high_estimate")
+        surgeConfirmationId = try unboxer.unbox(key: "surge_confirmation_id")
+        minimum = try unboxer.unbox(key: "minimum")
+        lowEstimate = try unboxer.unbox(key: "low_estimate")
+        fareBreakdownObjs = try unboxer.unbox(key: "fare_breakdown")
+        surgeMultiplier = try unboxer.unbox(key: "surge_multiplier")
+        display = try unboxer.unbox(key: "display")
+        currencyCode = try unboxer.unbox(key: "currency_code")
     }
 }
 
@@ -122,10 +122,10 @@ open class EstimateObj: Unboxable {
 
     // Type
     public var type: EstimateObjType {
-        if self.upFrontFareObj != nil {
+        if upFrontFareObj != nil {
             return .upFrontFare
         }
-        if self.surgePriceObj != nil {
+        if surgePriceObj != nil {
             return .surgePrice
         }
         return .unknown
@@ -133,11 +133,11 @@ open class EstimateObj: Unboxable {
 
     // MARK: - Init
     public required init(unboxer: Unboxer) throws {
-        self.distanceUnit = try unboxer.unbox(keyPath: "trip.distance_unit")
-        self.durationEstimate = try unboxer.unbox(keyPath: "trip.duration_estimate")
-        self.distanceEstimate = try unboxer.unbox(keyPath: "trip.distance_estimate")
-        self.pickupEstimate = try unboxer.unbox(key: "pickup_estimate")
-        self.upFrontFareObj = unboxer.unbox(key: "fare")
-        self.surgePriceObj = unboxer.unbox(key: "estimate")
+        distanceUnit = try unboxer.unbox(keyPath: "trip.distance_unit")
+        durationEstimate = try unboxer.unbox(keyPath: "trip.duration_estimate")
+        distanceEstimate = try unboxer.unbox(keyPath: "trip.distance_estimate")
+        pickupEstimate = try unboxer.unbox(key: "pickup_estimate")
+        upFrontFareObj = unboxer.unbox(key: "fare")
+        surgePriceObj = unboxer.unbox(key: "estimate")
     }
 }

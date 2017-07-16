@@ -176,7 +176,7 @@ class RequestUberView: NSView {
         seatNumberLnl.stringValue = productObj.prettyCapacity
 
         // Select Btn
-        requestUberBtn.title = "REQUEST \(productObj.displayName ?? "")"
+        requestUberBtn.title = "REQUEST \(productObj.displayName)"
         requestUberBtn.setTitleColor(NSColor.white, kern: 2)
 
         // High Fare

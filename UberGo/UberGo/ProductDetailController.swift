@@ -85,10 +85,10 @@ extension ProductDetailController {
         productImageView.image = NSImage(imageLiteralResourceName: "uber_car_selected")
 
         // Name
-        productNameLbl.stringValue = productObj.displayName ?? ""
+        productNameLbl.stringValue = productObj.displayName
 
         // Desc
-        descriptionLbl.stringValue = productObj.descr ?? ""
+        descriptionLbl.stringValue = productObj.descr
 
         // Capcity
         capacityLbl.stringValue = productObj.prettyCapacity
@@ -100,7 +100,7 @@ extension ProductDetailController {
 
         // Fare
         if let estimatePrice = productObj.estimatePrice {
-            fareLbl.stringValue = estimatePrice.estimate ?? "xxx"
+            fareLbl.stringValue = estimatePrice.estimate
         }
     }
 }

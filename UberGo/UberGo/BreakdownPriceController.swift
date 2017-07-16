@@ -16,7 +16,7 @@ class BreakdownPriceController: NSViewController {
     @IBOutlet weak fileprivate var titleLbl: UberTextField!
     @IBOutlet weak fileprivate var descriptionLbl: NSTextField!
     @IBOutlet weak fileprivate var stackView: NSStackView!
-    
+
     // MARK: - Variable
     fileprivate var productObj: ProductObj!
     fileprivate var disposeBag = DisposeBag()

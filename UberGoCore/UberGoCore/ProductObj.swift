@@ -39,17 +39,17 @@ open class ProductObj: Unboxable {
 
     // MARK: - Init
     public required init(unboxer: Unboxer) throws {
-        self.upfrontFareEnabled = try unboxer.unbox(key: Constants.Object.Product.UpfrontFareEnabled)
-        self.capacity = try unboxer.unbox(key: Constants.Object.Product.Capacity)
-        self.productId = try unboxer.unbox(key: Constants.Object.Product.ProductId)
-        self.image = try unboxer.unbox(key: Constants.Object.Product.Image)
-        self.cashEnabled = try unboxer.unbox(key: Constants.Object.Product.CashEnabled)
-        self.shared = try unboxer.unbox(key: Constants.Object.Product.Shared)
-        self.shortDescription = try unboxer.unbox(key: Constants.Object.Product.ShortDescription)
-        self.displayName = try unboxer.unbox(key: Constants.Object.Product.DisplayName)
-        self.productGroup = try unboxer.unbox(key: Constants.Object.Product.ProductGroup)
-        self.descr = try unboxer.unbox(key: Constants.Object.Product.Description)
-        self.priceDetail = unboxer.unbox(key: Constants.Object.Product.PriceDetails)
+        upfrontFareEnabled = try unboxer.unbox(key: Constants.Object.Product.UpfrontFareEnabled)
+        capacity = try unboxer.unbox(key: Constants.Object.Product.Capacity)
+        productId = try unboxer.unbox(key: Constants.Object.Product.ProductId)
+        image = try unboxer.unbox(key: Constants.Object.Product.Image)
+        cashEnabled = try unboxer.unbox(key: Constants.Object.Product.CashEnabled)
+        shared = try unboxer.unbox(key: Constants.Object.Product.Shared)
+        shortDescription = try unboxer.unbox(key: Constants.Object.Product.ShortDescription)
+        displayName = try unboxer.unbox(key: Constants.Object.Product.DisplayName)
+        productGroup = try unboxer.unbox(key: Constants.Object.Product.ProductGroup)
+        descr = try unboxer.unbox(key: Constants.Object.Product.Description)
+        priceDetail = unboxer.unbox(key: Constants.Object.Product.PriceDetails)
     }
 
     public init(upfrontFareEnabled: Bool,

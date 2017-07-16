@@ -52,7 +52,7 @@ class CalloutAnnotations: NSViewController {
         }
 
         if let destObj = destinationObj {
-            addressLbl.stringValue = destObj.name ?? ""
+            addressLbl.stringValue = destObj.name
         }
     }
 

@@ -19,14 +19,14 @@ open class VehicleObj: Unboxable {
 
     // Fullname
     public var fullName: String {
-        return self.make + self.model
+        return make + model
     }
 
     // MARK: - Init
     public required init(unboxer: Unboxer) throws {
-        self.make = try unboxer.unbox(key: Constants.Object.Vehicle.Make)
-        self.model = try unboxer.unbox(key: Constants.Object.Vehicle.Model)
-        self.licensePlate = try unboxer.unbox(key: Constants.Object.Vehicle.LicensePlate)
-        self.pictureUrl = unboxer.unbox(key: Constants.Object.Vehicle.PictureUrl)
+        make = try unboxer.unbox(key: Constants.Object.Vehicle.Make)
+        model = try unboxer.unbox(key: Constants.Object.Vehicle.Model)
+        licensePlate = try unboxer.unbox(key: Constants.Object.Vehicle.LicensePlate)
+        pictureUrl = unboxer.unbox(key: Constants.Object.Vehicle.PictureUrl)
     }
 }

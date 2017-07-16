@@ -18,10 +18,10 @@ open class SurgeConfirmationObj: Unboxable {
 
     // MARK: - Init
     public required init(unboxer: Unboxer) throws {
-        self.href = try unboxer.unbox(key: "href")
-        self.surgeConfirmationId = try unboxer.unbox(key: "surge_confirmation_id")
-        self.multiplier = try unboxer.unbox(key: "multiplier")
-        self.expiresAt = try unboxer.unbox(key: "expires_at")
+        href = try unboxer.unbox(key: "href")
+        surgeConfirmationId = try unboxer.unbox(key: "surge_confirmation_id")
+        multiplier = try unboxer.unbox(key: "multiplier")
+        expiresAt = try unboxer.unbox(key: "expires_at")
     }
 }
 
@@ -51,18 +51,18 @@ open class CreateTripObj: Unboxable {
     }
 
     public required init(unboxer: Unboxer) throws {
-        self.requestId = try unboxer.unbox(key: "request_id")
-        self.productId = try unboxer.unbox(key: "product_id")
-        self.status = try unboxer.unbox(key: "status")
-        self.vehicleObj = unboxer.unbox(key: "vehicle")
-        self.driverObj = unboxer.unbox(key: "driver")
-        self.locationObj = unboxer.unbox(key: "location")
-        self.eta = try unboxer.unbox(key: "eta")
-        self.surgeMultiplier = unboxer.unbox(key: "surge_multiplier")
+        requestId = try unboxer.unbox(key: "request_id")
+        productId = try unboxer.unbox(key: "product_id")
+        status = try unboxer.unbox(key: "status")
+        vehicleObj = unboxer.unbox(key: "vehicle")
+        driverObj = unboxer.unbox(key: "driver")
+        locationObj = unboxer.unbox(key: "location")
+        eta = try unboxer.unbox(key: "eta")
+        surgeMultiplier = unboxer.unbox(key: "surge_multiplier")
 
         // 409
-        self.surgeConfirmationObj = unboxer.unbox(keyPath: "meta.surge_confirmation")
-        self.errorTitle = unboxer.unbox(keyPath: "errors.0.title")
+        surgeConfirmationObj = unboxer.unbox(keyPath: "meta.surge_confirmation")
+        errorTitle = unboxer.unbox(keyPath: "errors.0.title")
     }
 
     static var invalid: CreateTripObj {
