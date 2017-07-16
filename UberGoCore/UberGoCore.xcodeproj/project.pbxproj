@@ -293,6 +293,7 @@
 			children = (
 				BAF57FA91EE1166A0013090E /* UserObj.swift */,
 				BAF57FAB1EE116710013090E /* BaseObj.swift */,
+				BAAC440F1EF1246500A9F949 /* PostEstimateTripRequest.swift */,
 				BAF57FAD1EE116820013090E /* TripObj.swift */,
 				BAF57FAF1EE1168A0013090E /* PlaceObj.swift */,
 				BAF57FB11EE116990013090E /* PriceObj.swift */,
@@ -327,7 +328,6 @@
 				BA0C919D1EF047F000BA8B4B /* GetCurrentTripRequest.swift */,
 				BA0C919F1EF0480400BA8B4B /* UpdateCurrentTripRequest.swift */,
 				BA0C91A11EF0481700BA8B4B /* CancelCurerntTripRequest.swift */,
-				BAAC440F1EF1246500A9F949 /* PostEstimateTripRequest.swift */,
 				BAAC44111EF124E400A9F949 /* CreateTripRequest.swift */,
 				BA22191F1EF79CEB00C766A1 /* GetPaymentMethodRequest.swift */,
 				BA6767321EF8E42C00805AC1 /* SandboxUpdateProductRequest.swift */,

@@ -114,7 +114,7 @@ extension Requestable {
                             Logger.info(result!)
                             observer.onNext(result!)
                         } catch let error {
-                            Logger.error("[JSON Mapping] = \(error)")
+                            Logger.error("[JSON Mapping] = \(self.endpoint) = \(error)")
                             observer.onError(error)
                         }
 

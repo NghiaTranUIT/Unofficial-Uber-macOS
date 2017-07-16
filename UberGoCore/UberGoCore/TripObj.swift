@@ -7,6 +7,7 @@
 //
 
 import Unbox
+import Wrap
 
 public enum TripObjStatus: String {
     case processing
@@ -56,7 +57,7 @@ open class TripObj: Unboxable {
     public var productId: String
     public var requestId: String
     fileprivate var _status: String
-    public var surgeMultiplier: Float
+    public var surgeMultiplier: Float?
     public var shared: Bool
     public var driver: DriverObj?
     public var vehicle: VehicleObj?
@@ -107,7 +108,7 @@ open class TripObj: Unboxable {
         self.productId = try unboxer.unbox(key: Constants.Object.Trip.ProductId)
         self.requestId = try unboxer.unbox(key: Constants.Object.Trip.RequestId)
         self._status = try unboxer.unbox(key: Constants.Object.Trip.Status)
-        self.surgeMultiplier = try unboxer.unbox(key: Constants.Object.Trip.SurgeMultiplier)
+        self.surgeMultiplier = unboxer.unbox(key: Constants.Object.Trip.SurgeMultiplier)
         self.shared = try unboxer.unbox(key: Constants.Object.Trip.Shared)
         self.driver = unboxer.unbox(key: Constants.Object.Trip.Driver)
         self.vehicle = unboxer.unbox(key: Constants.Object.Trip.Vehicle)
@@ -124,5 +125,23 @@ open class TripObj: Unboxable {
                        status: TripObjStatus.unknown.rawValue,
                        surgeMultiplier: 1,
                        shared: true)
+    }
+}
+
+extension TripObj: CustomDebugStringConvertible, CustomStringConvertible {
+
+    public var debugDescription: String {
+        return _desciption()
+    }
+
+    public var description: String {
+        return _desciption()
+    }
+
+    fileprivate func _desciption() -> String {
+        guard let result = try? wrap(self) else {
+            return ""
+        }
+        return "\(result)"
     }
 }

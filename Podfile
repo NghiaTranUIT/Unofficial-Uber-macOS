@@ -15,6 +15,7 @@ def important_pods
     # Core
     pod 'Alamofire', '~> 4.5'
     pod 'Unbox'
+    pod 'Wrap'
     pod 'RxSwift',    '~> 3.0'
     pod 'RxCocoa',    '~> 3.0'
     pod 'SwiftLint'
