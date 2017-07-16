@@ -77,12 +77,10 @@ open class PlaceSearchRequest: Requestable {
 
     // MARK: - Decode
     func decode(data: Any) -> [PlaceObj]? {
-        guard let result = data as? [String: Any] else {
-            return []
-        }
-        guard let places = result["results"] as? [[String: Any]] else {
-            return []
-        }
+        guard let result = data as? [String: Any],
+            let places = result["results"] as? [[String: Any]] else {
+                return nil
+            }
         return try? unbox(dictionaries: places)
     }
 }

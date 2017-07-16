@@ -78,7 +78,8 @@ extension Requestable {
                 return Disposables.create {}
             }
 
-            Alamofire.request(urlRequest)
+            Alamofire
+                .request(urlRequest)
                 .validate(contentType: ["application/json", "text/html"])
                 .responseJSON(completionHandler: { (response) in
 
@@ -91,11 +92,7 @@ extension Requestable {
 
                     // 204 - no content
                     if statusCode == 204 {
-                        //FIXME : Smell code
-                        // Get rid of baseObj
-                        // Because sometime, there are no response
-                        let base = BaseObj()
-                        observer.on(.next(base as! Element))
+                        observer.onNext(() as! Element)
                         observer.on(.completed)
                         return
                     }

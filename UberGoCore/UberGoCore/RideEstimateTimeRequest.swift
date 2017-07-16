@@ -48,12 +48,10 @@ class RideEstimateTimeRequest: Requestable {
 
     // MARK: - Decode
     func decode(data: Any) -> Element? {
-        guard let result = data as? [String: Any] else {
-            return []
-        }
-        guard let products = result["times"] as? [[String: Any]] else {
-            return []
-        }
+        guard let result = data as? [String: Any],
+            let products = result["times"] as? [[String: Any]] else {
+                return nil
+            }
         return try? unbox(dictionaries: products)
     }
 }

@@ -12,7 +12,7 @@ open class PaymentObj: Unboxable {
 
     // MARK: - Variable
     public var paymentAccountObjs: [PaymentAccountObj]
-    public var lastUsed: String
+    public var lastUsed: String?
 
     // Last Used
     public var lastUsedPaymentAccount: PaymentAccountObj? {
@@ -22,6 +22,6 @@ open class PaymentObj: Unboxable {
     // MARK: - Init
     public required init(unboxer: Unboxer) throws {
         paymentAccountObjs = try unboxer.unbox(key: Constants.Object.Payment.PaymentMethods)
-        lastUsed = try unboxer.unbox(key: Constants.Object.Payment.LastUsed)
+        lastUsed = unboxer.unbox(key: Constants.Object.Payment.LastUsed)
     }
 }

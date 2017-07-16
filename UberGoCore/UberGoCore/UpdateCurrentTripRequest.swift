@@ -35,7 +35,7 @@ struct UpdateCurrentTripRequestParam: Parameter {
 class UpdateCurrentTripRequest: Requestable {
 
     // Type
-    typealias Element = BaseObj
+    typealias Element = Void
 
     // Endpoint
     var endpoint: String { return Constants.UberAPI.GetCurrentTrip }
@@ -54,7 +54,6 @@ class UpdateCurrentTripRequest: Requestable {
 
     // MARK: - Decode
     func decode(data: Any) -> Element? {
-        // This API don't have any response
-        return BaseObj()
+        return nil
     }
 }

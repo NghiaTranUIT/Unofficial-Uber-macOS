@@ -11,7 +11,7 @@ import OAuthSwift
 import Unbox
 import RxSwift
 
-open class UserObj: BaseObj {
+open class UserObj {
 
     // MARK: - Variable
     public var name: String?

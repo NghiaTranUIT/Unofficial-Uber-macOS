@@ -23,7 +23,7 @@ public struct SandboxUpdateStatusTripRequestParam: Parameter {
 open class SandboxUpdateStatusTripRequest: Requestable {
 
     // Type
-    typealias Element = BaseObj
+    typealias Element = Void
 
     // Endpoint
     var endpoint: String {
@@ -48,9 +48,6 @@ open class SandboxUpdateStatusTripRequest: Requestable {
 
     // MARK: - Decode
     func decode(data: Any) -> Element? {
-        guard let result = data as? [String: Any] else {
-            return nil
-        }
-        return try? unbox(dictionary: result)
+        return nil
     }
 }

@@ -52,6 +52,42 @@ open class ProductObj: Unboxable {
         self.priceDetail = unboxer.unbox(key: Constants.Object.Product.PriceDetails)
     }
 
+    public init(upfrontFareEnabled: Bool,
+                capacity: Int,
+                productId: String,
+                image: String,
+                cashEnabled: Bool,
+                shared: Bool,
+                shortDescription: String,
+                displayName: String,
+                productGroup: String,
+                descr: String) {
+        self.upfrontFareEnabled = upfrontFareEnabled
+        self.capacity = capacity
+        self.productId = productId
+        self.image = image
+        self.cashEnabled = cashEnabled
+        self.shared = shared
+        self.shortDescription = shortDescription
+        self.displayName = displayName
+        self.productGroup = productGroup
+        self.descr = descr
+    }
+
+    // Only for testing purpose
+    public convenience init(productId: String) {
+        self.init(upfrontFareEnabled: true,
+                  capacity: 0,
+                  productId: productId,
+                  image: "",
+                  cashEnabled: true,
+                  shared: false,
+                  shortDescription: "",
+                  displayName: "",
+                  productGroup: "",
+                  descr: "")
+    }
+
     fileprivate func initLazyPriceDetail() -> Variable<PriceDetailObj?> {
         return Variable<PriceDetailObj?>(priceDetail)
     }

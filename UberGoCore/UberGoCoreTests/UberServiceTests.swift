@@ -181,25 +181,12 @@ class UberServiceTests: XCTestCase {
             .subscribe(onNext: { paymentObj in
 
                 // Check if product_id != nil
-                guard let paymentAccountObjs = paymentObj.paymentAccountObjs else {
-                    XCTFail("No payment accounts")
-                    return
-                }
-
-                // Check each
-                for obj in paymentAccountObjs {
-                    if obj.paymentMethodId == nil {
-                        XCTFail("Payment account ID is invalid")
-                    }
-                }
+                let paymentAccountObjs = paymentObj.paymentAccountObjs
 
                 // Check lastUsed must match to any paymentMethods
                 if let lastUsed = paymentObj.lastUsed {
                     let matched = paymentAccountObjs.first(where: { (obj) -> Bool in
-                        guard let ID = obj.paymentMethodId else {
-                            return false
-                        }
-                        if ID == lastUsed {
+                        if obj.paymentMethodId == lastUsed {
                             return true
                         }
                         return false
@@ -212,7 +199,7 @@ class UberServiceTests: XCTestCase {
                 // Last Used Account must have same ID with lastUsed
                 if let lastPaymentObj = paymentObj.lastUsedPaymentAccount,
                     let lastUsed = paymentObj.lastUsed {
-                    if lastPaymentObj.paymentMethodId! != lastUsed {
+                    if lastPaymentObj.paymentMethodId != lastUsed {
                         XCTFail("LastUsed != LastUsedAccount")
                     }
                 }
@@ -243,7 +230,7 @@ class UberServiceTests: XCTestCase {
                 }
 
                 // Then
-                UberService().requestPriceDetail(firstObj.productId!)
+                UberService().requestPriceDetail(firstObj.productId)
                     .subscribe(onNext: { product in
                         if product.priceDetailVariable.value == nil {
                             XCTFail("productDetail is nil")
