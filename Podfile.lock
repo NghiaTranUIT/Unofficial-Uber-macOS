@@ -20,8 +20,8 @@ DEPENDENCIES:
   - RxSwift (~> 3.0)
   - SwiftLint
   - SwiftyBeaver
-  - Unbox
-  - Wrap
+  - Unbox (~> 2.5)
+  - Wrap (~> 2.1.1)
 
 SPEC CHECKSUMS:
   Alamofire: f28cdffd29de33a7bfa022cbd63ae95a27fae140
@@ -35,6 +35,6 @@ SPEC CHECKSUMS:
   Unbox: 30e437e6151a6de16139375fd4e8dd9a664cfbf7
   Wrap: 9cc7da7551bb81d0846cb3df9fb624c6c32d267d
 
-PODFILE CHECKSUM: 84d14a76ad4a5c9471012cbad629700bd7a99a12
+PODFILE CHECKSUM: dc0749c1db02a1002a12b9ebe6e7c9c37f1efed7
 
-COCOAPODS: 1.3.0.beta.1
+COCOAPODS: 1.2.1
