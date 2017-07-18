@@ -15,7 +15,7 @@ class GetPaymentMethodRequest: Requestable {
 
     // Type
     typealias Element = PaymentObj
-    
+
     // Endpoint
     var endpoint: String { return Constants.UberAPI.GetPaymentMethod }
 

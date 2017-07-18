@@ -56,7 +56,7 @@ open class PlaceSearchRequest: Requestable {
 
     // Uber Authen
     var isAuthenticated: Bool { return false }
-    
+
     // Base
     var basePath: String { return Constants.GoogleAPI.BaseURL }
 

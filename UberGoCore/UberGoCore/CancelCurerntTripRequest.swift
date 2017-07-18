@@ -12,7 +12,7 @@ class CancelCurrentTripRequest: Requestable {
 
     // Type
     typealias Element = Void
-    
+
     // Endpoint
     var endpoint: String { return Constants.UberAPI.GetCurrentTrip }
 

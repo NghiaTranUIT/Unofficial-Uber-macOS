@@ -76,7 +76,6 @@
 		BAED39FA1EEBACD2003D9BC3 /* Rx+Optional.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAED39F91EEBACD2003D9BC3 /* Rx+Optional.swift */; };
 		BAF57FA81EE116490013090E /* UberService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF57FA71EE116490013090E /* UberService.swift */; };
 		BAF57FAA1EE1166A0013090E /* UserObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF57FA91EE1166A0013090E /* UserObj.swift */; };
-		BAF57FAC1EE116710013090E /* BaseObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF57FAB1EE116710013090E /* BaseObj.swift */; };
 		BAF57FAE1EE116820013090E /* TripObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF57FAD1EE116820013090E /* TripObj.swift */; };
 		BAF57FB01EE1168A0013090E /* PlaceObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF57FAF1EE1168A0013090E /* PlaceObj.swift */; };
 		BAF57FB21EE116990013090E /* PriceObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF57FB11EE116990013090E /* PriceObj.swift */; };
@@ -171,7 +170,6 @@
 		BAED39F91EEBACD2003D9BC3 /* Rx+Optional.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Rx+Optional.swift"; sourceTree = "<group>"; };
 		BAF57FA71EE116490013090E /* UberService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UberService.swift; sourceTree = "<group>"; };
 		BAF57FA91EE1166A0013090E /* UserObj.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserObj.swift; sourceTree = "<group>"; };
-		BAF57FAB1EE116710013090E /* BaseObj.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseObj.swift; sourceTree = "<group>"; };
 		BAF57FAD1EE116820013090E /* TripObj.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripObj.swift; sourceTree = "<group>"; };
 		BAF57FAF1EE1168A0013090E /* PlaceObj.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceObj.swift; sourceTree = "<group>"; };
 		BAF57FB11EE116990013090E /* PriceObj.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PriceObj.swift; sourceTree = "<group>"; };
@@ -292,7 +290,6 @@
 			isa = PBXGroup;
 			children = (
 				BAF57FA91EE1166A0013090E /* UserObj.swift */,
-				BAF57FAB1EE116710013090E /* BaseObj.swift */,
 				BAF57FAD1EE116820013090E /* TripObj.swift */,
 				BAF57FAF1EE1168A0013090E /* PlaceObj.swift */,
 				BAF57FB11EE116990013090E /* PriceObj.swift */,
@@ -730,7 +727,6 @@
 				BA22191E1EF6FC6D00C766A1 /* PaymentAccountObj.swift in Sources */,
 				BADB784E1EE5AC07000536F7 /* SearchBarViewModel.swift in Sources */,
 				BADB78671EE70AB0000536F7 /* PlaceSearchRequest.swift in Sources */,
-				BAF57FAC1EE116710013090E /* BaseObj.swift in Sources */,
 				BA3EAB891F15E408003E3EF4 /* Float+Helper.swift in Sources */,
 				BAB7B8DD1EFD7E7F00B508A1 /* SandboxUpdateStatusTripRequest.swift in Sources */,
 				BAED39E21EE9B67C003D9BC3 /* RxCLLocationManagerDelegateProxy.swift in Sources */,

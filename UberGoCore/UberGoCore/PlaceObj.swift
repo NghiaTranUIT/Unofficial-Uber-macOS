@@ -112,7 +112,6 @@ open class PlaceObj: NSObject, Unboxable, NSCoding {
     }
 
     public static func == (lhs: PlaceObj, rhs: PlaceObj) -> Bool {
-        if lhs.placeID == rhs.placeID { return true }
-        return false
+        return lhs.placeID == rhs.placeID
     }
 }

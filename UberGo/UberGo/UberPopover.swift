@@ -104,7 +104,7 @@ extension UberPopover {
 
         appearance = NSAppearance(named: NSAppearanceNameAqua)
         animates = false
-        behavior = .transient
+        behavior = .applicationDefined
     }
 
     fileprivate func lazyInitWebviewController() -> WebViewController {
@@ -115,6 +115,7 @@ extension UberPopover {
         return EventMonitor(mask: [NSEventMask.leftMouseDown,
                             NSEventMask.rightMouseDown]) { [weak self] _ in
                                 guard let `self` = self else { return }
+                                Logger.info("Event Monitor fired")
                                 if self.isShown {
                                     self.viewModel.actionPopoverPublish.onNext(.close)
                                 }
@@ -122,8 +123,9 @@ extension UberPopover {
     }
 
     internal override func close() {
-        if isShown { return }
-
+        if !isShown { return }
+//        Logger.info("Presented = \(self.contentViewController?.presentedViewControllers)")
+//        Logger.info("presenting = \(self.contentViewController?.presenting)")
         super.close()
         eventMonitor.stop()
     }
