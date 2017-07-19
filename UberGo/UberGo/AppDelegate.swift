@@ -30,7 +30,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         popover = UberPopover(appViewModel: viewModel)
         popover.binding()
-        popover.startEventMonitor()
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {

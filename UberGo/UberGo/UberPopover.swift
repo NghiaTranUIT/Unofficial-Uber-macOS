@@ -31,6 +31,7 @@ class UberPopover: NSPopover {
         authenViewModel = AuthenticationViewModel()
 
         super.init()
+        delegate = self
         initCommon()
     }
 
@@ -53,12 +54,13 @@ class UberPopover: NSPopover {
 
         viewModel.output.popoverStateVariable.asDriver()
             .skip(1)
-            .drive(onNext: {[unowned self] (state) in
+            .drive(onNext: {[weak self] (state) in
+                guard let `self` = self else { return }
                 switch state {
                 case .close:
-                    self.close()
+                    self.handleClose()
                 case .open:
-                    self.show()
+                    self.handleShow()
                 }
             }).addDisposableTo(disposeBag)
     }
@@ -76,10 +78,6 @@ class UberPopover: NSPopover {
         }
     }
 
-    public func startEventMonitor() {
-        eventMonitor.start()
-    }
-
     @objc func togglePopover() {
         if isShown {
             viewModel.input.actionPopoverPublish.onNext(.close)
@@ -87,7 +85,6 @@ class UberPopover: NSPopover {
             viewModel.input.actionPopoverPublish.onNext(.open)
         }
     }
-
 }
 
 // MARK: - Private
@@ -122,15 +119,13 @@ extension UberPopover {
         }
     }
 
-    internal override func close() {
+    fileprivate func handleClose() {
         if !isShown { return }
-//        Logger.info("Presented = \(self.contentViewController?.presentedViewControllers)")
-//        Logger.info("presenting = \(self.contentViewController?.presenting)")
-        super.close()
+        performClose(nil)
         eventMonitor.stop()
     }
 
-    fileprivate func show() {
+    fileprivate func handleShow() {
 
         NSRunningApplication.current().activate(options: NSApplicationActivationOptions.activateIgnoringOtherApps)
 
@@ -141,5 +136,17 @@ extension UberPopover {
         show(relativeTo: button.frame, of: button, preferredEdge: .minY)
         eventMonitor.start()
     }
+}
 
+extension UberPopover: NSPopoverDelegate {
+
+    func popoverWillClose(_ notification: Notification) {
+        guard let contentViewController = self.contentViewController else { return }
+        guard let presenteds = contentViewController.presentedViewControllers else { return }
+
+        // Dismiss
+        presenteds.forEach({ (controller) in
+            contentViewController.dismissViewController(controller)
+        })
+    }
 }
