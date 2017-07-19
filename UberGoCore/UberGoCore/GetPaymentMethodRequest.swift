@@ -9,13 +9,13 @@
 import Alamofire
 import CoreLocation
 import Foundation
-import ObjectMapper
+import Unbox
 
 class GetPaymentMethodRequest: Requestable {
 
     // Type
     typealias Element = PaymentObj
-    
+
     // Endpoint
     var endpoint: String { return Constants.UberAPI.GetPaymentMethod }
 
@@ -26,10 +26,10 @@ class GetPaymentMethodRequest: Requestable {
     var param: Parameter? { return nil }
 
     // MARK: - Decode
-    func decode(data: Any) -> Element? {
+    func decode(data: Any) throws -> Element? {
         guard let result = data as? [String: Any] else {
             return nil
         }
-        return Mapper<Element>().map(JSON: result)
+        return try unbox(dictionary: result)
     }
 }

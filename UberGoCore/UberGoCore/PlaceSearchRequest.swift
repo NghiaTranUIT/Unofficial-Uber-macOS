@@ -9,7 +9,7 @@
 import Alamofire
 import CoreLocation
 import Foundation
-import ObjectMapper
+import Unbox
 
 enum PlaceSearchRequestMode {
     case nearestPlace
@@ -56,7 +56,7 @@ open class PlaceSearchRequest: Requestable {
 
     // Uber Authen
     var isAuthenticated: Bool { return false }
-    
+
     // Base
     var basePath: String { return Constants.GoogleAPI.BaseURL }
 
@@ -76,13 +76,11 @@ open class PlaceSearchRequest: Requestable {
     }
 
     // MARK: - Decode
-    func decode(data: Any) -> [PlaceObj]? {
-        guard let result = data as? [String: Any] else {
-            return []
-        }
-        guard let places = result["results"] as? [[String: Any]] else {
-            return []
-        }
-        return Mapper<PlaceObj>().mapArray(JSONArray: places)
+    func decode(data: Any) throws -> [PlaceObj]? {
+        guard let result = data as? [String: Any],
+            let places = result["results"] as? [[String: Any]] else {
+                return nil
+            }
+        return try unbox(dictionaries: places)
     }
 }

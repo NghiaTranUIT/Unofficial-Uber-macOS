@@ -8,10 +8,10 @@
 
 import Cocoa
 import OAuthSwift
-import ObjectMapper
 import RxSwift
+import Unbox
 
-open class UserObj: BaseObj {
+open class UserObj: NSObject, NSCoding {
 
     // MARK: - Variable
     public var name: String?
@@ -22,6 +22,7 @@ open class UserObj: BaseObj {
     public let paymentMethodObjVar = Variable<PaymentObj?>(nil)
     public var selectedNewPaymentObjVar = Variable<PaymentAccountObj?>(nil)
     public var currentPaymentAccountObjVar = Variable<PaymentAccountObj?>(nil)
+    fileprivate let disposeBag = DisposeBag()
 
     // MARK: - Init
     public init(authToken: AuthToken) {
@@ -30,46 +31,43 @@ open class UserObj: BaseObj {
         binding()
     }
 
-    override public func mapping(map: Map) {
-        super.mapping(map: map)
-
-        self.name <- map[Constants.Object.User.Name]
+    public required init(unboxer: Unboxer) throws {
+        name = unboxer.unbox(key: Constants.Object.User.Name)
+        authToken = AuthToken(token: try unboxer.unbox(key: "token"),
+                              refreshToken: try unboxer.unbox(key: "refreshToken"),
+                              tokenSecret: try unboxer.unbox(key: "tokenSecret"),
+                              tokenExpires: nil)
     }
 
-    required public init?(coder aDecoder: NSCoder) {
-        self.authToken = aDecoder.decodeObject(forKey: Constants.Object.User.Auth) as! AuthToken
-        super.init(coder: aDecoder)
-        self.name = aDecoder.decodeObject(forKey: Constants.Object.User.Name) as? String
+    @objc required public init?(coder aDecoder: NSCoder) {
+        authToken = aDecoder.decodeObject(forKey: Constants.Object.User.Auth) as! AuthToken
+        name = aDecoder.decodeObject(forKey: Constants.Object.User.Name) as? String
+        super.init()
         binding()
     }
 
-    public required init?(map: Map) {
-        fatalError("init(map:) has not been implemented")
-    }
-
-    override public func encode(with aCoder: NSCoder) {
-        super.encode(with: aCoder)
-        aCoder.encode(self.name, forKey: Constants.Object.User.Name)
-        aCoder.encode(self.authToken, forKey: Constants.Object.User.Auth)
+    @objc public func encode(with aCoder: NSCoder) {
+        aCoder.encode(name, forKey: Constants.Object.User.Name)
+        aCoder.encode(authToken, forKey: Constants.Object.User.Auth)
     }
 
     // MARK: - Binding
     public func binding() {
 
         // Payment
-        self.reloadUberDataPublisher
+        reloadUberDataPublisher
             .asObserver()
             .flatMapLatest { _ -> Observable<PaymentObj> in
                 return UberService().paymentMethodObserver()
             }
             .do(onNext: { (paymentObj) in
-                Logger.info("Curent PaymentMethods count = \(paymentObj.paymentAccountObjs?.count ?? 0 )")
+                Logger.info("Curent PaymentMethods count = \(paymentObj.paymentAccountObjs.count)")
             })
-            .bind(to: self.paymentMethodObjVar)
-            .addDisposableTo(self.disposeBag)
+            .bind(to: paymentMethodObjVar)
+            .addDisposableTo(disposeBag)
 
         // Last User or select
-        let lastUsed = self.paymentMethodObjVar.asObservable()
+        let lastUsed = paymentMethodObjVar.asObservable()
             .filterNil()
             .flatMapLatest({ (paymentObj) -> Observable<PaymentAccountObj> in
                 guard let lastUser = paymentObj.lastUsedPaymentAccount else {
@@ -78,21 +76,21 @@ open class UserObj: BaseObj {
                 return Observable.just(lastUser)
             })
 
-        let newSelectAccount = self.selectedNewPaymentObjVar
+        let newSelectAccount = selectedNewPaymentObjVar
             .asObservable()
             .filterNil()
 
         // Combine
         Observable.merge([lastUsed, newSelectAccount])
-        .bind(to: self.currentPaymentAccountObjVar)
-        .addDisposableTo(self.disposeBag)
+        .bind(to: currentPaymentAccountObjVar)
+        .addDisposableTo(disposeBag)
     }
 
     //TODO: Don't use UserDefault
     // Should try CoreData or Realm instead
     public func historyPlace() -> [PlaceObj] {
         let userDefault = UserDefaults.standard
-        guard let data = userDefault.data(forKey: "history") else {
+        guard let data = userDefault.data(forKey: "PlaceHistories") else {
             return []
         }
 
@@ -104,10 +102,10 @@ open class UserObj: BaseObj {
     }
 
     public func saveHistoryPlace(_ place: PlaceObj) {
-        var histories = self.historyPlace()
+        var histories = historyPlace()
 
         // Remove
-        if let index = histories.index(where: { $0.isEqual(place) }) {
+        if let index = histories.index(where: { $0 == place }) {
             histories.remove(at: index)
         }
 
@@ -117,7 +115,7 @@ open class UserObj: BaseObj {
         // Save
         let data = NSKeyedArchiver.archivedData(withRootObject: histories)
         let userDefault = UserDefaults.standard
-        userDefault.set(data, forKey: "history")
+        userDefault.set(data, forKey: "PlaceHistories")
         userDefault.synchronize()
     }
 }

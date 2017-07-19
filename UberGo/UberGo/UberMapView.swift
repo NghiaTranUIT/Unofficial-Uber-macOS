@@ -173,8 +173,8 @@ class UberMapView: MGLMapView {
         guard let pickupObj = pickupObj else { return }
 
         pickupPoint = PickupAnnotation()
-        pickupPoint!.coordinate = CLLocationCoordinate2D(latitude: pickupObj.latitude!,
-                                                              longitude: pickupObj.longitude!)
+        pickupPoint!.coordinate = CLLocationCoordinate2D(latitude: pickupObj.latitude.toDouble,
+                                                              longitude: pickupObj.longitude.toDouble)
         pickupPoint!.title = "Pickup"
         addAnnotation(pickupPoint!)
     }
@@ -190,8 +190,8 @@ class UberMapView: MGLMapView {
         guard let location = location else { return }
 
         driverPoint = MGLPointAnnotation()
-        driverPoint!.coordinate = CLLocationCoordinate2D(latitude: location.latitude!,
-                                                              longitude: location.longitude!)
+        driverPoint!.coordinate = CLLocationCoordinate2D(latitude: location.latitude.toDouble,
+                                                              longitude: location.longitude.toDouble)
         driverPoint!.title = "Driver"
         addAnnotation(driverPoint!)
     }

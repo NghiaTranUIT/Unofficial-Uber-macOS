@@ -33,7 +33,7 @@ class DestinationAnnotation: MGLPointAnnotation {
 
         super.init()
 
-        self.coordinate = placeObj.coordinate2D!
+        self.coordinate = placeObj.coordinate2D
         self.title = placeObj.name
     }
 

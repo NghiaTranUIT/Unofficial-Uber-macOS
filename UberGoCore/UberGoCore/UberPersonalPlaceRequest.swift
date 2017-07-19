@@ -9,7 +9,7 @@
 import Alamofire
 import CoreLocation
 import Foundation
-import ObjectMapper
+import Unbox
 
 enum PersonalPlaceType: String {
     case work
@@ -53,10 +53,10 @@ public class UberPersonalPlaceRequest: Requestable {
     }
 
     // MARK: - Decode
-    func decode(data: Any) -> Element? {
+    func decode(data: Any) throws -> Element? {
         guard let result = data as? [String: Any] else {
             return nil
         }
-        return Mapper<UberPersonalPlaceObj>().map(JSON: result)
+        return try unbox(dictionary: result)
     }
 }

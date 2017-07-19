@@ -8,7 +8,7 @@
 
 import Alamofire
 import CoreLocation
-import ObjectMapper
+import Unbox
 
 public struct CreateTripRequestParam: Parameter {
 
@@ -89,10 +89,10 @@ open class CreateTripRequest: Requestable {
     }
 
     // MARK: - Decode
-    func decode(data: Any) -> Element? {
+    func decode(data: Any) throws -> Element? {
         guard let result = data as? [String: Any] else {
             return nil
         }
-        return Mapper<CreateTripObj>().map(JSON: result)
+        return try unbox(dictionary: result)
     }
 }

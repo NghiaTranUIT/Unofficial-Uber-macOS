@@ -7,24 +7,23 @@
 //
 
 import Foundation
-import ObjectMapper
+import Unbox
 
-open class DriverObj: BaseObj {
+open class DriverObj: Unboxable {
 
     // MARK: - Variable
-    public var phoneNumber: String?
-    public var smsNumber: String?
-    public var rating: Int?
-    public var pictureUrl: String?
-    public var name: String?
+    public var phoneNumber: String
+    public var smsNumber: String
+    public var rating: Int
+    public var pictureUrl: String
+    public var name: String
 
-    override public func mapping(map: Map) {
-        super.mapping(map: map)
-
-        self.phoneNumber <- map[Constants.Object.Driver.PhoneNumber]
-        self.smsNumber <- map[Constants.Object.Driver.SmsNumber]
-        self.rating <- map[Constants.Object.Driver.Rating]
-        self.pictureUrl <- map[Constants.Object.Driver.PictureUrl]
-        self.name <- map[Constants.Object.Driver.Name]
+    // MARK: - Init
+    public required init(unboxer: Unboxer) throws {
+        phoneNumber = try unboxer.unbox(key: Constants.Object.Driver.PhoneNumber)
+        smsNumber = try unboxer.unbox(key: Constants.Object.Driver.SmsNumber)
+        rating = try unboxer.unbox(key: Constants.Object.Driver.Rating)
+        pictureUrl = try unboxer.unbox(key: Constants.Object.Driver.PictureUrl)
+        name = try unboxer.unbox(key: Constants.Object.Driver.Name)
     }
 }

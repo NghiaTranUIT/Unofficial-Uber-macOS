@@ -11,8 +11,8 @@ import Alamofire
 class CancelCurrentTripRequest: Requestable {
 
     // Type
-    typealias Element = BaseObj
-    
+    typealias Element = Void
+
     // Endpoint
     var endpoint: String { return Constants.UberAPI.GetCurrentTrip }
 
@@ -23,8 +23,7 @@ class CancelCurrentTripRequest: Requestable {
     var param: Parameter? { return nil }
 
     // MARK: - Decode
-    func decode(data: Any) -> Element? {
-        // This API don't have any response
-        return BaseObj()
+    func decode(data: Any) throws -> Element? {
+        return nil
     }
 }

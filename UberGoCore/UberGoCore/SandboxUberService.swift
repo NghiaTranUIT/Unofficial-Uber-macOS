@@ -6,7 +6,7 @@
 //  Copyright © 2017 Nghia Tran. All rights reserved.
 //
 
-import ObjectMapper
+import Unbox
 import RxSwift
 
 open class SandboxUberService {
@@ -14,7 +14,7 @@ open class SandboxUberService {
     // MARK: - Public
     public func modifySandboxProductObserver(productObj: ProductObj,
                                              surgeRate: Float,
-                                             available: Bool) -> Observable<BaseObj> {
+                                             available: Bool) -> Observable<Void> {
         let param = SandboxUpdateProductRequestParam(productID: productObj.productId,
                                                      surgeMultiplier: surgeRate,
                                                      driversAvailable: available)

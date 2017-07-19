@@ -9,7 +9,7 @@
 import Alamofire
 import CoreLocation
 import Foundation
-import ObjectMapper
+import Unbox
 
 public struct UberProductsRequestParam: Parameter {
 
@@ -42,13 +42,11 @@ public class UberProductsRequest: Requestable {
     }
 
     // MARK: - Decode
-    func decode(data: Any) -> [ProductObj]? {
-        guard let result = data as? [String: Any] else {
-            return []
-        }
-        guard let products = result["products"] as? [[String: Any]] else {
-            return []
-        }
-        return Mapper<ProductObj>().mapArray(JSONArray: products)
+    func decode(data: Any) throws -> [ProductObj]? {
+        guard let result = data as? [String: Any],
+            let products = result["products"] as? [[String: Any]] else {
+                return nil
+            }
+        return try unbox(dictionaries: products)
     }
 }

@@ -7,20 +7,19 @@
 //
 
 import Foundation
-import ObjectMapper
+import Unbox
 
-open class RiderObj: BaseObj {
+open class RiderObj: Unboxable {
 
     // MARK: - Variable
     public var riderId: String?
-    public var firstName: String?
-    public var me: Bool?
+    public var firstName: String
+    public var me: Bool
 
-    override public func mapping(map: Map) {
-        super.mapping(map: map)
-
-        self.riderId <- map[Constants.Object.Rider.RiderId]
-        self.firstName <- map[Constants.Object.Rider.FirstName]
-        self.me <- map[Constants.Object.Rider.Me]
+    // MARK: - Init
+    public required init(unboxer: Unboxer) throws {
+        riderId = unboxer.unbox(key: Constants.Object.Rider.RiderId)
+        firstName = try unboxer.unbox(key: Constants.Object.Rider.FirstName)
+        me = try unboxer.unbox(key: Constants.Object.Rider.Me)
     }
 }

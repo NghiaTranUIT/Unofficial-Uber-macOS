@@ -6,34 +6,33 @@
 //  Copyright © 2017 Nghia Tran. All rights reserved.
 //
 
-import ObjectMapper
+import Unbox
 
-open class PriceObj: BaseObj {
+open class PriceObj: Unboxable {
 
     // MARK: - Variable
-    public var localizedDisplayName: String?
-    public var distance: Float?
-    public var displayName: String?
-    public var productId: String?
+    public var localizedDisplayName: String
+    public var distance: Float
+    public var displayName: String
+    public var productId: String
     public var highEstimate: Float?
     public var lowEstimate: Float?
-    public var duration: Float?
-    public var estimate: String?
+    public var duration: Float
+    public var estimate: String
     public var currencyCode: String?
     public var surgeMultiplier: Double?
 
-    override public func mapping(map: Map) {
-        super.mapping(map: map)
-
-        self.localizedDisplayName <- map[Constants.Object.Price.LocalizedDisplayName]
-        self.distance <- map[Constants.Object.Price.Distance]
-        self.displayName <- map[Constants.Object.Price.DisplayName]
-        self.productId <- map[Constants.Object.Price.ProductId]
-        self.highEstimate <- map[Constants.Object.Price.HighEstimate]
-        self.lowEstimate <- map[Constants.Object.Price.LowEstimate]
-        self.duration <- map[Constants.Object.Price.Duration]
-        self.estimate <- map[Constants.Object.Price.Estimate]
-        self.currencyCode <- map[Constants.Object.Price.CurrencyCode]
-        self.surgeMultiplier <- map[Constants.Object.Price.SurgeMultiplier]
+    // MARK: - Init
+    public required init(unboxer: Unboxer) throws {
+        localizedDisplayName = try unboxer.unbox(key: Constants.Object.Price.LocalizedDisplayName)
+        distance = try unboxer.unbox(key: Constants.Object.Price.Distance)
+        displayName = try unboxer.unbox(key: Constants.Object.Price.DisplayName)
+        productId = try unboxer.unbox(key: Constants.Object.Price.ProductId)
+        highEstimate = unboxer.unbox(key: Constants.Object.Price.HighEstimate)
+        lowEstimate = unboxer.unbox(key: Constants.Object.Price.LowEstimate)
+        duration = try unboxer.unbox(key: Constants.Object.Price.Duration)
+        estimate = try unboxer.unbox(key: Constants.Object.Price.Estimate)
+        currencyCode = unboxer.unbox(key: Constants.Object.Price.CurrencyCode)
+        surgeMultiplier = try? unboxer.unbox(key: Constants.Object.Price.SurgeMultiplier)
     }
 }

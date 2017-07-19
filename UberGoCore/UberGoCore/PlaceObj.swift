@@ -7,7 +7,7 @@
 //
 
 import CoreLocation
-import ObjectMapper
+import Unbox
 
 // PlaceType
 public enum PlaceType: String {
@@ -26,74 +26,82 @@ public enum PlaceType: String {
 }
 
 // Google Place
-open class PlaceObj: BaseObj {
+open class PlaceObj: NSObject, Unboxable, NSCoding {
 
     // MARK: - Variable
     public var placeType = PlaceType.place
-    public var name: String?
-    public var address: String?
-    public var placeID: String?
-    public var coordinate2D: CLLocationCoordinate2D?
-    public var location: [String: Float]?
+    public var name: String
+    public var address: String
+    public var placeID: String
+    public var location: [String: Float]
     public var isHistory = false
 
+    public lazy var coordinate2D: CLLocationCoordinate2D = {
+        let lat = self.location["lat"]!.toDouble
+        let lng = self.location["lng"]!.toDouble
+        return CLLocationCoordinate2D(latitude: lat, longitude: lng)
+    }()
+
+    // Invalid
+    static var invalid: PlaceObj {
+        return PlaceObj(placeType: PlaceType.place, name: "", address: "", placeID: "", location: [:])
+    }
+
     // MARK: - Init
-    override public init() {
-        super.init()
+    public init(placeType: PlaceType, name: String, address: String, placeID: String, location: [String: Float]) {
+        self.placeType = placeType
+        self.name = name
+        self.address = address
+        self.placeID = placeID
+        self.location = location
     }
 
-    public init(personalPlaceObj: UberPersonalPlaceObj) {
-        super.init()
-
-        self.name = personalPlaceObj.placeType.rawValue
-        self.address = personalPlaceObj.address
-        self.placeType = PlaceType.fromUberPersonalPlaceType(personalPlaceObj.placeType)
-        self.placeID = self.placeType.rawValue
+    public convenience init(coordinate: CLLocationCoordinate2D) {
+        self.init(placeType: .place,
+                  name: "Current Location",
+                  address: "Current Location",
+                  placeID: "Current Location",
+                  location: ["lat": coordinate.latitude.toFloat,
+                             "lng": coordinate.longitude.toFloat])
     }
 
-    public override func encode(with aCoder: NSCoder) {
-        super.encode(with: aCoder)
-        aCoder.encode(self.name, forKey: "name")
-        aCoder.encode(self.address, forKey: "vicinity")
-        aCoder.encode(self.location, forKey: "geometry.location")
-        aCoder.encode(self.placeType.rawValue, forKey: "placeType")
-        aCoder.encode(self.placeID, forKey: "placeID")
+    public convenience init(personalPlaceObj: UberPersonalPlaceObj) {
+        let name = personalPlaceObj.placeType.rawValue
+        let address = personalPlaceObj.address
+        let placeType = PlaceType.fromUberPersonalPlaceType(personalPlaceObj.placeType)
+        let placeID = placeType.rawValue
+        self.init(placeType: placeType, name: name, address: address, placeID: placeID, location: [:])
+    }
+
+    public func encode(with aCoder: NSCoder) {
+        aCoder.encode(name, forKey: "name")
+        aCoder.encode(address, forKey: "vicinity")
+        aCoder.encode(location, forKey: "geometry.location")
+        aCoder.encode(placeType.rawValue, forKey: "placeType")
+        aCoder.encode(placeID, forKey: "placeID")
     }
 
     public required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        self.name = aDecoder.decodeObject(forKey: "name") as? String
-        self.address = aDecoder.decodeObject(forKey: "vicinity") as? String
-        self.location = aDecoder.decodeObject(forKey: "geometry.location") as? [String: Float]
-        let lat = Double(self.location!["lat"]!)
-        let lng = Double(self.location!["lng"]!)
-        self.coordinate2D = CLLocationCoordinate2D(latitude: lat, longitude: lng)
-
-        self.isHistory = true
-        self.placeType = PlaceType(rawValue: aDecoder.decodeObject(forKey: "placeType") as! String)!
-        self.placeID = aDecoder.decodeObject(forKey: "placeID") as? String
-    }
-
-    public required init?(map: Map) {
-        super.init(map: map)
+        name = aDecoder.decodeObject(forKey: "name") as! String
+        address = aDecoder.decodeObject(forKey: "vicinity") as! String
+        location = aDecoder.decodeObject(forKey: "geometry.location") as! [String: Float]
+        isHistory = true
+        placeType = PlaceType(rawValue: aDecoder.decodeObject(forKey: "placeType") as! String)!
+        placeID = aDecoder.decodeObject(forKey: "placeID") as! String
     }
 
     // Map
-    override public func mapping(map: Map) {
-        super.mapping(map: map)
-
-        self.name <- map["name"]
-        self.address <- map["vicinity"]
-        self.location <- map["geometry.location"]
-        self.coordinate2D <- (map["geometry.location"], Coordinate2DTransform())
-        self.placeID <- map["place_id"]
+    public required init(unboxer: Unboxer) throws {
+        name = try unboxer.unbox(key: "name")
+        address = try unboxer.unbox(key: "vicinity")
+        location = try unboxer.unbox(keyPath: "geometry.location")
+        placeID = try unboxer.unbox(key: "place_id")
     }
 
+    // MARK: - Public
     public var iconName: String {
-        if self.isHistory {
-            return "history"
-        }
-        switch self.placeType {
+        if isHistory { return "history" }
+        switch placeType {
         case .home:
             return "home"
         case .work:
@@ -103,29 +111,7 @@ open class PlaceObj: BaseObj {
         }
     }
 
-    override open func isEqual(_ object: Any?) -> Bool {
-        guard let object = object as? PlaceObj else {
-            return false
-        }
-        guard let placeID = self.placeID else {
-            return false
-        }
-        guard let _placeID = object.placeID else {
-            return false
-        }
-
-        if placeID == _placeID {
-            return true
-        }
-        return false
-    }
-}
-
-extension PlaceObj {
-
-    public static var unknowPlace: PlaceObj {
-        let place = PlaceObj()
-        place.name = "Unknow location"
-        return place
+    public static func == (lhs: PlaceObj, rhs: PlaceObj) -> Bool {
+        return lhs.placeID == rhs.placeID
     }
 }

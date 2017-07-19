@@ -7,30 +7,26 @@
 //
 
 import Foundation
-import ObjectMapper
+import Unbox
 
-open class TimeEstimateObj: BaseObj {
+open class TimeEstimateObj: Unboxable {
 
     // MARK: - Variable
-    public var localizedDisplayName: String?
-    public var estimate: Int?
-    public var displayName: String?
-    public var productId: String?
+    public var localizedDisplayName: String
+    public var estimate: Int
+    public var displayName: String
+    public var productId: String
 
     // Time in minutes
     public var prettyEstimateTime: Int {
-        guard let estimate = estimate else {
-            return 5
-        }
         return estimate / 60
     }
 
-    override public func mapping(map: Map) {
-        super.mapping(map: map)
-
-        self.localizedDisplayName <- map[Constants.Object.TimeEstimate.LocalizedDisplayName]
-        self.estimate <- map[Constants.Object.TimeEstimate.Estimate]
-        self.displayName <- map[Constants.Object.TimeEstimate.DisplayName]
-        self.productId <- map[Constants.Object.TimeEstimate.ProductId]
+    // MARK: - Init
+    public required init(unboxer: Unboxer) throws {
+        localizedDisplayName = try unboxer.unbox(key: Constants.Object.TimeEstimate.LocalizedDisplayName)
+        estimate = try unboxer.unbox(key: Constants.Object.TimeEstimate.Estimate)
+        displayName = try unboxer.unbox(key: Constants.Object.TimeEstimate.DisplayName)
+        productId = try unboxer.unbox(key: Constants.Object.TimeEstimate.ProductId)
     }
 }

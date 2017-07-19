@@ -7,29 +7,26 @@
 //
 
 import Foundation
-import ObjectMapper
+import Unbox
 
-open class VehicleObj: BaseObj {
+open class VehicleObj: Unboxable {
 
     // MARK: - Variable
-    public var make: String?
-    public var model: String?
-    public var licensePlate: String?
+    public var make: String
+    public var model: String
+    public var licensePlate: String
     public var pictureUrl: String?
 
+    // Fullname
     public var fullName: String {
-        if self.model == nil && self.make == nil {
-            return "Unknown"
-        }
-        return (self.make ?? "") + (self.model ?? "")
+        return make + model
     }
 
-    override public func mapping(map: Map) {
-        super.mapping(map: map)
-
-        self.make <- map[Constants.Object.Vehicle.Make]
-        self.model <- map[Constants.Object.Vehicle.Model]
-        self.licensePlate <- map[Constants.Object.Vehicle.LicensePlate]
-        self.pictureUrl <- map[Constants.Object.Vehicle.PictureUrl]
+    // MARK: - Init
+    public required init(unboxer: Unboxer) throws {
+        make = try unboxer.unbox(key: Constants.Object.Vehicle.Make)
+        model = try unboxer.unbox(key: Constants.Object.Vehicle.Model)
+        licensePlate = try unboxer.unbox(key: Constants.Object.Vehicle.LicensePlate)
+        pictureUrl = unboxer.unbox(key: Constants.Object.Vehicle.PictureUrl)
     }
 }

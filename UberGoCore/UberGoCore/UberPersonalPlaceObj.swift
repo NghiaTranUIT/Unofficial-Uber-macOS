@@ -7,25 +7,27 @@
 //
 
 import Foundation
-import ObjectMapper
+import Unbox
 
 public enum UberPersonalPlaceType: String {
     case work = "Work"
     case home = "Home"
 }
 
-open class UberPersonalPlaceObj: BaseObj {
+open class UberPersonalPlaceObj: Unboxable {
 
     // MARK: - Variable
     public var placeType: UberPersonalPlaceType = .work
-    public var address: String?
+    public var address: String
     public fileprivate(set) var invalid = false
 
     // MARK: - Map
-    override public func mapping(map: Map) {
-        super.mapping(map: map)
+    public init(address: String, invalid: Bool = false) {
+        self.address = address
+    }
 
-        self.address <- map[Constants.Object.UberPersonalPlace.Address]
+    public required init(unboxer: Unboxer) throws {
+        address = try unboxer.unbox(key: Constants.Object.UberPersonalPlace.Address)
     }
 }
 
@@ -33,8 +35,6 @@ open class UberPersonalPlaceObj: BaseObj {
 extension UberPersonalPlaceObj {
 
     public static var invalidPlace: UberPersonalPlaceObj {
-        let place = UberPersonalPlaceObj()
-        place.invalid = true
-        return place
+        return UberPersonalPlaceObj(address: "Invalid", invalid: true)
     }
 }

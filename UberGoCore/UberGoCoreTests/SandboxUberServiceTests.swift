@@ -10,6 +10,7 @@ import XCTest
 import CoreLocation
 import RxSwift
 import Alamofire
+import Unbox
 @testable import UberGoCore
 
 class SandboxUberServiceTests: XCTestCase {
@@ -19,6 +20,7 @@ class SandboxUberServiceTests: XCTestCase {
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
+        FakeUberCrendential.resetData()
     }
 
     override func tearDown() {
@@ -33,7 +35,7 @@ class SandboxUberServiceTests: XCTestCase {
         let promise = expectation(description: "testModifySandboxProductObserver")
         FakeUberCrendential.makeCurrentUser()
 
-        let productObj = ProductObj(JSON: [Constants.Object.Product.ProductId: "0b6b2de2-a6f3-4fa7-8385-414312f042ce"])!
+        let productObj = ProductObj(productId: "0b6b2de2-a6f3-4fa7-8385-414312f042ce")
 
         // Then
         SandboxUberService().modifySandboxProductObserver(productObj: productObj, surgeRate: 2.4, available: true)

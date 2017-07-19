@@ -6,9 +6,10 @@
 //  Copyright © 2017 Nghia Tran. All rights reserved.
 //
 
-import ObjectMapper
+import Unbox
 
 public enum PaymentAccountType: String {
+
     case airtelMoney = "airtel_money"
     case alipay
     case applePay = "apple_pay"
@@ -38,30 +39,26 @@ public enum PaymentAccountType: String {
     }
 }
 
-open class PaymentAccountObj: BaseObj {
+open class PaymentAccountObj: Unboxable {
 
     // MARK: - Variable
-    public var paymentMethodId: String?
-    public var typeCode: String?
+    public var paymentMethodId: String
+    public var typeCode: String
     public var accountDescription: String?
-    public var type: PaymentAccountType {
-        guard let code = self.typeCode else {
-            return .unknown
-        }
-        return PaymentAccountType(rawValue: code) ?? .unknown
-    }
+
+    // Type Enum
+    public var type: PaymentAccountType { return PaymentAccountType(rawValue: typeCode) ?? .unknown }
+
+    // Better desciption
     public lazy var betterAccountDescription: String = {
-        guard let desc = self.accountDescription else {
-            return "No description"
-        }
+        guard let desc = self.accountDescription else { return "No description" }
         return desc.replacingOccurrences(of: "*", with: "•")
     }()
 
-    public override func mapping(map: Map) {
-        super.mapping(map: map)
-
-        self.paymentMethodId <- map[Constants.Object.PaymentAccount.PaymentMethodId]
-        self.typeCode <- map[Constants.Object.PaymentAccount.Type]
-        self.accountDescription <- map[Constants.Object.PaymentAccount.Description]
+    // MARK: - Mapping
+    public required init(unboxer: Unboxer) throws {
+        paymentMethodId = try unboxer.unbox(key: Constants.Object.PaymentAccount.PaymentMethodId)
+        typeCode = try unboxer.unbox(key: Constants.Object.PaymentAccount.Type)
+        accountDescription = unboxer.unbox(key: Constants.Object.PaymentAccount.Description)
     }
 }

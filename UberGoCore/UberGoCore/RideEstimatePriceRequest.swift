@@ -9,7 +9,7 @@
 import Alamofire
 import CoreLocation
 import Foundation
-import ObjectMapper
+import Unbox
 
 public struct RideEstimatePriceRequestParam: Parameter {
 
@@ -45,13 +45,11 @@ class RideEstimatePriceRequest: Requestable {
     }
 
     // MARK: - Decode
-    func decode(data: Any) -> Element? {
-        guard let result = data as? [String: Any] else {
-            return []
-        }
-        guard let products = result["prices"] as? [[String: Any]] else {
-            return []
-        }
-        return Mapper<PriceObj>().mapArray(JSONArray: products)
+    func decode(data: Any) throws -> Element? {
+        guard let result = data as? [String: Any],
+            let products = result["prices"] as? [[String: Any]] else {
+                return nil
+            }
+        return try unbox(dictionaries: products)
     }
 }

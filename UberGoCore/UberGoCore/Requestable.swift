@@ -31,7 +31,7 @@ protocol Requestable: URLRequestConvertible {
 
     func toObservable() -> Observable<Element>
 
-    func decode(data: Any) -> Element?
+    func decode(data: Any) throws -> Element?
 }
 
 //
@@ -78,7 +78,8 @@ extension Requestable {
                 return Disposables.create {}
             }
 
-            Alamofire.request(urlRequest)
+            Alamofire
+                .request(urlRequest)
                 .validate(contentType: ["application/json", "text/html"])
                 .responseJSON(completionHandler: { (response) in
 
@@ -91,11 +92,7 @@ extension Requestable {
 
                     // 204 - no content
                     if statusCode == 204 {
-                        //FIXME : Smell code
-                        // Get rid of baseObj
-                        // Because sometime, there are no response
-                        let base = BaseObj(JSON: [:])
-                        observer.on(.next(base as! Element))
+                        observer.onNext(() as! Element)
                         observer.on(.completed)
                         return
                     }
@@ -112,17 +109,16 @@ extension Requestable {
                     if statusCode >= 200 && statusCode < 300 {
 
                         // Parse here
-                        guard let result = self.decode(data: data) else {
-                            observer.onError(NSError.jsonMapperError())
-                            return
+                        do {
+                            let result = try self.decode(data: data)
+                            Logger.info(result!)
+                            observer.onNext(result!)
+                        } catch let error {
+                            Logger.error("[JSON Mapping] = \(self.endpoint) = \(error)")
+                            observer.onError(error)
                         }
 
-                        // Loger
-                        Logger.info(result)
-
-                        // Fill
-                        observer.on(.next(result))
-                        observer.on(.completed)
+                        observer.onCompleted()
                         return
                     }
 

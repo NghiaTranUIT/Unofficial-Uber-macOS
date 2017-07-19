@@ -6,26 +6,26 @@
 //  Copyright © 2017 Nghia Tran. All rights reserved.
 //
 
-import ObjectMapper
 import RxSwift
+import Unbox
 
-open class ProductObj: BaseObj {
+open class ProductObj: Unboxable {
 
     // MARK: - Variable
-    public var upfrontFareEnabled: Bool?
-    public var capacity: Int?
-    public var productId: String?
-    public var image: String?
-    public var cashEnabled: Bool?
-    public var shared: Bool?
-    public var shortDescription: String?
-    public var displayName: String?
-    public var productGroup: String?
-    public var descr: String?
+    public var upfrontFareEnabled: Bool
+    public var capacity: Int
+    public var productId: String
+    public var image: String
+    public var cashEnabled: Bool
+    public var shared: Bool
+    public var shortDescription: String
+    public var displayName: String
+    public var productGroup: String
+    public var descr: String
+    fileprivate let disposeBag = DisposeBag()
 
     // Pretty
     public var prettyCapacity: String {
-        let capacity = self.capacity ?? 1
         return capacity == 1 ? "1" : "1 - \(capacity)"
     }
 
@@ -37,21 +37,55 @@ open class ProductObj: BaseObj {
     public var priceDetail: PriceDetailObj?
     public lazy var priceDetailVariable: Variable<PriceDetailObj?> = self.initLazyPriceDetail()
 
-    // Map
-    override public func mapping(map: Map) {
-        super.mapping(map: map)
+    // MARK: - Init
+    public required init(unboxer: Unboxer) throws {
+        upfrontFareEnabled = try unboxer.unbox(key: Constants.Object.Product.UpfrontFareEnabled)
+        capacity = try unboxer.unbox(key: Constants.Object.Product.Capacity)
+        productId = try unboxer.unbox(key: Constants.Object.Product.ProductId)
+        image = try unboxer.unbox(key: Constants.Object.Product.Image)
+        cashEnabled = try unboxer.unbox(key: Constants.Object.Product.CashEnabled)
+        shared = try unboxer.unbox(key: Constants.Object.Product.Shared)
+        shortDescription = try unboxer.unbox(key: Constants.Object.Product.ShortDescription)
+        displayName = try unboxer.unbox(key: Constants.Object.Product.DisplayName)
+        productGroup = try unboxer.unbox(key: Constants.Object.Product.ProductGroup)
+        descr = try unboxer.unbox(key: Constants.Object.Product.Description)
+        priceDetail = unboxer.unbox(key: Constants.Object.Product.PriceDetails)
+    }
 
-        self.upfrontFareEnabled <- map[Constants.Object.Product.UpfrontFareEnabled]
-        self.capacity <- map[Constants.Object.Product.Capacity]
-        self.productId <- map[Constants.Object.Product.ProductId]
-        self.image <- map[Constants.Object.Product.Image]
-        self.cashEnabled <- map[Constants.Object.Product.CashEnabled]
-        self.shared <- map[Constants.Object.Product.Shared]
-        self.shortDescription <- map[Constants.Object.Product.ShortDescription]
-        self.displayName <- map[Constants.Object.Product.DisplayName]
-        self.productGroup <- map[Constants.Object.Product.ProductGroup]
-        self.descr <- map[Constants.Object.Product.Description]
-        self.priceDetail <- map[Constants.Object.Product.PriceDetails]
+    public init(upfrontFareEnabled: Bool,
+                capacity: Int,
+                productId: String,
+                image: String,
+                cashEnabled: Bool,
+                shared: Bool,
+                shortDescription: String,
+                displayName: String,
+                productGroup: String,
+                descr: String) {
+        self.upfrontFareEnabled = upfrontFareEnabled
+        self.capacity = capacity
+        self.productId = productId
+        self.image = image
+        self.cashEnabled = cashEnabled
+        self.shared = shared
+        self.shortDescription = shortDescription
+        self.displayName = displayName
+        self.productGroup = productGroup
+        self.descr = descr
+    }
+
+    // Only for testing purpose
+    public convenience init(productId: String) {
+        self.init(upfrontFareEnabled: true,
+                  capacity: 0,
+                  productId: productId,
+                  image: "",
+                  cashEnabled: true,
+                  shared: false,
+                  shortDescription: "",
+                  displayName: "",
+                  productGroup: "",
+                  descr: "")
     }
 
     fileprivate func initLazyPriceDetail() -> Variable<PriceDetailObj?> {
@@ -60,7 +94,6 @@ open class ProductObj: BaseObj {
 
     // MARK: - Public
     public func updatePriceDetail() {
-        guard let productId = self.productId else { return }
         UberService().requestPriceDetail(productId)
             .map { $0.priceDetail }
             .filterNil()
@@ -69,15 +102,14 @@ open class ProductObj: BaseObj {
     }
 }
 
-open class GroupProductObj: BaseObj {
+open class GroupProductObj {
 
     // MARK: - Variable
-    public var productGroup: String!
+    public var productGroup: String
     public var productObjs: [ProductObj] = []
 
     // MARK: - Init
-    public convenience init(productGroup: String, productObjs: [ProductObj]) {
-        self.init()
+    public init(productGroup: String, productObjs: [ProductObj]) {
         self.productGroup = productGroup
         self.productObjs = productObjs
     }
@@ -86,14 +118,14 @@ open class GroupProductObj: BaseObj {
     public class func mapProductGroups(from productObjs: [ProductObj]) -> [GroupProductObj] {
 
         // Get unique group name
-        let groupNames = productObjs.map { $0.productGroup! }
+        let groupNames = productObjs.map { $0.productGroup }
                                     .uniqueElements
 
         // Map
         return groupNames.map({ name -> GroupProductObj in
 
             // Get all product with same GroupName
-            let subProducts = productObjs.filter({ $0.productGroup! == name })
+            let subProducts = productObjs.filter({ $0.productGroup == name })
 
             // Map to Group
             return GroupProductObj(productGroup: name, productObjs: subProducts)

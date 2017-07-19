@@ -138,7 +138,7 @@ open class UberService {
 
         //TODO : Should support from personalPlace -> personalPlace as well
         // Currently, I only support physical location -> location
-        let param = PostEstimateTripRequestParamter(productId: productObj.productId!,
+        let param = PostEstimateTripRequestParamter(productId: productObj.productId,
                                                     startLocation: from,
                                                     endLocation: to,
                                                     startPlaceType: nil,
@@ -151,8 +151,8 @@ open class UberService {
                                        paymentAccountObj: PaymentAccountObj?,
                                        from: CLLocationCoordinate2D,
                                        to: PlaceObj) -> Observable<CreateTripObj> {
-        let param = CreateTripRequestParam(fareID: frontFareObj.fareId!,
-                                       productID: productObj.productId!,
+        let param = CreateTripRequestParam(fareID: frontFareObj.fareId,
+                                       productID: productObj.productId,
                                        surgeConfirmationId: nil,
                                        paymentMethodId: paymentAccountObj?.paymentMethodId,
                                        startLocation: from,
@@ -168,7 +168,7 @@ open class UberService {
                                  from: CLLocationCoordinate2D,
                                  to: PlaceObj) -> Observable<CreateTripObj> {
         let param = CreateTripRequestParam(fareID: nil,
-                                       productID: productObj.productId!,
+                                       productID: productObj.productId,
                                        surgeConfirmationId: surgeID,
                                        paymentMethodId: paymentAccountObj?.paymentMethodId,
                                        startLocation: from,

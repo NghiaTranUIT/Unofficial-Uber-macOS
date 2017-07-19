@@ -6,7 +6,8 @@
 //  Copyright © 2017 Nghia Tran. All rights reserved.
 //
 
-import ObjectMapper
+import Unbox
+import Wrap
 
 public enum TripObjStatus: String {
     case processing
@@ -50,14 +51,14 @@ public enum TripObjStatus: String {
     }
 }
 
-open class TripObj: BaseObj {
+open class TripObj: Unboxable {
 
     // MARK: - Variable
-    public var productId: String?
-    public var requestId: String?
-    fileprivate var _status: String?
-    public var surgeMultiplier: Double?
-    public var shared: Bool?
+    public var productId: String
+    public var requestId: String
+    fileprivate var _status: String
+    public var surgeMultiplier: Float?
+    public var shared: Bool
     public var driver: DriverObj?
     public var vehicle: VehicleObj?
     public var location: UberCoordinateObj?
@@ -65,15 +66,13 @@ open class TripObj: BaseObj {
     public var destination: UberCoordinateObj?
     public var waypoints: [WaypointObj]?
     public var riders: [RiderObj]?
+
     public lazy var status: TripObjStatus = {
-        guard let _status = self._status else {
-            return .unknown
-        }
-        return TripObjStatus.createTripStatus(rawValue: _status)
+        return TripObjStatus.createTripStatus(rawValue: self._status)
     }()
 
     public var isValidTrip: Bool {
-        switch self.status {
+        switch status {
             case .unknown:
                 fallthrough
             case .completed:
@@ -96,26 +95,53 @@ open class TripObj: BaseObj {
         }
     }
 
-    override public func mapping(map: Map) {
-        super.mapping(map: map)
+    // MARK: - Init
+    public init(productId: String, requestId: String, status: String, surgeMultiplier: Float, shared: Bool) {
+        self.productId = productId
+        self.requestId = requestId
+        self._status = status
+        self.surgeMultiplier = surgeMultiplier
+        self.shared = shared
+    }
 
-        self.productId <- map[Constants.Object.Trip.ProductId]
-        self.requestId <- map[Constants.Object.Trip.RequestId]
-        self._status <- map[Constants.Object.Trip.Status]
-        self.surgeMultiplier <- map[Constants.Object.Trip.SurgeMultiplier]
-        self.shared <- map[Constants.Object.Trip.Shared]
-        self.driver <- map[Constants.Object.Trip.Driver]
-        self.vehicle <- map[Constants.Object.Trip.Vehicle]
-        self.location <- map[Constants.Object.Trip.Location]
-        self.pickup <- map[Constants.Object.Trip.Pickup]
-        self.destination <- map[Constants.Object.Trip.Destination]
-        self.waypoints <- map[Constants.Object.Trip.Waypoints]
-        self.riders <- map[Constants.Object.Trip.Riders]
+    public required init(unboxer: Unboxer) throws {
+        productId = try unboxer.unbox(key: Constants.Object.Trip.ProductId)
+        requestId = try unboxer.unbox(key: Constants.Object.Trip.RequestId)
+        _status = try unboxer.unbox(key: Constants.Object.Trip.Status)
+        surgeMultiplier = unboxer.unbox(key: Constants.Object.Trip.SurgeMultiplier)
+        shared = try unboxer.unbox(key: Constants.Object.Trip.Shared)
+        driver = unboxer.unbox(key: Constants.Object.Trip.Driver)
+        vehicle = unboxer.unbox(key: Constants.Object.Trip.Vehicle)
+        location = unboxer.unbox(key: Constants.Object.Trip.Location)
+        pickup = unboxer.unbox(key: Constants.Object.Trip.Pickup)
+        destination = unboxer.unbox(key: Constants.Object.Trip.Destination)
+        waypoints = unboxer.unbox(key: Constants.Object.Trip.Waypoints)
+        riders = unboxer.unbox(key: Constants.Object.Trip.Riders)
     }
 
     class func noCurrentTrip() -> TripObj {
-        let obj = TripObj()
-        obj._status = TripObjStatus.unknown.rawValue
-        return obj
+        return TripObj(productId: "",
+                       requestId: "",
+                       status: TripObjStatus.unknown.rawValue,
+                       surgeMultiplier: 1,
+                       shared: true)
+    }
+}
+
+extension TripObj: CustomDebugStringConvertible, CustomStringConvertible {
+
+    public var debugDescription: String {
+        return _desciption()
+    }
+
+    public var description: String {
+        return _desciption()
+    }
+
+    fileprivate func _desciption() -> String {
+        guard let result = try? wrap(self) else {
+            return ""
+        }
+        return "\(result)"
     }
 }

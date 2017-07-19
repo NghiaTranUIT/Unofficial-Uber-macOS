@@ -7,7 +7,7 @@
 //
 
 import Alamofire
-import ObjectMapper
+import Unbox
 import RxSwift
 
 public struct SandboxUpdateProductRequestParam: Parameter {
@@ -31,7 +31,7 @@ public struct SandboxUpdateProductRequestParam: Parameter {
 open class SandboxUpdateProductRequest: Requestable {
 
     // Type
-    typealias Element = BaseObj
+    typealias Element = Void
 
     // Endpoint
     var endpoint: String {
@@ -55,10 +55,7 @@ open class SandboxUpdateProductRequest: Requestable {
     }
 
     // MARK: - Decode
-    func decode(data: Any) -> Element? {
-        guard let result = data as? [String: Any] else {
-            return nil
-        }
-        return Mapper<BaseObj>().map(JSON: result)
+    func decode(data: Any) throws -> Element? {
+        return nil
     }
 }

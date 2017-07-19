@@ -49,7 +49,7 @@ class PaymentMethodsController: NSViewController {
         collectionView.reloadData()
 
         // Selection
-        guard let paymentAccountObjs = paymentObj.paymentAccountObjs else { return }
+        let paymentAccountObjs = paymentObj.paymentAccountObjs
         var index = 0
         for (i, e) in paymentAccountObjs.enumerated()
             where e.paymentMethodId == currentAccount.paymentMethodId {
@@ -98,21 +98,17 @@ extension PaymentMethodsController: NSCollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard let accounts = paymentObj.paymentAccountObjs else {
-            return 0
-        }
-        return accounts.count
+        return paymentObj.paymentAccountObjs.count
     }
 
     func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath)
         -> NSCollectionViewItem {
         // Guard
         guard let cell = collectionView.makeItem(withIdentifier: "PaymentAccountCell", for: indexPath)
-            as? PaymentAccountCell,
-        let accounts = paymentObj.paymentAccountObjs else {
+            as? PaymentAccountCell else {
                 return NSCollectionViewItem()
         }
-        let obj = accounts[indexPath.item]
+        let obj = paymentObj.paymentAccountObjs[indexPath.item]
         cell.configureCell(with: obj)
 
         return cell
@@ -122,8 +118,7 @@ extension PaymentMethodsController: NSCollectionViewDataSource {
 extension PaymentMethodsController: NSCollectionViewDelegate {
 
     func collectionView(_ collectionView: NSCollectionView, didSelectItemsAt indexPaths: Set<IndexPath>) {
-        guard let accounts = paymentObj.paymentAccountObjs else { return }
         guard let indexPath = indexPaths.first else { return }
-        selectedAccountObj = accounts[indexPath.item]
+        selectedAccountObj = paymentObj.paymentAccountObjs[indexPath.item]
     }
 }

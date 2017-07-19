@@ -8,7 +8,7 @@
 
 import CoreLocation
 import Foundation
-import ObjectMapper
+import Unbox
 
 public enum WaypointType: String {
     case pickup
@@ -16,42 +16,40 @@ public enum WaypointType: String {
     case unknown
 
     static func initFromTypeString(_ rawValue: String) -> WaypointType {
-
         if rawValue == WaypointType.pickup.rawValue {
             return .pickup
         }
-
         if rawValue == WaypointType.dropoff.rawValue {
             return .dropoff
         }
-
         return .unknown
     }
 }
 
-open class WaypointObj: BaseObj {
+open class WaypointObj: Unboxable {
 
     // MARK: - Variable
     public var riderId: String?
-    public var latitude: Double?
-    public var longitude: Double?
-    fileprivate var typeStr: String?
+    public var latitude: Float
+    public var longitude: Float
+    fileprivate var typeStr: String
 
+    // Type enum
     public lazy var type: WaypointType = {
-        return WaypointType.initFromTypeString(self.typeStr!)
+        return WaypointType.initFromTypeString(self.typeStr)
     }()
 
-    public var location: CLLocationCoordinate2D? {
-        return CLLocationCoordinate2D(latitude: self.latitude!,
-                                      longitude: self.longitude!)
+    // Coordinate
+    public var location: CLLocationCoordinate2D {
+        return CLLocationCoordinate2D(latitude: latitude.toDouble,
+                                      longitude: longitude.toDouble)
     }
 
-    override public func mapping(map: Map) {
-        super.mapping(map: map)
-
-        self.riderId <- map[Constants.Object.Waypoint.RiderId]
-        self.typeStr <- map[Constants.Object.Waypoint.Type]
-        self.latitude <- map[Constants.Object.Waypoint.Latitude]
-        self.longitude <- map[Constants.Object.Waypoint.Longitude]
+    // MARK: - Init
+    public required init(unboxer: Unboxer) throws {
+        riderId = unboxer.unbox(key: Constants.Object.Waypoint.RiderId)
+        typeStr = try unboxer.unbox(key: Constants.Object.Waypoint.Type)
+        latitude = try unboxer.unbox(key: Constants.Object.Waypoint.Latitude)
+        longitude = try unboxer.unbox(key: Constants.Object.Waypoint.Longitude)
     }
 }

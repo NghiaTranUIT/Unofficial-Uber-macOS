@@ -51,11 +51,11 @@ class UberProductCell: NSCollectionViewItem {
         self.productObj = productObj
 
         // Name
-        productNameLbl.stringValue = productObj.displayName ?? ""
+        productNameLbl.stringValue = productObj.displayName
 
         // Price
         guard let estimatePrice = productObj.estimatePrice else { return }
-        priceLbl.stringValue = estimatePrice.estimate ?? "xxx"
+        priceLbl.stringValue = estimatePrice.estimate
     }
 
     override func mouseDown(with event: NSEvent) {

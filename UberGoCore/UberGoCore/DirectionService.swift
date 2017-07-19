@@ -16,10 +16,10 @@ open class DirectionService {
     // MARK: - Public
     public func generateDirectionRoute(from originPlace: PlaceObj, to destinationPlace: PlaceObj)
         -> Observable<Route?> {
-            return self.generateDirectionRoute(from: originPlace.coordinate2D!,
-                                               originName: originPlace.name!,
-                                               to: destinationPlace.coordinate2D!,
-                                               destinationName: destinationPlace.name!)
+            return self.generateDirectionRoute(from: originPlace.coordinate2D,
+                                               originName: originPlace.name,
+                                               to: destinationPlace.coordinate2D,
+                                               destinationName: destinationPlace.name)
     }
 
     public func generateDirectionRoute(from originPoint: CLLocationCoordinate2D,

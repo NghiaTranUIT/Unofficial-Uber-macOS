@@ -6,71 +6,97 @@
 //  Copyright © 2017 Nghia Tran. All rights reserved.
 //
 
-import ObjectMapper
+import Unbox
 
-open class UpFrontFareOb: BaseObj {
+open class UpFrontFareOb: Unboxable {
 
     // MARK: - Variable
-    public var value: Double?
-    public var fareId: String?
-    public var expiresAt: Int?
-    public var display: String?
-    public var currencyCode: String?
+    public var value: Double
+    public var fareId: String
+    public var expiresAt: Int
+    public var display: String
+    public var currencyCode: String
 
-    public override func mapping(map: Map) {
-        super.mapping(map: map)
-
-        self.value <- map["value"]
-        self.fareId <- map["fare_id"]
-        self.expiresAt <- map["expires_at"]
-        self.display <- map["display"]
-        self.currencyCode <- map["currency_code"]
+    // MARK: - Init
+    public required init(unboxer: Unboxer) throws {
+        value = try unboxer.unbox(key: "value")
+        fareId = try unboxer.unbox(key: "fare_id")
+        expiresAt = try unboxer.unbox(key: "expires_at")
+        display = try unboxer.unbox(key: "display")
+        currencyCode = try unboxer.unbox(key: "currency_code")
     }
 }
 
-open class FareBreakdownObj: BaseObj {
+open class FareBreakdownObj: Unboxable {
 
     // MARK: - Variable
-    public var lowAmount: Double?
-    public var highAmount: Double?
-    public var displayAmount: String?
-    public var displayName: String?
+    public var lowAmount: Double
+    public var highAmount: Double
+    public var displayAmount: String
+    public var displayName: String
 
-    public override func mapping(map: Map) {
-        super.mapping(map: map)
-
-        self.lowAmount <- map["low_amount"]
-        self.highAmount <- map["high_amount"]
-        self.displayAmount <- map["display_amount"]
-        self.displayName <- map["display_name"]
+    public required init(unboxer: Unboxer) throws {
+        lowAmount = try unboxer.unbox(key: "low_amount")
+        highAmount = try unboxer.unbox(key: "high_amount")
+        displayAmount = try unboxer.unbox(key: "display_amount")
+        displayName = try unboxer.unbox(key: "display_name")
     }
 }
 
-open class SurgePriceObj: BaseObj {
+open class SurgePriceObj: Unboxable {
 
     // MARK: - Variable
-    public var surgeConfirmationHref: String?
-    public var highEstimate: Int?
-    public var surgeConfirmationId: String?
-    public var minimum: Int?
-    public var lowEstimate: Int?
-    public var fareBreakdownObjs: [FareBreakdownObj]?
-    public var surgeMultiplier: Double?
-    public var display: String?
-    public var currencyCode: String?
+    public var surgeConfirmationHref: String? // Nil before sometime. It's nil for no reason (Tested on Sandbox)
+    public var highEstimate: Int
+    public var surgeConfirmationId: String
+    public var minimum: Int
+    public var lowEstimate: Int
+    public var fareBreakdownObjs: [FareBreakdownObj]
+    public var surgeMultiplier: Float
+    public var display: String
+    public var currencyCode: String
 
-    public override func mapping(map: Map) {
-        super.mapping(map: map)
+    static var invalid: SurgePriceObj {
+        return SurgePriceObj(surgeConfirmationHref: nil,
+                             highEstimate: 0,
+                             surgeConfirmationId: "",
+                             minimum: 0,
+                             lowEstimate: 0,
+                             fareBreakdownObjs: [],
+                             surgeMultiplier: 0,
+                             display: "",
+                             currencyCode: "")
+    }
 
-        self.surgeConfirmationHref <- map["surge_confirmation_href"]
-        self.highEstimate <- map["high_estimate"]
-        self.surgeConfirmationId <- map["surge_confirmation_id"]
-        self.minimum <- map["minimum"]
-        self.lowEstimate <- map["low_estimate"]
-        self.fareBreakdownObjs <- map["fare_breakdown"]
-        self.surgeMultiplier <- map["surge_multiplier"]
-        self.display <- map["display"]
-        self.currencyCode <- map["currency_code"]
+    // MARK: - init
+    public init(surgeConfirmationHref: String?,
+                highEstimate: Int,
+                surgeConfirmationId: String, minimum: Int,
+                lowEstimate: Int, fareBreakdownObjs: [FareBreakdownObj],
+                surgeMultiplier: Float,
+                display: String,
+                currencyCode: String) {
+        self.surgeConfirmationHref = surgeConfirmationHref
+        self.highEstimate = highEstimate
+        self.surgeConfirmationId = surgeConfirmationId
+        self.minimum = minimum
+        self.lowEstimate = lowEstimate
+        self.fareBreakdownObjs = fareBreakdownObjs
+        self.surgeMultiplier = surgeMultiplier
+        self.display = display
+        self.currencyCode = currencyCode
+    }
+
+    public required init(unboxer: Unboxer) throws {
+        surgeConfirmationHref = unboxer.unbox(key: "surge_confirmation_href")
+        highEstimate = try unboxer.unbox(key: "high_estimate")
+        surgeConfirmationId = try unboxer.unbox(key: "surge_confirmation_id")
+        minimum = try unboxer.unbox(key: "minimum")
+        lowEstimate = try unboxer.unbox(key: "low_estimate")
+        fareBreakdownObjs = try unboxer.unbox(key: "fare_breakdown")
+        surgeMultiplier = try unboxer.unbox(key: "surge_multiplier")
+        display = try unboxer.unbox(key: "display")
+        currencyCode = try unboxer.unbox(key: "currency_code")
     }
 }
 
@@ -80,41 +106,38 @@ public enum EstimateObjType {
     case unknown
 }
 
-open class EstimateObj: BaseObj {
+open class EstimateObj: Unboxable {
 
     // MARK: - Variable
-    public var distanceUnit: String?
-    public var durationEstimate: Double?
-    public var distanceEstimate: Double?
-    public var pickupEstimate: Double?
+    public var distanceUnit: String
+    public var durationEstimate: Float
+    public var distanceEstimate: Float
+    public var pickupEstimate: Float
 
     // Either
+    // Depend on current sitation
+    // Normal vs surge price
     public var upFrontFareObj: UpFrontFareOb?
     public var surgePriceObj: SurgePriceObj?
 
     // Type
     public var type: EstimateObjType {
-
-        if self.upFrontFareObj != nil {
+        if upFrontFareObj != nil {
             return .upFrontFare
         }
-
-        if self.surgePriceObj != nil {
+        if surgePriceObj != nil {
             return .surgePrice
         }
         return .unknown
     }
 
-    public override func mapping(map: Map) {
-        super.mapping(map: map)
-
-        self.distanceUnit <- map["trip.distance_unit"]
-        self.durationEstimate <- map["trip.duration_estimate"]
-        self.distanceEstimate <- map["trip.distance_estimate"]
-        self.pickupEstimate <- map["pickup_estimate"]
-
-        self.upFrontFareObj <- map["fare"]
-        self.surgePriceObj <- map["estimate"]
+    // MARK: - Init
+    public required init(unboxer: Unboxer) throws {
+        distanceUnit = try unboxer.unbox(keyPath: "trip.distance_unit")
+        durationEstimate = try unboxer.unbox(keyPath: "trip.duration_estimate")
+        distanceEstimate = try unboxer.unbox(keyPath: "trip.distance_estimate")
+        pickupEstimate = try unboxer.unbox(key: "pickup_estimate")
+        upFrontFareObj = unboxer.unbox(key: "fare")
+        surgePriceObj = unboxer.unbox(key: "estimate")
     }
-
 }

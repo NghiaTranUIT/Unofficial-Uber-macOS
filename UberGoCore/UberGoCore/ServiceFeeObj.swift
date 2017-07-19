@@ -6,36 +6,31 @@
 //  Copyright © 2017 Nghia Tran. All rights reserved.
 //
 
-import ObjectMapper
+import Unbox
 
-open class ServiceFeeObj: BaseObj {
+open class ServiceFeeObj: Unboxable {
 
     // MARK: - Variable
-    public var fee: Float?
-    public var name: String?
+    public var fee: Float
+    public var name: String
 
-    override public func mapping(map: Map) {
-        super.mapping(map: map)
-
-        self.fee <- map[Constants.Object.ServiceFee.Fee]
-        self.name <- map[Constants.Object.ServiceFee.Name]
+    // MARK: - Init
+    public required init(unboxer: Unboxer) throws {
+        fee = try unboxer.unbox(key: Constants.Object.ServiceFee.Fee)
+        name = try unboxer.unbox(key: Constants.Object.ServiceFee.Name)
     }
 
-    public class func serviceFee(name: String, fee: Float) -> ServiceFeeObj {
-        let obj = ServiceFeeObj()
-        obj.name = name
-        obj.fee = fee
-        return obj
+    public init(name: String, fee: Float) {
+        self.name = name
+        self.fee = fee
     }
 
     // MARK: - Public
     public var prettyName: String {
-        guard let name = self.name else { return "" }
         return name.localizedCapitalized
     }
 
     public var prettyFee: String {
-        guard let fee = self.fee else { return "0" }
         return "\(fee)"
     }
 

@@ -102,7 +102,7 @@ open class AppViewModel: AppViewModelProtocol,
                 return uberService.getCurrentTrip()
             })
             .flatMapLatest {[unowned self] (tripObj) -> Observable<Void> in
-                guard let requestID = tripObj.requestId else { return Observable.empty() }
+                let requestID = tripObj.requestId
                 return SandboxUberService().updateTripStateObserver(status: self.sandboxStatus, requestID: requestID)
             }
             .subscribe(onNext: {[unowned self] _ in

@@ -9,7 +9,7 @@
 import Alamofire
 import CoreLocation
 import Foundation
-import ObjectMapper
+import Unbox
 
 public struct PriceDetailRequestParam: Parameter {
 
@@ -47,10 +47,10 @@ open class PriceDetailRequest: Requestable {
     }
 
     // MARK: - Decode
-    func decode(data: Any) -> Element? {
+    func decode(data: Any) throws -> Element? {
         guard let result = data as? [String: Any] else {
             return nil
         }
-        return Mapper<Element>().map(JSON: result)
+        return try unbox(dictionary: result)
     }
 }
