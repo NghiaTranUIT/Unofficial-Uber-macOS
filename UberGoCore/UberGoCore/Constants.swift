@@ -189,7 +189,6 @@ struct Constants {
             static let Estimate = "estimate"
             static let DisplayName = "display_name"
             static let ProductId = "product_id"
-
         }
 
         // MARK: - Price Detail

@@ -133,12 +133,14 @@ open class UberServiceViewModel: UberServiceViewModelProtocol,
                                             .asDriver(onErrorJustReturn: [])
 
         // Default selection
-        groupProductShared
+        let groupProductSharedNoError = groupProductShared
+                                            .catchErrorJustReturn([])
+        groupProductSharedNoError
             .map { return $0.first }
             .bind(to: selectedGroupProduct)
             .addDisposableTo(disposeBag)
 
-        groupProductShared
+        groupProductSharedNoError
             .map { $0.first?.productObjs.first }
             .bind(to: selectedProduct)
             .addDisposableTo(disposeBag)
