@@ -90,6 +90,7 @@ extension Requestable {
 
                     // Validate
                     if let error = self.handleValidation(response) {
+                        Logger.error("[ERROR API] = \(self.endpoint) = \(error)")
                         observer.onError(error)
                         return
                     }
@@ -139,7 +140,7 @@ extension Requestable {
             return error
         }
 
-        return nil
+        return NSError.uberError(data: response?.result.value, code: statusCode)
     }
 }
 
