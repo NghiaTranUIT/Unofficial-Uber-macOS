@@ -118,14 +118,6 @@ open class TripObj: Unboxable {
         waypoints = unboxer.unbox(key: Constants.Object.Trip.Waypoints)
         riders = unboxer.unbox(key: Constants.Object.Trip.Riders)
     }
-
-    class func noCurrentTrip() -> TripObj {
-        return TripObj(productId: "",
-                       requestId: "",
-                       status: TripObjStatus.unknown.rawValue,
-                       surgeMultiplier: 1,
-                       shared: true)
-    }
 }
 
 extension TripObj: CustomDebugStringConvertible, CustomStringConvertible {
