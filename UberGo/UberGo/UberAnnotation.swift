@@ -14,4 +14,3 @@ protocol UberAnnotationType {
     var imageAnnotation: MGLAnnotationImage? { get }
     var calloutViewController: NSViewController? { get }
 }
-

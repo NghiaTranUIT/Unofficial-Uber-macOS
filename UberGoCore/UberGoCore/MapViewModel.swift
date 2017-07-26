@@ -185,20 +185,15 @@ open class MapViewModel:
 
         selectedPlaceObjDriver = selectedPlaceObserve.asDriver(onErrorJustReturn: nil)
         let clearCurrentDirectionRoute = selectedPlaceObserve.map { _ -> Route? in return nil }
-        let getDirection = selectedPlaceObserve
-            .flatMapLatest { toPlace -> Observable<Route?> in
 
-                guard let toPlace = toPlace else {
-                    return Observable.empty()
-                }
-
-                //FIXME : Temporary get current location
-                // Should refactor currentLocationVariable
-                // is Observable<PlaceObj>
-                // PlaceObj maybe work/home or coordinate or googleplace
-                let current = mapManager.currentLocationVar.value!
-                let place = PlaceObj(coordinate: current.coordinate)
-                return directionService.generateDirectionRoute(from: place, to: toPlace)
+        // Get Route
+        let currentPlaceObj = selectedPlaceObserve
+            .withLatestFrom(mapManager.currentPlaceObs.asObservable())
+        let getDirection = Observable.zip([selectedPlaceObserve.filterNil(), currentPlaceObj])
+            .flatMapLatest { data -> Observable<Route?> in
+                let from = data.first!
+                let to = data[1]
+                return directionService.generateDirectionRoute(from: from, to: to)
             }
             .observeOn(MainScheduler.instance)
 
