@@ -65,9 +65,15 @@ class RequestUberView: NSView {
 
         // Request Uber service
         viewModel.output.availableGroupProductsDriver
-            .drive(onNext: {[weak self] (groups) in
+            .drive(onNext: {[weak self] (result) in
                 guard let `self` = self else { return }
-                self.updateAvailableGroupProducts(groups)
+
+                switch result {
+                case .success(let groups):
+                    self.updateAvailableGroupProducts(groups)
+                case .error(let error):
+                    Logger.error("ERROR = \(error)")
+                }
             })
             .addDisposableTo(disposeBag)
 

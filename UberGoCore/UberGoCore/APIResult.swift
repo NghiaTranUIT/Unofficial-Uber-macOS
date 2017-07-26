@@ -24,8 +24,8 @@ public enum APIResult<T>: RawRepresentable {
         self = .success(rawValue)
     }
 
-    public init?(errorValue: NSError) {
-        self = .error(errorValue)
+    public init(errorValue: Error) {
+        self = .error(errorValue as NSError)
     }
 
     public var rawValue: T {

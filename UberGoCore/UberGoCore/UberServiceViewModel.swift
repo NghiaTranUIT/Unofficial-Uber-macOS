@@ -43,7 +43,7 @@ public struct UberTripData {
 public protocol UberServiceViewModelOutput {
 
     // Request Uber
-    var availableGroupProductsDriver: Driver<[GroupProductObj]> { get }
+    var availableGroupProductsDriver: Driver<APIResult<[GroupProductObj]>> { get }
     var isLoadingDriver: Driver<Bool> { get }
     var selectedGroupProduct: Variable<GroupProductObj?> { get }
     var selectedProduct: Variable<ProductObj?> { get }
@@ -75,7 +75,7 @@ open class UberServiceViewModel: UberServiceViewModelProtocol,
     public var requestUberPublisher = PublishSubject<Void>()
 
     // MARK: - Output
-    public var availableGroupProductsDriver: Driver<[GroupProductObj]>
+    public var availableGroupProductsDriver: Driver<APIResult<[GroupProductObj]>>
     public var isLoadingDriver: Driver<Bool>
     public let selectedGroupProduct = Variable<GroupProductObj?>(nil)
     public let selectedProduct = Variable<ProductObj?>(nil)
@@ -119,7 +119,7 @@ open class UberServiceViewModel: UberServiceViewModelProtocol,
             .bind(to: uberData)
             .addDisposableTo(disposeBag)
 
-        // Request Products + Estimation
+        // Request Products + Estimations
         let groupProductShared = selectionShared
             .flatMapLatest { data -> Observable<[ProductObj]> in
                 return uberService.productsWithEstimatePriceObserver(from: data.from,
@@ -130,7 +130,8 @@ open class UberServiceViewModel: UberServiceViewModelProtocol,
 
         // Data
         availableGroupProductsDriver = groupProductShared
-                                            .asDriver(onErrorJustReturn: [])
+            .map({ return APIResult(rawValue: $0)! })
+            .asDriver { return .just(APIResult<[GroupProductObj]>(errorValue: $0)) }
 
         // Default selection
         let groupProductSharedNoError = groupProductShared
@@ -181,17 +182,11 @@ open class UberServiceViewModel: UberServiceViewModelProtocol,
             .flatMapLatest { (estiamteObj) -> Observable<CreateTripObj>in
 
                 // Guard
-                //FIXME : Should refactor after refactoring JSON Mapping
-                guard let frontFareObj = estiamteObj.upFrontFareObj else {
-                    return Observable.empty()
-                }
-                guard let productObj = self.selectedProduct.value else {
-                    return Observable.empty()
-                }
-                guard let currentUser = UberAuth.share.currentUser else {
-                    return Observable.empty()
-                }
-                guard let data = self.uberData.value else {
+                guard
+                let frontFareObj = estiamteObj.upFrontFareObj,
+                let productObj = self.selectedProduct.value,
+                let currentUser = UberAuth.share.currentUser,
+                let data = self.uberData.value else {
                     return Observable.empty()
                 }
 
@@ -244,10 +239,7 @@ open class UberServiceViewModel: UberServiceViewModelProtocol,
                         .getCurrentTrip()
                         .map({ APIResult(rawValue: $0)! })
             }
-            .asDriver { (error) -> Driver<APIResult<TripObj>> in
-                let driverError = APIResult<TripObj>(errorValue: error as NSError)!
-                return Driver.just(driverError)
-            }
+            .asDriver { Driver.just(APIResult<TripObj>(errorValue: $0)) }
 
         // cancel
         resetMapDriver = cancelCurrentTripPublisher.asObserver()
@@ -288,9 +280,6 @@ open class UberServiceViewModel: UberServiceViewModelProtocol,
                 Logger.error("Invalid timer")
                 self.timerDisposeBag = DisposeBag()
             })
-            .asDriver { (error) -> Driver<APIResult<TripObj>> in
-                let driverError = APIResult<TripObj>(errorValue: error as NSError)!
-                return Driver.just(driverError)
-            }
+            .asDriver { Driver.just(APIResult<TripObj>(errorValue: $0)) }
     }
 }
