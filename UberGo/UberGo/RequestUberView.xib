@@ -59,7 +59,7 @@
                     </connections>
                 </button>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="NsZ-1o-kBQ" customClass="UberTextField" customModule="UberGo" customModuleProvider="target">
-                    <rect key="frame" x="70" y="77.5" width="72" height="19"/>
+                    <rect key="frame" x="70" y="77" width="72" height="19"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="•••• 1234" placeholderString="" id="6iC-Ld-REG">
                         <font key="font" metaFont="system" size="15"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -67,7 +67,7 @@
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Thy-KV-ex9">
-                    <rect key="frame" x="422" y="77.5" width="36" height="19"/>
+                    <rect key="frame" x="422" y="77" width="36" height="19"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="1 - 4" placeholderString="" id="Lr6-Il-t6P">
                         <font key="font" metaFont="system" size="15"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -108,7 +108,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                 </scrollView>
-                <stackView distribution="fillEqually" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yu7-vd-Hdz">
+                <stackView distribution="equalSpacing" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yu7-vd-Hdz">
                     <rect key="frame" x="12" y="280" width="456" height="32"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="32" id="oWN-3m-gB8"/>
@@ -118,7 +118,7 @@
                     <rect key="frame" x="110" y="263" width="261" height="17"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Fares are higher due to increased demand" id="b3Q-O5-5BW">
                         <font key="font" metaFont="systemLight" size="13"/>
-                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="textColor" red="0.62041957487309651" green="0.62041957487309651" blue="0.62041957487309651" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>

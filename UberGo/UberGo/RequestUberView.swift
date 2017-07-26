@@ -206,7 +206,6 @@ extension RequestUberView {
         requestUberBtn.setTitleColor(NSColor.white, kern: 2)
         cardNumberLbl.textColor = NSColor.black
         seatNumberLnl.textColor = NSColor(hexString: "#989898")
-        highFareLbl.textColor = NSColor.darkGray
         requestUberBtn.backgroundColor = NSColor.black
 
         // Border

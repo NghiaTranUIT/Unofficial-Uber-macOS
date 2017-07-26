@@ -65,7 +65,7 @@ class SearchBarView: NSView {
     fileprivate func binding() {
 
         // Nearest place
-        viewModel.output.nearestPlaceDriver
+        viewModel.output.currentPlaceDriver
             .drive(onNext: { [weak self] nearestPlaceObj in
                 guard let `self` = self else { return }
                 self.updateNestestPlace(nearestPlaceObj)

@@ -30,8 +30,7 @@ public protocol MapViewModelInput {
 public protocol MapViewModelOutput {
 
     // Origin
-    var currentLocationDriver: Driver<CLLocation?> { get }
-    var nearestPlaceDriver: Driver<PlaceObj> { get }
+    var currentPlaceDriver: Driver<PlaceObj> { get }
 
     // Search
     var searchPlaceObjsVariable: Variable<[PlaceObj]> { get }
@@ -71,8 +70,7 @@ open class MapViewModel:
 
     // MARK: - Output
     public var currentLocationVariable: Variable<CLLocation?> { return mapManager.output.currentLocationVar }
-    public var currentLocationDriver: Driver<CLLocation?> { return mapManager.output.currentLocationVar.asDriver() }
-    public var nearestPlaceDriver: Driver<PlaceObj> {
+    public var currentPlaceDriver: Driver<PlaceObj> {
         return mapManager.output.currentPlaceObs
             .asDriver(onErrorJustReturn: PlaceObj.invalid)
     }

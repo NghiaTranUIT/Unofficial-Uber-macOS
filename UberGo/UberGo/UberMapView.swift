@@ -65,12 +65,11 @@ class UberMapView: MGLMapView {
     fileprivate func binding() {
 
         // Update Location on map
-        viewModel.output.currentLocationDriver
-            .filterNil()
-            .drive(onNext: {[weak self] location in
+        viewModel.output.currentPlaceDriver
+            .drive(onNext: {[weak self] placeObj in
                 guard let `self` = self else { return }
-                Logger.info("setCenter \(location)")
-                self.addOriginPoint(location.coordinate)
+                Logger.info("set current place \(placeObj)")
+                self.addOriginPoint(placeObj)
             })
             .addDisposableTo(disposeBag)
 
@@ -97,7 +96,7 @@ class UberMapView: MGLMapView {
         edges(to: parentView)
     }
 
-    fileprivate func addOriginPoint(_ point: CLLocationCoordinate2D) {
+    fileprivate func addOriginPoint(_ placeObj: PlaceObj) {
 
         // Remove if need
         if let originPoint = originPoint {
@@ -105,13 +104,8 @@ class UberMapView: MGLMapView {
             self.originPoint = nil
         }
 
-        let newPoint = OriginAnnotation()
-        newPoint.coordinate = point
-        newPoint.title = "Here"
-
-        // Add
-        addAnnotation(newPoint)
-        originPoint = newPoint
+        originPoint = OriginAnnotation(placeObj: placeObj)
+        addAnnotation(originPoint!)
 
         // CentralizeMap
         centralizeMap()
@@ -280,11 +274,9 @@ extension UberMapView: MGLMapViewDelegate {
     func mapView(_ mapView: MGLMapView, calloutViewControllerFor annotation: MGLAnnotation) -> NSViewController? {
 
         if let obj = annotation as? UberAnnotationType {
-            if let annotation = annotation as? OriginAnnotation,
-                destinationPoint != nil {
-                if let timeObj = uberMapDelegate?.uberMapViewTimeEstimateForOriginAnnotation() {
-                    annotation.setupCallout(.withTimeEstimation, timeObj: timeObj)
-                }
+            if let annotation = annotation as? OriginAnnotation {
+                let timeObj = uberMapDelegate?.uberMapViewTimeEstimateForOriginAnnotation()
+                annotation.setupCallout(timeObj: timeObj)
             }
             return obj.calloutViewController
         }
