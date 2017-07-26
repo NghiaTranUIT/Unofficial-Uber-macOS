@@ -58,7 +58,7 @@ open class PaymentAccountObj: Unboxable {
     // MARK: - Mapping
     public required init(unboxer: Unboxer) throws {
         paymentMethodId = try unboxer.unbox(key: Constants.Object.PaymentAccount.PaymentMethodId)
-        typeCode = try unboxer.unbox(key: Constants.Object.PaymentAccount.Type)
+        typeCode = try unboxer.unbox(key: Constants.Object.PaymentAccount.type)
         accountDescription = unboxer.unbox(key: Constants.Object.PaymentAccount.Description)
     }
 }

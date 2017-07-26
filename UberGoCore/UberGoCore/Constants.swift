@@ -137,7 +137,7 @@ struct Constants {
             static let RiderId = "rider_id"
             static let Latitude = "latitude"
             static let Longitude = "longitude"
-            static let `Type` = "type"
+            static let type = "type"
         }
 
         // MARK: - Rider
@@ -178,7 +178,7 @@ struct Constants {
         struct PaymentAccount {
 
             static let PaymentMethodId = "payment_method_id"
-            static let `Type` = "type"
+            static let type = "type"
             static let Description = "description"
         }
 

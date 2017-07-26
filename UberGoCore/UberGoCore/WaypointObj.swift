@@ -48,7 +48,7 @@ open class WaypointObj: Unboxable {
     // MARK: - Init
     public required init(unboxer: Unboxer) throws {
         riderId = unboxer.unbox(key: Constants.Object.Waypoint.RiderId)
-        typeStr = try unboxer.unbox(key: Constants.Object.Waypoint.Type)
+        typeStr = try unboxer.unbox(key: Constants.Object.Waypoint.type)
         latitude = try unboxer.unbox(key: Constants.Object.Waypoint.Latitude)
         longitude = try unboxer.unbox(key: Constants.Object.Waypoint.Longitude)
     }
