@@ -34,7 +34,7 @@ public enum APIResult<T>: RawRepresentable {
             return data
         default:
             // There is no way return ERROR which corresponse with <T>
-            fatalError()
+            fatalError("There is no way return ERROR which corresponse with <T>")
         }
     }
 

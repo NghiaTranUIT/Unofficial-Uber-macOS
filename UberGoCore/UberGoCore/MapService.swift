@@ -11,108 +11,60 @@ import MapKit
 import RxCocoa
 import RxSwift
 
-public typealias MapAuthenticationBlock = (CLLocation?, Error?) -> Void
-
-public enum MapServiceResult {
-    case location(CLLocation)
-    case error(Error)
-
-    // MARK: - Helper
-    public var isError: Bool {
-        switch self {
-        case .error:
-            return true
-        default:
-            return false
-        }
-    }
-
-    public var isSuccess: Bool {
-        switch self {
-        case .location:
-            return true
-        default:
-            return false
-        }
-    }
-
-    public var location: CLLocation? {
-        switch self {
-        case .location(let _location):
-            return _location
-        default:
-            return nil
-        }
-    }
+protocol MapServiceViewModel {
+    var input: MapServiceInput { get }
+    var output: MapServiceOutput { get }
 }
 
-extension MapServiceResult: Equatable {
+protocol MapServiceInput {
 
-    public static func == (lhs: MapServiceResult, rhs: MapServiceResult) -> Bool {
-        if lhs.isError && rhs.isError {
-            return true
-        }
-
-        if lhs.isSuccess && rhs.isSuccess {
-            guard let lhsCoord = lhs.location?.coordinate else {
-                return false
-            }
-            guard let rhsCoord = rhs.location?.coordinate else {
-                return false
-            }
-
-            // Same coordinate
-            if lhsCoord.latitude == rhsCoord.latitude &&
-                lhsCoord.longitude == rhsCoord.longitude {
-                return true
-            }
-        }
-
-        return false
-    }
 }
 
-open class MapService: NSObject {
+protocol MapServiceOutput {
 
-    // MARK: - Variable
-    public var authenticateState: CLAuthorizationStatus {
-        return CLLocationManager.authorizationStatus()
-    }
-    public var isLocationServiceEnable: Bool {
-        return CLLocationManager.locationServicesEnabled()
-    }
-    public var currentLocationVariable = Variable<CLLocation?>(nil)
-    public var nearestPlaceObverser: Observable<PlaceObj>!
-    public private(set) var authorized: Driver<Bool>!
+    var currentLocationVar: Variable<CLLocation?> { get }
+    var currentPlaceObs: Observable<PlaceObj> { get }
+    var authorizedDriver: Driver<Bool>! { get }
+}
 
+// MARK: - MapService
+open class MapService: NSObject, MapServiceViewModel, MapServiceInput, MapServiceOutput {
+
+    // MARK: - Input Output
+    var input: MapServiceInput { return self }
+    var output: MapServiceOutput { return self }
+
+    // MARK: - Output
+    public var currentLocationVar = Variable<CLLocation?>(nil)
+    public var currentPlaceObs: Observable<PlaceObj>
+    public var authorizedDriver: Driver<Bool>!
+
+    // Private
     fileprivate lazy var locationManager: CLLocationManager = self.lazyLocationManager()
-    fileprivate lazy var geoCoder: CLGeocoder = {
-        return CLGeocoder()
-    }()
 
     // MARK: - Init
     public override init() {
-        super.init()
 
-        self.nearestPlaceObverser = self.currentLocationVariable
+        // Current Place
+        self.currentPlaceObs = self.currentLocationVar
             .asObservable()
             .filterNil()
             .take(1)
-            .throttle(0.3, scheduler: MainScheduler.instance)
+            .throttle(5.0, scheduler: MainScheduler.instance)
             .distinctUntilChanged()
-            .flatMapLatest({[unowned self] location -> Observable<PlaceObj> in
-                return self.nearestPlaceObverser(location)
-        })
+            .flatMapLatest({ MapService.currentPlaceObverser($0) })
 
-        self.authorized = Observable.deferred { [weak locationManager] in
-            let status = CLLocationManager.authorizationStatus()
-            guard let locationManager = locationManager else {
-                return Observable.just(status)
+        super.init()
+
+        // Authorize
+        self.authorizedDriver = Observable
+            .deferred { [weak self] in
+                let status = CLLocationManager.authorizationStatus()
+                guard let `self` = self else { return Observable.empty() }
+                return self.locationManager
+                        .rx.didChangeAuthorizationStatus
+                        .startWith(status)
             }
-            return locationManager
-                .rx.didChangeAuthorizationStatus
-                .startWith(status)
-        }
             .asDriver(onErrorJustReturn: CLAuthorizationStatus.notDetermined)
             .map {
                 switch $0 {
@@ -133,9 +85,10 @@ open class MapService: NSObject {
         self.locationManager.stopUpdatingLocation()
     }
 
-    fileprivate func nearestPlaceObverser(_ location: CLLocation) -> Observable<PlaceObj> {
+    fileprivate class func currentPlaceObverser(_ location: CLLocation) -> Observable<PlaceObj> {
         let param = PlaceSearchRequestParam(location: location.coordinate)
-        return PlaceSearchRequest(param).toObservable()
+        return PlaceSearchRequest(param)
+            .toObservable()
             .map({ return $0.first })
             .filterNil()
     }
@@ -156,17 +109,17 @@ extension MapService {
 extension MapService: CLLocationManagerDelegate {
 
     public func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print("Error \(error)")
+        Logger.info("Error \(error)")
     }
 
     public func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        print("didChangeAuthorization \(status)")
+        Logger.info("didChangeAuthorization \(status)")
     }
 
     public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let lastLocation = locations.last else { return }
 
         // Notify
-        self.currentLocationVariable.value = lastLocation
+        self.currentLocationVar.value = lastLocation
     }
 }

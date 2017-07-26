@@ -70,23 +70,18 @@ open class MapViewModel:
     public var routeForCurrentTripPublisher = PublishSubject<TripObj>()
 
     // MARK: - Output
-    public var currentLocationVariable: Variable<CLLocation?> {
-        return mapManager.currentLocationVariable
-    }
-    public var currentLocationDriver: Driver<CLLocation?> {
-        return mapManager.currentLocationVariable.asDriver()
-    }
+    public var currentLocationVariable: Variable<CLLocation?> { return mapManager.output.currentLocationVar }
+    public var currentLocationDriver: Driver<CLLocation?> { return mapManager.output.currentLocationVar.asDriver() }
     public var nearestPlaceDriver: Driver<PlaceObj> {
-        return mapManager.nearestPlaceObverser.asDriver(onErrorJustReturn: PlaceObj.invalid)
+        return mapManager.output.currentPlaceObs
+            .asDriver(onErrorJustReturn: PlaceObj.invalid)
     }
     public var searchPlaceObjsVariable = Variable<[PlaceObj]>([])
     fileprivate var personalOrHistoryPlaceObjsVariable = Variable<[PlaceObj]>([])
     public let loadingDriver: Driver<Bool>
     public var selectedPlaceObjDriver: Driver<PlaceObj?>
     public var selectedDirectionRouteObserver: Observable<Route?>
-    public var isSelectedPlace: Driver<Bool> {
-        return selectedPlaceObjDriver.map({ $0 != nil })
-    }
+    public var isSelectedPlace: Driver<Bool> { return selectedPlaceObjDriver.map({ $0 != nil }) }
     public var routeCurrentTrip: Driver<Route?>
 
     // MARK: - Init
@@ -150,7 +145,7 @@ open class MapViewModel:
             .filter { $0 != "" }
             .distinctUntilChanged()
             .flatMapLatest {(text) -> Observable<[PlaceObj]> in
-                guard let currentCoordinate = mapManager.currentLocationVariable.value?.coordinate else {
+                guard let currentCoordinate = mapManager.output.currentLocationVar.value?.coordinate else {
                     return Observable.empty()
                 }
 
@@ -203,7 +198,7 @@ open class MapViewModel:
                 // Should refactor currentLocationVariable
                 // is Observable<PlaceObj>
                 // PlaceObj maybe work/home or coordinate or googleplace
-                let current = mapManager.currentLocationVariable.value!
+                let current = mapManager.currentLocationVar.value!
                 let place = PlaceObj(coordinate: current.coordinate)
                 return directionService.generateDirectionRoute(from: place, to: toPlace)
             }

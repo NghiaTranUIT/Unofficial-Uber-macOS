@@ -272,6 +272,14 @@
 			name = "Payment Account Cell";
 			sourceTree = "<group>";
 		};
+		BA262D1E1F28D2C400732D4F /* UberGroupButton */ = {
+			isa = PBXGroup;
+			children = (
+				BAB14ACA1EF668290066267B /* UberGroupButton.swift */,
+			);
+			name = UberGroupButton;
+			sourceTree = "<group>";
+		};
 		BA2A3A841EED42F2002A0343 /* Flow */ = {
 			isa = PBXGroup;
 			children = (
@@ -415,7 +423,6 @@
 				BADB785F1EE66190000536F7 /* UberTextField */,
 				BAB14AC61EF65FF00066267B /* Uber Collection View */,
 				BADB785C1EE5B9F5000536F7 /* UberButton */,
-				BAB14ACA1EF668290066267B /* UberGroupButton.swift */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -507,6 +514,7 @@
 		BAE3CCF01EF5813300F264CA /* Request Uber View */ = {
 			isa = PBXGroup;
 			children = (
+				BA262D1E1F28D2C400732D4F /* UberGroupButton */,
 				BAB14AC41EF65FD00066267B /* Flow */,
 				BAB14ABD1EF62D990066267B /* Product Cell */,
 				BAE3CCEE1EF5812E00F264CA /* RequestUberView.swift */,
