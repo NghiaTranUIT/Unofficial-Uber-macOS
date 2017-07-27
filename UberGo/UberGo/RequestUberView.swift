@@ -73,6 +73,7 @@ class RequestUberView: NSView {
                     self.updateAvailableGroupProducts(groups)
                 case .error(let error):
                     Logger.error("ERROR = \(error)")
+                    NotificationService.postNotificationOnMainThreadType(.showFriendlyErrorAlert, object: error, userInfo: nil)
                 }
             })
             .addDisposableTo(disposeBag)

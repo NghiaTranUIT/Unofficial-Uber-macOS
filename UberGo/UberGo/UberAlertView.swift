@@ -18,7 +18,7 @@ class UberAlertView: NSView {
 
     // MARK: - Public
     public func showError(_ error: NSError, view: NSView) {
-        let title = error.localizedDescription
+        let title = error.userInfo["message"] as? String ?? error.description
 
         errorTitle.stringValue = title
 
@@ -56,7 +56,7 @@ extension UberAlertView {
     }
 
     fileprivate func fadeOutAnimation() {
-        DispatchQueue.main.asyncAfter(wallDeadline: .now() + 3.0) {
+        DispatchQueue.main.asyncAfter(wallDeadline: .now() + 5.0) {
             NSAnimationContext.defaultAnimate({ _ in
                 self.alphaValue = 0
             }) {

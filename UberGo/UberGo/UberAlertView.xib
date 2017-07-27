@@ -22,16 +22,16 @@
                     </view>
                     <color key="fillColor" red="0.90588235294117647" green="0.29803921568627451" blue="0.23529411764705882" alpha="1" colorSpace="calibratedRGB"/>
                 </box>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="lqP-Xl-M0c">
-                    <rect key="frame" x="168" y="10" width="145" height="17"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="Internet has problems." id="VCT-ZY-yGB">
+                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="lqP-Xl-M0c">
+                    <rect key="frame" x="186" y="10" width="145" height="17"/>
+                    <textFieldCell key="cell" lineBreakMode="truncatingTail" truncatesLastVisibleLine="YES" allowsUndo="NO" sendsActionOnEndEditing="YES" alignment="center" title="Internet has problems." id="VCT-ZY-yGB">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="g3l-Cl-4cX">
-                    <rect key="frame" x="134" y="7" width="24" height="24"/>
+                    <rect key="frame" x="152" y="6" width="24" height="24"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="24" id="0i6-5I-kIY"/>
                         <constraint firstAttribute="height" constant="24" id="rG7-zK-3Gv"/>
@@ -41,17 +41,20 @@
             </subviews>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="w1Z-vd-A7g" secondAttribute="trailing" id="13o-Zo-cu6"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="lqP-Xl-M0c" secondAttribute="trailing" constant="8" id="1rB-rK-Z3D"/>
                 <constraint firstAttribute="bottom" secondItem="w1Z-vd-A7g" secondAttribute="bottom" id="5Gv-Uc-tpu"/>
                 <constraint firstItem="w1Z-vd-A7g" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" id="7aV-ae-nmS"/>
                 <constraint firstItem="lqP-Xl-M0c" firstAttribute="centerY" secondItem="c22-O7-iKe" secondAttribute="centerY" id="SOa-bX-JZP"/>
-                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="lqP-Xl-M0c" secondAttribute="trailing" constant="8" id="Urf-Yc-a3h"/>
                 <constraint firstItem="lqP-Xl-M0c" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="c22-O7-iKe" secondAttribute="leading" constant="50" id="f0j-iH-FmZ"/>
                 <constraint firstItem="g3l-Cl-4cX" firstAttribute="centerY" secondItem="lqP-Xl-M0c" secondAttribute="centerY" id="f3X-qD-ltB"/>
                 <constraint firstItem="lqP-Xl-M0c" firstAttribute="leading" secondItem="g3l-Cl-4cX" secondAttribute="trailing" constant="12" id="lcx-8E-oGN"/>
-                <constraint firstItem="lqP-Xl-M0c" firstAttribute="centerX" secondItem="c22-O7-iKe" secondAttribute="centerX" id="nIr-Mp-Uaw"/>
                 <constraint firstItem="w1Z-vd-A7g" firstAttribute="top" secondItem="c22-O7-iKe" secondAttribute="top" id="u17-a0-o0g"/>
+                <constraint firstItem="lqP-Xl-M0c" firstAttribute="centerX" secondItem="c22-O7-iKe" secondAttribute="centerX" constant="18" id="z4I-Xj-hsz"/>
             </constraints>
-            <point key="canvasLocation" x="-3" y="11"/>
+            <connections>
+                <outlet property="errorTitle" destination="lqP-Xl-M0c" id="Gl3-nZ-OwE"/>
+            </connections>
+            <point key="canvasLocation" x="-226" y="-63"/>
         </customView>
     </objects>
     <resources>
