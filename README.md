@@ -19,6 +19,8 @@ Uber macOS
 
 Obviously, you're already known what it's, right? 🤣
 
+⚠️ Uber macOS's stilling on **sandbox** mode. It involves to be reviewed and approved by Uber before live on production.
+
 Keep in touch with me at Homepage: http://uber.megaton.xyz
 
 ![](https://img.shields.io/badge/Swift-3.0-blue.svg?style=flat)
