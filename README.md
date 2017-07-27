@@ -35,19 +35,9 @@ Roadmap
 - [x] Uber functionalities 
 - [ ] 100% converage test
 - [ ] Uber review
-
-Contact
-------------
-  
-Vinh Nghia Tran
-
-http://github.com/NghiaTranUIT  
-http://www.nghiatran.me  
-vinhnghiatran@gmail.com  
   
 Contributor
 ------------
-
 It would be greatly appreciated when you make a pull-quest  🤗
 
 
