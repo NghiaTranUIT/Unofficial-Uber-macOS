@@ -30,6 +30,7 @@ class MapViewController: BaseViewController {
     fileprivate lazy var selectUberView: RequestUberView = self.lazyInitRequestUberView()
     fileprivate lazy var tripActivityView: TripActivityView = self.lazyInitTripActivityView()
     fileprivate lazy var searchBarView: SearchBarView = self.lazyInitSearchBarView()
+    fileprivate lazy var errorAlertView: UberAlertView = self.lazyInitErrorAlertView()
 
     @IBOutlet fileprivate weak var exitNavigateBtn: NSButton!
     @IBOutlet fileprivate weak var mapContainerView: NSView!
@@ -212,6 +213,11 @@ class MapViewController: BaseViewController {
                                                     observer: self,
                                                     selector: #selector(handleSurgeCallback(noti:)),
                                                     object: nil)
+        NotificationService.observeNotificationType(.showFriendlyErrorAlert,
+                                                    observer: self,
+                                                    selector: #selector(showFriendlyErrorAlert(noti:)),
+                                                    object: nil)
+
     }
 
     func showSurgeHrefView(_ surgeObj: SurgePriceObj) {
@@ -237,6 +243,11 @@ class MapViewController: BaseViewController {
 
         // Get
         uberViewModel.input.requestUberWithSurgeIDPublisher.onNext(url)
+    }
+
+    @objc func showFriendlyErrorAlert(noti: Notification) {
+        guard let error = noti.object as? NSError else { return }
+        errorAlertView.showError(error, view: self.view)
     }
 
     @IBAction func exitNavigateBtnOnTapped(_ sender: Any) {
@@ -299,6 +310,10 @@ extension MapViewController {
 
     fileprivate func lazyInitWebController() -> WebViewController {
         return WebViewController.webviewControllerWith(.surgeConfirmation)
+    }
+
+    fileprivate func lazyInitErrorAlertView() -> UberAlertView {
+        return UberAlertView.viewFromNib(with: BundleType.app)!
     }
 }
 

@@ -2,35 +2,71 @@
 //  UberAlertView.swift
 //  UberGo
 //
-//  Created by Nghia Tran on 6/27/17.
+//  Created by Nghia Tran on 7/27/17.
 //  Copyright © 2017 Nghia Tran. All rights reserved.
 //
 
 import Cocoa
 
-public typealias UberEmptyBlock = () -> Void
+class UberAlertView: NSView {
 
-extension NSAlert {
+    // MARK: - OUTLET
+    @IBOutlet fileprivate var errorTitle: NSTextField!
+
+    // MARK: - Variable
+    fileprivate var isShow = false
 
     // MARK: - Public
-    public class func confirmationAlertView(showOn window: NSWindow, title: String,
-                                            message: String,
-                                            okBlock: UberEmptyBlock?,
-                                            cancelBlock: UberEmptyBlock?) {
+    public func showError(_ error: NSError, view: NSView) {
+        let title = error.localizedDescription
 
-        let alert = NSAlert()
-        alert.messageText = title
-        alert.informativeText = message
-        alert.addButton(withTitle: "OK")
-        alert.addButton(withTitle: "Cancel")
-        alert.alertStyle = .warning
+        errorTitle.stringValue = title
 
-        alert.beginSheetModal(for: window, completionHandler: { (modalResponse) -> Void in
-            if modalResponse == NSAlertFirstButtonReturn {
-                okBlock?()
-            } else {
-                cancelBlock?()
-            }
-        })
+        // Animate
+        addSubViewIfNeed(view)
+        fadeInAnimation()
     }
+}
+
+// MARK: - Animation
+extension UberAlertView {
+
+    fileprivate func addSubViewIfNeed(_ view: NSView) {
+        guard self.superview == nil else { return }
+
+        translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(self)
+
+        // Constraints
+        top(to: view)
+        left(to: view)
+        right(to: view)
+        height(36)
+    }
+
+    fileprivate func fadeInAnimation() {
+
+        self.alphaValue = 0
+
+        NSAnimationContext.defaultAnimate({ _ in
+            self.alphaValue = 1
+        }) {
+            self.fadeOutAnimation()
+        }
+    }
+
+    fileprivate func fadeOutAnimation() {
+        DispatchQueue.main.asyncAfter(wallDeadline: .now() + 3.0) {
+            NSAnimationContext.defaultAnimate({ _ in
+                self.alphaValue = 0
+            }) {
+                self.removeFromSuperview()
+            }
+        }
+    }
+}
+
+// MARK: - XIBInitializable
+extension UberAlertView: XIBInitializable {
+    typealias XibType = UberAlertView
 }
