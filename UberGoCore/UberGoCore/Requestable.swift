@@ -29,6 +29,8 @@ protocol Requestable: URLRequestConvertible {
 
     var isAuthenticated: Bool { get }
 
+    func validate(response: DataResponse<Any>?) -> NSError?
+
     func toObservable() -> Observable<Element>
 
     func decode(data: Any) throws -> Element?
@@ -69,10 +71,13 @@ extension Requestable {
         return JSONEncoding.default
     }
 
+    func validate(response: DataResponse<Any>?) -> NSError? {
+        return nil
+    }
+
     func toObservable() -> Observable<Element> {
 
         return Observable<Element>.create { (observer) -> Disposable in
-
             guard let urlRequest = try? self.asURLRequest() else {
                 observer.on(.error(NSError.unknowError()))
                 return Disposables.create {}
@@ -83,56 +88,66 @@ extension Requestable {
                 .validate(contentType: ["application/json", "text/html"])
                 .responseJSON(completionHandler: { (response) in
 
-                    guard let _response = response.response else {
-                        observer.onError(NSError.jsonMapperError())
+                    // Validate
+                    if let error = self.handleValidation(response) {
+                        Logger.error("[ERROR API] = \(self.endpoint) = \(error)")
+                        observer.onError(error)
                         return
                     }
 
-                    let statusCode = _response.statusCode
-
-                    // 204 - no content
-                    if statusCode == 204 {
-                        observer.onNext(() as! Element)
-                        observer.on(.completed)
-                        return
-                    }
-
-                    // Check Response
-                    guard let data = response.result.value else {
-                        observer.onError(NSError.jsonMapperError())
-                        return
-                    }
-
-                    //FIXME : Smell code
-                    // Should implement ErrorHandler flawless
-                    // Instead of doing manually
-                    if statusCode >= 200 && statusCode < 300 {
-
-                        // Parse here
-                        do {
-                            let result = try self.decode(data: data)
-                            Logger.info(result!)
-                            observer.onNext(result!)
-                        } catch let error {
-                            Logger.error("[JSON Mapping] = \(self.endpoint) = \(error)")
-                            observer.onError(error)
+                    // Parse
+                    do {
+                        guard let result = try self.decode(data: response.result.value!) else {
+                            // Void
+                            observer.onNext(() as! Element)
+                            return
                         }
-
-                        observer.onCompleted()
-                        return
+                        Logger.info(result)
+                        observer.onNext(result)
+                    } catch let error {
+                        Logger.error("[JSON Mapping] = \(self.endpoint) = \(error)")
+                        observer.onError(error)
                     }
 
-                    // Error
-                    Logger.error(data)
-                    let uberError = NSError.uberError(data: data, code: statusCode)
-                    observer.onError(uberError)
+                    observer.onCompleted()
+                    return
                 })
 
             return Disposables.create()
         }
     }
+}
 
-    func buildURLRequest() -> URLRequest {
+// MARK: - Error Hanlding
+extension Requestable {
+
+    fileprivate func handleValidation(_ response: DataResponse<Any>?) -> NSError? {
+
+        // No Response
+        guard let innerResponse = response?.response else {
+            return NSError.jsonMapperError()
+        }
+
+        // Default status code
+        let statusCode = innerResponse.statusCode
+
+        if 200...300 ~= statusCode {
+            return nil
+        }
+
+        // Try to optional vaildation from request
+        if let error = self.validate(response: response) {
+            return error
+        }
+
+        return NSError.uberError(data: response?.result.value, code: statusCode)
+    }
+}
+
+// MARK: - Builder
+extension Requestable {
+
+    fileprivate func buildURLRequest() -> URLRequest {
 
         // Init
         var request = URLRequest(url: self.url)
@@ -156,6 +171,7 @@ extension Requestable {
             let currentUser = UberAuth.share.currentUser!
             currentUser.authToken.setAuthenticationHeader(request: &finalRequest)
         }
+
         return finalRequest
     }
 }

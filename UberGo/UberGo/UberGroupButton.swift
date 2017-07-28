@@ -22,7 +22,7 @@ class UberGroupButton: UberButton {
     override var state: Int {
         didSet {
             if state == NSOnState {
-                self.font = NSFont.systemFont(ofSize: 14)
+                self.font = NSFont.boldSystemFont(ofSize: 15)
                 self.setTitleColor(NSColor.black, kern: 2)
             } else {
                 self.font = NSFont.systemFont(ofSize: 13)

@@ -58,6 +58,7 @@
 		BAB082281F05688F00A74665 /* RideEstimateTimeRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB082271F05688F00A74665 /* RideEstimateTimeRequest.swift */; };
 		BAB0822A1F05696700A74665 /* TimeEstimateObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB082291F05696700A74665 /* TimeEstimateObj.swift */; };
 		BAB14ABC1EF627160066267B /* Array+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB14ABB1EF627160066267B /* Array+Helper.swift */; };
+		BAB50B6C1F2484F1004A03DD /* APIResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB50B6B1F2484F1004A03DD /* APIResult.swift */; };
 		BAB7B8DD1EFD7E7F00B508A1 /* SandboxUpdateStatusTripRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB7B8DC1EFD7E7F00B508A1 /* SandboxUpdateStatusTripRequest.swift */; };
 		BADB784E1EE5AC07000536F7 /* SearchBarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB784D1EE5AC07000536F7 /* SearchBarViewModel.swift */; };
 		BADB78671EE70AB0000536F7 /* PlaceSearchRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB78661EE70AB0000536F7 /* PlaceSearchRequest.swift */; };
@@ -152,6 +153,7 @@
 		BAB082271F05688F00A74665 /* RideEstimateTimeRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RideEstimateTimeRequest.swift; sourceTree = "<group>"; };
 		BAB082291F05696700A74665 /* TimeEstimateObj.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeEstimateObj.swift; sourceTree = "<group>"; };
 		BAB14ABB1EF627160066267B /* Array+Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Helper.swift"; sourceTree = "<group>"; };
+		BAB50B6B1F2484F1004A03DD /* APIResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIResult.swift; sourceTree = "<group>"; };
 		BAB7B8DC1EFD7E7F00B508A1 /* SandboxUpdateStatusTripRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SandboxUpdateStatusTripRequest.swift; sourceTree = "<group>"; };
 		BADB784D1EE5AC07000536F7 /* SearchBarViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBarViewModel.swift; sourceTree = "<group>"; };
 		BADB78661EE70AB0000536F7 /* PlaceSearchRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceSearchRequest.swift; sourceTree = "<group>"; };
@@ -315,6 +317,7 @@
 			isa = PBXGroup;
 			children = (
 				BADB78681EE70CBB000536F7 /* Parameter.swift */,
+				BAB50B6B1F2484F1004A03DD /* APIResult.swift */,
 				BA47969F1EE2BD3A00620BB0 /* Requestable.swift */,
 				BAE6902E1EE513EF00A4D876 /* UberProductsRequest.swift */,
 				BADB78661EE70AB0000536F7 /* PlaceSearchRequest.swift */,
@@ -703,6 +706,7 @@
 				BA657DA01F133A78007E4821 /* PriceDetailObj.swift in Sources */,
 				BA2219201EF79CEB00C766A1 /* GetPaymentMethodRequest.swift in Sources */,
 				BADB78691EE70CBB000536F7 /* Parameter.swift in Sources */,
+				BAB50B6C1F2484F1004A03DD /* APIResult.swift in Sources */,
 				BA0C91961EEF8B4E00BA8B4B /* Logger.swift in Sources */,
 				BA0C91A81EF049C300BA8B4B /* WaypointObj.swift in Sources */,
 				BAAC44101EF1246500A9F949 /* PostEstimateTripRequest.swift in Sources */,

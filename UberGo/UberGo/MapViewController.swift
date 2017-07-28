@@ -30,6 +30,7 @@ class MapViewController: BaseViewController {
     fileprivate lazy var selectUberView: RequestUberView = self.lazyInitRequestUberView()
     fileprivate lazy var tripActivityView: TripActivityView = self.lazyInitTripActivityView()
     fileprivate lazy var searchBarView: SearchBarView = self.lazyInitSearchBarView()
+    fileprivate lazy var errorAlertView: UberAlertView = self.lazyInitErrorAlertView()
 
     @IBOutlet fileprivate weak var exitNavigateBtn: NSButton!
     @IBOutlet fileprivate weak var mapContainerView: NSView!
@@ -149,25 +150,37 @@ class MapViewController: BaseViewController {
 
         // Current Trip Status
         uberViewModel.output.currentTripStatusDriver
-            .drive(onNext: {[weak self] (tripObj) in
+            .drive(onNext: {[weak self] result in
                 guard let `self` = self else { return }
 
                 // Update
-                self.handleLayoutAndData(tripObj)
+                switch result {
+                case .success(let tripObj):
+                    self.handleLayoutAndData(tripObj)
+                case .error(let error):
+                    Logger.error(error)
+                }
+
             })
             .addDisposableTo(disposeBag)
 
         // Manually
         uberViewModel.output.manuallyCurrentTripStatusDriver
-            .drive(onNext: {[weak self] tripObj in
+            .drive(onNext: {[weak self] result in
                 guard let `self` = self else { return }
 
                 // Update
-                self.handleLayoutAndData(tripObj)
+                switch result {
+                case .success(let tripObj):
+                    // Update
+                    self.handleLayoutAndData(tripObj)
 
-                // Start Timer again
-                if tripObj.isValidTrip {
-                    self.uberViewModel.input.triggerCurrentTripPublisher.onNext()
+                    // Start Timer again
+                    if tripObj.isValidTrip {
+                        self.uberViewModel.input.triggerCurrentTripPublisher.onNext()
+                    }
+                case .error(let error):
+                    Logger.error(error)
                 }
             })
             .addDisposableTo(disposeBag)
@@ -200,6 +213,11 @@ class MapViewController: BaseViewController {
                                                     observer: self,
                                                     selector: #selector(handleSurgeCallback(noti:)),
                                                     object: nil)
+        NotificationService.observeNotificationType(.showFriendlyErrorAlert,
+                                                    observer: self,
+                                                    selector: #selector(showFriendlyErrorAlert(noti:)),
+                                                    object: nil)
+
     }
 
     func showSurgeHrefView(_ surgeObj: SurgePriceObj) {
@@ -225,6 +243,11 @@ class MapViewController: BaseViewController {
 
         // Get
         uberViewModel.input.requestUberWithSurgeIDPublisher.onNext(url)
+    }
+
+    @objc func showFriendlyErrorAlert(noti: Notification) {
+        guard let error = noti.object as? NSError else { return }
+        errorAlertView.showError(error, view: self.view)
     }
 
     @IBAction func exitNavigateBtnOnTapped(_ sender: Any) {
@@ -287,6 +310,10 @@ extension MapViewController {
 
     fileprivate func lazyInitWebController() -> WebViewController {
         return WebViewController.webviewControllerWith(.surgeConfirmation)
+    }
+
+    fileprivate func lazyInitErrorAlertView() -> UberAlertView {
+        return UberAlertView.viewFromNib(with: BundleType.app)!
     }
 }
 

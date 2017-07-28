@@ -30,8 +30,7 @@ public protocol MapViewModelInput {
 public protocol MapViewModelOutput {
 
     // Origin
-    var currentLocationDriver: Driver<CLLocation?> { get }
-    var nearestPlaceDriver: Driver<PlaceObj> { get }
+    var currentPlaceDriver: Driver<PlaceObj> { get }
 
     // Search
     var searchPlaceObjsVariable: Variable<[PlaceObj]> { get }
@@ -70,23 +69,17 @@ open class MapViewModel:
     public var routeForCurrentTripPublisher = PublishSubject<TripObj>()
 
     // MARK: - Output
-    public var currentLocationVariable: Variable<CLLocation?> {
-        return mapManager.currentLocationVariable
-    }
-    public var currentLocationDriver: Driver<CLLocation?> {
-        return mapManager.currentLocationVariable.asDriver()
-    }
-    public var nearestPlaceDriver: Driver<PlaceObj> {
-        return mapManager.nearestPlaceObverser.asDriver(onErrorJustReturn: PlaceObj.invalid)
+    public var currentLocationVariable: Variable<CLLocation?> { return mapManager.output.currentLocationVar }
+    public var currentPlaceDriver: Driver<PlaceObj> {
+        return mapManager.output.currentPlaceObs
+            .asDriver(onErrorJustReturn: PlaceObj.invalid)
     }
     public var searchPlaceObjsVariable = Variable<[PlaceObj]>([])
     fileprivate var personalOrHistoryPlaceObjsVariable = Variable<[PlaceObj]>([])
     public let loadingDriver: Driver<Bool>
     public var selectedPlaceObjDriver: Driver<PlaceObj?>
     public var selectedDirectionRouteObserver: Observable<Route?>
-    public var isSelectedPlace: Driver<Bool> {
-        return selectedPlaceObjDriver.map({ $0 != nil })
-    }
+    public var isSelectedPlace: Driver<Bool> { return selectedPlaceObjDriver.map({ $0 != nil }) }
     public var routeCurrentTrip: Driver<Route?>
 
     // MARK: - Init
@@ -150,7 +143,7 @@ open class MapViewModel:
             .filter { $0 != "" }
             .distinctUntilChanged()
             .flatMapLatest {(text) -> Observable<[PlaceObj]> in
-                guard let currentCoordinate = mapManager.currentLocationVariable.value?.coordinate else {
+                guard let currentCoordinate = mapManager.output.currentLocationVar.value?.coordinate else {
                     return Observable.empty()
                 }
 
@@ -192,20 +185,15 @@ open class MapViewModel:
 
         selectedPlaceObjDriver = selectedPlaceObserve.asDriver(onErrorJustReturn: nil)
         let clearCurrentDirectionRoute = selectedPlaceObserve.map { _ -> Route? in return nil }
-        let getDirection = selectedPlaceObserve
-            .flatMapLatest { toPlace -> Observable<Route?> in
 
-                guard let toPlace = toPlace else {
-                    return Observable.empty()
-                }
-
-                //FIXME : Temporary get current location
-                // Should refactor currentLocationVariable
-                // is Observable<PlaceObj>
-                // PlaceObj maybe work/home or coordinate or googleplace
-                let current = mapManager.currentLocationVariable.value!
-                let place = PlaceObj(coordinate: current.coordinate)
-                return directionService.generateDirectionRoute(from: place, to: toPlace)
+        // Get Route
+        let currentPlaceObj = selectedPlaceObserve
+            .withLatestFrom(mapManager.currentPlaceObs.asObservable())
+        let getDirection = Observable.zip([selectedPlaceObserve.filterNil(), currentPlaceObj])
+            .flatMapLatest { data -> Observable<Route?> in
+                let from = data.first!
+                let to = data[1]
+                return directionService.generateDirectionRoute(from: from, to: to)
             }
             .observeOn(MainScheduler.instance)
 

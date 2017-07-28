@@ -46,6 +46,8 @@ extension BreakdownPriceController {
     }
 
     fileprivate func setupData() {
+
+        // Update
         productObj.updatePriceDetail()
 
         // Setup if data available
@@ -55,7 +57,8 @@ extension BreakdownPriceController {
         }
 
         // Observe
-        productObj.priceDetailVariable.asDriver()
+        productObj.priceDetailVariable
+            .asDriver()
             .filterNil()
             .drive(onNext: {[weak self] (priceObj) in
                 guard let `self` = self else { return }

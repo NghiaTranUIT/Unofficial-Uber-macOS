@@ -22,7 +22,7 @@ class CalloutAnnotations: NSViewController {
 
     // MARK: - Variable
     fileprivate var timeObj: TimeEstimateObj?
-    fileprivate var destinationObj: PlaceObj?
+    fileprivate var placeObj: PlaceObj?
     fileprivate var layoutMode: CalloutAnnotationsLayoutMode = .noTimeEstimation
 
     // MARK: - View
@@ -51,16 +51,20 @@ class CalloutAnnotations: NSViewController {
             timeEstimateLbl.stringValue = "\(timeObj.prettyEstimateTime)"
         }
 
-        if let destObj = destinationObj {
+        if let destObj = placeObj {
             addressLbl.stringValue = destObj.name
         }
     }
 
     // MARK: - Public
-    public func setupCallout(mode: CalloutAnnotationsLayoutMode, timeObj: TimeEstimateObj?, destinationObj: PlaceObj?) {
-        layoutMode = mode
+    public func setupCallout(mode: CalloutAnnotationsLayoutMode, timeObj: TimeEstimateObj?, placeObj: PlaceObj?) {
         self.timeObj = timeObj
-        self.destinationObj = destinationObj
+        self.placeObj = placeObj
+        layoutMode = mode
+
+        if timeObj == nil {
+            layoutMode = .noTimeEstimation
+        }
 
         // Relayout if view hasn't loaded yet
         if isViewLoaded {

@@ -13,6 +13,8 @@ import UberGoCore
 class OriginAnnotation: MGLPointAnnotation {
 
     // MARK: - Variable
+    fileprivate var placeObj: PlaceObj!
+
     fileprivate lazy var _imageAnnotation: MGLAnnotationImage = {
         let image = NSImage(imageLiteralResourceName: "current_mark")
         return MGLAnnotationImage(image: image,
@@ -20,12 +22,28 @@ class OriginAnnotation: MGLPointAnnotation {
     }()
 
     fileprivate lazy var _calloutController: NSViewController = {
-        return CalloutAnnotations(nibName: "CalloutAnnotations", bundle: nil)!
+        let controller = CalloutAnnotations(nibName: "CalloutAnnotations", bundle: nil)!
+        controller.setupCallout(mode: .withTimeEstimation, timeObj: nil, placeObj: self.placeObj)
+        return controller
     }()
 
-    public func setupCallout(_ mode: CalloutAnnotationsLayoutMode, timeObj: TimeEstimateObj) {
+    public func setupCallout(timeObj: TimeEstimateObj?) {
         guard let controller = self._calloutController as? CalloutAnnotations else { return }
-        controller.setupCallout(mode: mode, timeObj: timeObj, destinationObj: nil)
+        controller.setupCallout(mode: .withTimeEstimation, timeObj: timeObj, placeObj: placeObj)
+    }
+
+    // MARK: - Init
+    public init(placeObj: PlaceObj) {
+        self.placeObj = placeObj
+
+        super.init()
+
+        self.coordinate = placeObj.coordinate2D
+        self.title = placeObj.name
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
     }
 }
 

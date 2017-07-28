@@ -29,7 +29,7 @@ extension NSError {
     }
 
     // Uber Error
-    static func uberError(data: Any, code: Int) -> NSError {
+    static func uberError(data: Any?, code: Int) -> NSError {
         guard let dictData = data as? [String: Any] else {
             return self.jsonMapperError()
         }

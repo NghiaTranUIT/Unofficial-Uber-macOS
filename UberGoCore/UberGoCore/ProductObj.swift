@@ -112,6 +112,14 @@ open class GroupProductObj {
     public init(productGroup: String, productObjs: [ProductObj]) {
         self.productGroup = productGroup
         self.productObjs = productObjs
+
+        // UberShip
+        // API return "" // Empty string
+        // Workaround
+        if productGroup == "" {
+            guard let first = productObjs.first else { return }
+            self.productGroup = first.displayName
+        }
     }
 
     // MARK: - Public

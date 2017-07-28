@@ -43,7 +43,7 @@ public struct UberTripData {
 public protocol UberServiceViewModelOutput {
 
     // Request Uber
-    var availableGroupProductsDriver: Driver<[GroupProductObj]> { get }
+    var availableGroupProductsDriver: Driver<APIResult<[GroupProductObj]>> { get }
     var isLoadingDriver: Driver<Bool> { get }
     var selectedGroupProduct: Variable<GroupProductObj?> { get }
     var selectedProduct: Variable<ProductObj?> { get }
@@ -55,8 +55,8 @@ public protocol UberServiceViewModelOutput {
     var normalTripDriver: Driver<CreateTripObj>! { get }
 
     // Current Trip Status
-    var currentTripStatusDriver: Driver<TripObj>! { get }
-    var manuallyCurrentTripStatusDriver: Driver<TripObj>! { get }
+    var currentTripStatusDriver: Driver<APIResult<TripObj>>! { get }
+    var manuallyCurrentTripStatusDriver: Driver<APIResult<TripObj>>! { get }
 
     // Reset map
     var resetMapDriver: Driver<Void>! { get }
@@ -75,17 +75,17 @@ open class UberServiceViewModel: UberServiceViewModelProtocol,
     public var requestUberPublisher = PublishSubject<Void>()
 
     // MARK: - Output
-    public var availableGroupProductsDriver: Driver<[GroupProductObj]>
+    public var availableGroupProductsDriver: Driver<APIResult<[GroupProductObj]>>
     public var isLoadingDriver: Driver<Bool>
     public let selectedGroupProduct = Variable<GroupProductObj?>(nil)
     public let selectedProduct = Variable<ProductObj?>(nil)
     public var showSurgeHrefDriver: Driver<SurgePriceObj>
     public var normalTripDriver: Driver<CreateTripObj>!
     public var requestUberWithSurgeIDPublisher = PublishSubject<String>()
-    public var currentTripStatusDriver: Driver<TripObj>!
+    public var currentTripStatusDriver: Driver<APIResult<TripObj>>!
     public var triggerCurrentTripPublisher = PublishSubject<Void>()
     public var manuallyGetCurrentTripStatusPublisher = PublishSubject<Void>()
-    public var manuallyCurrentTripStatusDriver: Driver<TripObj>!
+    public var manuallyCurrentTripStatusDriver: Driver<APIResult<TripObj>>!
     public var cancelCurrentTripPublisher = PublishSubject<Void>()
     public var resetMapDriver: Driver<Void>!
 
@@ -119,7 +119,7 @@ open class UberServiceViewModel: UberServiceViewModelProtocol,
             .bind(to: uberData)
             .addDisposableTo(disposeBag)
 
-        // Request Products + Estimation
+        // Request Products + Estimations
         let groupProductShared = selectionShared
             .flatMapLatest { data -> Observable<[ProductObj]> in
                 return uberService.productsWithEstimatePriceObserver(from: data.from,
@@ -130,15 +130,18 @@ open class UberServiceViewModel: UberServiceViewModelProtocol,
 
         // Data
         availableGroupProductsDriver = groupProductShared
-                                            .asDriver(onErrorJustReturn: [])
+            .map({ return APIResult(rawValue: $0)! })
+            .asDriver { return .just(APIResult<[GroupProductObj]>(errorValue: $0)) }
 
         // Default selection
-        groupProductShared
+        let groupProductSharedNoError = groupProductShared
+                                            .catchErrorJustReturn([])
+        groupProductSharedNoError
             .map { return $0.first }
             .bind(to: selectedGroupProduct)
             .addDisposableTo(disposeBag)
 
-        groupProductShared
+        groupProductSharedNoError
             .map { $0.first?.productObjs.first }
             .bind(to: selectedProduct)
             .addDisposableTo(disposeBag)
@@ -179,17 +182,11 @@ open class UberServiceViewModel: UberServiceViewModelProtocol,
             .flatMapLatest { (estiamteObj) -> Observable<CreateTripObj>in
 
                 // Guard
-                //FIXME : Should refactor after refactoring JSON Mapping
-                guard let frontFareObj = estiamteObj.upFrontFareObj else {
-                    return Observable.empty()
-                }
-                guard let productObj = self.selectedProduct.value else {
-                    return Observable.empty()
-                }
-                guard let currentUser = UberAuth.share.currentUser else {
-                    return Observable.empty()
-                }
-                guard let data = self.uberData.value else {
+                guard
+                let frontFareObj = estiamteObj.upFrontFareObj,
+                let productObj = self.selectedProduct.value,
+                let currentUser = UberAuth.share.currentUser,
+                let data = self.uberData.value else {
                     return Observable.empty()
                 }
 
@@ -234,12 +231,15 @@ open class UberServiceViewModel: UberServiceViewModelProtocol,
 
         //FIXME : For some reason: Merge<timerObj, manuallyTriggerOb> cause timer didn't fire up
         // Manually trigger at the first time app open
-        manuallyCurrentTripStatusDriver = manuallyGetCurrentTripStatusPublisher
+        manuallyCurrentTripStatusDriver =
+            manuallyGetCurrentTripStatusPublisher
             .asObserver()
-            .flatMapLatest { _ -> Observable<TripObj> in
-                return uberService.getCurrentTrip()
+            .flatMapLatest { _ -> Observable<APIResult<TripObj>> in
+                return uberService
+                        .getCurrentTrip()
+                        .map({ APIResult(rawValue: $0)! })
             }
-            .asDriver(onErrorJustReturn: TripObj.noCurrentTrip())
+            .asDriver { Driver.just(APIResult<TripObj>(errorValue: $0)) }
 
         // cancel
         resetMapDriver = cancelCurrentTripPublisher.asObserver()
@@ -266,11 +266,12 @@ open class UberServiceViewModel: UberServiceViewModelProtocol,
         currentTripStatusDriver =
             //Observable.merge([timerOb, tripTriggerManually])
             timerOb
-            .flatMapLatest { _ -> Observable<TripObj> in
+            .flatMapLatest { _ -> Observable<APIResult<TripObj>> in
                 Logger.debug("$$$ TIMER start")
-                return uberService.getCurrentTrip()
+                return uberService.getCurrentTrip().map({ APIResult(rawValue: $0)! })
             }
-            .do(onNext: { (tripObj) in
+            .do(onNext: { (result) in
+                let tripObj = result.rawValue
                 if tripObj.isValidTrip == false {
                     Logger.error("Invalid timer")
                     self.timerDisposeBag = DisposeBag()
@@ -279,6 +280,6 @@ open class UberServiceViewModel: UberServiceViewModelProtocol,
                 Logger.error("Invalid timer")
                 self.timerDisposeBag = DisposeBag()
             })
-            .asDriver(onErrorJustReturn: TripObj.noCurrentTrip())
+            .asDriver { Driver.just(APIResult<TripObj>(errorValue: $0)) }
     }
 }

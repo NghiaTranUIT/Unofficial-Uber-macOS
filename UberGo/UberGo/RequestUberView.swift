@@ -65,9 +65,16 @@ class RequestUberView: NSView {
 
         // Request Uber service
         viewModel.output.availableGroupProductsDriver
-            .drive(onNext: {[weak self] (groups) in
+            .drive(onNext: {[weak self] (result) in
                 guard let `self` = self else { return }
-                self.updateAvailableGroupProducts(groups)
+
+                switch result {
+                case .success(let groups):
+                    self.updateAvailableGroupProducts(groups)
+                case .error(let error):
+                    Logger.error("ERROR = \(error)")
+                    NotificationService.postNotificationOnMainThreadType(.showFriendlyErrorAlert, object: error, userInfo: nil)
+                }
             })
             .addDisposableTo(disposeBag)
 
@@ -206,7 +213,6 @@ extension RequestUberView {
         requestUberBtn.setTitleColor(NSColor.white, kern: 2)
         cardNumberLbl.textColor = NSColor.black
         seatNumberLnl.textColor = NSColor(hexString: "#989898")
-        highFareLbl.textColor = NSColor.darkGray
         requestUberBtn.backgroundColor = NSColor.black
 
         // Border

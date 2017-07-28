@@ -26,7 +26,7 @@ public extension XIBInitializable where Self: Identifier {
 
         var topViews: NSArray? = []
 
-        _ = self.xib(with: bundle)?.instantiate(withOwner: self, topLevelObjects: &topViews)
+        _ = self.xib(with: bundle)?.instantiate(withOwner: self, topLevelObjects: &topViews!)
 
         for subView in topViews! {
             if let innerView = subView as? XibType {
