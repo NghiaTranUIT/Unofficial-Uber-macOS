@@ -101,7 +101,6 @@ class MapViewController: BaseViewController {
                 guard let `self` = self else { return }
 
                 if let placeObj = placeObj {
-
                     // Loader
 
                     // Request data (trip, estimation, route)
@@ -109,8 +108,9 @@ class MapViewController: BaseViewController {
                     let data = UberTripData(to: placeObj, from: currentLocation.coordinate)
                     self.uberViewModel.input.selectedPlacePublisher.onNext(data)
                 } else {
-                    // Reset
+                    self.uberViewModel.input.selectedPlacePublisher.onNext(nil)
                     self.searchBarView.resetTextSearch()
+                    self.mapView.addDestinationPlaceObj(nil)
                 }
             })
             .addDisposableTo(disposeBag)

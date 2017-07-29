@@ -19,7 +19,7 @@ public protocol UberServiceViewModelProtocol {
 
 public protocol UberServiceViewModelInput {
 
-    var selectedPlacePublisher: PublishSubject<UberTripData> { get }
+    var selectedPlacePublisher: PublishSubject<UberTripData?> { get }
     var requestUberPublisher: PublishSubject<Void> { get }
     var requestUberWithSurgeIDPublisher: PublishSubject<String> { get }
 
@@ -72,7 +72,7 @@ open class UberServiceViewModel: UberServiceViewModelProtocol,
     public var output: UberServiceViewModelOutput { return self }
 
     // MARK: - Input
-    public var selectedPlacePublisher = PublishSubject<UberTripData>()
+    public var selectedPlacePublisher = PublishSubject<UberTripData?>()
     public var requestUberPublisher = PublishSubject<Void>()
 
     // MARK: - Output
@@ -111,9 +111,7 @@ open class UberServiceViewModel: UberServiceViewModelProtocol,
 
         // Load
         isLoadingDriver = selectionShared
-            .map({ _ -> Bool in
-                return true
-            })
+            .map({ (_) -> Bool in return true })
             .asDriver(onErrorJustReturn: false)
 
         // Bind to Uber Trip
@@ -123,6 +121,7 @@ open class UberServiceViewModel: UberServiceViewModelProtocol,
 
         // Request Products + Estimations
         let groupProductShared = selectionShared
+            .filterNil()
             .flatMapLatest { data -> Observable<[ProductObj]> in
                 return uberService.productsWithEstimatePriceObserver(from: data.from,
                                                                        to: data.to.coordinate2D)
@@ -135,6 +134,7 @@ open class UberServiceViewModel: UberServiceViewModelProtocol,
 
         requestUberEstimationSuccessDriver = resultGroupProducts
             .withLatestFrom(selectionShared.asObservable())
+            .filterNil()
             .map({ return APIResult(rawValue: $0)! })
             .asDriver { return .just(APIResult<UberTripData>(errorValue: $0)) }
 
@@ -150,11 +150,18 @@ open class UberServiceViewModel: UberServiceViewModelProtocol,
             .bind(to: selectedGroupProduct)
             .addDisposableTo(disposeBag)
 
-        groupProductSharedNoError
-            .map {
-                $0.first?.productObjs.first
-
+        // Nil
+        let productNil = selectionShared.flatMapLatest { (data) -> Observable<ProductObj?> in
+            if data == nil {
+                return Observable.just(nil)
             }
+            return Observable.empty()
+        }
+
+        let defaultFirstObj = groupProductSharedNoError
+            .map { $0.first?.productObjs.first }
+
+        Observable.merge([productNil, defaultFirstObj])
             .bind(to: selectedProduct)
             .addDisposableTo(disposeBag)
 
