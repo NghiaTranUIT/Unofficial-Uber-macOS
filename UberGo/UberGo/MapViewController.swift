@@ -123,6 +123,7 @@ class MapViewController: BaseViewController {
                 // Handle result
                 switch result {
                 case .success(let data):
+                    self.mapView.addDestinationPlaceObj(data.to)
                     self.mapViewModel.input.routeToDestinationPublisher.onNext(data.to)
                 default:
                     break
