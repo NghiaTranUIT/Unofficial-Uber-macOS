@@ -44,6 +44,7 @@ public protocol UberServiceViewModelOutput {
 
     // Request Uber
     var availableGroupProductsDriver: Driver<APIResult<[GroupProductObj]>> { get }
+    var requestUberEstimationSuccessDriver: Driver<APIResult<UberTripData>> { get }
     var isLoadingDriver: Driver<Bool> { get }
     var selectedGroupProduct: Variable<GroupProductObj?> { get }
     var selectedProduct: Variable<ProductObj?> { get }
@@ -76,6 +77,7 @@ open class UberServiceViewModel: UberServiceViewModelProtocol,
 
     // MARK: - Output
     public var availableGroupProductsDriver: Driver<APIResult<[GroupProductObj]>>
+    public var requestUberEstimationSuccessDriver: Driver<APIResult<UberTripData>>
     public var isLoadingDriver: Driver<Bool>
     public let selectedGroupProduct = Variable<GroupProductObj?>(nil)
     public let selectedProduct = Variable<ProductObj?>(nil)
@@ -128,9 +130,16 @@ open class UberServiceViewModel: UberServiceViewModelProtocol,
             .map({ GroupProductObj.mapProductGroups(from: $0) })
             .share()
 
-        // Data
-        availableGroupProductsDriver = groupProductShared
+        let resultGroupProducts = groupProductShared
             .map({ return APIResult(rawValue: $0)! })
+
+        requestUberEstimationSuccessDriver = resultGroupProducts
+            .withLatestFrom(selectionShared.asObservable())
+            .map({ return APIResult(rawValue: $0)! })
+            .asDriver { return .just(APIResult<UberTripData>(errorValue: $0)) }
+
+        // Data
+        availableGroupProductsDriver = resultGroupProducts
             .asDriver { return .just(APIResult<[GroupProductObj]>(errorValue: $0)) }
 
         // Default selection
@@ -142,7 +151,10 @@ open class UberServiceViewModel: UberServiceViewModelProtocol,
             .addDisposableTo(disposeBag)
 
         groupProductSharedNoError
-            .map { $0.first?.productObjs.first }
+            .map {
+                $0.first?.productObjs.first
+
+            }
             .bind(to: selectedProduct)
             .addDisposableTo(disposeBag)
 

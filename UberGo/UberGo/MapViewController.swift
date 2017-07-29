@@ -100,22 +100,57 @@ class MapViewController: BaseViewController {
             .drive(onNext: {[weak self] placeObj in
                 guard let `self` = self else { return }
 
-                // Draw
-                self.mapView.addDestinationPlaceObj(placeObj)
-
-                // Request Product + Estimate Uber
                 if let placeObj = placeObj {
+
+                    // Loader
+
+                    // Request data (trip, estimation, route)
                     guard let currentLocation = self.mapViewModel.currentLocationVariable.value else { return }
                     let data = UberTripData(to: placeObj, from: currentLocation.coordinate)
                     self.uberViewModel.input.selectedPlacePublisher.onNext(data)
                 } else {
-                    // Reset search bar
+                    // Reset
                     self.searchBarView.resetTextSearch()
-                    self.searchBarView.loaderIndicatorView(false)
+                }
+            })
+            .addDisposableTo(disposeBag)
+
+        // Fetch route navigation
+        uberViewModel.output.requestUberEstimationSuccessDriver
+            .drive(onNext: { [weak self] result in
+                guard let `self` = self else { return }
+
+                // Handle result
+                switch result {
+                case .success(let data):
+                    self.mapViewModel.input.routeToDestinationPublisher.onNext(data.to)
+                default:
+                    break
                 }
 
             })
-            .addDisposableTo(self.disposeBag)
+            .addDisposableTo(disposeBag)
+
+        // Request Uber service
+        uberViewModel.output.availableGroupProductsDriver
+            .drive(onNext: {[weak self] (result) in
+                guard let `self` = self else { return }
+
+                // Stop loader
+
+                // Handle result
+                switch result {
+                case .success(let groups):
+                    self.layoutState = .productSelection
+                    self.selectUberView.updateAvailableGroupProducts(groups)
+                case .error(let error):
+                    Logger.error("ERROR = \(error)")
+                    NotificationService.postNotificationOnMainThreadType(.showFriendlyErrorAlert,
+                                                                         object: error,
+                                                                         userInfo: nil)
+                }
+            })
+            .addDisposableTo(disposeBag)
 
         // Show or hide Bottom bar
         uberViewModel.output.isLoadingDriver
@@ -448,7 +483,7 @@ extension MapViewController: SearchBarViewDelegate {
 extension MapViewController: SearchCollectionViewDelegate {
 
     func searchCollectionViewDidSelectItem() {
-        layoutState = .productSelection
+        layoutState = .minimal
     }
 }
 

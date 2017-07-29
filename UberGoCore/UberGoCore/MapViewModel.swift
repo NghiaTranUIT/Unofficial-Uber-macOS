@@ -24,6 +24,7 @@ public protocol MapViewModelInput {
     var startUpdateLocationTriggerPublisher: PublishSubject<Bool> { get }
     var textSearchPublish: PublishSubject<String> { get }
     var didSelectPlaceObjPublisher: PublishSubject<PlaceObj?> { get }
+    var routeToDestinationPublisher: PublishSubject<PlaceObj> { get }
     var routeForCurrentTripPublisher: PublishSubject<TripObj> { get }
 }
 
@@ -67,6 +68,7 @@ open class MapViewModel:
     public var textSearchPublish = PublishSubject<String>()
     public var didSelectPlaceObjPublisher = PublishSubject<PlaceObj?>()
     public var routeForCurrentTripPublisher = PublishSubject<TripObj>()
+    public var routeToDestinationPublisher = PublishSubject<PlaceObj>()
 
     // MARK: - Output
     public var currentLocationVariable: Variable<CLLocation?> { return mapManager.output.currentLocationVar }
@@ -187,7 +189,7 @@ open class MapViewModel:
         let clearCurrentDirectionRoute = selectedPlaceObserve.map { _ -> Route? in return nil }
 
         // Get Route
-        let currentPlaceObj = selectedPlaceObserve
+        let currentPlaceObj = routeToDestinationPublisher
             .withLatestFrom(mapManager.currentPlaceObs.asObservable())
         let getDirection = Observable.zip([selectedPlaceObserve.filterNil(), currentPlaceObj])
             .flatMapLatest { data -> Observable<Route?> in

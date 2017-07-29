@@ -280,9 +280,9 @@
 				BA2467F91EFB793600E95E6D /* PaymentMethodViewModel.swift */,
 				BA6767301EF8CB5400805AC1 /* UberServiceViewModel.swift */,
 				BA4796A61EE2C0C700620BB0 /* MapViewModel.swift */,
-				BA32E71D1EDFC76A0044C017 /* AuthenticationViewModel.swift */,
 				BA32E7221EDFC8230044C017 /* AppViewModel.swift */,
 				BAF57FC11EE11A080013090E /* BaseViewModel.swift */,
+				BA32E71D1EDFC76A0044C017 /* AuthenticationViewModel.swift */,
 				BADB784D1EE5AC07000536F7 /* SearchBarViewModel.swift */,
 			);
 			name = "View Models";
