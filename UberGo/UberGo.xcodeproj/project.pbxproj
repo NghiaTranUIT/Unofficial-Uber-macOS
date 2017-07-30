@@ -17,6 +17,7 @@
 		BA1C3FB51EFA6852001FD50F /* PaymentMethodsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA1C3FB31EFA6852001FD50F /* PaymentMethodsController.xib */; };
 		BA1C3FBB1EFAB1D6001FD50F /* PaymentAccountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1C3FB91EFAB1D6001FD50F /* PaymentAccountCell.swift */; };
 		BA1C3FBC1EFAB1D6001FD50F /* PaymentAccountCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA1C3FBA1EFAB1D6001FD50F /* PaymentAccountCell.xib */; };
+		BA2900FA1F2E324900797AFE /* PickupDashedLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2900F91F2E324900797AFE /* PickupDashedLine.swift */; };
 		BA2A3A751EECFF6E002A0343 /* SearchPlaceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2A3A731EECFF6E002A0343 /* SearchPlaceCell.swift */; };
 		BA2A3A761EECFF6E002A0343 /* SearchPlaceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA2A3A741EECFF6E002A0343 /* SearchPlaceCell.xib */; };
 		BA2A3A831EED4298002A0343 /* SearchCollectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA2A3A821EED4298002A0343 /* SearchCollectionView.xib */; };
@@ -121,6 +122,7 @@
 		BA1C3FB31EFA6852001FD50F /* PaymentMethodsController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PaymentMethodsController.xib; sourceTree = "<group>"; };
 		BA1C3FB91EFAB1D6001FD50F /* PaymentAccountCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentAccountCell.swift; sourceTree = "<group>"; };
 		BA1C3FBA1EFAB1D6001FD50F /* PaymentAccountCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PaymentAccountCell.xib; sourceTree = "<group>"; };
+		BA2900F91F2E324900797AFE /* PickupDashedLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickupDashedLine.swift; sourceTree = "<group>"; };
 		BA2A3A731EECFF6E002A0343 /* SearchPlaceCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchPlaceCell.swift; sourceTree = "<group>"; };
 		BA2A3A741EECFF6E002A0343 /* SearchPlaceCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchPlaceCell.xib; sourceTree = "<group>"; };
 		BA2A3A821EED4298002A0343 /* SearchCollectionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchCollectionView.xib; sourceTree = "<group>"; };
@@ -284,6 +286,14 @@
 			name = UberGroupButton;
 			sourceTree = "<group>";
 		};
+		BA2900F81F2E320700797AFE /* PickupDashedLine */ = {
+			isa = PBXGroup;
+			children = (
+				BA2900F91F2E324900797AFE /* PickupDashedLine.swift */,
+			);
+			name = PickupDashedLine;
+			sourceTree = "<group>";
+		};
 		BA2A3A841EED42F2002A0343 /* Flow */ = {
 			isa = PBXGroup;
 			children = (
@@ -343,6 +353,7 @@
 		BAAC44191EF3A4AB00A9F949 /* Uber Map View */ = {
 			isa = PBXGroup;
 			children = (
+				BA2900F81F2E320700797AFE /* PickupDashedLine */,
 				BAB0821E1F05596C00A74665 /* Callout Annotations */,
 				BAB082181F04C1A200A74665 /* Markers */,
 				BAAC441A1EF3A4BE00A9F949 /* UberMapView.swift */,
@@ -849,6 +860,7 @@
 				BA67673D1EFA295D00805AC1 /* WebViewController.swift in Sources */,
 				BADB78591EE5B92B000536F7 /* NSView+BackgroundColor.swift in Sources */,
 				BAF57FBF1EE117300013090E /* MapViewController.swift in Sources */,
+				BA2900FA1F2E324900797AFE /* PickupDashedLine.swift in Sources */,
 				BAED39DD1EE9ADB7003D9BC3 /* SearchCollectionViewFlowLayout.swift in Sources */,
 				BAB7B8E01EFF67D600B508A1 /* TripActivityView.swift in Sources */,
 				BACC07981F021F1F0092F2F4 /* UberAlertView+Extension.swift in Sources */,

@@ -30,6 +30,8 @@ class UberMapView: MGLMapView {
 
     // Pickup place
     fileprivate var pickupPoint: PickupAnnotation?
+    fileprivate var pickupPointSource: MGLShapeSource?
+    fileprivate var pickupPointLine: PickupDashedLine?
 
     // Driver Place
     fileprivate var driverPoint: MGLPointAnnotation?
@@ -77,14 +79,14 @@ class UberMapView: MGLMapView {
         viewModel.output.selectedDirectionRouteObserver
             .subscribe(onNext: {[weak self] (route) in
                 guard let `self` = self else { return }
-                self.drawVisbileRoute(route)
+                self.drawTripRoute(route)
             })
             .addDisposableTo(disposeBag)
 
         viewModel.output.routeCurrentTrip
             .drive(onNext: {[weak self] (route) in
                 guard let `self` = self else { return }
-                self.drawVisbileRoute(route)
+                self.drawTripRoute(route)
             })
             .addDisposableTo(disposeBag)
     }
@@ -151,6 +153,7 @@ class UberMapView: MGLMapView {
 
         // Pickup
         addPickupPoint(tripObj.pickup)
+        drawPickupRoute(tripObj.pickup)
 
         // Driver
         addDriverPoint(tripObj.driver, location: tripObj.location)
@@ -194,28 +197,53 @@ class UberMapView: MGLMapView {
 // MARK: - Route
 extension UberMapView {
 
-    func drawVisbileRoute(_ route: Route?) {
+    fileprivate func drawTripRoute(_ route: Route?) {
 
         // Reset all Draw
         resetCurrentRoute()
 
         guard let route = route else { return }
+        guard route.coordinateCount > 0 else { return }
+        guard var routeCoordinates = route.coordinates else { return }
 
-        if route.coordinateCount > 0 {
+        // Convert the route’s coordinates into a polyline.
+        let routeLine = MGLPolyline(coordinates: &routeCoordinates, count: route.coordinateCount)
 
-            // Convert the route’s coordinates into a polyline.
-            var routeCoordinates = route.coordinates!
-            let routeLine = MGLPolyline(coordinates: &routeCoordinates, count: route.coordinateCount)
+        // Add the polyline to the map and fit the viewport to the polyline.
+        addAnnotation(routeLine)
+        visibleRoute = routeLine
 
-            // Add the polyline to the map and fit the viewport to the polyline.
-            addAnnotation(routeLine)
-            visibleRoute = routeLine
+        // Centerizal
+        centralizeMap()
+    }
 
-            // Centerizal
-            centralizeMap()
-        } else {
-            assert(false, "route.coordinateCount == 0")
+    fileprivate func drawPickupRoute(_ pickup: UberCoordinateObj?) {
+        guard let pickup = pickup else { return }
+        guard let originPoint = self.originPoint else { return }
+        guard let style = self.style else { return }
+
+        // Remove if need
+        if let pickupPointSource = pickupPointSource {
+            style.removeSource(pickupPointSource)
+            style.removeLayer(pickupPointLine!)
+            self.pickupPointSource = nil
+            self.pickupPointLine = nil
         }
+
+        var coordinates = [originPoint.coordinate,
+                          pickup.coordinate]
+
+        // Source
+        let polyline = MGLPolylineFeature(coordinates: &coordinates, count: UInt(coordinates.count))
+        let source = MGLShapeSource(identifier: "pickup-dash-line", features: [polyline], options: nil)
+        style.addSource(source)
+
+        // Dashed line
+        let dashedLine = PickupDashedLine.defaultDashedLine(with: source)
+        style.addLayer(dashedLine)
+
+        pickupPointLine = dashedLine
+        pickupPointSource = source
     }
 }
 
