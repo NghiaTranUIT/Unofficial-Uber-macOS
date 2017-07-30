@@ -227,11 +227,9 @@ extension UberMapView {
         // Reset Route
         resetCurrentRoute()
 
-        // Remove point
-        if let anno = annotations {
-            removeAnnotations(anno)
-        }
-        originPoint = nil
+        // Remove Annotation
+        // Except Origin
+        removeAnnotations(annotationExclusiveOriginPoint())
         destinationPoint = nil
         pickupPoint = nil
         driverPoint = nil
@@ -242,6 +240,11 @@ extension UberMapView {
             removeAnnotation(visibleRoute)
             self.visibleRoute = nil
         }
+    }
+
+    fileprivate func annotationExclusiveOriginPoint() -> [MGLAnnotation] {
+        guard let anno = annotations else { return [] }
+        return anno.filter { ($0 as? OriginAnnotation) == nil }
     }
 }
 

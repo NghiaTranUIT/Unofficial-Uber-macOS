@@ -231,6 +231,10 @@ class MapViewController: BaseViewController {
 
                 self.layoutState = .minimal
 
+                // Reset
+                self.mapViewModel.input.didSelectPlaceObjPublisher.onNext(nil)
+                self.uberViewModel.input.selectedPlacePublisher.onNext(nil)
+
                 // Reset data
                 self.mapView.resetAllData()
 

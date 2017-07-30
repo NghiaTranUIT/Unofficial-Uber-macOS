@@ -261,10 +261,13 @@ open class UberServiceViewModel: UberServiceViewModelProtocol,
             .asDriver { Driver.just(APIResult<TripObj>(errorValue: $0)) }
 
         // cancel
-        resetMapDriver = cancelCurrentTripPublisher.asObserver()
+        let cancelTripObser = cancelCurrentTripPublisher
+            .asObserver()
             .flatMapLatest { _ -> Observable<Void> in
                 uberService.cancelCurrentTrip()
-            }
+        }
+
+        resetMapDriver = cancelTripObser
             .asDriver(onErrorJustReturn: ())
 
         // Current Trip Status
