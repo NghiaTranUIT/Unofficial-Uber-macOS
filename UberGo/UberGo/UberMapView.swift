@@ -72,6 +72,10 @@ class UberMapView: MGLMapView {
                 guard let `self` = self else { return }
                 Logger.info("set current place \(placeObj)")
                 self.addOriginPoint(placeObj)
+
+                if let pickupPoint = self.pickupPoint {
+                    self.drawPickupRoute(pickupPoint.coordinate)
+                }
             })
             .addDisposableTo(disposeBag)
 
@@ -153,7 +157,7 @@ class UberMapView: MGLMapView {
 
         // Pickup
         addPickupPoint(tripObj.pickup)
-        drawPickupRoute(tripObj.pickup)
+        drawPickupRoute(tripObj.pickup?.coordinate)
 
         // Driver
         addDriverPoint(tripObj.driver, location: tripObj.location)
@@ -217,21 +221,16 @@ extension UberMapView {
         centralizeMap()
     }
 
-    fileprivate func drawPickupRoute(_ pickup: UberCoordinateObj?) {
+    fileprivate func drawPickupRoute(_ pickup: CLLocationCoordinate2D?) {
         guard let pickup = pickup else { return }
         guard let originPoint = self.originPoint else { return }
         guard let style = self.style else { return }
 
         // Remove if need
-        if let pickupPointSource = pickupPointSource {
-            style.removeSource(pickupPointSource)
-            style.removeLayer(pickupPointLine!)
-            self.pickupPointSource = nil
-            self.pickupPointLine = nil
-        }
+        resetPickupDashedLine()
 
         var coordinates = [originPoint.coordinate,
-                          pickup.coordinate]
+                          pickup]
 
         // Source
         let polyline = MGLPolylineFeature(coordinates: &coordinates, count: UInt(coordinates.count))
@@ -255,9 +254,13 @@ extension UberMapView {
         // Reset Route
         resetCurrentRoute()
 
-        // Remove Annotation
-        // Except Origin
+        // Remove Annotation, except Origin
         removeAnnotations(annotationExclusiveOriginPoint())
+
+        // Remove dash
+        self.resetPickupDashedLine()
+
+        // Reset
         destinationPoint = nil
         pickupPoint = nil
         driverPoint = nil
@@ -268,6 +271,17 @@ extension UberMapView {
             removeAnnotation(visibleRoute)
             self.visibleRoute = nil
         }
+    }
+
+    fileprivate func resetPickupDashedLine() {
+        guard let style = self.style else { return }
+        if let pickupPointSource = pickupPointSource {
+            style.removeSource(pickupPointSource)
+            style.removeLayer(pickupPointLine!)
+            self.pickupPointSource = nil
+            self.pickupPointLine = nil
+        }
+
     }
 
     fileprivate func annotationExclusiveOriginPoint() -> [MGLAnnotation] {
