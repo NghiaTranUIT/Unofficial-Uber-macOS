@@ -34,17 +34,13 @@ open class UberService {
     public func workPlaceObserver() -> Observable<UberPersonalPlaceObj> {
         let param = UberPersonalPlaceRequestParam(placeType: .work)
         return self.personalPlaceObserable(param)
-            .do(onNext: { (place) in
-                place.placeType = .work
-            })
+            .map { $0.placeType = .work; return $0 }
     }
 
     public func homePlaceObserver() -> Observable<UberPersonalPlaceObj> {
         let param = UberPersonalPlaceRequestParam(placeType: .home)
         return self.personalPlaceObserable(param)
-            .do(onNext: { (place) in
-                place.placeType = .home
-            })
+            .map { $0.placeType = .home; return $0 }
     }
 
     public func getCurrentTrip() -> Observable<TripObj> {
@@ -196,22 +192,5 @@ extension UberService {
         }
 
         return UberPersonalPlaceRequest(param).toObservable()
-            .map({ placeObj -> UberPersonalPlaceObj? in
-
-                //FIXME : // Smell code - Ref Requestable.swift
-                // For further information
-                if placeObj.invalid {
-                    return nil
-                }
-                return placeObj
-            })
-            .flatMapLatest({ placeObj -> Observable<UberPersonalPlaceObj> in
-
-                if let placeObj = placeObj {
-                    return Observable<UberPersonalPlaceObj>.just(placeObj)
-                }
-
-                return Observable<UberPersonalPlaceObj>.empty()
-            })
     }
 }
