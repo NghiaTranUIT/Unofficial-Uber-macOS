@@ -87,7 +87,8 @@ open class MapViewModel:
     // MARK: - Init
     public init(mapManager: MapService = MapService(),
                 uberService: UberService = UberService(),
-                directionService: DirectionService = DirectionService()) {
+                directionService: DirectionService = DirectionService(),
+                googleMapService: GoogleMapService = GoogleMapService()) {
 
         self.mapManager = mapManager
         self.uberService = uberService
@@ -144,15 +145,11 @@ open class MapViewModel:
             .debounce(0.3, scheduler: MainScheduler.instance)
             .filter { $0 != "" }
             .distinctUntilChanged()
-            .flatMapLatest {(text) -> Observable<[PlaceObj]> in
-                guard let currentCoordinate = mapManager.output.currentLocationVar.value?.coordinate else {
-                    return Observable.empty()
-                }
-
-                // Search
-                let param = PlaceSearchRequestParam(keyword: text, location: currentCoordinate)
-                return PlaceSearchRequest(param).toObservable()
-            }
+            .withLatestFrom(mapManager.output.currentLocationVar.asObservable().filterNil(),
+                            resultSelector: { (namePlace, location) -> (String, CLLocationCoordinate2D) in
+                                return (namePlace, location.coordinate)
+            })
+            .flatMapLatest { return googleMapService.searchPlaces(with: $0.0, currentLocation: $0.1) }
             .share()
 
         let personalOrHistoryOb = shared

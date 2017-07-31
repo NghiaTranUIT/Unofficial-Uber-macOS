@@ -192,5 +192,6 @@ extension UberService {
         }
 
         return UberPersonalPlaceRequest(param).toObservable()
+            .catchErrorJustReturn(UberPersonalPlaceObj.invalidPlace)
     }
 }

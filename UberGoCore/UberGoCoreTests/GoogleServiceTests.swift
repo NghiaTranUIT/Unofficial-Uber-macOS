@@ -32,12 +32,10 @@ class GoogleServiceTests: XCTestCase {
 
         // When
         let location = CLLocationCoordinate2D(latitude: 10.79901740, longitude: 106.75191281)
-        let param = PlaceSearchRequestParam(keyword: "rmit", location: location)
         let promise = expectation(description: "Place Search API has results")
 
         // Then
-        PlaceSearchRequest(param)
-        .toObservable()
+        GoogleMapService().searchPlaces(with: "rmit", currentLocation: location)
         .subscribe(onNext: { placeObjs in
             print(placeObjs)
             promise.fulfill()
