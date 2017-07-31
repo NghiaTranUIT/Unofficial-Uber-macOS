@@ -12,7 +12,7 @@ import CoreLocation
 struct UpdateCurrentTripRequestParam: Parameter {
 
     let destinationLocation: CLLocationCoordinate2D?
-    let placeType: PersonalPlaceType?
+    let placeType: UberPersonalPlaceType?
 
     func toDictionary() -> [String : Any] {
 

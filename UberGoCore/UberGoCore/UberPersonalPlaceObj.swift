@@ -35,6 +35,6 @@ open class UberPersonalPlaceObj: Unboxable {
 extension UberPersonalPlaceObj {
 
     public static var invalidPlace: UberPersonalPlaceObj {
-        return UberPersonalPlaceObj(address: "Invalid", invalid: true)
+        return UberPersonalPlaceObj(address: "Add place", invalid: true)
     }
 }
