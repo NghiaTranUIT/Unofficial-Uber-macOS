@@ -14,6 +14,7 @@ open class UberAuth {
 
     // MARK: - Variable
     public var callbackObserverPublish = PublishSubject<NSAppleEventDescriptor>()
+    public var loginPublisher = PublishSubject<Void>()
     fileprivate lazy var _oauthUber: OAuth2Swift = self.lazyOauthUber()
     fileprivate let disposeBag = DisposeBag()
 
@@ -46,8 +47,16 @@ open class UberAuth {
             })
             .addDisposableTo(disposeBag)
 
-        // Load disk
-        loadPersistantUser()
+        loginPublisher.asObservable()
+            .flatMapLatest { _ -> Observable<OAuthSwiftCredential?> in
+                return self.requestOauthWithUber()
+            }
+            .subscribe(onNext: {[unowned self] credential in
+                guard let credential = credential else { return }
+                self.convertToCurrentUser(credential)
+            })
+            .addDisposableTo(disposeBag)
+
         callbackObserverPublish
             .subscribe(onNext: { (event) in
                 if let urlString = event.paramDescriptor(forKeyword: AEKeyword(keyDirectObject))?.stringValue,
@@ -55,22 +64,13 @@ open class UberAuth {
                     UberAuth.applicationHandle(url: url)
                 }
             })
-            .addDisposableTo(self.disposeBag)
+            .addDisposableTo(disposeBag)
+
+        // Load disk
+        loadPersistantUser()
     }
 
     // MARK: - Public
-    public func authWithUberServiceObserable() -> Observable<AuthenticationState> {
-        return self.requestOauthWithUber()
-            .do(onNext: {[unowned self] (credential) in
-                guard let credential = credential else { return }
-
-                // Convert to user
-                self.convertToCurrentUser(credential)
-            })
-            .map({ $0 != nil ? AuthenticationState.authenticated :
-                AuthenticationState.unAuthenticated })
-    }
-
     public func logout() {
 
         // Lock
@@ -83,9 +83,6 @@ open class UberAuth {
     }
 
     fileprivate class func applicationHandle(url: URL) {
-        if url.host == "oauth-callback" {
-            OAuthSwift.handle(url: url)
-        }
         OAuthSwift.handle(url: url)
     }
 }

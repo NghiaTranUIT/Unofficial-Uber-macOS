@@ -41,7 +41,7 @@ open class AuthenticationViewModel: AuthenticationViewModelProtocol,
     fileprivate let uberOauth = UberAuth.share
 
     // MARK: - Input
-    public var loginBtnOnTabPublish = PublishSubject<Void>()
+    public var loginBtnOnTabPublish: PublishSubject<Void> { return UberAuth.share.loginPublisher }
 
     // MARK: - Output
     public var authenticateStateDriver: Driver<AuthenticationState>
@@ -52,18 +52,8 @@ open class AuthenticationViewModel: AuthenticationViewModelProtocol,
         // Check authentication
         let authenticationChanged = UberAuth.share.authenStateObj
 
-        // Login
-        let loginSuccess = loginBtnOnTabPublish
-            .asObserver()
-            .flatMapLatest { _ -> Observable<AuthenticationState> in
-                return UberAuth.share.authWithUberServiceObserable()
-            }
-
         // Merge
-        authenticateStateDriver = Observable.merge([authenticationChanged, loginSuccess])
-            .do(onNext: { (state) in
-                Logger.info(state)
-            })
+        authenticateStateDriver = authenticationChanged
             .asDriver(onErrorJustReturn: AuthenticationState.unAuthenticated)
     }
 }

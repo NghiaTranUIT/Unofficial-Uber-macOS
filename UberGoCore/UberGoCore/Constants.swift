@@ -14,11 +14,11 @@ struct Constants {
     struct UberApp {
 
         static let ClientID = "fwjlEcQ945pan5s4rYLPzaVhcrbuFPHB"
-        static let SecretID = "nyViKGlehMn89Wdu0UFJN_flPKi601T4_CHnude8"
+        static let SecretID = "wf8GyZoiHgcXq2T7Z3Kp9cui3n9HNq41nKYH__qU"
         static let AuthorizeUrl = "https://login.uber.com/oauth/v2/authorize"
         static let AccessTokenUrl = "https://login.uber.com/oauth/v2/token"
         static let ResponseType = "code"
-        static let CallBackUrl = "oauth-swift://oauth-callback/uber"
+        static let CallBackUrl = "oauth-uber://oauth-callback/uber"
     }
 
     // MARK: - Uber
