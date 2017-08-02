@@ -52,7 +52,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
 
         // Uber Authentication
-        popover.authenViewModel.input.uberCallbackPublish.onNext(event)
+        UberAuth.share.callbackObserverPublish.onNext(event)
     }
 
     // MARK: - Debug
@@ -70,16 +70,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     @IBAction func logoutUberOnTap(_ sender: NSMenuItem) {
-
-        // Logout
         UberAuth.share.logout()
-
-        // Layout
-        popover.setupContentController(with: .unAuthenticated)
     }
 
-}
-
-// MARK: - Private
-extension AppDelegate {
 }

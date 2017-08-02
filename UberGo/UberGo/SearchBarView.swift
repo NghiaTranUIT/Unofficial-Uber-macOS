@@ -103,9 +103,10 @@ class SearchBarView: NSView {
 
     func resetTextSearch() {
         destinationTxt.stringValue = ""
+        loaderIndicatorView(false)
     }
 
- func loaderIndicatorView(_ isLoading: Bool) {
+    func loaderIndicatorView(_ isLoading: Bool) {
         if isLoading {
             loaderView.isHidden = false
             loaderView.startAnimation(nil)

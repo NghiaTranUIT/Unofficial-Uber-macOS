@@ -28,23 +28,15 @@ open class UberService {
 
     // MARK: - Public
     public func personalPlaceObserver() -> Observable<[UberPersonalPlaceObj]> {
-        return Observable.zip([self.workPlaceObserver(), self.homePlaceObserver()])
+        return Observable.zip([workPlaceObserver(), homePlaceObserver()])
     }
 
     public func workPlaceObserver() -> Observable<UberPersonalPlaceObj> {
-        let param = UberPersonalPlaceRequestParam(placeType: .work)
-        return self.personalPlaceObserable(param)
-            .do(onNext: { (place) in
-                place.placeType = .work
-            })
+        return fetchPersonalPlaceObservable(type: .work)
     }
 
     public func homePlaceObserver() -> Observable<UberPersonalPlaceObj> {
-        let param = UberPersonalPlaceRequestParam(placeType: .home)
-        return self.personalPlaceObserable(param)
-            .do(onNext: { (place) in
-                place.placeType = .home
-            })
+        return fetchPersonalPlaceObservable(type: .home)
     }
 
     public func getCurrentTrip() -> Observable<TripObj> {
@@ -188,30 +180,16 @@ open class UberService {
 // MARK: - Private
 extension UberService {
 
-    fileprivate func personalPlaceObserable(_ param: UberPersonalPlaceRequestParam)
+    fileprivate func fetchPersonalPlaceObservable(type: UberPersonalPlaceType)
         -> Observable<UberPersonalPlaceObj> {
 
         guard UberAuth.share.currentUser != nil else {
             return Observable<UberPersonalPlaceObj>.empty()
         }
 
+        let param = UberPersonalPlaceRequestParam(placeType: type)
         return UberPersonalPlaceRequest(param).toObservable()
-            .map({ placeObj -> UberPersonalPlaceObj? in
-
-                //FIXME : // Smell code - Ref Requestable.swift
-                // For further information
-                if placeObj.invalid {
-                    return nil
-                }
-                return placeObj
-            })
-            .flatMapLatest({ placeObj -> Observable<UberPersonalPlaceObj> in
-
-                if let placeObj = placeObj {
-                    return Observable<UberPersonalPlaceObj>.just(placeObj)
-                }
-
-                return Observable<UberPersonalPlaceObj>.empty()
-            })
+            .catchErrorJustReturn(UberPersonalPlaceObj.invalidPlace)
+            .map { $0.placeType = type; return $0 }
     }
 }

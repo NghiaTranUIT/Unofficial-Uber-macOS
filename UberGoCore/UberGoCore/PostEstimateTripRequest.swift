@@ -16,8 +16,8 @@ struct PostEstimateTripRequestParamter: Parameter {
 
     let startLocation: CLLocationCoordinate2D?
     let endLocation: CLLocationCoordinate2D?
-    let startPlaceType: PersonalPlaceType?
-    let endPlaceType: PersonalPlaceType?
+    let startPlaceType: UberPersonalPlaceType?
+    let endPlaceType: UberPersonalPlaceType?
 
     func toDictionary() -> [String : Any] {
 

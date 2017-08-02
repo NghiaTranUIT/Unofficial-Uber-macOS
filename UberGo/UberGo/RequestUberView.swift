@@ -63,21 +63,6 @@ class RequestUberView: NSView {
         // Payment
         updatePaymentMethod()
 
-        // Request Uber service
-        viewModel.output.availableGroupProductsDriver
-            .drive(onNext: {[weak self] (result) in
-                guard let `self` = self else { return }
-
-                switch result {
-                case .success(let groups):
-                    self.updateAvailableGroupProducts(groups)
-                case .error(let error):
-                    Logger.error("ERROR = \(error)")
-                    NotificationService.postNotificationOnMainThreadType(.showFriendlyErrorAlert, object: error, userInfo: nil)
-                }
-            })
-            .addDisposableTo(disposeBag)
-
         // Select Group
         viewModel.output.selectedGroupProduct
             .asObservable()
@@ -113,14 +98,14 @@ class RequestUberView: NSView {
     }
 
     // MARK: - Public
-    func configureLayout(_ parentView: NSView) {
+    public func configureLayout(_ parentView: NSView) {
         translatesAutoresizingMaskIntoConstraints = false
         parentView.addSubview(self)
 
         edges(to: parentView)
     }
 
-    fileprivate func updateAvailableGroupProducts(_ groupProductObjs: [GroupProductObj]) {
+    public func updateAvailableGroupProducts(_ groupProductObjs: [GroupProductObj]) {
 
         // Update Stack
         updateStackView(groupProductObjs)

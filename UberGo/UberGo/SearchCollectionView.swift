@@ -164,10 +164,14 @@ extension SearchCollectionView: NSCollectionViewDelegate, NSCollectionViewDelega
 
     func collectionView(_ collectionView: NSCollectionView, didSelectItemsAt indexPaths: Set<IndexPath>) {
         let selection = indexPaths as NSSet
+
         guard let selectedIndexPath = selection.allObjects.last as? IndexPath else { return }
 
-        // Select
+        // Data
         let placeObj = viewModel.output.searchPlaceObjsVariable.value[selectedIndexPath.item]
+        guard !placeObj.invalid else { return }
+
+        // Select
         viewModel.input.didSelectPlaceObjPublisher.onNext(placeObj)
 
         // De-select

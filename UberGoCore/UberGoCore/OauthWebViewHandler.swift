@@ -27,9 +27,7 @@ open class OauthWebViewHandler: OAuthSwiftURLHandlerType {
     open var presentCompletion: (() -> Void)?
     open var dismissCompletion: (() -> Void)?
 
-    public init() {
-
-    }
+    public init() { }
 
     @objc open func handle(_ url: URL) {
 

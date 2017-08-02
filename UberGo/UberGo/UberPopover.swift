@@ -14,7 +14,7 @@ class UberPopover: NSPopover {
 
     // MARK: - Variable
     fileprivate let statusItem = NSStatusBar.system().statusItem(withLength: NSVariableStatusItemLength)
-    public let authenViewModel: AuthenticationViewModel
+    fileprivate let authenViewModel: AuthenticationViewModel
     fileprivate let viewModel: AppViewModel
     fileprivate let disposeBag = DisposeBag()
 
@@ -26,8 +26,6 @@ class UberPopover: NSPopover {
     // MARK: - Init
     init(appViewModel: AppViewModel) {
         viewModel = appViewModel
-
-        // Web Handler - Incase need re-fresh or re-login
         authenViewModel = AuthenticationViewModel()
 
         super.init()
@@ -65,7 +63,7 @@ class UberPopover: NSPopover {
             }).addDisposableTo(disposeBag)
     }
 
-    public func setupContentController(with state: AuthenticationState) {
+    fileprivate func setupContentController(with state: AuthenticationState) {
 
         switch state {
         case .authenticated:

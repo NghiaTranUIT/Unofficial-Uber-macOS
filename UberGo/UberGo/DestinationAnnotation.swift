@@ -26,7 +26,7 @@ class DestinationAnnotation: MGLPointAnnotation {
         controller.setupCallout(mode: .noTimeEstimation, timeObj: nil, placeObj: self.placeObj)
         return controller
     }()
-    
+
     // MARK: - Init
     public init(placeObj: PlaceObj) {
         self.placeObj = placeObj

@@ -25,7 +25,7 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>oauth-swift</string>
+				<string>oauth-uber</string>
 			</array>
 		</dict>
 	</array>

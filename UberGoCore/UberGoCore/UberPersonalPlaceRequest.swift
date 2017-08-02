@@ -11,14 +11,9 @@ import CoreLocation
 import Foundation
 import Unbox
 
-enum PersonalPlaceType: String {
-    case work
-    case home
-}
-
 public struct UberPersonalPlaceRequestParam: Parameter {
 
-    let placeType: PersonalPlaceType
+    let placeType: UberPersonalPlaceType
 
     func toDictionary() -> [String : Any] {
         return [:]

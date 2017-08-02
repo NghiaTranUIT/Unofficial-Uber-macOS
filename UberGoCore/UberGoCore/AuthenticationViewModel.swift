@@ -21,19 +21,17 @@ public protocol AuthenticationViewModelProtocol {
 public protocol AuthenticationViewModelInput {
 
     var loginBtnOnTabPublish: PublishSubject<Void> { get }
-    var uberCallbackPublish: PublishSubject<NSAppleEventDescriptor> { get }
 }
 
 public protocol AuthenticationViewModelOutput {
 
-    var authenticateStateDriver: Driver<AuthenticationState>! { get }
+    var authenticateStateDriver: Driver<AuthenticationState> { get }
 }
 
 // MARK: - View Model
-open class AuthenticationViewModel: BaseViewModel,
-    AuthenticationViewModelProtocol,
-    AuthenticationViewModelInput,
-AuthenticationViewModelOutput {
+open class AuthenticationViewModel: AuthenticationViewModelProtocol,
+                                    AuthenticationViewModelInput,
+                                    AuthenticationViewModelOutput {
 
     // MARK: - Protocol
     public var input: AuthenticationViewModelInput { return self }
@@ -43,41 +41,19 @@ AuthenticationViewModelOutput {
     fileprivate let uberOauth = UberAuth.share
 
     // MARK: - Input
-    public var loginBtnOnTabPublish = PublishSubject<Void>()
-    public var uberCallbackPublish = PublishSubject<NSAppleEventDescriptor>()
+    public var loginBtnOnTabPublish: PublishSubject<Void> { return UberAuth.share.loginPublisher }
 
     // MARK: - Output
-    public var authenticateStateDriver: Driver<AuthenticationState>!
+    public var authenticateStateDriver: Driver<AuthenticationState>
 
     // MARK: - Init
-    public override init() {
-        super.init()
+    public init() {
 
         // Check authentication
-        let authenticationChanged = Observable<AuthenticationState>
-            .create({ (observer) -> Disposable in
-                guard UberAuth.share.currentUser != nil else {
-                    observer.onNext(.unAuthenticated)
-                    return Disposables.create()
-                }
-
-                observer.onNext(.authenticated)
-                return Disposables.create()
-            })
-
-        // Login
-        let loginSuccess = loginBtnOnTabPublish
-            .asObserver()
-            .flatMapLatest {[unowned self] _ -> Observable<AuthenticationState> in
-                return self.uberOauth.authWithUberServiceObserable()
-            }
+        let authenticationChanged = UberAuth.share.authenStateObj
 
         // Merge
-        authenticateStateDriver = Observable.merge([authenticationChanged, loginSuccess])
+        authenticateStateDriver = authenticationChanged
             .asDriver(onErrorJustReturn: AuthenticationState.unAuthenticated)
-
-        // Oauth Callback
-        uberCallbackPublish.bind(to: uberOauth.callbackObserverPublish)
-            .addDisposableTo(disposeBag)
     }
 }

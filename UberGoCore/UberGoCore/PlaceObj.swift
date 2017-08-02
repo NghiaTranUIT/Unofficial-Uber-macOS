@@ -35,6 +35,7 @@ open class PlaceObj: NSObject, Unboxable, NSCoding {
     public var placeID: String
     public var location: [String: Float]
     public var isHistory = false
+    public fileprivate(set) var invalid = false
 
     public lazy var coordinate2D: CLLocationCoordinate2D = {
         let lat = self.location["lat"]!.toDouble
@@ -71,6 +72,7 @@ open class PlaceObj: NSObject, Unboxable, NSCoding {
         let placeType = PlaceType.fromUberPersonalPlaceType(personalPlaceObj.placeType)
         let placeID = placeType.rawValue
         self.init(placeType: placeType, name: name, address: address, placeID: placeID, location: [:])
+        invalid = personalPlaceObj.invalid
     }
 
     public func encode(with aCoder: NSCoder) {
@@ -86,6 +88,7 @@ open class PlaceObj: NSObject, Unboxable, NSCoding {
         address = aDecoder.decodeObject(forKey: "vicinity") as! String
         location = aDecoder.decodeObject(forKey: "geometry.location") as! [String: Float]
         isHistory = true
+        invalid = false
         placeType = PlaceType(rawValue: aDecoder.decodeObject(forKey: "placeType") as! String)!
         placeID = aDecoder.decodeObject(forKey: "placeID") as! String
     }
@@ -96,6 +99,7 @@ open class PlaceObj: NSObject, Unboxable, NSCoding {
         address = try unboxer.unbox(key: "vicinity")
         location = try unboxer.unbox(keyPath: "geometry.location")
         placeID = try unboxer.unbox(key: "place_id")
+        invalid = false
     }
 
     // MARK: - Public
