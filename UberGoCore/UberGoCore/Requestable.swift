@@ -90,6 +90,11 @@ extension Requestable {
 
                     // Validate
                     if let error = self.handleValidation(response) {
+
+                        if error.code == 401 {
+                            UberAuth.share.logout()
+                        }
+
                         Logger.error("[ERROR API] = \(self.endpoint) = \(error)")
                         observer.onError(error)
                         return

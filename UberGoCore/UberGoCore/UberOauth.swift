@@ -25,49 +25,30 @@ open class UberAuth {
     fileprivate static let PersistantStoreKey = "Uber.CurrentUser"
 
     // MARK: - Current User
-    public fileprivate(set) var currentUser: UserObj? {
-        didSet {
-            if let currentUser = currentUser {
+    public fileprivate(set) var currentUserVariable = Variable<UserObj?>(nil)
+    public var currentUser: UserObj? { return currentUserVariable.value }
+    public var authenStateObj: Observable<AuthenticationState>
 
-                // Lock
-                storeLock.lock()
-                defer {
-                    self.storeLock.unlock()
-                }
-
-                let data = NSKeyedArchiver.archivedData(withRootObject: currentUser)
-                persistantStore.set(data, forKey: UberAuth.PersistantStoreKey)
-                persistantStore.synchronize()
-            } else {
-
-                // Lock
-                storeLock.lock()
-                defer {
-                    self.storeLock.unlock()
-                }
-
-                // Remove
-                persistantStore.removeObject(forKey: UberAuth.PersistantStoreKey)
-                persistantStore.synchronize()
-            }
-        }
-    }
-    public var authenState: AuthenticationState {
-        if currentUser == nil {
-            return .unAuthenticated
-        }
-        return .authenticated
-    }
+    // Lock
     fileprivate let lock = NSLock()
     fileprivate let storeLock = NSLock()
 
     // MARK: - Init
     public init() {
 
-        // Load disk
-        self.loadPersistantUser()
+        authenStateObj = currentUserVariable.asObservable()
+            .map { $0 == nil ? .unAuthenticated : .authenticated }
+            .distinctUntilChanged()
 
-        self.callbackObserverPublish
+        currentUserVariable.asObservable()
+            .subscribe(onNext: {[unowned self] (userObj) in
+                self.savePersistantUser(userObj)
+            })
+            .addDisposableTo(disposeBag)
+
+        // Load disk
+        loadPersistantUser()
+        callbackObserverPublish
             .subscribe(onNext: { (event) in
                 if let urlString = event.paramDescriptor(forKeyword: AEKeyword(keyDirectObject))?.stringValue,
                     let url = URL(string: urlString) {
@@ -98,7 +79,7 @@ open class UberAuth {
             self.lock.unlock()
         }
 
-        self.currentUser = nil
+        currentUserVariable.value = nil
     }
 
     fileprivate class func applicationHandle(url: URL) {
@@ -157,7 +138,33 @@ extension UberAuth {
 
         guard let data = UserDefaults.standard.data(forKey: UberAuth.PersistantStoreKey) else { return }
         guard let userObj = NSKeyedUnarchiver.unarchiveObject(with: data) as? UserObj else { return }
-        self.currentUser = userObj
+        currentUserVariable.value = userObj
+    }
+
+    fileprivate func savePersistantUser(_ userObj: UserObj?) {
+        if let userObj = userObj {
+
+            // Lock
+            storeLock.lock()
+            defer {
+                self.storeLock.unlock()
+            }
+
+            let data = NSKeyedArchiver.archivedData(withRootObject: userObj)
+            persistantStore.set(data, forKey: UberAuth.PersistantStoreKey)
+            persistantStore.synchronize()
+        } else {
+
+            // Lock
+            storeLock.lock()
+            defer {
+                self.storeLock.unlock()
+            }
+
+            // Remove
+            persistantStore.removeObject(forKey: UberAuth.PersistantStoreKey)
+            persistantStore.synchronize()
+        }
     }
 
     public func convertToCurrentUser(_ credential: OAuthSwiftCredential) {
@@ -170,6 +177,6 @@ extension UberAuth {
 
         let token = AuthToken(credential: credential)
         let user = UserObj(authToken: token)
-        self.currentUser = user
+        currentUserVariable.value = user
     }
 }
