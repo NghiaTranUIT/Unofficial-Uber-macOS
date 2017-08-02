@@ -10,8 +10,8 @@ import Foundation
 import Unbox
 
 public enum UberPersonalPlaceType: String {
-    case work = "Work"
-    case home = "Home"
+    case work
+    case home
 }
 
 open class UberPersonalPlaceObj: Unboxable {
