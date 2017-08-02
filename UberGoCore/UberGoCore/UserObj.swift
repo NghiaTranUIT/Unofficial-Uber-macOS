@@ -60,6 +60,9 @@ open class UserObj: NSObject, NSCoding {
             .flatMapLatest { _ -> Observable<PaymentObj> in
                 return UberService().paymentMethodObserver()
             }
+            .catchError({ _ -> Observable<PaymentObj> in
+                return Observable.empty()
+            })
             .do(onNext: { (paymentObj) in
                 Logger.info("Curent PaymentMethods count = \(paymentObj.paymentAccountObjs.count)")
             })
