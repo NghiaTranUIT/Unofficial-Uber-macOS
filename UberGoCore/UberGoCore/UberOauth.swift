@@ -41,6 +41,9 @@ open class UberAuth {
             .map { $0 == nil ? .unAuthenticated : .authenticated }
             .distinctUntilChanged()
 
+        // Load disk
+        loadPersistantUser()
+
         currentUserVariable.asObservable()
             .subscribe(onNext: {[unowned self] (userObj) in
                 self.savePersistantUser(userObj)
@@ -48,7 +51,7 @@ open class UberAuth {
             .addDisposableTo(disposeBag)
 
         loginPublisher.asObservable()
-            .flatMapLatest { _ -> Observable<OAuthSwiftCredential?> in
+            .flatMapLatest { [unowned self] _ -> Observable<OAuthSwiftCredential?> in
                 return self.requestOauthWithUber()
             }
             .subscribe(onNext: {[unowned self] credential in
@@ -65,9 +68,6 @@ open class UberAuth {
                 }
             })
             .addDisposableTo(disposeBag)
-
-        // Load disk
-        loadPersistantUser()
     }
 
     // MARK: - Public
