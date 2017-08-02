@@ -7,10 +7,13 @@
 //
 
 import XCTest
+import RxSwift
 import OAuthSwift
 @testable import UberGoCore
 
 class UserObjTests: XCTestCase {
+
+    fileprivate let disposeBag = DisposeBag()
 
     override func setUp() {
         super.setUp()
@@ -45,7 +48,7 @@ class UserObjTests: XCTestCase {
         UberAuth.share.convertToCurrentUser(uberCrendential)
 
         // Then
-        XCTAssertEqual(UberAuth.share.authenState, .authenticated, "Authentication State not work")
+        XCTAssertNotNil(UberAuth.share.currentUser, "Current User is nil")
     }
 
     func testLogOut() {
