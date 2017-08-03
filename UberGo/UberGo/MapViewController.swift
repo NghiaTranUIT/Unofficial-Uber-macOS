@@ -74,6 +74,7 @@ class MapViewController: BaseViewController {
 
         // View Model
         binding()
+        searchController.configureContainerController(self, containerView: mapContainerView)
         mapView.setupViewModel(mapViewModel)
         notificationBinding()
     }
@@ -324,9 +325,8 @@ extension MapViewController {
     }
 
     fileprivate func lazyInitSearchController() -> SearchController {
-        let controller = SearchController(viewModel: mapViewModel)
+        let controller = SearchController(viewModel: mapViewModel)!
         controller.delegate = self
-        controller.configureContainerController(self, containerView: mapContainerView)
         return controller
     }
 

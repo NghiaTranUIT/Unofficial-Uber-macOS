@@ -26,7 +26,7 @@ class SearchController: NSViewController {
     // MARK: - Init
     init?(viewModel: MapViewModel) {
         self.viewModel = viewModel
-        super.init(nibName: nil, bundle: nil)
+        super.init(nibName: "SearchController", bundle: nil)
     }
 
     required init?(coder: NSCoder) {
@@ -36,6 +36,8 @@ class SearchController: NSViewController {
     // MARK: - View Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        initCommon()
 
         // Setup
         searchBarView.setupViewModel(viewModel)
@@ -49,6 +51,11 @@ class SearchController: NSViewController {
 
 // MARK: - Private
 extension SearchController {
+
+    fileprivate func initCommon() {
+        view.backgroundColor = NSColor.clear
+        view.translatesAutoresizingMaskIntoConstraints = false
+    }
 
     fileprivate func lazyInitSearchBarView() -> SearchBarView {
         let searchView = SearchBarView.viewFromNib(with: BundleType.app)!
@@ -71,7 +78,9 @@ extension SearchController {
 extension SearchController {
 
     public func configureContainerController(_ controller: NSViewController, containerView: NSView) {
-        
+        controller.addChildViewController(self)
+        containerView.addSubview(view)
+        containerView.edges(to: view)
     }
 
     public func updateState(_ state: MapViewLayoutState) {

@@ -33,6 +33,7 @@
 		BA8E05F01F298D38008D9CB8 /* UberAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8E05EF1F298D38008D9CB8 /* UberAlertView.swift */; };
 		BA8E05F21F298D41008D9CB8 /* UberAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA8E05F11F298D41008D9CB8 /* UberAlertView.xib */; };
 		BAA157951F33446C0020D5A6 /* SearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA157941F33446C0020D5A6 /* SearchController.swift */; };
+		BAA157971F3374020020D5A6 /* SearchController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BAA157961F3374020020D5A6 /* SearchController.xib */; };
 		BAAC441B1EF3A4BE00A9F949 /* UberMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAC441A1EF3A4BE00A9F949 /* UberMapView.swift */; };
 		BAB082171F04B7A300A74665 /* OriginAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB082161F04B7A300A74665 /* OriginAnnotation.swift */; };
 		BAB0821A1F04C35900A74665 /* DestinationAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB082191F04C35900A74665 /* DestinationAnnotation.swift */; };
@@ -139,6 +140,7 @@
 		BA8E05EF1F298D38008D9CB8 /* UberAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UberAlertView.swift; sourceTree = "<group>"; };
 		BA8E05F11F298D41008D9CB8 /* UberAlertView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UberAlertView.xib; sourceTree = "<group>"; };
 		BAA157941F33446C0020D5A6 /* SearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchController.swift; sourceTree = "<group>"; };
+		BAA157961F3374020020D5A6 /* SearchController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchController.xib; sourceTree = "<group>"; };
 		BAAC441A1EF3A4BE00A9F949 /* UberMapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UberMapView.swift; sourceTree = "<group>"; };
 		BAB082161F04B7A300A74665 /* OriginAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OriginAnnotation.swift; sourceTree = "<group>"; };
 		BAB082191F04C35900A74665 /* DestinationAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DestinationAnnotation.swift; sourceTree = "<group>"; };
@@ -568,6 +570,7 @@
 				BAF57FBE1EE117300013090E /* MapViewController.xib */,
 				BAF57FB81EE116FB0013090E /* LoginViewController.xib */,
 				BA037F3C1EDD61F800945C1D /* Main.storyboard */,
+				BAA157961F3374020020D5A6 /* SearchController.xib */,
 			);
 			name = "Storyboards Xibs";
 			sourceTree = "<group>";
@@ -697,6 +700,7 @@
 				BADB784C1EE5ABDE000536F7 /* SearchBarView.xib in Resources */,
 				BADB78571EE5B7FB000536F7 /* ActionSearchBarView.xib in Resources */,
 				BA037F3E1EDD61F800945C1D /* Main.storyboard in Resources */,
+				BAA157971F3374020020D5A6 /* SearchController.xib in Resources */,
 				BA2A3A831EED4298002A0343 /* SearchCollectionView.xib in Resources */,
 				BAF57FBA1EE116FB0013090E /* LoginViewController.xib in Resources */,
 				BA1C3FB51EFA6852001FD50F /* PaymentMethodsController.xib in Resources */,
