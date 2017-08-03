@@ -47,7 +47,6 @@ class SearchController: NSViewController {
     public func resetTextSearch() {
         searchBarView.resetTextSearch()
     }
-    
 }
 
 // MARK: - Private
@@ -100,6 +99,10 @@ extension SearchController: SearchBarViewDelegate {
 
 // MARK: - SearchCollectionViewDelegate
 extension SearchController: SearchCollectionViewDelegate {
+
+    func searchCollectionViewSearchPersonalPlace(_ placeObj: PlaceObj) {
+        delegate?.shouldUpdateLayoutState(.searchFullScreen)
+    }
 
     func searchCollectionViewDidSelectItem() {
         delegate?.shouldUpdateLayoutState(.minimal)

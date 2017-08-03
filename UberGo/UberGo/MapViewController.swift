@@ -17,6 +17,7 @@ import UberGoCore
 enum MapViewLayoutState {
     case expand
     case minimal
+    case searchFullScreen
     case productSelection
     case tripFullActivity
     case tripMinimunActivity
@@ -373,6 +374,8 @@ extension MapViewController {
 
     fileprivate func preferredHeight(_ state: MapViewLayoutState) -> CGFloat {
         switch state {
+        case .searchFullScreen:
+            fallthrough
         case .expand:
             fallthrough
         case .minimal:

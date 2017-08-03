@@ -11,6 +11,7 @@ import RxSwift
 import UberGoCore
 
 protocol SearchCollectionViewDelegate: class {
+    func searchCollectionViewSearchPersonalPlace(_ placeObj: PlaceObj)
     func searchCollectionViewDidSelectItem()
 }
 
@@ -96,6 +97,8 @@ extension SearchCollectionView {
 
     public func layoutStateChanged(_ newState: MapViewLayoutState) {
         switch newState {
+        case .searchFullScreen:
+            fallthrough
         case .expand:
             isHidden = false
             alphaValue = 0
@@ -169,7 +172,13 @@ extension SearchCollectionView: NSCollectionViewDelegate, NSCollectionViewDelega
 
         // Data
         let placeObj = viewModel.output.searchPlaceObjsVariable.value[selectedIndexPath.item]
-        guard !placeObj.invalid else { return }
+
+        // If invalid personal place
+        // Add New place
+        if placeObj.invalid {
+            delegate?.searchCollectionViewSearchPersonalPlace(placeObj)
+            return
+        }
 
         // Select
         viewModel.input.didSelectPlaceObjPublisher.onNext(placeObj)
