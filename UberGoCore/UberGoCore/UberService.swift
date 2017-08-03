@@ -180,7 +180,7 @@ open class UberService {
 // MARK: - Private
 extension UberService {
 
-    fileprivate func fetchPersonalPlaceObservable(type: UberPersonalPlaceType)
+    fileprivate func fetchPersonalPlaceObservable(type: PlaceType)
         -> Observable<UberPersonalPlaceObj> {
 
         guard UberAuth.share.currentUser != nil else {
@@ -193,7 +193,7 @@ extension UberService {
             .map { $0.placeType = type; return $0 }
     }
 
-    fileprivate func placeFromPersonalPlaceObserve(type: UberPersonalPlaceType) -> Observable<PlaceObj> {
+    fileprivate func placeFromPersonalPlaceObserve(type: PlaceType) -> Observable<PlaceObj> {
         return fetchPersonalPlaceObservable(type: type)
             .flatMapLatest({ (personalObj) -> Observable<PlaceObj> in
                 guard personalObj.invalid == false else {

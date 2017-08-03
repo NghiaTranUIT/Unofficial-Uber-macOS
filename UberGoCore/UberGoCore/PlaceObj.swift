@@ -14,15 +14,6 @@ public enum PlaceType: String {
     case home
     case work
     case place
-
-    static func fromUberPersonalPlaceType(_ type: UberPersonalPlaceType) -> PlaceType {
-        switch type {
-        case .home:
-            return PlaceType.home
-        case .work:
-            return PlaceType.work
-        }
-    }
 }
 
 // Google Place
@@ -73,10 +64,9 @@ open class PlaceObj: NSObject, Unboxable, NSCoding {
                              "lng": coordinate.longitude.toFloat])
     }
 
-    public convenience init(geocodingObj: GeocodingPlaceObj, placeType: UberPersonalPlaceType) {
+    public convenience init(geocodingObj: GeocodingPlaceObj, placeType: PlaceType) {
         let name = placeType.rawValue
         let address = geocodingObj.address
-        let placeType = PlaceType.fromUberPersonalPlaceType(placeType)
         let placeID = geocodingObj.placeID
         let location = geocodingObj.location
         self.init(placeType: placeType, name: name, address: address, placeID: placeID, location: location)
@@ -85,7 +75,7 @@ open class PlaceObj: NSObject, Unboxable, NSCoding {
     public convenience init(personalPlaceObj: UberPersonalPlaceObj) {
         let name = personalPlaceObj.placeType.rawValue
         let address = personalPlaceObj.address
-        let placeType = PlaceType.fromUberPersonalPlaceType(personalPlaceObj.placeType)
+        let placeType = personalPlaceObj.placeType
         let placeID = placeType.rawValue
         self.init(placeType: placeType, name: name, address: address, placeID: placeID, location: [:])
         invalid = personalPlaceObj.invalid

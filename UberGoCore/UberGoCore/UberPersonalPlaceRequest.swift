@@ -13,7 +13,7 @@ import Unbox
 
 public struct UberPersonalPlaceRequestParam: Parameter {
 
-    let placeType: UberPersonalPlaceType
+    let placeType: PlaceType
 
     func toDictionary() -> [String : Any] {
         return [:]
@@ -32,6 +32,8 @@ public class UberPersonalPlaceRequest: Requestable {
             return Constants.UberAPI.HomePersonalPlace
         case .work:
             return Constants.UberAPI.WorkPseronalPlace
+        case .place:
+            fatalError("We don't support place in Uber Personal Place API")
         }
     }
 
