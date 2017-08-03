@@ -34,6 +34,7 @@
 		BA8E05F21F298D41008D9CB8 /* UberAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA8E05F11F298D41008D9CB8 /* UberAlertView.xib */; };
 		BAA157951F33446C0020D5A6 /* SearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA157941F33446C0020D5A6 /* SearchController.swift */; };
 		BAA157971F3374020020D5A6 /* SearchController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BAA157961F3374020020D5A6 /* SearchController.xib */; };
+		BAA157991F3376CC0020D5A6 /* TransparentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA157981F3376CC0020D5A6 /* TransparentView.swift */; };
 		BAAC441B1EF3A4BE00A9F949 /* UberMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAC441A1EF3A4BE00A9F949 /* UberMapView.swift */; };
 		BAB082171F04B7A300A74665 /* OriginAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB082161F04B7A300A74665 /* OriginAnnotation.swift */; };
 		BAB0821A1F04C35900A74665 /* DestinationAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB082191F04C35900A74665 /* DestinationAnnotation.swift */; };
@@ -141,6 +142,7 @@
 		BA8E05F11F298D41008D9CB8 /* UberAlertView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UberAlertView.xib; sourceTree = "<group>"; };
 		BAA157941F33446C0020D5A6 /* SearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchController.swift; sourceTree = "<group>"; };
 		BAA157961F3374020020D5A6 /* SearchController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchController.xib; sourceTree = "<group>"; };
+		BAA157981F3376CC0020D5A6 /* TransparentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransparentView.swift; sourceTree = "<group>"; };
 		BAAC441A1EF3A4BE00A9F949 /* UberMapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UberMapView.swift; sourceTree = "<group>"; };
 		BAB082161F04B7A300A74665 /* OriginAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OriginAnnotation.swift; sourceTree = "<group>"; };
 		BAB082191F04C35900A74665 /* DestinationAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DestinationAnnotation.swift; sourceTree = "<group>"; };
@@ -350,6 +352,14 @@
 			name = "Price Detail Cell";
 			sourceTree = "<group>";
 		};
+		BAA1579A1F3378440020D5A6 /* TransparentView */ = {
+			isa = PBXGroup;
+			children = (
+				BAA157981F3376CC0020D5A6 /* TransparentView.swift */,
+			);
+			name = TransparentView;
+			sourceTree = "<group>";
+		};
 		BAAC44191EF3A4AB00A9F949 /* Uber Map View */ = {
 			isa = PBXGroup;
 			children = (
@@ -434,6 +444,7 @@
 		BAB14AC81EF660240066267B /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				BAA1579A1F3378440020D5A6 /* TransparentView */,
 				BACC07941F021E620092F2F4 /* Uber Alert View */,
 				BADB785F1EE66190000536F7 /* UberTextField */,
 				BAB14AC61EF65FF00066267B /* Uber Collection View */,
@@ -891,6 +902,7 @@
 				BADB785E1EE5BA0C000536F7 /* UberButton.swift in Sources */,
 				BAE3CCEF1EF5812E00F264CA /* RequestUberView.swift in Sources */,
 				BACC07AA1F0367300092F2F4 /* Abstraction.swift in Sources */,
+				BAA157991F3376CC0020D5A6 /* TransparentView.swift in Sources */,
 				BAE6902C1EE460EB00A4D876 /* EventMonitor.swift in Sources */,
 				BAB082211F0559FB00A74665 /* CalloutAnnotations.swift in Sources */,
 			);
