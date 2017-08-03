@@ -49,6 +49,12 @@ open class PlaceObj: NSObject, Unboxable, NSCoding {
         return PlaceObj(placeType: PlaceType.place, name: "", address: "", placeID: "", location: [:])
     }
 
+    class func invalid(by personalPlaceObj: UberPersonalPlaceObj) -> PlaceObj {
+        let obj = PlaceObj(personalPlaceObj: personalPlaceObj)
+        obj.invalid = true
+        return obj
+    }
+
     // MARK: - Init
     public init(placeType: PlaceType, name: String, address: String, placeID: String, location: [String: Float]) {
         self.placeType = placeType
@@ -65,6 +71,15 @@ open class PlaceObj: NSObject, Unboxable, NSCoding {
                   placeID: "Current Location",
                   location: ["lat": coordinate.latitude.toFloat,
                              "lng": coordinate.longitude.toFloat])
+    }
+
+    public convenience init(geocodingObj: GeocodingPlaceObj, placeType: UberPersonalPlaceType) {
+        let name = placeType.rawValue
+        let address = geocodingObj.address
+        let placeType = PlaceType.fromUberPersonalPlaceType(placeType)
+        let placeID = geocodingObj.placeID
+        let location = geocodingObj.location
+        self.init(placeType: placeType, name: name, address: address, placeID: placeID, location: location)
     }
 
     public convenience init(personalPlaceObj: UberPersonalPlaceObj) {

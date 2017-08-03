@@ -13,14 +13,14 @@ import Unbox
 
 public struct GoogleGeocodingRequestParam: Parameter {
 
-    var address: String
+    let personalPlaceObj: UberPersonalPlaceObj
 
-    init(address: String) {
-        self.address = address
+    init(personalPlaceObj: UberPersonalPlaceObj) {
+        self.personalPlaceObj = personalPlaceObj
     }
 
     func toDictionary() -> [String : Any] {
-        return ["address": address,
+        return ["address": personalPlaceObj.address,
                 "key": Constants.GoogleApp.Key]
     }
 }

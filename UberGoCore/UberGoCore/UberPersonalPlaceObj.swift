@@ -24,6 +24,7 @@ open class UberPersonalPlaceObj: Unboxable {
     // MARK: - Map
     public init(address: String, invalid: Bool = false) {
         self.address = address
+        self.invalid = invalid
     }
 
     public required init(unboxer: Unboxer) throws {
