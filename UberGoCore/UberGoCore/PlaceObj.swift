@@ -37,6 +37,7 @@ open class PlaceObj: NSObject, Unboxable, NSCoding {
     public var isHistory = false
     public fileprivate(set) var invalid = false
 
+    // Coordinate
     public lazy var coordinate2D: CLLocationCoordinate2D = {
         let lat = self.location["lat"]!.toDouble
         let lng = self.location["lng"]!.toDouble
