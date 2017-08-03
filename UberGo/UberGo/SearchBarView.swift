@@ -149,10 +149,13 @@ extension SearchBarView {
         actionView.delegate = self
         actionSearchView = actionView
     }
+}
+
+// MARK: - Layout
+extension SearchBarView {
 
     func configureView(with parentView: NSView) {
         translatesAutoresizingMaskIntoConstraints = false
-
         topConstraint = top(to: parentView, offset: 28)
         leftConstraint = left(to: parentView, offset: 28)
         rightConstraint = right(to: parentView, offset: -28)
@@ -162,76 +165,88 @@ extension SearchBarView {
     fileprivate func animateSearchBarState() {
         switch layoutState {
         case .expand:
-
-            // Focus
-            makeDestinationFirstResponse()
-
-            isHidden = false
-            leftConstraint.constant = 0
-            topConstraint.constant = 0
-            rightConstraint.constant = 0
-            heightConstraint.constant = 142
-
-            // Animate
-            NSAnimationContext.defaultAnimate({ _ in
-                self.alphaValue = 1
-                self.backBtn.alphaValue = 1
-                self.actionSearchView.alphaValue = 0
-                self.searchContainerView.alphaValue = 1
-                self.superview?.layoutSubtreeIfNeeded()
-            })
+            expandAnimation()
         case .minimal:
-            isHidden = false
-            leftConstraint.constant = 28
-            topConstraint.constant = 28
-            rightConstraint.constant = -28
-            heightConstraint.constant = 56
-
-            NSAnimationContext.defaultAnimate({ _ in
-                self.alphaValue = 1
-                self.actionSearchView.alphaValue = 1
-                self.searchContainerView.alphaValue = 0
-                self.superview?.layoutSubtreeIfNeeded()
-            })
+            minimalAnimation()
         case .searchFullScreen:
-
-            // Focus
-            makeDestinationFirstResponse()
-
-            isHidden = false
-            leftConstraint.constant = 0
-            topConstraint.constant = 0
-            rightConstraint.constant = 0
-            heightConstraint.constant = 66
-
-            // Animate
-            NSAnimationContext.defaultAnimate({ _ in
-                self.alphaValue = 1
-                self.originContainerView.alphaValue = 0
-                self.roundBarView.alphaValue = 0
-                self.squareBarView.alphaValue = 0
-                self.lineVerticalView.alphaValue = 0
-                self.backBtn.alphaValue = 0
-
-                self.actionSearchView.alphaValue = 0
-                self.searchContainerView.alphaValue = 1
-                self.superview?.layoutSubtreeIfNeeded()
-            })
-
-            break
+            searchFullScreenAnimation()
         case .tripMinimunActivity:
             fallthrough
         case .tripFullActivity:
             fallthrough
         case .productSelection:
-
-            NSAnimationContext.defaultAnimate({ _ in
-                self.alphaValue = 0
-                self.superview?.layoutSubtreeIfNeeded()
-            }, completion: {
-                self.isHidden = true
-            })
+            hideAllAnimation()
         }
+    }
+
+    fileprivate func expandAnimation() {
+        // Focus
+        makeDestinationFirstResponse()
+
+        isHidden = false
+        leftConstraint.constant = 0
+        topConstraint.constant = 0
+        rightConstraint.constant = 0
+        heightConstraint.constant = 142
+
+        // Animate
+        NSAnimationContext.defaultAnimate({ _ in
+            self.alphaValue = 1
+            self.backBtn.alphaValue = 1
+            self.actionSearchView.alphaValue = 0
+            self.searchContainerView.alphaValue = 1
+            self.superview?.layoutSubtreeIfNeeded()
+        })
+    }
+
+    fileprivate func minimalAnimation() {
+        isHidden = false
+        leftConstraint.constant = 28
+        topConstraint.constant = 28
+        rightConstraint.constant = -28
+        heightConstraint.constant = 56
+
+        NSAnimationContext.defaultAnimate({ _ in
+            self.alphaValue = 1
+            self.actionSearchView.alphaValue = 1
+            self.searchContainerView.alphaValue = 0
+            self.superview?.layoutSubtreeIfNeeded()
+        })
+    }
+
+    fileprivate func searchFullScreenAnimation() {
+
+        // Focus
+        makeDestinationFirstResponse()
+
+        isHidden = false
+        leftConstraint.constant = 0
+        topConstraint.constant = 0
+        rightConstraint.constant = 0
+        heightConstraint.constant = 48
+
+        // Animate
+        NSAnimationContext.defaultAnimate({ _ in
+            self.alphaValue = 1
+            self.originContainerView.alphaValue = 0
+            self.roundBarView.alphaValue = 0
+            self.squareBarView.alphaValue = 0
+            self.lineVerticalView.alphaValue = 0
+            self.backBtn.alphaValue = 0
+
+            self.actionSearchView.alphaValue = 0
+            self.searchContainerView.alphaValue = 1
+            self.superview?.layoutSubtreeIfNeeded()
+        })
+    }
+
+    fileprivate func hideAllAnimation() {
+        NSAnimationContext.defaultAnimate({ _ in
+            self.alphaValue = 0
+            self.superview?.layoutSubtreeIfNeeded()
+        }, completion: {
+            self.isHidden = true
+        })
     }
 }
 

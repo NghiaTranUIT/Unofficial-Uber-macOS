@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13168.3"/>
+        <capability name="box content view" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -92,6 +93,17 @@
                                 <action selector="backBtnOnTap:" target="c22-O7-iKe" id="oFa-bW-hDQ"/>
                             </connections>
                         </button>
+                        <box boxType="custom" borderType="none" borderWidth="0.0" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="xSk-Zn-hsY">
+                            <rect key="frame" x="0.0" y="0.0" width="480" height="1"/>
+                            <view key="contentView" id="Xwg-43-sGZ">
+                                <rect key="frame" x="0.0" y="0.0" width="480" height="1"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </view>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="1" id="IxK-k9-VSw"/>
+                            </constraints>
+                            <color key="fillColor" red="0.92941176470588238" green="0.92941176470588238" blue="0.92941176470588238" alpha="1" colorSpace="calibratedRGB"/>
+                        </box>
                     </subviews>
                     <constraints>
                         <constraint firstItem="WiN-7G-eLH" firstAttribute="top" secondItem="Gom-Qn-lcM" secondAttribute="top" constant="15" id="A7O-hJ-Kc6"/>
@@ -102,10 +114,13 @@
                         <constraint firstItem="QjX-HT-RKP" firstAttribute="centerY" secondItem="tm8-iQ-z1e" secondAttribute="centerY" id="NeW-gg-7oV"/>
                         <constraint firstItem="H2Y-HO-oBQ" firstAttribute="centerX" secondItem="QjX-HT-RKP" secondAttribute="centerX" id="Q2U-VW-nZa"/>
                         <constraint firstItem="vNZ-pl-77W" firstAttribute="centerX" secondItem="QjX-HT-RKP" secondAttribute="centerX" id="RDH-VZ-k3e"/>
+                        <constraint firstAttribute="trailing" secondItem="xSk-Zn-hsY" secondAttribute="trailing" id="Rv5-Jm-1e5"/>
                         <constraint firstItem="H2Y-HO-oBQ" firstAttribute="top" secondItem="vNZ-pl-77W" secondAttribute="bottom" constant="3" id="d0R-ew-Q2M"/>
                         <constraint firstAttribute="trailing" secondItem="tm8-iQ-z1e" secondAttribute="trailing" constant="24" id="dFT-KN-FSw"/>
                         <constraint firstItem="E18-mX-1b8" firstAttribute="leading" secondItem="tm8-iQ-z1e" secondAttribute="leading" id="iLg-k9-S69"/>
                         <constraint firstItem="vNZ-pl-77W" firstAttribute="centerY" secondItem="E18-mX-1b8" secondAttribute="centerY" id="kP5-TL-fKP"/>
+                        <constraint firstItem="xSk-Zn-hsY" firstAttribute="leading" secondItem="Gom-Qn-lcM" secondAttribute="leading" id="lJ3-w3-Ph5"/>
+                        <constraint firstAttribute="bottom" secondItem="xSk-Zn-hsY" secondAttribute="bottom" id="vvS-4U-YLf"/>
                         <constraint firstItem="tm8-iQ-z1e" firstAttribute="top" secondItem="E18-mX-1b8" secondAttribute="bottom" constant="8" id="xOS-iF-vxl"/>
                         <constraint firstItem="tm8-iQ-z1e" firstAttribute="leading" secondItem="QjX-HT-RKP" secondAttribute="trailing" constant="25" id="yth-yP-d69"/>
                     </constraints>
