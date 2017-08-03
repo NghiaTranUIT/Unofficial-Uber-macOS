@@ -173,6 +173,9 @@ extension SearchCollectionView: NSCollectionViewDelegate, NSCollectionViewDelega
         // Data
         let placeObj = viewModel.output.searchPlaceObjsVariable.value[selectedIndexPath.item]
 
+        // De-select
+        collectionView.deselectItems(at: indexPaths)
+
         // If invalid personal place
         // Add New place
         if placeObj.invalid {
@@ -182,9 +185,6 @@ extension SearchCollectionView: NSCollectionViewDelegate, NSCollectionViewDelega
 
         // Select
         viewModel.input.didSelectPlaceObjPublisher.onNext(placeObj)
-
-        // De-select
-        collectionView.deselectItems(at: indexPaths)
 
         // Notify delegate
         delegate?.searchCollectionViewDidSelectItem()

@@ -24,6 +24,7 @@ class SearchBarView: NSView {
     @IBOutlet fileprivate weak var squareBarView: NSView!
     @IBOutlet fileprivate weak var lineVerticalView: NSView!
     @IBOutlet fileprivate weak var backBtn: NSButton!
+    @IBOutlet fileprivate weak var backBtnTop: NSLayoutConstraint!
     @IBOutlet fileprivate weak var searchContainerView: NSView!
     @IBOutlet fileprivate weak var loaderView: NSProgressIndicator!
 
@@ -188,11 +189,16 @@ extension SearchBarView {
         topConstraint.constant = 0
         rightConstraint.constant = 0
         heightConstraint.constant = 142
+        backBtnTop.constant = 15
 
         // Animate
         NSAnimationContext.defaultAnimate({ _ in
             self.alphaValue = 1
-            self.backBtn.alphaValue = 1
+            self.originContainerView.alphaValue = 1
+            self.roundBarView.alphaValue = 1
+            self.squareBarView.alphaValue = 1
+            self.lineVerticalView.alphaValue = 1
+
             self.actionSearchView.alphaValue = 0
             self.searchContainerView.alphaValue = 1
             self.superview?.layoutSubtreeIfNeeded()
@@ -205,6 +211,7 @@ extension SearchBarView {
         topConstraint.constant = 28
         rightConstraint.constant = -28
         heightConstraint.constant = 56
+        backBtnTop.constant = 15
 
         NSAnimationContext.defaultAnimate({ _ in
             self.alphaValue = 1
@@ -224,6 +231,7 @@ extension SearchBarView {
         topConstraint.constant = 0
         rightConstraint.constant = 0
         heightConstraint.constant = 48
+        backBtnTop.constant = 8
 
         // Animate
         NSAnimationContext.defaultAnimate({ _ in
@@ -232,7 +240,6 @@ extension SearchBarView {
             self.roundBarView.alphaValue = 0
             self.squareBarView.alphaValue = 0
             self.lineVerticalView.alphaValue = 0
-            self.backBtn.alphaValue = 0
 
             self.actionSearchView.alphaValue = 0
             self.searchContainerView.alphaValue = 1

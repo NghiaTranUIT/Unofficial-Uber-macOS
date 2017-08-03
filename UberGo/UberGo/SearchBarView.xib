@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13168.3" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13168.3"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="12120"/>
         <capability name="box content view" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -20,7 +20,7 @@
                         <customView translatesAutoresizingMaskIntoConstraints="NO" id="E18-mX-1b8">
                             <rect key="frame" x="56" y="48" width="400" height="32"/>
                             <subviews>
-                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="2F2-b8-1So" customClass="UberTextField" customModule="UberGo" customModuleProvider="target">
+                                <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2F2-b8-1So" customClass="UberTextField" customModule="UberGo" customModuleProvider="target">
                                     <rect key="frame" x="4" y="7" width="392" height="19"/>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" alignment="left" title="Current Location" drawsBackground="YES" id="V1s-pr-UhB">
                                         <font key="font" metaFont="system" size="15"/>
@@ -40,7 +40,7 @@
                         <customView translatesAutoresizingMaskIntoConstraints="NO" id="tm8-iQ-z1e">
                             <rect key="frame" x="56" y="8" width="400" height="32"/>
                             <subviews>
-                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Gz4-hL-nZ4" customClass="UberTextField" customModule="UberGo" customModuleProvider="target">
+                                <textField verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gz4-hL-nZ4" customClass="UberTextField" customModule="UberGo" customModuleProvider="target">
                                     <rect key="frame" x="4" y="8" width="392" height="17"/>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" alignment="left" drawsBackground="YES" id="Sgh-Gp-iAT">
                                         <font key="font" metaFont="system"/>
@@ -134,6 +134,7 @@
             </constraints>
             <connections>
                 <outlet property="backBtn" destination="WiN-7G-eLH" id="7EK-T3-M8G"/>
+                <outlet property="backBtnTop" destination="A7O-hJ-Kc6" id="HNz-lN-AWe"/>
                 <outlet property="destinationContainerView" destination="tm8-iQ-z1e" id="hUq-x7-T6Q"/>
                 <outlet property="destinationTxt" destination="Gz4-hL-nZ4" id="I9j-hf-g75"/>
                 <outlet property="lineVerticalView" destination="H2Y-HO-oBQ" id="iHp-lk-vAE"/>
