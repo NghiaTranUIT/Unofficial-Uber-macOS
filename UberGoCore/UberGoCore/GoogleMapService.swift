@@ -17,4 +17,12 @@ open class GoogleMapService {
         let param = PlaceSearchRequestParam(keyword: name, location: currentLocation)
         return PlaceSearchRequest(param).toObservable()
     }
+
+    public func geocodingPlace(with placeObj: UberPersonalPlaceObj) -> Observable<PlaceObj> {
+        let param = GoogleGeocodingRequestParam(personalPlaceObj: placeObj)
+        return GoogleGeocodingRequest(param).toObservable()
+            .map({ (geocodingObj) -> PlaceObj in
+                return PlaceObj(geocodingObj: geocodingObj, placeType: placeObj.placeType)
+            })
+    }
 }

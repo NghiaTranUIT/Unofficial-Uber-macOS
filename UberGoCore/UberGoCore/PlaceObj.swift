@@ -14,15 +14,6 @@ public enum PlaceType: String {
     case home
     case work
     case place
-
-    static func fromUberPersonalPlaceType(_ type: UberPersonalPlaceType) -> PlaceType {
-        switch type {
-        case .home:
-            return PlaceType.home
-        case .work:
-            return PlaceType.work
-        }
-    }
 }
 
 // Google Place
@@ -37,6 +28,7 @@ open class PlaceObj: NSObject, Unboxable, NSCoding {
     public var isHistory = false
     public fileprivate(set) var invalid = false
 
+    // Coordinate
     public lazy var coordinate2D: CLLocationCoordinate2D = {
         let lat = self.location["lat"]!.toDouble
         let lng = self.location["lng"]!.toDouble
@@ -46,6 +38,12 @@ open class PlaceObj: NSObject, Unboxable, NSCoding {
     // Invalid
     static var invalid: PlaceObj {
         return PlaceObj(placeType: PlaceType.place, name: "", address: "", placeID: "", location: [:])
+    }
+
+    class func invalid(by personalPlaceObj: UberPersonalPlaceObj) -> PlaceObj {
+        let obj = PlaceObj(personalPlaceObj: personalPlaceObj)
+        obj.invalid = true
+        return obj
     }
 
     // MARK: - Init
@@ -66,10 +64,18 @@ open class PlaceObj: NSObject, Unboxable, NSCoding {
                              "lng": coordinate.longitude.toFloat])
     }
 
+    public convenience init(geocodingObj: GeocodingPlaceObj, placeType: PlaceType) {
+        let name = placeType.rawValue
+        let address = geocodingObj.address
+        let placeID = geocodingObj.placeID
+        let location = geocodingObj.location
+        self.init(placeType: placeType, name: name, address: address, placeID: placeID, location: location)
+    }
+
     public convenience init(personalPlaceObj: UberPersonalPlaceObj) {
         let name = personalPlaceObj.placeType.rawValue
         let address = personalPlaceObj.address
-        let placeType = PlaceType.fromUberPersonalPlaceType(personalPlaceObj.placeType)
+        let placeType = personalPlaceObj.placeType
         let placeID = placeType.rawValue
         self.init(placeType: placeType, name: name, address: address, placeID: placeID, location: [:])
         invalid = personalPlaceObj.invalid

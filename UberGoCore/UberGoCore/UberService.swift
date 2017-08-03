@@ -27,16 +27,16 @@ open class UberService {
     }
 
     // MARK: - Public
-    public func personalPlaceObserver() -> Observable<[UberPersonalPlaceObj]> {
+    public func personalPlaceObserver() -> Observable<[PlaceObj]> {
         return Observable.zip([workPlaceObserver(), homePlaceObserver()])
     }
 
-    public func workPlaceObserver() -> Observable<UberPersonalPlaceObj> {
-        return fetchPersonalPlaceObservable(type: .work)
+    public func workPlaceObserver() -> Observable<PlaceObj> {
+        return placeFromPersonalPlaceObserve(type: .work)
     }
 
-    public func homePlaceObserver() -> Observable<UberPersonalPlaceObj> {
-        return fetchPersonalPlaceObservable(type: .home)
+    public func homePlaceObserver() -> Observable<PlaceObj> {
+        return placeFromPersonalPlaceObserve(type: .home)
     }
 
     public func getCurrentTrip() -> Observable<TripObj> {
@@ -180,7 +180,7 @@ open class UberService {
 // MARK: - Private
 extension UberService {
 
-    fileprivate func fetchPersonalPlaceObservable(type: UberPersonalPlaceType)
+    fileprivate func fetchPersonalPlaceObservable(type: PlaceType)
         -> Observable<UberPersonalPlaceObj> {
 
         guard UberAuth.share.currentUser != nil else {
@@ -191,5 +191,16 @@ extension UberService {
         return UberPersonalPlaceRequest(param).toObservable()
             .catchErrorJustReturn(UberPersonalPlaceObj.invalidPlace)
             .map { $0.placeType = type; return $0 }
+    }
+
+    fileprivate func placeFromPersonalPlaceObserve(type: PlaceType) -> Observable<PlaceObj> {
+        return fetchPersonalPlaceObservable(type: type)
+            .flatMapLatest({ (personalObj) -> Observable<PlaceObj> in
+                guard personalObj.invalid == false else {
+                    return Observable.just(PlaceObj.invalid(by: personalObj))
+                }
+
+                return GoogleMapService().geocodingPlace(with: personalObj)
+            })
     }
 }

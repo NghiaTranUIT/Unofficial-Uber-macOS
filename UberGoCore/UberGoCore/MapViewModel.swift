@@ -111,8 +111,6 @@ open class MapViewModel:
         let personalPlace = uberService
             .personalPlaceObserver()
             .startWith([]) // Don't need to wait -> Should show history palce first
-            // Map in map: [UberPersonalPlaceObj] -> [PlaceObj]
-            .map({ $0.map({ PlaceObj(personalPlaceObj: $0) }) })
 
         let historyPlace = uberService.historyObserver
 

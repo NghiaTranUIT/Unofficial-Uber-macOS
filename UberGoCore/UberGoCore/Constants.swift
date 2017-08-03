@@ -54,6 +54,7 @@ struct Constants {
 
         static let BaseURL = "https://maps.googleapis.com/maps/api"
         static let PlaceSearchURL = "/place/nearbysearch/json"
+        static let Geocoding = "/geocode/json"
     }
 
     // MARK: - Object

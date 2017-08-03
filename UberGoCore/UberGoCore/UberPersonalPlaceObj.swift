@@ -9,21 +9,17 @@
 import Foundation
 import Unbox
 
-public enum UberPersonalPlaceType: String {
-    case work
-    case home
-}
-
 open class UberPersonalPlaceObj: Unboxable {
 
     // MARK: - Variable
-    public var placeType: UberPersonalPlaceType = .work
+    public var placeType: PlaceType = .work
     public var address: String
     public fileprivate(set) var invalid = false
 
     // MARK: - Map
     public init(address: String, invalid: Bool = false) {
         self.address = address
+        self.invalid = invalid
     }
 
     public required init(unboxer: Unboxer) throws {
