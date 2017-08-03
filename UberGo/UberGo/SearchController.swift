@@ -1,0 +1,97 @@
+//
+//  SearchController.swift
+//  UberGo
+//
+//  Created by Nghia Tran on 8/3/17.
+//  Copyright © 2017 Nghia Tran. All rights reserved.
+//
+
+import UberGoCore
+
+protocol SearchControllerDelegate: class {
+
+    func shouldUpdateLayoutState(_ newState: MapViewLayoutState)
+}
+
+class SearchController: NSViewController {
+
+    // MARK: - Variable
+    fileprivate var viewModel: MapViewModel!
+    public weak var delegate: SearchControllerDelegate?
+
+    // MARK: - View
+    fileprivate lazy var collectionView: SearchCollectionView = self.lazyInitSearchCollectionView()
+    fileprivate lazy var searchBarView: SearchBarView = self.lazyInitSearchBarView()
+
+    // MARK: - Init
+    init?(viewModel: MapViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    // MARK: - View Cycle
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        // Setup
+        searchBarView.setupViewModel(viewModel)
+        collectionView.setupViewModel(viewModel)
+    }
+
+    public func resetTextSearch() {
+        searchBarView.resetTextSearch()
+    }
+}
+
+// MARK: - Private
+extension SearchController {
+
+    fileprivate func lazyInitSearchBarView() -> SearchBarView {
+        let searchView = SearchBarView.viewFromNib(with: BundleType.app)!
+        searchView.delegate = self
+        view.addSubview(searchView)
+        searchView.configureView(with: view)
+        return searchView
+    }
+
+    fileprivate func lazyInitSearchCollectionView() -> SearchCollectionView {
+        let collectionView = SearchCollectionView.viewFromNib(with: BundleType.app)!
+        collectionView.delegate = self
+        self.view.addSubview(collectionView)
+        collectionView.configureView(parenView: view, searchBarView: searchBarView)
+        return collectionView
+    }
+}
+
+// MARK: - Layout
+extension SearchController {
+
+    public func configureContainerController(_ controller: NSViewController, containerView: NSView) {
+        
+    }
+
+    public func updateState(_ state: MapViewLayoutState) {
+        searchBarView.layoutState = state
+        collectionView.layoutStateChanged(state)
+    }
+}
+
+// MARK: - SearchBarViewDelegate
+extension SearchController: SearchBarViewDelegate {
+
+    func searchBar(_ sender: SearchBarView, layoutStateDidChanged state: MapViewLayoutState) {
+        delegate?.shouldUpdateLayoutState(state)
+    }
+}
+
+// MARK: - SearchCollectionViewDelegate
+extension SearchController: SearchCollectionViewDelegate {
+
+    func searchCollectionViewDidSelectItem() {
+        delegate?.shouldUpdateLayoutState(.minimal)
+    }
+}

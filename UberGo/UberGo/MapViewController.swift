@@ -25,17 +25,19 @@ enum MapViewLayoutState {
 class MapViewController: BaseViewController {
 
     // MARK: - OUTLET
-    fileprivate lazy var mapView: UberMapView = self.lazyInitUberMapView()
-    fileprivate lazy var searchCollectionView: SearchCollectionView = self.lazyInitSearchCollectionView()
-    fileprivate lazy var selectUberView: RequestUberView = self.lazyInitRequestUberView()
-    fileprivate lazy var tripActivityView: TripActivityView = self.lazyInitTripActivityView()
-    fileprivate lazy var searchBarView: SearchBarView = self.lazyInitSearchBarView()
-    fileprivate lazy var errorAlertView: UberAlertView = self.lazyInitErrorAlertView()
-
     @IBOutlet fileprivate weak var exitNavigateBtn: NSButton!
     @IBOutlet fileprivate weak var mapContainerView: NSView!
     @IBOutlet fileprivate weak var bottomBarView: NSView!
     @IBOutlet fileprivate weak var containerViewHeight: NSLayoutConstraint!
+
+    // MARK: - View
+    fileprivate lazy var mapView: UberMapView = self.lazyInitUberMapView()
+    fileprivate lazy var selectUberView: RequestUberView = self.lazyInitRequestUberView()
+    fileprivate lazy var tripActivityView: TripActivityView = self.lazyInitTripActivityView()
+    fileprivate lazy var errorAlertView: UberAlertView = self.lazyInitErrorAlertView()
+
+    // MARK: - Controller
+    fileprivate lazy var searchController: SearchController = self.lazyInitSearchController()
 
     // MARK: - Variable
     fileprivate var mapViewModel = MapViewModel()
@@ -73,8 +75,6 @@ class MapViewController: BaseViewController {
         // View Model
         binding()
         mapView.setupViewModel(mapViewModel)
-        searchBarView.setupViewModel(mapViewModel)
-        searchCollectionView.setupViewModel(mapViewModel)
         notificationBinding()
     }
 
@@ -109,7 +109,7 @@ class MapViewController: BaseViewController {
                     self.uberViewModel.input.selectedPlacePublisher.onNext(data)
                 } else {
                     self.uberViewModel.input.selectedPlacePublisher.onNext(nil)
-                    self.searchBarView.resetTextSearch()
+                    self.searchController.resetTextSearch()
                     self.mapView.addDestinationPlaceObj(nil)
                 }
             })
@@ -316,29 +316,18 @@ extension MapViewController {
         return map
     }
 
-    fileprivate func lazyInitSearchBarView() -> SearchBarView {
-        let searchView = SearchBarView.viewFromNib(with: BundleType.app)!
-        searchView.delegate = self
-        mapContainerView.addSubview(searchView, positioned: .below, relativeTo: exitNavigateBtn)
-        searchView.configureView(with: mapContainerView)
-        return searchView
-    }
-
-    fileprivate func lazyInitSearchCollectionView() -> SearchCollectionView {
-        let collectionView = SearchCollectionView.viewFromNib(with: BundleType.app)!
-        collectionView.delegate = self
-        mapContainerView.addSubview(collectionView,
-                                         positioned: .below,
-                                         relativeTo: exitNavigateBtn)
-        collectionView.configureView(parenView: mapContainerView, searchBarView: searchBarView)
-        return collectionView
-    }
-
     fileprivate func lazyInitRequestUberView() -> RequestUberView {
         let uberView = RequestUberView.viewFromNib(with: BundleType.app)!
         uberView.backgroundColor = NSColor.black
         uberView.delegate = self
         return uberView
+    }
+
+    fileprivate func lazyInitSearchController() -> SearchController {
+        let controller = SearchController(viewModel: mapViewModel)
+        controller.delegate = self
+        controller.configureContainerController(self, containerView: mapContainerView)
+        return controller
     }
 
     fileprivate func lazyInitTripActivityView() -> TripActivityView {
@@ -363,8 +352,7 @@ extension MapViewController {
     fileprivate func updateLayoutState(_ state: MapViewLayoutState) {
 
         // Update state to sub-views
-        searchBarView.layoutState = state
-        searchCollectionView.layoutStateChanged(state)
+        searchController.updateState(state)
 
         // Remove if need
         tripActivityView.removeFromSuperview()
@@ -476,22 +464,6 @@ extension MapViewController {
     }
 }
 
-// MARK: - SearchBarViewDelegate
-extension MapViewController: SearchBarViewDelegate {
-
-    func searchBar(_ sender: SearchBarView, layoutStateDidChanged state: MapViewLayoutState) {
-        layoutState = state
-    }
-}
-
-// MARK: - SearchCollectionViewDelegate
-extension MapViewController: SearchCollectionViewDelegate {
-
-    func searchCollectionViewDidSelectItem() {
-        layoutState = .minimal
-    }
-}
-
 extension MapViewController: PaymentMethodsControllerDelegate {
 
     func paymentMethodsControllerShouldDismiss(_ sender: PaymentMethodsController) {
@@ -534,5 +506,13 @@ extension MapViewController: ProductDetailControllerDelegate {
     func productDetailControllerShouldDimiss() {
         dismissViewController(productDetailController!)
         productDetailController = nil
+    }
+}
+
+// MARK: - SearchControllerDelegate
+extension MapViewController: SearchControllerDelegate {
+
+    func shouldUpdateLayoutState(_ newState: MapViewLayoutState) {
+        layoutState = newState
     }
 }
