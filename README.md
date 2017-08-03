@@ -35,6 +35,7 @@ Roadmap
 - [x] MVVM Swift
 - [x] RxSwift
 - [x] Uber functionalities 
+- [ ] Support fully Uber features
 - [ ] 100% converage test
 - [ ] Uber review
   
