@@ -16,7 +16,7 @@ protocol SearchControllerDelegate: class {
 class SearchController: NSViewController {
 
     // MARK: - Variable
-    fileprivate var viewModel: MapViewModel!
+    fileprivate var viewModel: SearchViewModel!
     public weak var delegate: SearchControllerDelegate?
 
     // MARK: - View
@@ -24,7 +24,7 @@ class SearchController: NSViewController {
     fileprivate lazy var searchBarView: SearchBarView = self.lazyInitSearchBarView()
 
     // MARK: - Init
-    init?(viewModel: MapViewModel) {
+    init?(viewModel: SearchViewModel) {
         self.viewModel = viewModel
         super.init(nibName: "SearchController", bundle: nil)
     }

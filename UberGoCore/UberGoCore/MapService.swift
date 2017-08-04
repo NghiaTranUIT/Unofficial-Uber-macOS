@@ -40,6 +40,7 @@ open class MapService: NSObject, MapServiceViewModel, MapServiceInput, MapServic
     public var authorizedDriver: Driver<Bool>!
 
     // Private
+    public static let share = MapService()
     fileprivate lazy var locationManager: CLLocationManager = self.lazyLocationManager()
 
     // MARK: - Init

@@ -23,10 +23,12 @@ public protocol SearchViewModelInput {
 
 public protocol SearchViewModelOutput {
 
+    // Origin
+    var currentPlaceDriver: Driver<PlaceObj> { get }
+
     // Search
     var searchPlaceObjsVariable: Variable<[PlaceObj]> { get }
     var loadingDriver: Driver<Bool> { get }
-    
 }
 
 // MARK: - SearchViewModel
@@ -42,16 +44,22 @@ open class SearchViewModel: SearchViewModelProtocol, SearchViewModelInput, Searc
     // MARK: - Output
     public var searchPlaceObjsVariable = Variable<[PlaceObj]>([])
     public let loadingDriver: Driver<Bool>
+    public var currentPlaceDriver: Driver<PlaceObj> {
+        return mapService.output.currentPlaceObs
+            .asDriver(onErrorJustReturn: PlaceObj.invalid)
+    }
 
     // MARK: - Variable
     fileprivate var personalOrHistoryPlacesVar = Variable<[PlaceObj]>([])
-
+    fileprivate let mapService: MapService
     fileprivate let disposeBag = DisposeBag()
 
     // MARK: - Init
     public init(uberService: UberService = UberService(),
-                mapService: MapService,
+                mapService: MapService = MapService.share,
                 googleMapService: GoogleMapService = GoogleMapService()) {
+
+        self.mapService = mapService
 
         // Load personal or history place
         let personalPlace = uberService

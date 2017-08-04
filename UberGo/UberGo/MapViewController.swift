@@ -41,7 +41,8 @@ class MapViewController: BaseViewController {
     fileprivate lazy var searchController: SearchController = self.lazyInitSearchController()
 
     // MARK: - Variable
-    fileprivate var mapViewModel = MapViewModel()
+    fileprivate let mapViewModel = MapViewModel()
+    fileprivate let searchViewModel = SearchViewModel()
     fileprivate let uberViewModel = UberServiceViewModel()
 
     fileprivate var isFirstTime = true
@@ -326,7 +327,7 @@ extension MapViewController {
     }
 
     fileprivate func lazyInitSearchController() -> SearchController {
-        let controller = SearchController(viewModel: mapViewModel)!
+        let controller = SearchController(viewModel: searchViewModel)!
         controller.delegate = self
         return controller
     }

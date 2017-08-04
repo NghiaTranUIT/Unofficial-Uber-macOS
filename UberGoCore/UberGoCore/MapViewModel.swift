@@ -65,18 +65,18 @@ open class MapViewModel:
     public var routeToDestinationPublisher = PublishSubject<PlaceObj>()
 
     // MARK: - Output
-    public var currentLocationVariable: Variable<CLLocation?> { return mapService.output.currentLocationVar }
     public var currentPlaceDriver: Driver<PlaceObj> {
         return mapService.output.currentPlaceObs
             .asDriver(onErrorJustReturn: PlaceObj.invalid)
     }
+    public var currentLocationVariable: Variable<CLLocation?> { return mapService.output.currentLocationVar }
     public var selectedPlaceObjDriver: Driver<PlaceObj?>
     public var selectedDirectionRouteObserver: Observable<Route?>
     public var isSelectedPlace: Driver<Bool> { return selectedPlaceObjDriver.map({ $0 != nil }) }
     public var routeCurrentTrip: Driver<Route?>
 
     // MARK: - Init
-    public init(mapService: MapService,
+    public init(mapService: MapService = MapService.share,
                 uberService: UberService = UberService(),
                 directionService: DirectionService = DirectionService(),
                 googleMapService: GoogleMapService = GoogleMapService()) {

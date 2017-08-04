@@ -93,7 +93,7 @@ class SearchBarView: NSView {
             }).addDisposableTo(disposeBag)
     }
 
-    public func setupViewModel(_ viewModel: MapViewModel) {
+    public func setupViewModel(_ viewModel: SearchViewModel) {
         self.viewModel = viewModel
         binding()
     }
