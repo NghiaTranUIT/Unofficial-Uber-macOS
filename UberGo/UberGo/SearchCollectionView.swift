@@ -12,7 +12,7 @@ import UberGoCore
 
 protocol SearchCollectionViewDelegate: class {
     func searchCollectionViewSearchPersonalPlace(_ placeObj: PlaceObj)
-    func searchCollectionViewDidSelectItem()
+    func searchCollectionViewDidSelectPlace(_ placeObj: PlaceObj)
 }
 
 class SearchCollectionView: NSView {
@@ -179,10 +179,9 @@ extension SearchCollectionView: NSCollectionViewDelegate, NSCollectionViewDelega
             return
         }
 
-        // Select
-        //viewModel.input.didSelectPlaceObjPublisher.onNext(placeObj)
+        viewModel.input.selectPlaceObjPublisher.onNext(placeObj)
 
         // Notify delegate
-        delegate?.searchCollectionViewDidSelectItem()
+        delegate?.searchCollectionViewDidSelectPlace(placeObj)
     }
 }

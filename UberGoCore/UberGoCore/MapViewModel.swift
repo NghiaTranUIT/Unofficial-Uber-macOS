@@ -22,7 +22,7 @@ public protocol MapViewModelProtocol {
 public protocol MapViewModelInput {
 
     var startUpdateLocationTriggerPublisher: PublishSubject<Bool> { get }
-    var didSelectPlaceObjPublisher: PublishSubject<PlaceObj?> { get }
+    var selectPlaceObjPublisher: PublishSubject<PlaceObj?> { get }
     var routeToDestinationPublisher: PublishSubject<PlaceObj> { get }
     var routeForCurrentTripPublisher: PublishSubject<TripObj> { get }
 }
@@ -60,7 +60,7 @@ open class MapViewModel:
 
     // MARK: - Input
     public var startUpdateLocationTriggerPublisher = PublishSubject<Bool>()
-    public var didSelectPlaceObjPublisher = PublishSubject<PlaceObj?>()
+    public var selectPlaceObjPublisher = PublishSubject<PlaceObj?>()
     public var routeForCurrentTripPublisher = PublishSubject<TripObj>()
     public var routeToDestinationPublisher = PublishSubject<PlaceObj>()
 
@@ -99,7 +99,7 @@ open class MapViewModel:
             .addDisposableTo(disposeBag)
 
         // Selected
-        let selectedPlaceObserve = didSelectPlaceObjPublisher
+        let selectedPlaceObserve = selectPlaceObjPublisher
             .asObserver()
             .share()
 
@@ -119,31 +119,13 @@ open class MapViewModel:
 
         selectedDirectionRouteObserver = Observable.merge([getDirection, clearCurrentDirectionRoute])
 
-        // Save History place
-        selectedPlaceObserve.subscribe(onNext: { placeObj in
-            guard let placeObj = placeObj else { return }
-            guard let currentUser = UberAuth.share.currentUser else { return }
-
-            // Only save normal place to history
-            // Don't save personal place
-            guard placeObj.placeType == .place else { return }
-
-            // Save history
-            currentUser.saveHistoryPlace(placeObj)
-
-            // Load again
-            uberService.reloadHistoryTrigger.onNext()
-        })
-        .addDisposableTo(disposeBag)
-
         // Request Route for Current Trip
         routeCurrentTrip = routeForCurrentTripPublisher
             .asObserver()
             .flatMapLatest { tripObj -> Observable<Route?> in
-                guard let pickup = tripObj.pickup else {
-                    return Observable.just(nil)
-                }
-                guard let driver = tripObj.location else {
+                guard
+                    let pickup = tripObj.pickup,
+                    let driver = tripObj.location else {
                     return Observable.just(nil)
                 }
 

@@ -19,6 +19,7 @@ public protocol SearchViewModelProtocol {
 public protocol SearchViewModelInput {
 
     var textSearchPublish: PublishSubject<String> { get }
+    var selectPlaceObjPublisher: PublishSubject<PlaceObj?> { get }
 }
 
 public protocol SearchViewModelOutput {
@@ -40,6 +41,7 @@ open class SearchViewModel: SearchViewModelProtocol, SearchViewModelInput, Searc
 
     // MARK: - Input
     public var textSearchPublish = PublishSubject<String>()
+    public var selectPlaceObjPublisher = PublishSubject<PlaceObj?>()
 
     // MARK: - Output
     public var searchPlaceObjsVariable = Variable<[PlaceObj]>([])
@@ -128,6 +130,25 @@ open class SearchViewModel: SearchViewModelProtocol, SearchViewModelInput, Searc
         loadingDriver = Observable.merge([startLoadingOb, stopLoadingOb])
             .map({ !$0 })
             .asDriver(onErrorJustReturn: false)
+
+        // Save History place
+        let selectedPlaceObs = selectPlaceObjPublisher.asObserver().share()
+        selectedPlaceObs
+            .subscribe(onNext: { placeObj in
+                guard let placeObj = placeObj else { return }
+                guard let currentUser = UberAuth.share.currentUser else { return }
+
+                // Only save normal place to history
+                // Don't save personal place
+                guard placeObj.placeType == .place else { return }
+
+                // Save history
+                currentUser.saveHistoryPlace(placeObj)
+
+                // Load again
+                uberService.reloadHistoryTrigger.onNext()
+            })
+            .addDisposableTo(disposeBag)
 
     }
 }

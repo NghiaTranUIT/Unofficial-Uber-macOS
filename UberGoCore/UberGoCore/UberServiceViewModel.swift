@@ -265,7 +265,7 @@ open class UberServiceViewModel: UberServiceViewModelProtocol,
             .asObserver()
             .flatMapLatest { _ -> Observable<Void> in
                 uberService.cancelCurrentTrip()
-        }
+            }
 
         resetMapDriver = cancelTripObser
             .asDriver(onErrorJustReturn: ())

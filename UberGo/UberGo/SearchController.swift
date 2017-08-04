@@ -10,6 +10,7 @@ import UberGoCore
 
 protocol SearchControllerDelegate: class {
 
+    func didSelectPlace(_ placeObj: PlaceObj)
     func shouldUpdateLayoutState(_ newState: MapViewLayoutState)
 }
 
@@ -104,7 +105,8 @@ extension SearchController: SearchCollectionViewDelegate {
         delegate?.shouldUpdateLayoutState(.searchFullScreen)
     }
 
-    func searchCollectionViewDidSelectItem() {
+    func searchCollectionViewDidSelectPlace(_ placeObj: PlaceObj) {
+        delegate?.didSelectPlace(placeObj)
         delegate?.shouldUpdateLayoutState(.minimal)
     }
 }

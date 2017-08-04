@@ -235,7 +235,7 @@ class MapViewController: BaseViewController {
                 self.layoutState = .minimal
 
                 // Reset
-                self.mapViewModel.input.didSelectPlaceObjPublisher.onNext(nil)
+                self.mapViewModel.input.selectPlaceObjPublisher.onNext(nil)
                 self.uberViewModel.input.selectedPlacePublisher.onNext(nil)
 
                 // Reset data
@@ -299,7 +299,7 @@ class MapViewController: BaseViewController {
         layoutState = .minimal
 
         // Remove current
-        mapViewModel.input.didSelectPlaceObjPublisher.onNext(nil)
+        mapViewModel.input.selectPlaceObjPublisher.onNext(nil)
     }
 }
 
@@ -457,7 +457,7 @@ extension MapViewController {
         // Remove destination
         if isShouldUpdateActivityLayout {
             isShouldUpdateActivityLayout = false
-            mapViewModel.input.didSelectPlaceObjPublisher.onNext(nil)
+            mapViewModel.input.selectPlaceObjPublisher.onNext(nil)
         }
 
         // Update map
@@ -518,5 +518,9 @@ extension MapViewController: SearchControllerDelegate {
 
     func shouldUpdateLayoutState(_ newState: MapViewLayoutState) {
         layoutState = newState
+    }
+
+    func didSelectPlace(_ placeObj: PlaceObj) {
+        mapViewModel.input.selectPlaceObjPublisher.onNext(placeObj)
     }
 }
