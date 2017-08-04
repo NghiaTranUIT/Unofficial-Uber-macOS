@@ -1,0 +1,125 @@
+//
+//  SearchBarViewModel.swift
+//  UberGoCore
+//
+//  Created by Nghia Tran on 6/5/17.
+//  Copyright © 2017 Nghia Tran. All rights reserved.
+//
+
+import Cocoa
+import CoreLocation
+import RxCocoa
+import RxSwift
+
+public protocol SearchViewModelProtocol {
+    var input: SearchViewModelInput { get }
+    var output: SearchViewModelOutput { get }
+}
+
+public protocol SearchViewModelInput {
+
+    var textSearchPublish: PublishSubject<String> { get }
+}
+
+public protocol SearchViewModelOutput {
+
+    // Search
+    var searchPlaceObjsVariable: Variable<[PlaceObj]> { get }
+    var loadingDriver: Driver<Bool> { get }
+    
+}
+
+// MARK: - SearchViewModel
+open class SearchViewModel: SearchViewModelProtocol, SearchViewModelInput, SearchViewModelOutput {
+
+    // MARK: - View Model
+    public var input: SearchViewModelInput { return self }
+    public var output: SearchViewModelOutput { return self }
+
+    // MARK: - Input
+    public var textSearchPublish = PublishSubject<String>()
+
+    // MARK: - Output
+    public var searchPlaceObjsVariable = Variable<[PlaceObj]>([])
+    public let loadingDriver: Driver<Bool>
+
+    // MARK: - Variable
+    fileprivate var personalOrHistoryPlacesVar = Variable<[PlaceObj]>([])
+
+    fileprivate let disposeBag = DisposeBag()
+
+    // MARK: - Init
+    public init(uberService: UberService = UberService(),
+                mapService: MapService,
+                googleMapService: GoogleMapService = GoogleMapService()) {
+
+        // Load personal or history place
+        let personalPlace = uberService
+            .personalPlaceObserver()
+            .startWith([]) // Don't need to wait -> Should show history palce first
+
+        let historyPlace = uberService.historyObserver
+
+        Observable.combineLatest([personalPlace, historyPlace])
+            .map { (combine) -> [PlaceObj] in
+                let personPlaces = combine.first!
+                let historyPlaces = combine.last!
+                return personPlaces + historyPlaces
+            }.bind(to: personalOrHistoryPlacesVar)
+            .addDisposableTo(disposeBag)
+
+        // Trigger
+        uberService.reloadHistoryTrigger.onNext()
+
+        // Text Search
+        let shared = textSearchPublish
+            .asObservable()
+            .share()
+
+        // Reset Empty data while fetching
+        let emptyOb = shared
+            .filter({ $0 != "" })
+            .map { _ -> [PlaceObj] in
+                return []
+            }
+
+        // Search from Google Service
+        let searchPlaceOb = shared
+            .filter { $0 != "" }
+            .debounce(0.3, scheduler: MainScheduler.instance)
+            .filter { $0 != "" }
+            .distinctUntilChanged()
+            .withLatestFrom(mapService.output.currentLocationVar.asObservable().filterNil(),
+                            resultSelector: { (namePlace, location) -> (String, CLLocationCoordinate2D) in
+                                return (namePlace, location.coordinate)
+            })
+            .flatMapLatest { return googleMapService.searchPlaces(with: $0.0, currentLocation: $0.1) }
+            .share()
+
+        let personalOrHistoryOb = shared
+            .distinctUntilChanged()
+            .filter({ $0 == "" })
+            .withLatestFrom(personalOrHistoryPlacesVar.asObservable())
+            .share()
+
+        // Merage into searchPlace
+        let searchFinishOb = Observable.merge([searchPlaceOb,
+                                               personalOrHistoryOb,
+                                               emptyOb,
+                                               personalOrHistoryPlacesVar.asObservable()])
+            .skip(1)
+            .share()
+
+        searchFinishOb
+            .bind(to: searchPlaceObjsVariable)
+            .addDisposableTo(disposeBag)
+
+        // Loader
+        let startLoadingOb = Observable.merge([searchPlaceOb, personalOrHistoryOb]).map { _ in true }
+        let stopLoadingOb = searchFinishOb.map { _ in false }
+        loadingDriver = Observable.merge([startLoadingOb, stopLoadingOb])
+            .map({ !$0 })
+            .asDriver(onErrorJustReturn: false)
+
+    }
+}

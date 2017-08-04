@@ -49,7 +49,7 @@ class SearchBarView: NSView {
         return destinationTxt.stringValue
     }
 
-    fileprivate var viewModel: MapViewModel!
+    fileprivate var viewModel: SearchViewModel!
     fileprivate var actionSearchView: ActionSearchBarView!
     fileprivate let disposeBag = DisposeBag()
 
@@ -73,7 +73,7 @@ class SearchBarView: NSView {
         viewModel.output.currentPlaceDriver
             .drive(onNext: { [weak self] nearestPlaceObj in
                 guard let `self` = self else { return }
-                self.updateNestestPlace(nearestPlaceObj)
+                self.updateOriginPlace(nearestPlaceObj)
             })
             .addDisposableTo(disposeBag)
 
@@ -98,7 +98,7 @@ class SearchBarView: NSView {
         binding()
     }
 
-    fileprivate func updateNestestPlace(_ place: PlaceObj) {
+    fileprivate func updateOriginPlace(_ place: PlaceObj) {
         originTxt.stringValue = place.name
     }
 

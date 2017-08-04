@@ -21,7 +21,7 @@ class SearchCollectionView: NSView {
     @IBOutlet fileprivate weak var collectionView: UberCollectionView!
 
     // MARK: - Variable
-    fileprivate var viewModel: MapViewModel!
+    fileprivate var viewModel: SearchViewModel!
     fileprivate let disposeBag = DisposeBag()
     weak var delegate: SearchCollectionViewDelegate?
 
@@ -34,11 +34,7 @@ class SearchCollectionView: NSView {
     }
 
     // MARK: - Public
-    func reloadData() {
-        collectionView.reloadData()
-    }
-
-    public func setupViewModel(_ viewModel: MapViewModel) {
+    public func setupViewModel(_ viewModel: SearchViewModel) {
         self.viewModel = viewModel
         binding()
     }
@@ -51,7 +47,7 @@ class SearchCollectionView: NSView {
             .subscribe(onNext: {[weak self] placeObjs in
                 guard let `self` = self else { return }
                 Logger.info("Place Search FOUND = \(placeObjs.count)")
-                self.reloadData()
+                self.collectionView.reloadData()
             })
             .addDisposableTo(disposeBag)
     }
@@ -184,7 +180,7 @@ extension SearchCollectionView: NSCollectionViewDelegate, NSCollectionViewDelega
         }
 
         // Select
-        viewModel.input.didSelectPlaceObjPublisher.onNext(placeObj)
+        //viewModel.input.didSelectPlaceObjPublisher.onNext(placeObj)
 
         // Notify delegate
         delegate?.searchCollectionViewDidSelectItem()

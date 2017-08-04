@@ -63,7 +63,7 @@
 		BAB14ABC1EF627160066267B /* Array+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB14ABB1EF627160066267B /* Array+Helper.swift */; };
 		BAB50B6C1F2484F1004A03DD /* APIResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB50B6B1F2484F1004A03DD /* APIResult.swift */; };
 		BAB7B8DD1EFD7E7F00B508A1 /* SandboxUpdateStatusTripRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB7B8DC1EFD7E7F00B508A1 /* SandboxUpdateStatusTripRequest.swift */; };
-		BADB784E1EE5AC07000536F7 /* SearchBarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB784D1EE5AC07000536F7 /* SearchBarViewModel.swift */; };
+		BADB784E1EE5AC07000536F7 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB784D1EE5AC07000536F7 /* SearchViewModel.swift */; };
 		BADB78671EE70AB0000536F7 /* PlaceSearchRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB78661EE70AB0000536F7 /* PlaceSearchRequest.swift */; };
 		BADB78691EE70CBB000536F7 /* Parameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB78681EE70CBB000536F7 /* Parameter.swift */; };
 		BADB786B1EE70FFB000536F7 /* GoogleServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB786A1EE70FFB000536F7 /* GoogleServiceTests.swift */; };
@@ -161,7 +161,7 @@
 		BAB14ABB1EF627160066267B /* Array+Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Helper.swift"; sourceTree = "<group>"; };
 		BAB50B6B1F2484F1004A03DD /* APIResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIResult.swift; sourceTree = "<group>"; };
 		BAB7B8DC1EFD7E7F00B508A1 /* SandboxUpdateStatusTripRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SandboxUpdateStatusTripRequest.swift; sourceTree = "<group>"; };
-		BADB784D1EE5AC07000536F7 /* SearchBarViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBarViewModel.swift; sourceTree = "<group>"; };
+		BADB784D1EE5AC07000536F7 /* SearchViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		BADB78661EE70AB0000536F7 /* PlaceSearchRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceSearchRequest.swift; sourceTree = "<group>"; };
 		BADB78681EE70CBB000536F7 /* Parameter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parameter.swift; sourceTree = "<group>"; };
 		BADB786A1EE70FFB000536F7 /* GoogleServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleServiceTests.swift; sourceTree = "<group>"; };
@@ -285,10 +285,10 @@
 				BA2467F91EFB793600E95E6D /* PaymentMethodViewModel.swift */,
 				BA6767301EF8CB5400805AC1 /* UberServiceViewModel.swift */,
 				BA4796A61EE2C0C700620BB0 /* MapViewModel.swift */,
+				BADB784D1EE5AC07000536F7 /* SearchViewModel.swift */,
 				BA32E7221EDFC8230044C017 /* AppViewModel.swift */,
 				BAF57FC11EE11A080013090E /* BaseViewModel.swift */,
 				BA32E71D1EDFC76A0044C017 /* AuthenticationViewModel.swift */,
-				BADB784D1EE5AC07000536F7 /* SearchBarViewModel.swift */,
 			);
 			name = "View Models";
 			sourceTree = "<group>";
@@ -755,7 +755,7 @@
 				BAED39E71EEA5954003D9BC3 /* Reachability.swift in Sources */,
 				BAF57FAE1EE116820013090E /* TripObj.swift in Sources */,
 				BA22191E1EF6FC6D00C766A1 /* PaymentAccountObj.swift in Sources */,
-				BADB784E1EE5AC07000536F7 /* SearchBarViewModel.swift in Sources */,
+				BADB784E1EE5AC07000536F7 /* SearchViewModel.swift in Sources */,
 				BADB78671EE70AB0000536F7 /* PlaceSearchRequest.swift in Sources */,
 				BA7460EC1F2EEA3600EC6BE1 /* GoogleMapService.swift in Sources */,
 				BA3EAB891F15E408003E3EF4 /* Float+Helper.swift in Sources */,
