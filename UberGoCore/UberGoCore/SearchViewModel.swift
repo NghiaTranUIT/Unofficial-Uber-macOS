@@ -90,35 +90,37 @@ open class SearchViewModel: SearchViewModelProtocol, SearchViewModelInput, Searc
 
         // Reset Empty data while fetching
         let emptyOb = shared
-            .filter({ $0 != "" })
-            .map { _ -> [PlaceObj] in
-                return []
-            }
+            .filter({ !$0.isEmpty })
+            .map { _ -> [PlaceObj] in return [] }
 
         // Search from Google Service
         let searchPlaceOb = shared
-            .filter { $0 != "" }
+            .filter { !$0.isEmpty }
             .debounce(0.3, scheduler: MainScheduler.instance)
-            .filter { $0 != "" }
             .distinctUntilChanged()
             .withLatestFrom(mapService.output.currentLocationVar.asObservable().filterNil(),
                             resultSelector: { (namePlace, location) -> (String, CLLocationCoordinate2D) in
                                 return (namePlace, location.coordinate)
             })
             .flatMapLatest { return googleMapService.searchPlaces(with: $0.0, currentLocation: $0.1) }
-            .share()
+            .startWith([])
 
         let personalOrHistoryOb = shared
             .distinctUntilChanged()
-            .filter({ $0 == "" })
+            .filter({ $0.isEmpty })
             .withLatestFrom(personalOrHistoryPlacesVar.asObservable())
-            .share()
+            .startWith([])
+
+        let searchPlaceData = Observable.combineLatest(shared, personalOrHistoryOb, searchPlaceOb) { (condition, thenObs, elseObs) -> [PlaceObj] in
+            if condition.isEmpty {
+                return thenObs
+            }
+            return elseObs
+        }
 
         // Merage into searchPlace
-        let searchFinishOb = Observable.merge([searchPlaceOb,
-                                               personalOrHistoryOb,
-                                               emptyOb,
-                                               personalOrHistoryPlacesVar.asObservable()])
+        let searchFinishOb = Observable.merge([searchPlaceData,
+                                               emptyOb])
             .skip(1)
             .share()
 

@@ -181,7 +181,9 @@ extension SearchCollectionView: NSCollectionViewDelegate, NSCollectionViewDelega
             return
         }
 
+        // Select and reset data
         viewModel.input.selectPlaceObjPublisher.onNext(placeObj)
+        viewModel.input.textSearchPublish.onNext("")
 
         // Notify delegate
         delegate?.searchCollectionViewDidSelectPlace(placeObj)
