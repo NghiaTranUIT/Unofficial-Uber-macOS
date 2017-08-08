@@ -62,7 +62,7 @@ open class SearchViewModel: SearchViewModelProtocol, SearchViewModelInput, Searc
     public init(uberService: UberService = UberService(),
                 mapService: MapService = MapService.share,
                 googleMapService: GoogleMapService = GoogleMapService()) {
-
+        //
         self.mapService = mapService
 
         // Load personal or history place
@@ -73,28 +73,25 @@ open class SearchViewModel: SearchViewModelProtocol, SearchViewModelInput, Searc
         let historyPlace = uberService.historyObserver
 
         Observable.combineLatest([personalPlace, historyPlace])
-            .map { (combine) -> [PlaceObj] in
-                let personPlaces = combine.first!
-                let historyPlaces = combine.last!
-                return personPlaces + historyPlaces
-            }.bind(to: personalOrHistoryPlacesVar)
+            .map { $0.first! + $0.last! }
+            .bind(to: personalOrHistoryPlacesVar)
             .addDisposableTo(disposeBag)
 
         // Trigger
         uberService.reloadHistoryTrigger.onNext()
 
         // Text Search
-        let shared = textSearchPublish
+        let textPubShare = textSearchPublish
             .asObservable()
             .share()
 
         // Reset Empty data while fetching
-        let emptyOb = shared
+        let emptyOb = textPubShare
             .filter({ !$0.isEmpty })
             .map { _ -> [PlaceObj] in return [] }
 
         // Search from Google Service
-        let searchPlaceOb = shared
+        let placesFromGooleObs = textPubShare
             .filter { !$0.isEmpty }
             .debounce(0.3, scheduler: MainScheduler.instance)
             .distinctUntilChanged()
@@ -105,18 +102,22 @@ open class SearchViewModel: SearchViewModelProtocol, SearchViewModelInput, Searc
             .flatMapLatest { return googleMapService.searchPlaces(with: $0.0, currentLocation: $0.1) }
             .startWith([])
 
-        let personalOrHistoryOb = shared
+        let placesFromHistoryObjs = textPubShare
             .distinctUntilChanged()
             .filter({ $0.isEmpty })
             .withLatestFrom(personalOrHistoryPlacesVar.asObservable())
             .startWith([])
 
-        let searchPlaceData = Observable.combineLatest(shared, personalOrHistoryOb, searchPlaceOb) { (condition, thenObs, elseObs) -> [PlaceObj] in
-            if condition.isEmpty {
-                return thenObs
+        // Combine with IF-ELSE
+        let searchPlaceData
+            = Observable.combineLatest(textPubShare,
+                          placesFromHistoryObjs,
+                          placesFromGooleObs) { (condition, thenObs, elseObs) -> [PlaceObj] in
+                if condition.isEmpty {
+                    return thenObs
+                }
+                return elseObs
             }
-            return elseObs
-        }
 
         // Merage into searchPlace
         let searchFinishOb = Observable.merge([searchPlaceData,
@@ -129,22 +130,18 @@ open class SearchViewModel: SearchViewModelProtocol, SearchViewModelInput, Searc
             .addDisposableTo(disposeBag)
 
         // Loader
-        let startLoadingOb = Observable.merge([searchPlaceOb, personalOrHistoryOb]).map { _ in true }
+        let startLoadingOb = Observable.merge([placesFromGooleObs, placesFromHistoryObjs]).map { _ in true }
         let stopLoadingOb = searchFinishOb.map { _ in false }
         loadingDriver = Observable.merge([startLoadingOb, stopLoadingOb])
-            .map({ !$0 })
             .asDriver(onErrorJustReturn: false)
 
         // Save History place
-        let selectedPlaceObs = selectPlaceObjPublisher.asObserver().share()
-        selectedPlaceObs
+        selectPlaceObjPublisher
+            .asObserver()
+            .filterNil()
+            .filter({ $0.placeType == .place })
             .subscribe(onNext: { placeObj in
-                guard let placeObj = placeObj else { return }
                 guard let currentUser = UberAuth.share.currentUser else { return }
-
-                // Only save normal place to history
-                // Don't save personal place
-                guard placeObj.placeType == .place else { return }
 
                 // Save history
                 currentUser.saveHistoryPlace(placeObj)
@@ -153,6 +150,5 @@ open class SearchViewModel: SearchViewModelProtocol, SearchViewModelInput, Searc
                 uberService.reloadHistoryTrigger.onNext()
             })
             .addDisposableTo(disposeBag)
-
     }
 }
