@@ -102,6 +102,7 @@ extension SearchController: SearchBarViewDelegate {
 extension SearchController: SearchCollectionViewDelegate {
 
     func searchCollectionViewSearchPersonalPlace(_ placeObj: PlaceObj) {
+        viewModel.input.enableFullSearchModePublisher.onNext(true)
         delegate?.shouldUpdateLayoutState(.searchFullScreen)
     }
 

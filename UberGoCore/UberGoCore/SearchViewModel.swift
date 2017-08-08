@@ -19,6 +19,7 @@ public protocol SearchViewModelProtocol {
 public protocol SearchViewModelInput {
 
     var textSearchPublish: PublishSubject<String> { get }
+    var enableFullSearchModePublisher: PublishSubject<Bool> { get }
     var selectPlaceObjPublisher: PublishSubject<PlaceObj?> { get }
 }
 
@@ -28,7 +29,7 @@ public protocol SearchViewModelOutput {
     var currentPlaceDriver: Driver<PlaceObj> { get }
 
     // Search
-    var searchPlaceObjsVariable: Variable<[PlaceObj]> { get }
+    var searchPlacesVar: Variable<[PlaceObj]> { get }
     var loadingDriver: Driver<Bool> { get }
 }
 
@@ -42,9 +43,10 @@ open class SearchViewModel: SearchViewModelProtocol, SearchViewModelInput, Searc
     // MARK: - Input
     public var textSearchPublish = PublishSubject<String>()
     public var selectPlaceObjPublisher = PublishSubject<PlaceObj?>()
+    public var enableFullSearchModePublisher = PublishSubject<Bool>()
 
     // MARK: - Output
-    public var searchPlaceObjsVariable = Variable<[PlaceObj]>([])
+    public var searchPlacesVar = Variable<[PlaceObj]>([])
     public let loadingDriver: Driver<Bool>
     public var currentPlaceDriver: Driver<PlaceObj> {
         return mapService.output.currentPlaceObs
@@ -121,7 +123,7 @@ open class SearchViewModel: SearchViewModelProtocol, SearchViewModelInput, Searc
             .share()
 
         searchFinishOb
-            .bind(to: searchPlaceObjsVariable)
+            .bind(to: searchPlacesVar)
             .addDisposableTo(disposeBag)
 
         // Loader

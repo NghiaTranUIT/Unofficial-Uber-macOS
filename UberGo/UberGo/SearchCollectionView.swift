@@ -23,6 +23,8 @@ class SearchCollectionView: NSView {
     // MARK: - Variable
     fileprivate var viewModel: SearchViewModel!
     fileprivate let disposeBag = DisposeBag()
+    fileprivate var placeObjs: [PlaceObj] { return viewModel.output.searchPlacesVar.value }
+
     weak var delegate: SearchCollectionViewDelegate?
 
     // MARK: - View Cycle
@@ -42,7 +44,7 @@ class SearchCollectionView: NSView {
     fileprivate func binding() {
 
         // Reload search Place collectionView
-        viewModel.output.searchPlaceObjsVariable
+        viewModel.output.searchPlacesVar
             .asObservable()
             .subscribe(onNext: {[weak self] placeObjs in
                 guard let `self` = self else { return }
@@ -135,7 +137,7 @@ extension SearchCollectionView: NSCollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.output.searchPlaceObjsVariable.value.count
+        return placeObjs.count
     }
 
     func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath)
@@ -152,7 +154,7 @@ extension SearchCollectionView: NSCollectionViewDataSource {
                     return NSCollectionViewItem()
             }
 
-            let placeObj = viewModel.output.searchPlaceObjsVariable.value[indexPath.item]
+            let placeObj = placeObjs[indexPath.item]
             cell.configurePlaceCell(placeObj)
             return cell
     }
@@ -167,7 +169,7 @@ extension SearchCollectionView: NSCollectionViewDelegate, NSCollectionViewDelega
         guard let selectedIndexPath = selection.allObjects.last as? IndexPath else { return }
 
         // Data
-        let placeObj = viewModel.output.searchPlaceObjsVariable.value[selectedIndexPath.item]
+        let placeObj = placeObjs[selectedIndexPath.item]
 
         // De-select
         collectionView.deselectItems(at: indexPaths)

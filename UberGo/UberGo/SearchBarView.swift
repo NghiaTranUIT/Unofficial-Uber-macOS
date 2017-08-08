@@ -123,6 +123,7 @@ class SearchBarView: NSView {
 
     // MARK: - Action
     @IBAction func backBtnOnTap(_ sender: Any) {
+        viewModel.input.enableFullSearchModePublisher.onNext(false)
         delegate?.searchBar(self, layoutStateDidChanged: .minimal)
     }
 }
