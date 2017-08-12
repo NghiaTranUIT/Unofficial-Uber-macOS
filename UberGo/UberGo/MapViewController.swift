@@ -104,14 +104,13 @@ class MapViewController: BaseViewController {
                 guard let `self` = self else { return }
 
                 if let placeObj = placeObj {
-                    // Loader
-
                     // Request data (trip, estimation, route)
                     guard let currentLocation = self.mapViewModel.currentLocationVariable.value else { return }
-                    let data = UberTripData(to: placeObj, from: currentLocation.coordinate)
-                    self.uberViewModel.input.selectedPlacePublisher.onNext(data)
+                    let from = PlaceObj(coordinate: currentLocation.coordinate)
+                    let data = UberRequestTripData(from: from, to: placeObj)
+                    self.uberViewModel.input.requestEstimateTripPublish.onNext(data)
                 } else {
-                    self.uberViewModel.input.selectedPlacePublisher.onNext(nil)
+                    self.uberViewModel.input.requestEstimateTripPublish.onNext(nil)
                     self.searchController.resetTextSearch()
                     self.mapView.addDestinationPlaceObj(nil)
                 }
@@ -236,7 +235,7 @@ class MapViewController: BaseViewController {
 
                 // Reset
                 self.mapViewModel.input.selectPlaceObjPublisher.onNext(nil)
-                self.uberViewModel.input.selectedPlacePublisher.onNext(nil)
+                self.uberViewModel.input.requestEstimateTripPublish.onNext(nil)
 
                 // Reset data
                 self.mapView.resetAllData()

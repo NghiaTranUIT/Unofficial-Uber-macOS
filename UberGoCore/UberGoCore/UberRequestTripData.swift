@@ -12,4 +12,9 @@ public struct UberRequestTripData {
 
     public let from: PlaceObj
     public let to: PlaceObj
+
+    public init(from: PlaceObj, to: PlaceObj) {
+        self.from = from
+        self.to = to
+    }
 }

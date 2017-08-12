@@ -13,14 +13,19 @@ import Unbox
 
 public struct RideEstimatePriceRequestParam: Parameter {
 
-    let from: CLLocationCoordinate2D
-    let to: CLLocationCoordinate2D
+    let from: PlaceObj
+    let to: PlaceObj
+
+    init(data: UberRequestTripData) {
+        self.from = data.from
+        self.to = data.to
+    }
 
     func toDictionary() -> [String : Any] {
-        return ["start_latitude": self.from.latitude,
-                "start_longitude": self.from.longitude,
-                "end_latitude": self.to.latitude,
-                "end_longitude": self.to.longitude]
+        return ["start_latitude": self.from.coordinate2D.latitude,
+                "start_longitude": self.from.coordinate2D.longitude,
+                "end_latitude": self.to.coordinate2D.latitude,
+                "end_longitude": self.to.coordinate2D.longitude]
     }
 }
 

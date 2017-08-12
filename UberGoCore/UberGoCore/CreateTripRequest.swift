@@ -23,7 +23,11 @@ public struct CreateTripRequestParam: Parameter {
     let to: PlaceObj
 
     // Init
-    init(fareID: String?, productID: String, surgeConfirmationId: String?, paymentMethodId: String?, data: UberRequestTripData) {
+    init(fareID: String?,
+         productID: String,
+         surgeConfirmationId: String?,
+         paymentMethodId: String?,
+         data: UberRequestTripData) {
         self.fareID = fareID
         self.productID = productID
         self.surgeConfirmationId = surgeConfirmationId

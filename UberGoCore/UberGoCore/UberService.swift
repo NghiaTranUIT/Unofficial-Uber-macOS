@@ -68,10 +68,9 @@ open class UberService {
     public func productsWithEstimatePriceObserver(data: UberRequestTripData)
         -> Observable<[ProductObj]> {
 
-            let productsOb = self.availableProductsObserver(at: data.from.coordinate2D)
-            let estimatePriceOb = self.estimatePriceObserver(from: data.from.coordinate2D,
-                                                             to: data.to.coordinate2D)
-            let estimateTimeOb = self.estimateTimeObserver(from: data.from.coordinate2D)
+            let productsOb = self.availableProductsObserver(from: data.from)
+            let estimatePriceOb = self.estimatePriceObserver(with: data)
+            let estimateTimeOb = self.estimateTimeObserver(from: data.from)
 
             // Zip
             // Require to wait all out-going requrst
@@ -101,21 +100,18 @@ open class UberService {
             })
     }
 
-    public func availableProductsObserver(at location: CLLocationCoordinate2D) -> Observable<[ProductObj]> {
-        let param = UberProductsRequestParam(location: location)
+    public func availableProductsObserver(from fromPlace: PlaceObj) -> Observable<[ProductObj]> {
+        let param = UberProductsRequestParam(from: fromPlace)
         return UberProductsRequest(param).toObservable()
     }
 
-    public func estimatePriceObserver(from originLocation: CLLocationCoordinate2D,
-                                      to destinationLocation: CLLocationCoordinate2D)
-        -> Observable<[PriceObj]> {
-            let param = RideEstimatePriceRequestParam(from: originLocation,
-                                                      to: destinationLocation)
+    public func estimatePriceObserver(with data: UberRequestTripData) -> Observable<[PriceObj]> {
+            let param = RideEstimatePriceRequestParam(data: data)
             return RideEstimatePriceRequest(param).toObservable()
     }
 
-    public func estimateTimeObserver(from originLocation: CLLocationCoordinate2D) -> Observable<[TimeEstimateObj]> {
-            let param = RideEstimateTimeRequestParam(from: originLocation, productID: nil)
+    public func estimateTimeObserver(from fromPlace: PlaceObj) -> Observable<[TimeEstimateObj]> {
+            let param = RideEstimateTimeRequestParam(from: fromPlace, productID: nil)
             return RideEstimateTimeRequest(param).toObservable()
     }
 

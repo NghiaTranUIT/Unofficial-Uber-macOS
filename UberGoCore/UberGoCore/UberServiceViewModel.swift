@@ -186,7 +186,9 @@ open class UberServiceViewModel: UberServiceViewModelProtocol,
                 }
                 return .just(frontFareObj)
             })
-            .withLatestFrom(requestEstimateTripShare.asObservable().filterNil(), resultSelector: { (frontFareObj, data) -> (UpFrontFareOb, UberRequestTripData) in
+            .withLatestFrom(requestEstimateTripShare
+                .asObservable()
+                .filterNil(), resultSelector: { (frontFareObj, data) -> (UpFrontFareOb, UberRequestTripData) in
                 return (frontFareObj, data)
             })
             .flatMapLatest {(tuble) -> Observable<CreateTripObj>in
@@ -210,7 +212,9 @@ open class UberServiceViewModel: UberServiceViewModelProtocol,
         // Handle SurgeCallback
         let uberTripSurgeFareOb = requestUberWithSurgeIDPublisher
             .asObserver()
-            .withLatestFrom(requestEstimateTripShare.asObservable().filterNil(), resultSelector: { (path, data) -> (String, UberRequestTripData) in
+            .withLatestFrom(requestEstimateTripShare
+                .asObservable()
+                .filterNil(), resultSelector: { (path, data) -> (String, UberRequestTripData) in
                 return (path, data)
             })
             .flatMapLatest {[unowned self] (tuble) -> Observable<CreateTripObj> in

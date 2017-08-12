@@ -13,12 +13,12 @@ import Unbox
 
 public struct RideEstimateTimeRequestParam: Parameter {
 
-    let from: CLLocationCoordinate2D
+    let from: PlaceObj
     let productID: String?
 
     func toDictionary() -> [String : Any] {
-        var dict: [String: Any] =  ["start_latitude": self.from.latitude,
-                                    "start_longitude": self.from.longitude]
+        var dict: [String: Any] =  ["start_latitude": self.from.coordinate2D.latitude,
+                                    "start_longitude": self.from.coordinate2D.longitude]
         if let productID = self.productID {
             dict["product_id"] = productID
         }
