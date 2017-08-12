@@ -12,40 +12,46 @@ import Unbox
 
 struct PostEstimateTripRequestParamter: Parameter {
 
-    let productId: String
+    // Require
+    fileprivate let productId: String
 
-    let startLocation: CLLocationCoordinate2D?
-    let endLocation: CLLocationCoordinate2D?
-    let startPlaceType: PlaceType?
-    let endPlaceType: PlaceType?
+    // Place
+    fileprivate let from: PlaceObj
+    fileprivate let to: PlaceObj
 
+    // Init
+    public init(productId: String, data: UberRequestTripData) {
+        self.productId = productId
+        self.from = data.from
+        self.to = data.to
+    }
+
+    // Build param
     func toDictionary() -> [String : Any] {
-
-        if startLocation != nil && startPlaceType != nil {
-            fatalError("[Error] Either Start or placeType")
-        }
-
-        if endLocation != nil && endPlaceType != nil {
-            fatalError("[Error] Either Start or placeType")
-        }
 
         // Param
         var param: [String: Any] = ["product_id": self.productId]
 
         // Start
-        if let placeType = self.startPlaceType {
-             param["start_place_id"] = placeType.rawValue
-        } else if let startLocation = self.startLocation {
-            param["start_latitude"] = startLocation.latitude
-            param["start_longitude"] = startLocation.longitude
+        switch from.placeType {
+        case .place:
+            param["start_latitude"] = from.coordinate2D.latitude
+            param["start_longitude"] = from.coordinate2D.longitude
+        case .work:
+            fallthrough
+        case .home:
+            param["start_place_id"] = from.placeType.rawValue
         }
 
         // Destination
-        if let placeType = self.endPlaceType {
-            param["end_place_id"] = placeType.rawValue
-        } else if let endLocation = self.endLocation {
-            param["end_latitude"] = endLocation.latitude
-            param["end_longitude"] = endLocation.longitude
+        switch to.placeType {
+        case .place:
+            param["end_latitude"] = to.coordinate2D.latitude
+            param["end_longitude"] = to.coordinate2D.longitude
+        case .work:
+            fallthrough
+        case .home:
+            param["end_place_id"] = to.placeType.rawValue
         }
 
         return param
