@@ -23,6 +23,7 @@
 		BA2A3A831EED4298002A0343 /* SearchCollectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA2A3A821EED4298002A0343 /* SearchCollectionView.xib */; };
 		BA2A3A861EED430D002A0343 /* SearchCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2A3A851EED430D002A0343 /* SearchCollectionView.swift */; };
 		BA4796A91EE2C49700620BB0 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA4796A81EE2C49700620BB0 /* MapKit.framework */; };
+		BA48DCAF1F415FCE007BA3B6 /* PersonalPlaceSearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA48DCAE1F415FCE007BA3B6 /* PersonalPlaceSearchController.swift */; };
 		BA5895D41F1287C300235041 /* BreakdownPriceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5895D21F1287C300235041 /* BreakdownPriceController.swift */; };
 		BA5895D51F1287C300235041 /* BreakdownPriceController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA5895D31F1287C300235041 /* BreakdownPriceController.xib */; };
 		BA657DA71F149B6E007E4821 /* PriceDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA657DA61F149B6E007E4821 /* PriceDetailCell.swift */; };
@@ -131,6 +132,7 @@
 		BA2A3A851EED430D002A0343 /* SearchCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchCollectionView.swift; sourceTree = "<group>"; };
 		BA4796951EE2540D00620BB0 /* UberGoCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = UberGoCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA4796A81EE2C49700620BB0 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		BA48DCAE1F415FCE007BA3B6 /* PersonalPlaceSearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalPlaceSearchController.swift; sourceTree = "<group>"; };
 		BA5895D21F1287C300235041 /* BreakdownPriceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreakdownPriceController.swift; sourceTree = "<group>"; };
 		BA5895D31F1287C300235041 /* BreakdownPriceController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BreakdownPriceController.xib; sourceTree = "<group>"; };
 		BA657DA61F149B6E007E4821 /* PriceDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceDetailCell.swift; sourceTree = "<group>"; };
@@ -308,6 +310,7 @@
 				BAF57FB71EE116FB0013090E /* LoginViewController.swift */,
 				BAF57FBD1EE117300013090E /* MapViewController.swift */,
 				BAA157941F33446C0020D5A6 /* SearchController.swift */,
+				BA48DCAE1F415FCE007BA3B6 /* PersonalPlaceSearchController.swift */,
 				BA67673B1EFA295D00805AC1 /* WebViewController.swift */,
 				BA1C3FB21EFA6852001FD50F /* PaymentMethodsController.swift */,
 				BABAC5BA1F08F3FF000DACEC /* ProductDetailController.swift */,
@@ -885,6 +888,7 @@
 				BADB78611EE661A8000536F7 /* UberTextField.swift in Sources */,
 				BAB082261F05626100A74665 /* UberAnnotation.swift in Sources */,
 				BACC07B11F036C6E0092F2F4 /* UberPopover.swift in Sources */,
+				BA48DCAF1F415FCE007BA3B6 /* PersonalPlaceSearchController.swift in Sources */,
 				BACC07AB1F0367300092F2F4 /* Constrainable.swift in Sources */,
 				BAAC441B1EF3A4BE00A9F949 /* UberMapView.swift in Sources */,
 				BA657DA71F149B6E007E4821 /* PriceDetailCell.swift in Sources */,

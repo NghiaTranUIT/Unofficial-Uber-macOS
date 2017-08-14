@@ -21,7 +21,7 @@ class SearchCollectionView: NSView {
     @IBOutlet fileprivate weak var collectionView: UberCollectionView!
 
     // MARK: - Variable
-    fileprivate var viewModel: SearchViewModel!
+    fileprivate var viewModel: SearchViewModelProtocol!
     fileprivate let disposeBag = DisposeBag()
     fileprivate var placeObjs: [PlaceObj] { return viewModel.output.searchPlacesVar.value }
 
@@ -36,7 +36,7 @@ class SearchCollectionView: NSView {
     }
 
     // MARK: - Public
-    public func setupViewModel(_ viewModel: SearchViewModel) {
+    public func setupViewModel(_ viewModel: SearchViewModelProtocol) {
         self.viewModel = viewModel
         binding()
     }

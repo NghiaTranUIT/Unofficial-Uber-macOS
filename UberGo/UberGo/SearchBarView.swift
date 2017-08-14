@@ -49,7 +49,7 @@ class SearchBarView: NSView {
         return destinationTxt.stringValue
     }
 
-    fileprivate var viewModel: SearchViewModel!
+    fileprivate var viewModel: SearchViewModelProtocol!
     fileprivate var actionSearchView: ActionSearchBarView!
     fileprivate let disposeBag = DisposeBag()
 
@@ -93,7 +93,7 @@ class SearchBarView: NSView {
             }).addDisposableTo(disposeBag)
     }
 
-    public func setupViewModel(_ viewModel: SearchViewModel) {
+    public func setupViewModel(_ viewModel: SearchViewModelProtocol) {
         self.viewModel = viewModel
         binding()
     }

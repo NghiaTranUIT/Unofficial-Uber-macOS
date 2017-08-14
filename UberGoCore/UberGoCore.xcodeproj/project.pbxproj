@@ -38,6 +38,7 @@
 		BA4796B01EE2DAFE00620BB0 /* UberOauth.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4796AF1EE2DAFE00620BB0 /* UberOauth.swift */; };
 		BA4796B31EE3C93900620BB0 /* UUID+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4796B21EE3C93900620BB0 /* UUID+Helper.swift */; };
 		BA4796B51EE3D49300620BB0 /* UserObjTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4796B41EE3D49300620BB0 /* UserObjTests.swift */; };
+		BA48DCB11F416165007BA3B6 /* PersonalPlaceSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA48DCB01F416165007BA3B6 /* PersonalPlaceSearchViewModel.swift */; };
 		BA657DA01F133A78007E4821 /* PriceDetailObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA657D9F1F133A78007E4821 /* PriceDetailObj.swift */; };
 		BA657DA21F133C14007E4821 /* ServiceFeeObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA657DA11F133C14007E4821 /* ServiceFeeObj.swift */; };
 		BA657DA41F133DFC007E4821 /* ProductDetailRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA657DA31F133DFC007E4821 /* ProductDetailRequest.swift */; };
@@ -137,6 +138,7 @@
 		BA4796AF1EE2DAFE00620BB0 /* UberOauth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UberOauth.swift; sourceTree = "<group>"; };
 		BA4796B21EE3C93900620BB0 /* UUID+Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UUID+Helper.swift"; sourceTree = "<group>"; };
 		BA4796B41EE3D49300620BB0 /* UserObjTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserObjTests.swift; sourceTree = "<group>"; };
+		BA48DCB01F416165007BA3B6 /* PersonalPlaceSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalPlaceSearchViewModel.swift; sourceTree = "<group>"; };
 		BA657D9F1F133A78007E4821 /* PriceDetailObj.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceDetailObj.swift; sourceTree = "<group>"; };
 		BA657DA11F133C14007E4821 /* ServiceFeeObj.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceFeeObj.swift; sourceTree = "<group>"; };
 		BA657DA31F133DFC007E4821 /* ProductDetailRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailRequest.swift; sourceTree = "<group>"; };
@@ -288,6 +290,7 @@
 				BA6767301EF8CB5400805AC1 /* UberServiceViewModel.swift */,
 				BA4796A61EE2C0C700620BB0 /* MapViewModel.swift */,
 				BADB784D1EE5AC07000536F7 /* SearchViewModel.swift */,
+				BA48DCB01F416165007BA3B6 /* PersonalPlaceSearchViewModel.swift */,
 				BA32E7221EDFC8230044C017 /* AppViewModel.swift */,
 				BAF57FC11EE11A080013090E /* BaseViewModel.swift */,
 				BA32E71D1EDFC76A0044C017 /* AuthenticationViewModel.swift */,
@@ -792,6 +795,7 @@
 				BA4796A31EE2BF0800620BB0 /* NSError+Helper.swift in Sources */,
 				BA657DA21F133C14007E4821 /* ServiceFeeObj.swift in Sources */,
 				BAAC440E1EF0E12300A9F949 /* UberCoordinateObj.swift in Sources */,
+				BA48DCB11F416165007BA3B6 /* PersonalPlaceSearchViewModel.swift in Sources */,
 				BAF57FB51EE116D10013090E /* RouteCoordinator.swift in Sources */,
 				BAF7D2221F068D8000CC8BF6 /* AuthToken.swift in Sources */,
 				BA22191C1EF6FBB100C766A1 /* PaymentObj.swift in Sources */,
