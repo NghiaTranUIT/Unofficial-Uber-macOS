@@ -33,10 +33,10 @@
                         <customView translatesAutoresizingMaskIntoConstraints="NO" id="vPW-kc-2X8">
                             <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
                             <subviews>
-                                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="R7e-uc-ZRU">
+                                <button focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="R7e-uc-ZRU">
                                     <rect key="frame" x="20" y="433" width="22" height="32"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="back-black-btn" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="H1D-il-Kj2">
+                                    <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="back-black-btn" imagePosition="only" alignment="center" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="H1D-il-Kj2">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>

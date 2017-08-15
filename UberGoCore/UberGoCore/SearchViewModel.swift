@@ -136,10 +136,6 @@ open class SearchViewModel: SearchViewModelProtocol, SearchViewModelInput, Searc
         let stopLoadingOb = Observable.merge([searchPlaceData]).map { _ in false }
         let startLoadingOb = isFetchingPlaceGoogle.map { _ in true }
         loadingDriver = Observable.merge([startLoadingOb, stopLoadingOb])
-            .skip(1)
-            .do(onNext: { (state) in
-                print("Loading State = \(state)")
-            })
             .asDriver(onErrorJustReturn: false)
 
         // Save History place
