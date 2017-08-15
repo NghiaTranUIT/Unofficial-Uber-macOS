@@ -65,14 +65,15 @@ open class UberService {
     }
 
     // MARK: - Get Estimation + Available Uber
-    public func productsWithEstimatePriceObserver(from originLocation: CLLocationCoordinate2D,
-                                                  to destinationLocation: CLLocationCoordinate2D)
+    public func productsWithEstimatePriceObserver(data: UberRequestTripData)
         -> Observable<[ProductObj]> {
 
-            let productsOb = self.availableProductsObserver(at: originLocation)
-            let estimatePriceOb = self.estimatePriceObserver(from: originLocation, to: destinationLocation)
-            let estimateTimeOb = self.estimateTimeObserver(from: originLocation)
+            let productsOb = self.availableProductsObserver(from: data.from)
+            let estimatePriceOb = self.estimatePriceObserver(with: data)
+            let estimateTimeOb = self.estimateTimeObserver(from: data.from)
 
+            // Zip
+            // Require to wait all out-going requrst
             return Observable.zip(productsOb, estimatePriceOb, estimateTimeOb)
                 .map({ (products, estimatePrices, estimateTimes) -> [ProductObj] in
 
@@ -99,21 +100,18 @@ open class UberService {
             })
     }
 
-    public func availableProductsObserver(at location: CLLocationCoordinate2D) -> Observable<[ProductObj]> {
-        let param = UberProductsRequestParam(location: location)
+    public func availableProductsObserver(from fromPlace: PlaceObj) -> Observable<[ProductObj]> {
+        let param = UberProductsRequestParam(from: fromPlace)
         return UberProductsRequest(param).toObservable()
     }
 
-    public func estimatePriceObserver(from originLocation: CLLocationCoordinate2D,
-                                      to destinationLocation: CLLocationCoordinate2D)
-        -> Observable<[PriceObj]> {
-            let param = RideEstimatePriceRequestParam(from: originLocation,
-                                                      to: destinationLocation)
+    public func estimatePriceObserver(with data: UberRequestTripData) -> Observable<[PriceObj]> {
+            let param = RideEstimatePriceRequestParam(data: data)
             return RideEstimatePriceRequest(param).toObservable()
     }
 
-    public func estimateTimeObserver(from originLocation: CLLocationCoordinate2D) -> Observable<[TimeEstimateObj]> {
-            let param = RideEstimateTimeRequestParam(from: originLocation, productID: nil)
+    public func estimateTimeObserver(from fromPlace: PlaceObj) -> Observable<[TimeEstimateObj]> {
+            let param = RideEstimateTimeRequestParam(from: fromPlace, productID: nil)
             return RideEstimateTimeRequest(param).toObservable()
     }
 
@@ -123,50 +121,34 @@ open class UberService {
     }
 
     // MARK: - Request Uber
-    public func estimateForSpecificProductObserver(_ productObj: ProductObj,
-                                                   from: CLLocationCoordinate2D,
-                                                   to: CLLocationCoordinate2D)
+    public func estimateForSpecificProductObserver(_ productObj: ProductObj, data: UberRequestTripData)
     -> Observable<EstimateObj> {
-
-        //TODO : Should support from personalPlace -> personalPlace as well
-        // Currently, I only support physical location -> location
         let param = PostEstimateTripRequestParamter(productId: productObj.productId,
-                                                    startLocation: from,
-                                                    endLocation: to,
-                                                    startPlaceType: nil,
-                                                    endPlaceType: nil)
+                                                    data: data)
         return PostEstimateTripRequest(param).toObservable()
     }
 
     public func requestUpFrontFareTrip(frontFareObj: UpFrontFareOb,
                                        productObj: ProductObj,
                                        paymentAccountObj: PaymentAccountObj?,
-                                       from: CLLocationCoordinate2D,
-                                       to: PlaceObj) -> Observable<CreateTripObj> {
+                                       requestData: UberRequestTripData) -> Observable<CreateTripObj> {
         let param = CreateTripRequestParam(fareID: frontFareObj.fareId,
                                        productID: productObj.productId,
                                        surgeConfirmationId: nil,
                                        paymentMethodId: paymentAccountObj?.paymentMethodId,
-                                       startLocation: from,
-                                       endLocation: to.coordinate2D,
-                                       startPlaceType: nil,
-                                       endPlaceType: nil)
+                                       data: requestData)
         return CreateTripRequest(param).toObservable()
     }
 
     public func requestSurgeTrip(surgeID: String,
                                  productObj: ProductObj,
                                  paymentAccountObj: PaymentAccountObj?,
-                                 from: CLLocationCoordinate2D,
-                                 to: PlaceObj) -> Observable<CreateTripObj> {
+                                 requestData: UberRequestTripData) -> Observable<CreateTripObj> {
         let param = CreateTripRequestParam(fareID: nil,
-                                       productID: productObj.productId,
-                                       surgeConfirmationId: surgeID,
-                                       paymentMethodId: paymentAccountObj?.paymentMethodId,
-                                       startLocation: from,
-                                       endLocation: to.coordinate2D,
-                                       startPlaceType: nil,
-                                       endPlaceType: nil)
+                                           productID: productObj.productId,
+                                           surgeConfirmationId: surgeID,
+                                           paymentMethodId: paymentAccountObj?.paymentMethodId,
+                                           data: requestData)
         return CreateTripRequest(param).toObservable()
     }
 

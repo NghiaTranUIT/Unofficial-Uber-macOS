@@ -11,7 +11,8 @@ import RxSwift
 import UberGoCore
 
 protocol SearchCollectionViewDelegate: class {
-    func searchCollectionViewDidSelectItem()
+    func searchCollectionViewSearchPersonalPlace(_ placeObj: PlaceObj)
+    func searchCollectionViewDidSelectPlace(_ placeObj: PlaceObj)
 }
 
 class SearchCollectionView: NSView {
@@ -20,8 +21,10 @@ class SearchCollectionView: NSView {
     @IBOutlet fileprivate weak var collectionView: UberCollectionView!
 
     // MARK: - Variable
-    fileprivate var viewModel: MapViewModel!
+    fileprivate var viewModel: SearchViewModelProtocol!
     fileprivate let disposeBag = DisposeBag()
+    fileprivate var placeObjs: [PlaceObj] { return viewModel.output.searchPlacesVar.value }
+
     weak var delegate: SearchCollectionViewDelegate?
 
     // MARK: - View Cycle
@@ -33,11 +36,7 @@ class SearchCollectionView: NSView {
     }
 
     // MARK: - Public
-    func reloadData() {
-        collectionView.reloadData()
-    }
-
-    public func setupViewModel(_ viewModel: MapViewModel) {
+    public func setupViewModel(_ viewModel: SearchViewModelProtocol) {
         self.viewModel = viewModel
         binding()
     }
@@ -45,12 +44,12 @@ class SearchCollectionView: NSView {
     fileprivate func binding() {
 
         // Reload search Place collectionView
-        viewModel.output.searchPlaceObjsVariable
+        viewModel.output.searchPlacesVar
             .asObservable()
             .subscribe(onNext: {[weak self] placeObjs in
                 guard let `self` = self else { return }
                 Logger.info("Place Search FOUND = \(placeObjs.count)")
-                self.reloadData()
+                self.collectionView.reloadData()
             })
             .addDisposableTo(disposeBag)
     }
@@ -96,6 +95,8 @@ extension SearchCollectionView {
 
     public func layoutStateChanged(_ newState: MapViewLayoutState) {
         switch newState {
+        case .searchFullScreen:
+            fallthrough
         case .expand:
             isHidden = false
             alphaValue = 0
@@ -136,7 +137,7 @@ extension SearchCollectionView: NSCollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: NSCollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.output.searchPlaceObjsVariable.value.count
+        return placeObjs.count
     }
 
     func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath)
@@ -153,7 +154,7 @@ extension SearchCollectionView: NSCollectionViewDataSource {
                     return NSCollectionViewItem()
             }
 
-            let placeObj = viewModel.output.searchPlaceObjsVariable.value[indexPath.item]
+            let placeObj = placeObjs[indexPath.item]
             cell.configurePlaceCell(placeObj)
             return cell
     }
@@ -168,16 +169,26 @@ extension SearchCollectionView: NSCollectionViewDelegate, NSCollectionViewDelega
         guard let selectedIndexPath = selection.allObjects.last as? IndexPath else { return }
 
         // Data
-        let placeObj = viewModel.output.searchPlaceObjsVariable.value[selectedIndexPath.item]
-        guard !placeObj.invalid else { return }
-
-        // Select
-        viewModel.input.didSelectPlaceObjPublisher.onNext(placeObj)
+        let placeObj = placeObjs[selectedIndexPath.item]
 
         // De-select
         collectionView.deselectItems(at: indexPaths)
 
+        // If invalid personal place
+        // Add New place
+        if placeObj.invalid {
+
+            // Temporary disable this feature
+            return
+//            delegate?.searchCollectionViewSearchPersonalPlace(placeObj)
+//            return
+        }
+
+        // Select and reset data
+        viewModel.input.selectPlaceObjPublisher.onNext(placeObj)
+        viewModel.input.textSearchPublish.onNext("")
+
         // Notify delegate
-        delegate?.searchCollectionViewDidSelectItem()
+        delegate?.searchCollectionViewDidSelectPlace(placeObj)
     }
 }

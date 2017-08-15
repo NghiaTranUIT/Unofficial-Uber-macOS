@@ -31,12 +31,12 @@ class UberServiceTests: XCTestCase {
     func testAvailableProductsObserver() {
 
         // When
-        let location = LocationHelper.originLocation
         let promise = expectation(description: "testAvailableProductsObserver")
         FakeUberCrendential.makeCurrentUser()
+        let from = LocationHelper.fromPlace
 
         // Then
-        UberService().availableProductsObserver(at: location)
+        UberService().availableProductsObserver(from: from)
         .subscribe(onNext: { products in
             if products.count == 0 {
                 XCTFail("None available product at testAvailableProductsObserver")
@@ -73,11 +73,11 @@ class UberServiceTests: XCTestCase {
 
         let promise = expectation(description: "testEstimatePriceObserver")
         FakeUberCrendential.makeCurrentUser()
-        let from = LocationHelper.originLocation
-        let to = LocationHelper.destinationLocation
+
+        let data = LocationHelper.testablePlaceData
 
         // Then
-        UberService().estimatePriceObserver(from: from, to: to)
+        UberService().estimatePriceObserver(with: data)
             .subscribe(onNext: { priceObjs in
                 promise.fulfill()
             }, onError: { error in
@@ -93,10 +93,10 @@ class UberServiceTests: XCTestCase {
 
         let promise = expectation(description: "testEstimateTimeObserver")
         FakeUberCrendential.makeCurrentUser()
-        let from = LocationHelper.originLocation
+        let data = LocationHelper.testablePlaceData
 
         // Then
-        UberService().estimateTimeObserver(from: from)
+        UberService().estimateTimeObserver(from: data.from)
             .subscribe(onNext: { timeObj in
                 promise.fulfill()
             }, onError: { error in
@@ -112,11 +112,11 @@ class UberServiceTests: XCTestCase {
 
         let promise = expectation(description: "testProductsWithEstimatePriceObserver")
         FakeUberCrendential.makeCurrentUser()
-        let from = LocationHelper.originLocation
-        let to = LocationHelper.destinationLocation
+
+        let data = LocationHelper.testablePlaceData
 
         // Then
-        UberService().productsWithEstimatePriceObserver(from: from, to: to)
+        UberService().productsWithEstimatePriceObserver(data: data)
             .subscribe(onNext: { productObjs in
                 promise.fulfill()
             }, onError: { error in
@@ -175,10 +175,11 @@ class UberServiceTests: XCTestCase {
 
         let promise = expectation(description: "testRequestProductDetailObserver")
         FakeUberCrendential.makeCurrentUser()
-        let location = LocationHelper.originLocation
+
+        let from = LocationHelper.fromPlace
 
         // Then
-        UberService().availableProductsObserver(at: location)
+        UberService().availableProductsObserver(from: from)
             .subscribe(onNext: { [unowned self] products in
 
                 guard let firstObj = products.first else {

@@ -13,11 +13,11 @@ import Unbox
 
 public struct UberProductsRequestParam: Parameter {
 
-    let location: CLLocationCoordinate2D
+    let from: PlaceObj
 
     func toDictionary() -> [String : Any] {
-        return ["latitude": "\(self.location.latitude)",
-                "longitude": "\(self.location.longitude)"]
+        return ["latitude": "\(self.from.coordinate2D.latitude)",
+                "longitude": "\(self.from.coordinate2D.longitude)"]
     }
 }
 
