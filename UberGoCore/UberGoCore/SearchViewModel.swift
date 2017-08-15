@@ -91,7 +91,7 @@ open class SearchViewModel: SearchViewModelProtocol, SearchViewModelInput, Searc
             .map { _ -> [PlaceObj] in return [] }
 
         // Search from Google Service
-        let placesFromGooleObs = textPubShare
+        let searchDataObs = textPubShare
             .filter { !$0.isEmpty }
             .debounce(0.3, scheduler: MainScheduler.instance)
             .distinctUntilChanged()
@@ -99,6 +99,9 @@ open class SearchViewModel: SearchViewModelProtocol, SearchViewModelInput, Searc
                             resultSelector: { (namePlace, location) -> (String, CLLocationCoordinate2D) in
                                 return (namePlace, location.coordinate)
             })
+
+        let isFetchingPlaceGoogle = searchDataObs
+        let placesFromGooleObs = searchDataObs
             .flatMapLatest { return googleMapService.searchPlaces(with: $0.0, currentLocation: $0.1) }
             .startWith([])
 
@@ -130,9 +133,13 @@ open class SearchViewModel: SearchViewModelProtocol, SearchViewModelInput, Searc
             .addDisposableTo(disposeBag)
 
         // Loader
-        let startLoadingOb = Observable.merge([placesFromGooleObs, placesFromHistoryObjs]).map { _ in true }
-        let stopLoadingOb = searchFinishOb.map { _ in false }
+        let stopLoadingOb = Observable.merge([searchPlaceData]).map { _ in false }
+        let startLoadingOb = isFetchingPlaceGoogle.map { _ in true }
         loadingDriver = Observable.merge([startLoadingOb, stopLoadingOb])
+            .skip(1)
+            .do(onNext: { (state) in
+                print("Loading State = \(state)")
+            })
             .asDriver(onErrorJustReturn: false)
 
         // Save History place

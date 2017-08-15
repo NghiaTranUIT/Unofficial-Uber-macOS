@@ -44,7 +44,6 @@ class PersonalPlaceSearchController: NSViewController {
     public func resetTextSearch() {
         searchBarView.resetTextSearch()
     }
-    
 }
 
 // MARK: - Private

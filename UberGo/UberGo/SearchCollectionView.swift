@@ -176,10 +176,10 @@ extension SearchCollectionView: NSCollectionViewDelegate, NSCollectionViewDelega
 
         // If invalid personal place
         // Add New place
-        if placeObj.invalid {
-            delegate?.searchCollectionViewSearchPersonalPlace(placeObj)
-            return
-        }
+//        if placeObj.invalid {
+//            delegate?.searchCollectionViewSearchPersonalPlace(placeObj)
+//            return
+//        }
 
         // Select and reset data
         viewModel.input.selectPlaceObjPublisher.onNext(placeObj)
