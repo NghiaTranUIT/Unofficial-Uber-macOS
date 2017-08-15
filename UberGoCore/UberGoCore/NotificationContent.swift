@@ -30,7 +30,8 @@ enum NotificationActionType {
     //
     // ------------------------------
     // / Found a UberX driver!                [ Close ]
-    // / Le Van X on White BMW - 72L7 8614    [ Detail ]
+    // / Le Van X 🌟 4.5
+    // / 🚗 White BMW - 72L7 8614             [ Detail ]
     // ------------------------------
     //
     case driverComming
@@ -56,8 +57,11 @@ protocol NotificationContent {
 
     // Contents
     var title: String { get }
-    var subTitle: String { get }
+    var subTitle: String? { get }
     var message: String { get }
+
+    // Actions
+    var actions: [NotificationSubAction] { get }
 
     // Options
     var sound: String { get }
@@ -73,8 +77,21 @@ extension NotificationContent {
         return ""
     }
 
+    // Sub title
+    var subTitle: String? { return nil }
+
+    // Open app
+    var shouldOpenApp: Bool {
+        return false
+    }
+
     // No open URL
     var openURL: String? {
         return nil
+    }
+
+    // Sub actions
+    var actions: [NotificationSubAction] {
+        return []
     }
 }
