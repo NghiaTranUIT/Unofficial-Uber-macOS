@@ -21,7 +21,7 @@ enum NotificationActionType {
     // / 100.000 vnd via Visa card (by cash, by ...)      [ Show Payment]
     // ------------------------------
     //
-    case paymentSuccess
+    case tripSuccessful
 
     // Current Trip status change
     case tripStatusChanged

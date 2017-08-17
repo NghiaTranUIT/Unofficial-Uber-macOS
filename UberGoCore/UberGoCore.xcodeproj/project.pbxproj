@@ -27,6 +27,7 @@
 		BA2219201EF79CEB00C766A1 /* GetPaymentMethodRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA22191F1EF79CEB00C766A1 /* GetPaymentMethodRequest.swift */; };
 		BA2467FA1EFB793600E95E6D /* PaymentMethodViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2467F91EFB793600E95E6D /* PaymentMethodViewModel.swift */; };
 		BA2A3A7D1EED26EF002A0343 /* DatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA2A3A7C1EED26EF002A0343 /* DatabaseService.swift */; };
+		BA32A3921F45573900A9628E /* ReceiptObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA32A3911F45573900A9628E /* ReceiptObj.swift */; };
 		BA32E71E1EDFC76A0044C017 /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA32E71D1EDFC76A0044C017 /* AuthenticationViewModel.swift */; };
 		BA32E7231EDFC8230044C017 /* AppViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA32E7221EDFC8230044C017 /* AppViewModel.swift */; };
 		BA32E7271EDFC84F0044C017 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA32E7261EDFC84F0044C017 /* Constants.swift */; };
@@ -35,6 +36,8 @@
 		BA34FCDD1F42B44E00B93D15 /* NotificationSubAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA34FCDC1F42B44E00B93D15 /* NotificationSubAction.swift */; };
 		BA34FCE01F42B47100B93D15 /* OpenAppSubAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA34FCDF1F42B47100B93D15 /* OpenAppSubAction.swift */; };
 		BA34FCE21F42B57F00B93D15 /* DriverAlreadyAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA34FCE11F42B57F00B93D15 /* DriverAlreadyAction.swift */; };
+		BA34FCE41F42B9A900B93D15 /* TripSuccessfulAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA34FCE31F42B9A900B93D15 /* TripSuccessfulAction.swift */; };
+		BA34FCE61F42BA7500B93D15 /* OpenTripHistorySubAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA34FCE51F42BA7500B93D15 /* OpenTripHistorySubAction.swift */; };
 		BA3EAB891F15E408003E3EF4 /* Float+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3EAB881F15E408003E3EF4 /* Float+Helper.swift */; };
 		BA4796A01EE2BD3A00620BB0 /* Requestable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA47969F1EE2BD3A00620BB0 /* Requestable.swift */; };
 		BA4796A31EE2BF0800620BB0 /* NSError+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4796A21EE2BF0800620BB0 /* NSError+Helper.swift */; };
@@ -132,6 +135,7 @@
 		BA22191F1EF79CEB00C766A1 /* GetPaymentMethodRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetPaymentMethodRequest.swift; sourceTree = "<group>"; };
 		BA2467F91EFB793600E95E6D /* PaymentMethodViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentMethodViewModel.swift; sourceTree = "<group>"; };
 		BA2A3A7C1EED26EF002A0343 /* DatabaseService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseService.swift; sourceTree = "<group>"; };
+		BA32A3911F45573900A9628E /* ReceiptObj.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiptObj.swift; sourceTree = "<group>"; };
 		BA32E71D1EDFC76A0044C017 /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
 		BA32E7221EDFC8230044C017 /* AppViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppViewModel.swift; sourceTree = "<group>"; };
 		BA32E7261EDFC84F0044C017 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -140,6 +144,8 @@
 		BA34FCDC1F42B44E00B93D15 /* NotificationSubAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSubAction.swift; sourceTree = "<group>"; };
 		BA34FCDF1F42B47100B93D15 /* OpenAppSubAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAppSubAction.swift; sourceTree = "<group>"; };
 		BA34FCE11F42B57F00B93D15 /* DriverAlreadyAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriverAlreadyAction.swift; sourceTree = "<group>"; };
+		BA34FCE31F42B9A900B93D15 /* TripSuccessfulAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripSuccessfulAction.swift; sourceTree = "<group>"; };
+		BA34FCE51F42BA7500B93D15 /* OpenTripHistorySubAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenTripHistorySubAction.swift; sourceTree = "<group>"; };
 		BA3EAB881F15E408003E3EF4 /* Float+Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Float+Helper.swift"; sourceTree = "<group>"; };
 		BA47969F1EE2BD3A00620BB0 /* Requestable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Requestable.swift; sourceTree = "<group>"; };
 		BA4796A21EE2BF0800620BB0 /* NSError+Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSError+Helper.swift"; sourceTree = "<group>"; };
@@ -331,6 +337,7 @@
 				BA657DA11F133C14007E4821 /* ServiceFeeObj.swift */,
 				BAA157921F331E720020D5A6 /* GeocodingPlaceObj.swift */,
 				BA75A5521F39F00800EC7EC9 /* UberRequestTripData.swift */,
+				BA32A3911F45573900A9628E /* ReceiptObj.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -376,6 +383,7 @@
 				BA34FCDE1F42B45C00B93D15 /* Sub Actions */,
 				BA34FCD91F42B2C300B93D15 /* DriverCommingAction.swift */,
 				BA34FCE11F42B57F00B93D15 /* DriverAlreadyAction.swift */,
+				BA34FCE31F42B9A900B93D15 /* TripSuccessfulAction.swift */,
 			);
 			name = Actions;
 			sourceTree = "<group>";
@@ -393,6 +401,7 @@
 			isa = PBXGroup;
 			children = (
 				BA34FCDF1F42B47100B93D15 /* OpenAppSubAction.swift */,
+				BA34FCE51F42BA7500B93D15 /* OpenTripHistorySubAction.swift */,
 			);
 			name = "Sub Actions";
 			sourceTree = "<group>";
@@ -788,6 +797,7 @@
 				BAB082281F05688F00A74665 /* RideEstimateTimeRequest.swift in Sources */,
 				BA32E7231EDFC8230044C017 /* AppViewModel.swift in Sources */,
 				BA0C91A61EF0499600BA8B4B /* VehicleObj.swift in Sources */,
+				BA34FCE41F42B9A900B93D15 /* TripSuccessfulAction.swift in Sources */,
 				BAED39D81EE9097C003D9BC3 /* UberPersonalPlaceObj.swift in Sources */,
 				BA34FCDD1F42B44E00B93D15 /* NotificationSubAction.swift in Sources */,
 				BA0C919E1EF047F000BA8B4B /* GetCurrentTripRequest.swift in Sources */,
@@ -798,6 +808,7 @@
 				BA6767331EF8E42C00805AC1 /* SandboxUpdateProductRequest.swift in Sources */,
 				BAB0822A1F05696700A74665 /* TimeEstimateObj.swift in Sources */,
 				BAAC44141EF12B7D00A9F949 /* EstimateObj.swift in Sources */,
+				BA34FCE61F42BA7500B93D15 /* OpenTripHistorySubAction.swift in Sources */,
 				BAAC44121EF124E400A9F949 /* CreateTripRequest.swift in Sources */,
 				BAED39E71EEA5954003D9BC3 /* Reachability.swift in Sources */,
 				BAF57FAE1EE116820013090E /* TripObj.swift in Sources */,
@@ -823,6 +834,7 @@
 				BAED39E11EE9B67C003D9BC3 /* CLLocationManager+Rx.swift in Sources */,
 				BAE6902F1EE513EF00A4D876 /* UberProductsRequest.swift in Sources */,
 				BAB14ABC1EF627160066267B /* Array+Helper.swift in Sources */,
+				BA32A3921F45573900A9628E /* ReceiptObj.swift in Sources */,
 				BAED39FA1EEBACD2003D9BC3 /* Rx+Optional.swift in Sources */,
 				BAF57FB01EE1168A0013090E /* PlaceObj.swift in Sources */,
 				BA0C91A41EF0497A00BA8B4B /* RiderObj.swift in Sources */,
