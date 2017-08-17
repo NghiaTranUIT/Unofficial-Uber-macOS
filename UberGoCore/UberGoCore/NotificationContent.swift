@@ -17,8 +17,8 @@ enum NotificationActionType {
     // Last trip was finished successful -> Show last price and Open Payment if need
     //
     // ------------------------------
-    // / Your trip was complete successful                [ Close ]
-    // / 100.000 vnd via Visa card (by cash, by ...)      [ Show Payment]
+    // / Your trip was complete successful                     [ Close ]
+    // / Paid 100.000 vnd for 1.5 Km                           [ Show  ]
     // ------------------------------
     //
     case tripSuccessful

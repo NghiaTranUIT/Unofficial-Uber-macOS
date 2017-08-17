@@ -12,7 +12,7 @@ import Foundation
 //
 // ------------------------------
 // / Your trip was complete successful                     [ Close ]
-// / Paid 100.000 vnd via Visa card (by cash, by ...)      [ Show  ]
+// / Paid 100.000 vnd for 1.5 Km                           [ Show  ]
 // ------------------------------
 //
 
@@ -37,6 +37,6 @@ struct TripSuccessfulAction: NotificationContent {
     // MARK: - Init
     init(receipt: ReceiptObj) {
         requestID = receipt.requestID
-        _message = "Paid 100.000 vnd via Visa card 💯"
+        _message = "Paid \(receipt.totalCharge) for \(receipt.distance) \(receipt.distanceLabel) 💯"
     }
 }
