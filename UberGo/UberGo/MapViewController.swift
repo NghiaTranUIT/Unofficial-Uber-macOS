@@ -86,7 +86,7 @@ class MapViewController: BaseViewController {
     }
 
     deinit {
-        NotificationService.removeAllObserve(self)
+        NotificationCenter.removeAllObserve(self)
     }
 
     fileprivate func binding() {
@@ -148,7 +148,7 @@ class MapViewController: BaseViewController {
                     self.selectUberView.updateAvailableGroupProducts(groups)
                 case .error(let error):
                     Logger.error("ERROR = \(error)")
-                    NotificationService.postNotificationOnMainThreadType(.showFriendlyErrorAlert,
+                    NotificationCenter.postNotificationOnMainThreadType(.showFriendlyErrorAlert,
                                                                          object: error,
                                                                          userInfo: nil)
                 }
@@ -247,15 +247,15 @@ class MapViewController: BaseViewController {
     }
 
     fileprivate func notificationBinding() {
-        NotificationService.observeNotificationType(.showPaymentMethodsView,
+        NotificationCenter.observeNotificationType(.showPaymentMethodsView,
                                                     observer: self,
                                                     selector: #selector(showPaymentMethodView(noti:)),
                                                     object: nil)
-        NotificationService.observeNotificationType(.handleSurgeCallback,
+        NotificationCenter.observeNotificationType(.handleSurgeCallback,
                                                     observer: self,
                                                     selector: #selector(handleSurgeCallback(noti:)),
                                                     object: nil)
-        NotificationService.observeNotificationType(.showFriendlyErrorAlert,
+        NotificationCenter.observeNotificationType(.showFriendlyErrorAlert,
                                                     observer: self,
                                                     selector: #selector(showFriendlyErrorAlert(noti:)),
                                                     object: nil)

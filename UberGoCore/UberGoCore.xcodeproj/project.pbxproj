@@ -54,7 +54,7 @@
 		BA6767331EF8E42C00805AC1 /* SandboxUpdateProductRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6767321EF8E42C00805AC1 /* SandboxUpdateProductRequest.swift */; };
 		BA6767351EF912AD00805AC1 /* SandboxUberService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6767341EF912AD00805AC1 /* SandboxUberService.swift */; };
 		BA6767371EF9138D00805AC1 /* SandboxUberServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6767361EF9138D00805AC1 /* SandboxUberServiceTests.swift */; };
-		BA67673A1EFA271F00805AC1 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6767391EFA271F00805AC1 /* NotificationService.swift */; };
+		BA67673A1EFA271F00805AC1 /* NotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6767391EFA271F00805AC1 /* NotificationCenter.swift */; };
 		BA7460EC1F2EEA3600EC6BE1 /* GoogleMapService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7460EB1F2EEA3600EC6BE1 /* GoogleMapService.swift */; };
 		BA75A5531F39F00800EC7EC9 /* UberRequestTripData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA75A5521F39F00800EC7EC9 /* UberRequestTripData.swift */; };
 		BA7BA9811EE415D10056B0CF /* MapService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7BA9801EE415D10056B0CF /* MapService.swift */; };
@@ -73,6 +73,8 @@
 		BAB14ABC1EF627160066267B /* Array+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB14ABB1EF627160066267B /* Array+Helper.swift */; };
 		BAB50B6C1F2484F1004A03DD /* APIResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB50B6B1F2484F1004A03DD /* APIResult.swift */; };
 		BAB7B8DD1EFD7E7F00B508A1 /* SandboxUpdateStatusTripRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB7B8DC1EFD7E7F00B508A1 /* SandboxUpdateStatusTripRequest.swift */; };
+		BACCAAD51F4BE4AE0076C9D6 /* CancelTripAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACCAAD41F4BE4AE0076C9D6 /* CancelTripAction.swift */; };
+		BACCAAD91F4BE6080076C9D6 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACCAAD81F4BE6080076C9D6 /* NotificationService.swift */; };
 		BADB784E1EE5AC07000536F7 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB784D1EE5AC07000536F7 /* SearchViewModel.swift */; };
 		BADB78671EE70AB0000536F7 /* PlaceSearchRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB78661EE70AB0000536F7 /* PlaceSearchRequest.swift */; };
 		BADB78691EE70CBB000536F7 /* Parameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB78681EE70CBB000536F7 /* Parameter.swift */; };
@@ -162,7 +164,7 @@
 		BA6767321EF8E42C00805AC1 /* SandboxUpdateProductRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SandboxUpdateProductRequest.swift; sourceTree = "<group>"; };
 		BA6767341EF912AD00805AC1 /* SandboxUberService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SandboxUberService.swift; sourceTree = "<group>"; };
 		BA6767361EF9138D00805AC1 /* SandboxUberServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SandboxUberServiceTests.swift; sourceTree = "<group>"; };
-		BA6767391EFA271F00805AC1 /* NotificationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		BA6767391EFA271F00805AC1 /* NotificationCenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationCenter.swift; sourceTree = "<group>"; };
 		BA7460EB1F2EEA3600EC6BE1 /* GoogleMapService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleMapService.swift; sourceTree = "<group>"; };
 		BA75A5521F39F00800EC7EC9 /* UberRequestTripData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UberRequestTripData.swift; sourceTree = "<group>"; };
 		BA7BA9801EE415D10056B0CF /* MapService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapService.swift; sourceTree = "<group>"; };
@@ -181,6 +183,8 @@
 		BAB14ABB1EF627160066267B /* Array+Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Helper.swift"; sourceTree = "<group>"; };
 		BAB50B6B1F2484F1004A03DD /* APIResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIResult.swift; sourceTree = "<group>"; };
 		BAB7B8DC1EFD7E7F00B508A1 /* SandboxUpdateStatusTripRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SandboxUpdateStatusTripRequest.swift; sourceTree = "<group>"; };
+		BACCAAD41F4BE4AE0076C9D6 /* CancelTripAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelTripAction.swift; sourceTree = "<group>"; };
+		BACCAAD81F4BE6080076C9D6 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		BADB784D1EE5AC07000536F7 /* SearchViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		BADB78661EE70AB0000536F7 /* PlaceSearchRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceSearchRequest.swift; sourceTree = "<group>"; };
 		BADB78681EE70CBB000536F7 /* Parameter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parameter.swift; sourceTree = "<group>"; };
@@ -384,6 +388,7 @@
 				BA34FCD91F42B2C300B93D15 /* DriverCommingAction.swift */,
 				BA34FCE11F42B57F00B93D15 /* DriverAlreadyAction.swift */,
 				BA34FCE31F42B9A900B93D15 /* TripSuccessfulAction.swift */,
+				BACCAAD41F4BE4AE0076C9D6 /* CancelTripAction.swift */,
 			);
 			name = Actions;
 			sourceTree = "<group>";
@@ -441,7 +446,8 @@
 			isa = PBXGroup;
 			children = (
 				BA34FCD61F42AD5F00B93D15 /* Actions */,
-				BA6767391EFA271F00805AC1 /* NotificationService.swift */,
+				BA6767391EFA271F00805AC1 /* NotificationCenter.swift */,
+				BACCAAD81F4BE6080076C9D6 /* NotificationService.swift */,
 			);
 			name = Notification;
 			sourceTree = "<group>";
@@ -786,6 +792,7 @@
 				BA34FCE01F42B47100B93D15 /* OpenAppSubAction.swift in Sources */,
 				BA2219201EF79CEB00C766A1 /* GetPaymentMethodRequest.swift in Sources */,
 				BADB78691EE70CBB000536F7 /* Parameter.swift in Sources */,
+				BACCAAD91F4BE6080076C9D6 /* NotificationService.swift in Sources */,
 				BAB50B6C1F2484F1004A03DD /* APIResult.swift in Sources */,
 				BA0C91961EEF8B4E00BA8B4B /* Logger.swift in Sources */,
 				BA0C91A81EF049C300BA8B4B /* WaypointObj.swift in Sources */,
@@ -844,12 +851,13 @@
 				BA6767351EF912AD00805AC1 /* SandboxUberService.swift in Sources */,
 				BA2A3A7D1EED26EF002A0343 /* DatabaseService.swift in Sources */,
 				BAA157911F331C280020D5A6 /* GoogleGeocodingRequest.swift in Sources */,
-				BA67673A1EFA271F00805AC1 /* NotificationService.swift in Sources */,
+				BA67673A1EFA271F00805AC1 /* NotificationCenter.swift in Sources */,
 				BA4796B31EE3C93900620BB0 /* UUID+Helper.swift in Sources */,
 				BA32E71E1EDFC76A0044C017 /* AuthenticationViewModel.swift in Sources */,
 				BA4796A31EE2BF0800620BB0 /* NSError+Helper.swift in Sources */,
 				BA34FCE21F42B57F00B93D15 /* DriverAlreadyAction.swift in Sources */,
 				BA657DA21F133C14007E4821 /* ServiceFeeObj.swift in Sources */,
+				BACCAAD51F4BE4AE0076C9D6 /* CancelTripAction.swift in Sources */,
 				BAAC440E1EF0E12300A9F949 /* UberCoordinateObj.swift in Sources */,
 				BA48DCB11F416165007BA3B6 /* PersonalPlaceSearchViewModel.swift in Sources */,
 				BAF57FB51EE116D10013090E /* RouteCoordinator.swift in Sources */,

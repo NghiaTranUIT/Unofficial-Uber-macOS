@@ -23,9 +23,6 @@ enum NotificationActionType {
     //
     case tripSuccessful
 
-    // Current Trip status change
-    case tripStatusChanged
-
     // When Driver's comming
     //
     // ------------------------------

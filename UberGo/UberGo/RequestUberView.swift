@@ -186,7 +186,7 @@ class RequestUberView: NSView {
     }
 
     @IBAction func paymentMethodsOnTap(_ sender: Any) {
-        NotificationService.postNotificationOnMainThreadType(.showPaymentMethodsView)
+        NotificationCenter.postNotificationOnMainThreadType(.showPaymentMethodsView)
     }
 
 }

@@ -37,7 +37,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     deinit {
-        NotificationService.removeAllObserve(self)
+        NotificationCenter.removeAllObserve(self)
     }
 
     func handleGetURL(event: NSAppleEventDescriptor!, withReplyEvent: NSAppleEventDescriptor!) {
@@ -47,7 +47,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         // Uber Surge
         if url.contains("uber-surge") {
-            NotificationService.postNotificationOnMainThreadType(.handleSurgeCallback, object: event, userInfo: nil)
+            NotificationCenter.postNotificationOnMainThreadType(.handleSurgeCallback, object: event, userInfo: nil)
             return
         }
 
