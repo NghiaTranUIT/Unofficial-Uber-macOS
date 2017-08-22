@@ -12,6 +12,10 @@ struct OpenTripHistorySubAction: NotificationSubAction {
 
     static let OpenTripHistorySubActionURL = "oauth-uber://notification/trip_history/"
 
+    var subActionType: NotificationSubActionType {
+        return .openURL
+    }
+
     var title: String {
         return "Detail"
     }

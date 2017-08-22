@@ -10,7 +10,12 @@ import Foundation
 
 struct OpenAppSubAction: NotificationSubAction {
 
+    // URL
     static let OpenAppSubActionURL = "oauth-uber://notification/openapp"
+
+    var subActionType: NotificationSubActionType {
+        return .openURL
+    }
 
     var title: String {
         return "Detail"

@@ -27,7 +27,8 @@ struct TripSuccessfulAction: NotificationContent {
 
     // Sub action
     var actions: [NotificationSubAction] {
-        return [OpenTripHistorySubAction(requestID: requestID)]
+        return [CloseNotificationSubAction(),
+                OpenTripHistorySubAction(requestID: requestID)]
     }
 
     // MARK: - Variable

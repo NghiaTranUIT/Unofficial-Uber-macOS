@@ -29,7 +29,8 @@ struct DriverCommingAction: NotificationContent {
 
     // Sub action
     var actions: [NotificationSubAction] {
-        return [OpenAppSubAction()]
+        return [CloseNotificationSubAction(),
+                OpenAppSubAction()]
     }
 
     // MARK: - Variable

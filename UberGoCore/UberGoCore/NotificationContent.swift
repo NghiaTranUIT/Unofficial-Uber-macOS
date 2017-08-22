@@ -62,8 +62,7 @@ protocol NotificationContent {
 
     // Options
     var sound: String { get }
-    var shouldOpenApp: Bool { get }
-    var openURL: String? { get }
+    var imageName: String { get }
 }
 
 // MARK: - Default Implementation NotificationContent
@@ -71,24 +70,53 @@ extension NotificationContent {
 
     // Default sound
     var sound: String {
+        return NSUserNotificationDefaultSoundName
+    }
+
+    // Default Image
+    var imageName: String {
         return ""
     }
 
     // Sub title
     var subTitle: String? { return nil }
 
-    // Open app
-    var shouldOpenApp: Bool {
-        return false
-    }
-
-    // No open URL
-    var openURL: String? {
-        return nil
-    }
-
     // Sub actions
     var actions: [NotificationSubAction] {
         return []
+    }
+
+    // Build
+    func buildUserNotification() -> NSUserNotification {
+        let noti = NSUserNotification()
+
+        // Content
+        noti.title = title
+        noti.subtitle = subTitle
+        noti.informativeText = message
+
+        // Sound
+        noti.soundName = sound
+
+        // Image
+        if let appIconPath = Bundle.allBundles.first!.pathForImageResource("AppIcon") {
+            noti.contentImage = NSImage(contentsOfFile: appIconPath)
+        }
+
+        // Action
+        noti.hasActionButton = !actions.isEmpty
+
+        // Add Buttons
+        actions.forEach { (subAction) in
+            switch subAction.subActionType {
+            case .closeNotification:
+                noti.otherButtonTitle = subAction.title
+
+            case .openURL:
+                noti.actionButtonTitle = subAction.title
+                noti.userInfo = subAction.userInfo
+            }
+        }
+        return noti
     }
 }
