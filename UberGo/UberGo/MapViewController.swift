@@ -198,33 +198,15 @@ class MapViewController: BaseViewController {
                 case .error(let error):
                     Logger.error(error)
                 }
-
-            })
-            .addDisposableTo(disposeBag)
-
-        // Manually
-        uberViewModel.output.manuallyCurrentTripStatusDriver
-            .drive(onNext: {[weak self] result in
-                guard let `self` = self else { return }
-
-                // Update
-                switch result {
-                case .success(let tripObj):
-                    // Update
-                    self.handleLayoutAndData(tripObj)
-
-                    // Start Timer again
-                    if tripObj.isValidTrip {
-                        self.uberViewModel.input.triggerCurrentTripPublisher.onNext()
-                    }
-                case .error(let error):
-                    Logger.error(error)
-                }
+                }, onCompleted: {
+                    Logger.info("On Completed")
+            }, onDisposed: {
+                Logger.info("On Disposed")
             })
             .addDisposableTo(disposeBag)
 
         // Get first check Trip Status
-        uberViewModel.input.manuallyGetCurrentTripStatusPublisher.onNext()
+        uberViewModel.input.triggerCurrentTripPublisher.onNext()
 
         // Cancel
         uberViewModel.output.resetMapDriver
