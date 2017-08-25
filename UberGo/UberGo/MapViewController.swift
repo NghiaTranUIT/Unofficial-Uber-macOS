@@ -197,6 +197,7 @@ class MapViewController: BaseViewController {
                     self.handleLayoutAndData(tripObj)
                 case .error(let error):
                     Logger.error(error)
+                    self.handleLayoutAndData(TripObj.invalidDummyTrip())
                 }
                 }, onCompleted: {
                     Logger.info("On Completed")

@@ -104,6 +104,14 @@ open class TripObj: Unboxable {
         self.shared = shared
     }
 
+    public class func invalidDummyTrip() -> TripObj {
+        return TripObj(productId: "",
+                       requestId: "",
+                       status: TripObjStatus.unknown.rawValue,
+                       surgeMultiplier: 0,
+                       shared: false)
+    }
+
     public required init(unboxer: Unboxer) throws {
         productId = try unboxer.unbox(key: Constants.Object.Trip.ProductId)
         requestId = try unboxer.unbox(key: Constants.Object.Trip.RequestId)

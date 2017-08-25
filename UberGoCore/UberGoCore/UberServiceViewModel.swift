@@ -316,6 +316,7 @@ extension UberServiceViewModel {
                                      selector: #selector(self.tripTimerFire),
                                      userInfo: nil,
                                      repeats: true)
+        timer?.fire()
     }
 
     @objc fileprivate func tripTimerFire() {
