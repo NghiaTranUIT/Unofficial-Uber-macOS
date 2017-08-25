@@ -11,7 +11,7 @@ import Foundation
 protocol UserNotificationServiceProtocol {
 
     // Publish
-    func publishUserNotificationContent(_ content: NotificationContent)
+    func publishAction(_ action: NotificationContent)
 }
 
 open class NotificationService: NSObject {
@@ -27,20 +27,20 @@ open class NotificationService: NSObject {
 
 extension NotificationService: UserNotificationServiceProtocol {
 
-    func publishUserNotificationContent(_ content: NotificationContent) {
+    func publishAction(_ action: NotificationContent) {
 
         // Build action
-        let noti = content.buildUserNotification()
+        let action = action.buildUserNotification()
 
         // Publish
-        NSUserNotificationCenter.default.deliver(noti)
+        NSUserNotificationCenter.default.deliver(action)
     }
 }
 
 extension NotificationService: NSUserNotificationCenterDelegate {
 
     public func userNotificationCenter(_ center: NSUserNotificationCenter,
-                     shouldPresent notification: NSUserNotification) -> Bool {
+                                       shouldPresent notification: NSUserNotification) -> Bool {
         return true
     }
 }

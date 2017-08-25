@@ -94,7 +94,7 @@ open class PersonalPlaceSearchViewModel: SearchViewModelProtocol, SearchViewMode
                                             return thenObs
                                         }
                                         return elseObs
-        }
+            }
 
         // Merage into searchPlace
         let searchFinishOb = Observable.merge([searchPlaceData,

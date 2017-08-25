@@ -22,7 +22,7 @@
 		BA0C91A61EF0499600BA8B4B /* VehicleObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0C91A51EF0499600BA8B4B /* VehicleObj.swift */; };
 		BA0C91A81EF049C300BA8B4B /* WaypointObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0C91A71EF049C300BA8B4B /* WaypointObj.swift */; };
 		BA0C91AA1EF04AA200BA8B4B /* DriverObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0C91A91EF04AA200BA8B4B /* DriverObj.swift */; };
-		BA10C9531F4BF0BE0046411E /* UberUserNotificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA10C9521F4BF0BE0046411E /* UberUserNotificationViewModel.swift */; };
+		BA10C9551F4D2B320046411E /* UberNotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA10C9541F4D2B320046411E /* UberNotificationService.swift */; };
 		BA22191C1EF6FBB100C766A1 /* PaymentObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA22191B1EF6FBB100C766A1 /* PaymentObj.swift */; };
 		BA22191E1EF6FC6D00C766A1 /* PaymentAccountObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA22191D1EF6FC6D00C766A1 /* PaymentAccountObj.swift */; };
 		BA2219201EF79CEB00C766A1 /* GetPaymentMethodRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA22191F1EF79CEB00C766A1 /* GetPaymentMethodRequest.swift */; };
@@ -134,7 +134,7 @@
 		BA0C91A51EF0499600BA8B4B /* VehicleObj.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VehicleObj.swift; sourceTree = "<group>"; };
 		BA0C91A71EF049C300BA8B4B /* WaypointObj.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaypointObj.swift; sourceTree = "<group>"; };
 		BA0C91A91EF04AA200BA8B4B /* DriverObj.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DriverObj.swift; sourceTree = "<group>"; };
-		BA10C9521F4BF0BE0046411E /* UberUserNotificationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UberUserNotificationViewModel.swift; sourceTree = "<group>"; };
+		BA10C9541F4D2B320046411E /* UberNotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UberNotificationService.swift; sourceTree = "<group>"; };
 		BA22191B1EF6FBB100C766A1 /* PaymentObj.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentObj.swift; sourceTree = "<group>"; };
 		BA22191D1EF6FC6D00C766A1 /* PaymentAccountObj.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentAccountObj.swift; sourceTree = "<group>"; };
 		BA22191F1EF79CEB00C766A1 /* GetPaymentMethodRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetPaymentMethodRequest.swift; sourceTree = "<group>"; };
@@ -318,7 +318,6 @@
 				BA32E7221EDFC8230044C017 /* AppViewModel.swift */,
 				BAF57FC11EE11A080013090E /* BaseViewModel.swift */,
 				BA32E71D1EDFC76A0044C017 /* AuthenticationViewModel.swift */,
-				BA10C9521F4BF0BE0046411E /* UberUserNotificationViewModel.swift */,
 			);
 			name = "View Models";
 			sourceTree = "<group>";
@@ -454,6 +453,7 @@
 				BA34FCD61F42AD5F00B93D15 /* Actions */,
 				BA6767391EFA271F00805AC1 /* NotificationCenter.swift */,
 				BACCAAD81F4BE6080076C9D6 /* NotificationService.swift */,
+				BA10C9541F4D2B320046411E /* UberNotificationService.swift */,
 			);
 			name = Notification;
 			sourceTree = "<group>";
@@ -857,9 +857,9 @@
 				BA6767351EF912AD00805AC1 /* SandboxUberService.swift in Sources */,
 				BA2A3A7D1EED26EF002A0343 /* DatabaseService.swift in Sources */,
 				BAA157911F331C280020D5A6 /* GoogleGeocodingRequest.swift in Sources */,
-				BA10C9531F4BF0BE0046411E /* UberUserNotificationViewModel.swift in Sources */,
 				BA67673A1EFA271F00805AC1 /* NotificationCenter.swift in Sources */,
 				BA4796B31EE3C93900620BB0 /* UUID+Helper.swift in Sources */,
+				BA10C9551F4D2B320046411E /* UberNotificationService.swift in Sources */,
 				BA32E71E1EDFC76A0044C017 /* AuthenticationViewModel.swift in Sources */,
 				BA4796A31EE2BF0800620BB0 /* NSError+Helper.swift in Sources */,
 				BA34FCE21F42B57F00B93D15 /* DriverAlreadyAction.swift in Sources */,
