@@ -61,7 +61,7 @@ open class AppViewModel: AppViewModelProtocol,
     fileprivate let disposeBag = DisposeBag()
 
     // MARK: - Init
-    public init(uberService: UberService = UberService()) {
+    public init(uberService: UberService) {
 
         self.uberService = uberService
 

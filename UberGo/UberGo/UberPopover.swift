@@ -14,8 +14,8 @@ class UberPopover: NSPopover {
 
     // MARK: - Variable
     fileprivate let statusItem = NSStatusBar.system().statusItem(withLength: NSVariableStatusItemLength)
-    fileprivate let authenViewModel: AuthenticationViewModel
-    fileprivate let viewModel: AppViewModel
+    fileprivate let authenViewModel: AuthenticationViewModelProtocol
+    fileprivate let viewModel: AppViewModelProtocol
     fileprivate let disposeBag = DisposeBag()
 
     fileprivate lazy var webviewController: WebViewController = self.lazyInitWebviewController()
@@ -24,13 +24,19 @@ class UberPopover: NSPopover {
     fileprivate lazy var eventMonitor: EventMonitor = self.initEventMonitor()
 
     // MARK: - Init
-    init(appViewModel: AppViewModel) {
+    init(appViewModel: AppViewModelProtocol,
+         authenViewModel: AuthenticationViewModelProtocol) {
         viewModel = appViewModel
-        authenViewModel = AuthenticationViewModel()
+        self.authenViewModel = authenViewModel
 
         super.init()
         delegate = self
         initCommon()
+    }
+
+    convenience init(coordinator: ViewModelCoordinator) {
+        self.init(appViewModel: coordinator.appViewModel,
+                  authenViewModel: coordinator.authenViewModel)
     }
 
     required init?(coder: NSCoder) {

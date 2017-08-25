@@ -36,9 +36,9 @@ open class PersonalPlaceSearchViewModel: SearchViewModelProtocol, SearchViewMode
     fileprivate let disposeBag = DisposeBag()
 
     // MARK: - Init
-    public init(uberService: UberService = UberService(),
-                mapService: MapService = MapService.share,
-                googleMapService: GoogleMapService = GoogleMapService()) {
+    public init(uberService: UberService,
+                mapService: MapService,
+                googleMapService: GoogleMapService) {
         //
         self.mapService = mapService
 

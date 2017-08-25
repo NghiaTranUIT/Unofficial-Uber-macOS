@@ -76,10 +76,10 @@ open class MapViewModel:
     public var routeCurrentTrip: Driver<Route?>
 
     // MARK: - Init
-    public init(mapService: MapService = MapService.share,
-                uberService: UberService = UberService(),
-                directionService: DirectionService = DirectionService(),
-                googleMapService: GoogleMapService = GoogleMapService()) {
+    public init(mapService: MapService,
+                uberService: UberService,
+                directionService: DirectionService,
+                googleMapService: GoogleMapService) {
 
         self.mapService = mapService
         self.uberService = uberService

@@ -7,40 +7,60 @@
 //
 
 import Foundation
+import RxSwift
 
-class UberNotificationService {
+open class UberNotificationService {
 
     // MARK: - Variable
+    public var handleTripResultObs: Observable<APIResult<TripObj>>!
     fileprivate let _service: UserNotificationServiceProtocol
+    fileprivate let appViewModel: AppViewModel
+    fileprivate let disposeBag = DisposeBag()
 
     // MARK: - Init
-    init(service: UserNotificationServiceProtocol) {
+    init(service: UserNotificationServiceProtocol, appViewModel: AppViewModel) {
         _service = service
+        self.appViewModel = appViewModel
     }
 
     // MARK: - Public
-    func notifyDriverComming(driver: DriverObj, vehicle: VehicleObj) {
-        let action = DriverCommingAction(driver: driver, vehicle: vehicle)
-        _service.publishAction(action)
-    }
+    public func binding(tripObs: Observable<APIResult<TripObj>>) {
+        handleTripResultObs = tripObs
 
-    func notifyDriverAlready(driver: DriverObj, vehicle: VehicleObj) {
-        let action = DriverAlreadyAction(driver: driver, vehicle: vehicle)
-        _service.publishAction(action)
-    }
+        // Notification
+        handleTripResultObs.subscribe(onNext: { (result) in
+            switch result {
+            case .success(let trip):
 
-    func notifyTripSuccessful(receipt: ReceiptObj) {
-        let action = TripSuccessfulAction(receipt: receipt)
-        _service.publishAction(action)
-    }
-
-    func notifyCancelTrip() {
-        let action = CancelTripAction()
-        _service.publishAction(action)
+                break
+            case .error(let error):
+                break
+            }
+        })
+        .addDisposableTo(disposeBag)
     }
 }
 
 // MARK: - Private
 extension UberNotificationService {
 
+    fileprivate func notifyDriverComming(driver: DriverObj, vehicle: VehicleObj) {
+        let action = DriverCommingAction(driver: driver, vehicle: vehicle)
+        _service.publishAction(action)
+    }
+
+    fileprivate func notifyDriverAlready(driver: DriverObj, vehicle: VehicleObj) {
+        let action = DriverAlreadyAction(driver: driver, vehicle: vehicle)
+        _service.publishAction(action)
+    }
+
+    fileprivate func notifyTripSuccessful(receipt: ReceiptObj) {
+        let action = TripSuccessfulAction(receipt: receipt)
+        _service.publishAction(action)
+    }
+
+    fileprivate func notifyCancelTrip() {
+        let action = CancelTripAction()
+        _service.publishAction(action)
+    }
 }

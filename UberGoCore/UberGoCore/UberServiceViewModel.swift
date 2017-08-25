@@ -78,6 +78,8 @@ open class UberServiceViewModel: UberServiceViewModelProtocol,
 
     // MARK: - Variable
     fileprivate var uberService: UberService
+
+    // Timer
     fileprivate let timerInterval = 5.0
     fileprivate let timerFirePublisher = PublishSubject<Void>()
     fileprivate var timer: Timer?
@@ -86,7 +88,7 @@ open class UberServiceViewModel: UberServiceViewModelProtocol,
     fileprivate let disposeBag = DisposeBag()
 
     // MARK: - Init
-    public init(uberService: UberService = UberService()) {
+    public init(uberService: UberService) {
         self.uberService = uberService
 
         // Get available Product + Estimate price
@@ -189,7 +191,7 @@ open class UberServiceViewModel: UberServiceViewModelProtocol,
                 .filterNil(), resultSelector: { (frontFareObj, data) -> (UpFrontFareOb, UberRequestTripData) in
                 return (frontFareObj, data)
             })
-            .flatMapLatest {(tuble) -> Observable<CreateTripObj>in
+            .flatMapLatest {[unowned self](tuble) -> Observable<CreateTripObj>in
 
                 // Guard
                 guard

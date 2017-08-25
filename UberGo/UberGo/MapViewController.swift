@@ -41,9 +41,9 @@ class MapViewController: BaseViewController {
     fileprivate lazy var searchController: SearchController = self.lazyInitSearchController()
 
     // MARK: - Variable
-    fileprivate let mapViewModel = MapViewModel()
-    fileprivate let searchViewModel = SearchViewModel()
-    fileprivate let uberViewModel = UberServiceViewModel()
+    fileprivate var mapViewModel: MapViewModelProtocol!
+    fileprivate var searchViewModel: SearchViewModelProtocol!
+    fileprivate var uberViewModel: UberServiceViewModelProtocol!
 
     fileprivate var isFirstTime = true
     fileprivate lazy var webController: WebViewController = self.lazyInitWebController()
@@ -74,11 +74,16 @@ class MapViewController: BaseViewController {
         // Common
         initCommon()
 
-        // View Model
         binding()
         searchController.configureContainerController(self, containerView: mapContainerView)
         mapView.setupViewModel(mapViewModel)
         notificationBinding()
+    }
+
+    public func configureBinding(coordinator: ViewModelCoordinator) {
+        uberViewModel = coordinator.uberViewModel
+        mapViewModel = coordinator.mapViewModel
+        searchViewModel = coordinator.searchViewModel
     }
 
     override func viewDidAppear() {

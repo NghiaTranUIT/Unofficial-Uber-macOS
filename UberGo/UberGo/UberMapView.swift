@@ -19,7 +19,7 @@ class UberMapView: MGLMapView {
 
     // MARK: - Variable
     weak var uberMapDelegate: UberMapViewDelegate?
-    fileprivate var viewModel: MapViewModel!
+    fileprivate var viewModel: MapViewModelProtocol!
     fileprivate let disposeBag = DisposeBag()
 
     // Origin
@@ -59,7 +59,7 @@ class UberMapView: MGLMapView {
         delegate = self
     }
 
-    public func setupViewModel(_ viewModel: MapViewModel) {
+    public func setupViewModel(_ viewModel: MapViewModelProtocol) {
         self.viewModel = viewModel
         binding()
     }

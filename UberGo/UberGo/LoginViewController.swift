@@ -17,7 +17,7 @@ class LoginViewController: BaseViewController {
     @IBOutlet fileprivate weak var loginBtn: UberButton!
 
     // MARK: - Variable
-    public var viewModel: AuthenticationViewModel!
+    public var viewModel: AuthenticationViewModelProtocol!
 
     // MARK: - View Cycle
     override func viewDidLoad() {

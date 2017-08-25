@@ -23,6 +23,7 @@
 		BA0C91A81EF049C300BA8B4B /* WaypointObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0C91A71EF049C300BA8B4B /* WaypointObj.swift */; };
 		BA0C91AA1EF04AA200BA8B4B /* DriverObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0C91A91EF04AA200BA8B4B /* DriverObj.swift */; };
 		BA10C9551F4D2B320046411E /* UberNotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA10C9541F4D2B320046411E /* UberNotificationService.swift */; };
+		BA1A73151F4FE0C900FD9560 /* ViewModelCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1A73141F4FE0C900FD9560 /* ViewModelCoordinator.swift */; };
 		BA22191C1EF6FBB100C766A1 /* PaymentObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA22191B1EF6FBB100C766A1 /* PaymentObj.swift */; };
 		BA22191E1EF6FC6D00C766A1 /* PaymentAccountObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA22191D1EF6FC6D00C766A1 /* PaymentAccountObj.swift */; };
 		BA2219201EF79CEB00C766A1 /* GetPaymentMethodRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA22191F1EF79CEB00C766A1 /* GetPaymentMethodRequest.swift */; };
@@ -135,6 +136,7 @@
 		BA0C91A71EF049C300BA8B4B /* WaypointObj.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaypointObj.swift; sourceTree = "<group>"; };
 		BA0C91A91EF04AA200BA8B4B /* DriverObj.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DriverObj.swift; sourceTree = "<group>"; };
 		BA10C9541F4D2B320046411E /* UberNotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UberNotificationService.swift; sourceTree = "<group>"; };
+		BA1A73141F4FE0C900FD9560 /* ViewModelCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelCoordinator.swift; sourceTree = "<group>"; };
 		BA22191B1EF6FBB100C766A1 /* PaymentObj.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentObj.swift; sourceTree = "<group>"; };
 		BA22191D1EF6FC6D00C766A1 /* PaymentAccountObj.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentAccountObj.swift; sourceTree = "<group>"; };
 		BA22191F1EF79CEB00C766A1 /* GetPaymentMethodRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetPaymentMethodRequest.swift; sourceTree = "<group>"; };
@@ -310,6 +312,7 @@
 		BA32E71C1EDFC7550044C017 /* View Models */ = {
 			isa = PBXGroup;
 			children = (
+				BA1A73141F4FE0C900FD9560 /* ViewModelCoordinator.swift */,
 				BA2467F91EFB793600E95E6D /* PaymentMethodViewModel.swift */,
 				BA6767301EF8CB5400805AC1 /* UberServiceViewModel.swift */,
 				BA4796A61EE2C0C700620BB0 /* MapViewModel.swift */,
@@ -826,6 +829,7 @@
 				BAED39E71EEA5954003D9BC3 /* Reachability.swift in Sources */,
 				BAF57FAE1EE116820013090E /* TripObj.swift in Sources */,
 				BA22191E1EF6FC6D00C766A1 /* PaymentAccountObj.swift in Sources */,
+				BA1A73151F4FE0C900FD9560 /* ViewModelCoordinator.swift in Sources */,
 				BADB784E1EE5AC07000536F7 /* SearchViewModel.swift in Sources */,
 				BADB78671EE70AB0000536F7 /* PlaceSearchRequest.swift in Sources */,
 				BA7460EC1F2EEA3600EC6BE1 /* GoogleMapService.swift in Sources */,
