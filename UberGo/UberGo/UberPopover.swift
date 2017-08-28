@@ -17,6 +17,7 @@ class UberPopover: NSPopover {
     fileprivate let authenViewModel: AuthenticationViewModelProtocol
     fileprivate let viewModel: AppViewModelProtocol
     fileprivate let disposeBag = DisposeBag()
+    fileprivate let coordinator: ViewModelCoordinator
 
     fileprivate lazy var webviewController: WebViewController = self.lazyInitWebviewController()
 
@@ -24,19 +25,14 @@ class UberPopover: NSPopover {
     fileprivate lazy var eventMonitor: EventMonitor = self.initEventMonitor()
 
     // MARK: - Init
-    init(appViewModel: AppViewModelProtocol,
-         authenViewModel: AuthenticationViewModelProtocol) {
-        viewModel = appViewModel
-        self.authenViewModel = authenViewModel
+    init(coordinator: ViewModelCoordinator) {
+        self.coordinator = coordinator
+        viewModel = coordinator.appViewModel
+        authenViewModel = coordinator.authenViewModel
 
         super.init()
         delegate = self
         initCommon()
-    }
-
-    convenience init(coordinator: ViewModelCoordinator) {
-        self.init(appViewModel: coordinator.appViewModel,
-                  authenViewModel: coordinator.authenViewModel)
     }
 
     required init?(coder: NSCoder) {
@@ -73,12 +69,9 @@ class UberPopover: NSPopover {
 
         switch state {
         case .authenticated:
-            contentViewController = MapViewController(nibName: "MapViewController", bundle: nil)
-
+            contentViewController = MapViewController.buildController(coordinator)
         case .unAuthenticated:
-            let login = LoginViewController(nibName: "LoginViewController", bundle: nil)!
-            login.viewModel = authenViewModel
-            contentViewController = login
+            contentViewController = LoginViewController.buildController(coordinator)
         }
     }
 
@@ -118,7 +111,7 @@ extension UberPopover {
                                 guard let `self` = self else { return }
                                 Logger.info("Event Monitor fired")
                                 if self.isShown {
-                                    self.viewModel.actionPopoverPublish.onNext(.close)
+                                    self.viewModel.input.actionPopoverPublish.onNext(.close)
                                 }
         }
     }

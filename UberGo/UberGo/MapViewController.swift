@@ -67,6 +67,15 @@ class MapViewController: BaseViewController {
         }
     }
 
+    // MARK: - Init
+    public class func buildController(_ coordinator: ViewModelCoordinator) -> MapViewController {
+        let controller = MapViewController(nibName: "MapViewController", bundle: nil)!
+        controller.mapViewModel = coordinator.mapViewModel
+        controller.uberViewModel = coordinator.uberViewModel
+        controller.searchViewModel = coordinator.searchViewModel
+        return controller
+    }
+
     // MARK: - View Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -110,7 +119,7 @@ class MapViewController: BaseViewController {
 
                 if let placeObj = placeObj {
                     // Request data (trip, estimation, route)
-                    guard let currentLocation = self.mapViewModel.currentLocationVariable.value else { return }
+                    guard let currentLocation = self.mapViewModel.output.currentLocationVar.value else { return }
                     let from = PlaceObj(coordinate: currentLocation.coordinate)
                     let data = UberRequestTripData(from: from, to: placeObj)
                     self.uberViewModel.input.requestEstimateTripPublish.onNext(data)
