@@ -38,6 +38,6 @@ struct DriverAlreadyAction: NotificationContent {
     // MARK: - Init
     init(driver: DriverObj, vehicle: VehicleObj) {
         _title = "\(driver.name) is waiting you at front of entrance 😍"
-        _message = "🚗 \(vehicle.model) | \(vehicle.licensePlate)"
+        _message = "🚗 \(vehicle.make) \(vehicle.model) | \(vehicle.licensePlate)"
     }
 }

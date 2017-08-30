@@ -109,5 +109,19 @@ open class AppViewModel: AppViewModelProtocol,
                 Logger.info("[DEBUG] UPDATE TRIP = \(self.sandboxStatus.rawValue)")
             })
             .addDisposableTo(disposeBag)
+
+        // Notification
+        NotificationCenter.observeNotificationType(.showPopover,
+                                                   observer: self,
+                                                   selector: #selector(self.showPopoverNotification),
+                                                   object: nil)
+    }
+
+    deinit {
+        NotificationCenter.removeAllObserve(self)
+    }
+
+    @objc func showPopoverNotification() {
+        actionPopoverPublish.onNext(.open)
     }
 }

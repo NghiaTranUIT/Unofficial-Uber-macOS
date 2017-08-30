@@ -43,4 +43,19 @@ extension NotificationService: NSUserNotificationCenterDelegate {
                                        shouldPresent notification: NSUserNotification) -> Bool {
         return true
     }
+
+    public func userNotificationCenter(_ center: NSUserNotificationCenter,
+                                       didActivate notification: NSUserNotification) {
+        guard let userInfo = notification.userInfo else { return }
+        guard let typeRawValue = userInfo["type"] as? String else { return }
+        guard let type = NotificationSubActionType(rawValue: typeRawValue) else { return }
+
+        switch type {
+        case .openURL:
+            NotificationCenter.postNotificationOnMainThreadType(.showPopover)
+        default:
+            break
+        }
+
+    }
 }

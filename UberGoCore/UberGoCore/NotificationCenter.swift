@@ -19,6 +19,7 @@ public enum NotificationType: String {
     case handleSurgeCallback
     case showFriendlyErrorAlert
     case windowWillClose
+    case showPopover
 
     // To String
     func toString() -> String {
@@ -61,7 +62,6 @@ extension NotificationCenter {
 
         // Create new Internal Notification
         let noti = Notification(name: Notification.Name(rawValue: name), object: object, userInfo: userInfo)
-
         self.performSelector(onMainThread: #selector(post(_:)), with: noti, waitUntilDone: true)
     }
 }

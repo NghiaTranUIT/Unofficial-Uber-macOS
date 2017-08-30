@@ -11,8 +11,7 @@ import Foundation
 // When Driver's comming
 //
 // ------------------------------
-// / Found a UberX driver!                [ Close ]
-// / Le Van X 🌟 4.5
+// / 👨‍✈️ Le Van A - 🌟 4.5                       [ Close ]
 // / 🚗 White BMW - 72L7 8614             [ Detail ]
 // ------------------------------
 //
@@ -23,8 +22,7 @@ struct DriverCommingAction: NotificationContent {
     var actionType: NotificationActionType { return .driverComming }
 
     // Content
-    var title: String { return "Found a 🚗 UberX driver!" }
-    var subTitle: String? { return _subtitle }
+    var title: String { return _title }
     var message: String { return _message }
 
     // Sub action
@@ -34,12 +32,12 @@ struct DriverCommingAction: NotificationContent {
     }
 
     // MARK: - Variable
-    fileprivate let _subtitle: String
+    fileprivate let _title: String
     fileprivate let _message: String
 
     // MARK: - Init
     init(driver: DriverObj, vehicle: VehicleObj) {
-        _subtitle = "\(driver.name) 🌟 \(driver.rating)"
-        _message = "🚗 \(vehicle.model) | \(vehicle.licensePlate)"
+        _title = "👨‍✈️ \(driver.name) - \(driver.rating) 🌟"
+        _message = "🚗 \(vehicle.make) \(vehicle.model) - \(vehicle.licensePlate)"
     }
 }
