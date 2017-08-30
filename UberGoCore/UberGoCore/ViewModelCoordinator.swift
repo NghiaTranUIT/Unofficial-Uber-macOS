@@ -15,6 +15,7 @@ public protocol ViewModelCoordinatorProtocol {
     var mapViewModel: MapViewModelProtocol { get }
     var searchViewModel: SearchViewModelProtocol { get }
     var authenViewModel: AuthenticationViewModelProtocol { get }
+    var uberNotificationViewModel: UberNotificationViewModelProtocol { get }
 }
 
 open class ViewModelCoordinator: ViewModelCoordinatorProtocol {
@@ -25,19 +26,22 @@ open class ViewModelCoordinator: ViewModelCoordinatorProtocol {
     public let mapViewModel: MapViewModelProtocol
     public let searchViewModel: SearchViewModelProtocol
     public let authenViewModel: AuthenticationViewModelProtocol
+    public let uberNotificationViewModel: UberNotificationViewModelProtocol
 
     // MARK: - Init
     init(appViewModel: AppViewModelProtocol,
          uberViewModel: UberServiceViewModelProtocol,
          mapViewModel: MapViewModelProtocol,
          searchViewModel: SearchViewModelProtocol,
-         authenViewModel: AuthenticationViewModelProtocol) {
+         authenViewModel: AuthenticationViewModelProtocol,
+         uberNotificationViewModel: UberNotificationViewModelProtocol) {
 
         self.appViewModel = appViewModel
         self.uberViewModel = uberViewModel
         self.searchViewModel = searchViewModel
         self.mapViewModel = mapViewModel
         self.authenViewModel = authenViewModel
+        self.uberNotificationViewModel = uberNotificationViewModel
     }
 
     public class func defaultUber() -> ViewModelCoordinator {
@@ -69,6 +73,7 @@ open class ViewModelCoordinator: ViewModelCoordinatorProtocol {
                                     uberViewModel: uberViewModel,
                                     mapViewModel: mapViewModel,
                                     searchViewModel: searchViewModel,
-                                    authenViewModel: authenViewModel)
+                                    authenViewModel: authenViewModel,
+                                    uberNotificationViewModel: uberNotificationViewModel)
     }
 }

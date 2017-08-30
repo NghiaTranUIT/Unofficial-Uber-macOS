@@ -10,23 +10,23 @@ import Foundation
 import RxCocoa
 import RxSwift
 
-protocol UberNotificationViewModelProtocol {
+public protocol UberNotificationViewModelProtocol {
 
     var input: UberNotificationViewModelInput { get }
     var output: UberNotificationViewModelOutput { get }
 }
 
-protocol UberNotificationViewModelInput {
+public protocol UberNotificationViewModelInput {
 
 }
 
-protocol UberNotificationViewModelOutput {
+public protocol UberNotificationViewModelOutput {
 
 }
 
-class UberNotificationViewModel: UberNotificationViewModelProtocol,
-                                 UberNotificationViewModelInput,
-                                 UberNotificationViewModelOutput {
+open class UberNotificationViewModel: UberNotificationViewModelProtocol,
+                                     UberNotificationViewModelInput,
+                                     UberNotificationViewModelOutput {
 
     // MARK: - Protocol
     public var input: UberNotificationViewModelInput { return self }
