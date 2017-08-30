@@ -99,9 +99,9 @@ extension NotificationContent {
         noti.soundName = sound
 
         // Image
-        if let appIconPath = Bundle.allBundles.first!.pathForImageResource("AppIcon") {
-            noti.contentImage = NSImage(contentsOfFile: appIconPath)
-        }
+//        if let appIconPath = Bundle.allBundles.first!.pathForImageResource("AppIcon") {
+//            noti.contentImage = NSImage(contentsOfFile: appIconPath)
+//        }
 
         // Action
         noti.hasActionButton = !actions.isEmpty
