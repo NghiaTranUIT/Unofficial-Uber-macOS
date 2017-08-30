@@ -17,7 +17,14 @@ class LoginViewController: BaseViewController {
     @IBOutlet fileprivate weak var loginBtn: UberButton!
 
     // MARK: - Variable
-    public var viewModel: AuthenticationViewModel!
+    fileprivate var viewModel: AuthenticationViewModelProtocol!
+
+    // MARK: - Init
+    public class func buildController(_ coordinator: ViewModelCoordinatorProtocol) -> LoginViewController {
+        let login = LoginViewController(nibName: "LoginViewController", bundle: nil)!
+        login.viewModel = coordinator.authenViewModel
+        return login
+    }
 
     // MARK: - View Cycle
     override func viewDidLoad() {
@@ -26,7 +33,7 @@ class LoginViewController: BaseViewController {
         initCommon()
 
         // Bind
-        loginBtn.rx.tap.bind(to: viewModel.loginBtnOnTabPublish)
+        loginBtn.rx.tap.bind(to: viewModel.input.loginBtnOnTabPublish)
         .addDisposableTo(disposeBag)
     }
 }

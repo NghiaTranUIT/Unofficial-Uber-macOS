@@ -59,10 +59,9 @@ open class SearchViewModel: SearchViewModelProtocol, SearchViewModelInput, Searc
     fileprivate let disposeBag = DisposeBag()
 
     // MARK: - Init
-    public init(uberService: UberService = UberService(),
-                mapService: MapService = MapService.share,
-                googleMapService: GoogleMapService = GoogleMapService()) {
-        //
+    public init(uberService: UberService,
+                mapService: MapService,
+                googleMapService: GoogleMapService) {
         self.mapService = mapService
 
         // Load personal or history place

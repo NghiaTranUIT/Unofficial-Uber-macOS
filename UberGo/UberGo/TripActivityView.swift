@@ -183,7 +183,7 @@ extension TripActivityView {
 
         // Name
         driverNameLbl.stringValue = driver.name
-        driverRatingLbl.stringValue = "\(driver.rating)"
+        driverRatingLbl.stringValue = "\(driver.rating) ★"
 
         // Avatar
         DispatchQueue.global(qos: DispatchQoS.QoSClass.background)

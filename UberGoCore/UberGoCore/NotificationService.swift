@@ -2,66 +2,60 @@
 //  NotificationService.swift
 //  UberGoCore
 //
-//  Created by Nghia Tran on 6/21/17.
+//  Created by Nghia Tran on 8/22/17.
 //  Copyright © 2017 Nghia Tran. All rights reserved.
 //
 
-import Cocoa
+import Foundation
 
-public enum NotificationType: String {
+protocol UserNotificationServiceProtocol {
 
-    // Preifx
-    private static let NotificationPrefix = "com.fe.uber"
+    // Publish
+    func publishAction(_ action: NotificationContent)
+}
 
-    // Enum
-    case showSurgeHrefConfirmationView
-    case showPaymentMethodsView
-    case handleSurgeCallback
-    case showFriendlyErrorAlert
-    case windowWillClose
+open class NotificationService: NSObject {
 
-    // To String
-    func toString() -> String {
-        if self.rawValue == NotificationType.windowWillClose.rawValue {
-            return Notification.Name.NSWindowWillClose.rawValue
+    // MARK: - Variable
+
+    // MARK: - Init
+    override init() {
+        super.init()
+        NSUserNotificationCenter.default.delegate = self
+    }
+}
+
+extension NotificationService: UserNotificationServiceProtocol {
+
+    func publishAction(_ action: NotificationContent) {
+
+        // Build action
+        let action = action.buildUserNotification()
+
+        // Publish
+        NSUserNotificationCenter.default.deliver(action)
+    }
+}
+
+extension NotificationService: NSUserNotificationCenterDelegate {
+
+    public func userNotificationCenter(_ center: NSUserNotificationCenter,
+                                       shouldPresent notification: NSUserNotification) -> Bool {
+        return true
+    }
+
+    public func userNotificationCenter(_ center: NSUserNotificationCenter,
+                                       didActivate notification: NSUserNotification) {
+        guard let userInfo = notification.userInfo else { return }
+        guard let typeRawValue = userInfo["type"] as? String else { return }
+        guard let type = NotificationSubActionType(rawValue: typeRawValue) else { return }
+
+        switch type {
+        case .openURL:
+            NotificationCenter.postNotificationOnMainThreadType(.showPopover)
+        default:
+            break
         }
-        return NotificationType.NotificationPrefix + self.rawValue
-    }
-}
 
-open class NotificationService {
-
-    public class func postNotificationOnMainThreadType(_ type: NotificationType,
-                                                       object: AnyObject? = nil,
-                                                       userInfo: [String: Any]? = nil) {
-        NotificationCenter.default.postNotificationOnMainThreadName(type.toString(),
-                                                                    object: object,
-                                                                    userInfo: userInfo)
-    }
-
-    public class func observeNotificationType(_ type: NotificationType,
-                                              observer: AnyObject,
-                                              selector aSelector: Selector,
-                                              object anObject: AnyObject?) {
-        NotificationCenter.default.addObserver(observer, selector: aSelector,
-                                               name: NSNotification.Name(rawValue: type.toString()),
-                                               object: anObject)
-    }
-
-    public class func removeAllObserve(_ observer: AnyObject) {
-        NotificationCenter.default.removeObserver(observer)
-    }
-}
-
-//
-// MARK: - Private
-extension NotificationCenter {
-
-    public func postNotificationOnMainThreadName(_ name: String, object: AnyObject?, userInfo: [String: Any]?) {
-
-        // Create new Internal Notification
-        let noti = Notification(name: Notification.Name(rawValue: name), object: object, userInfo: userInfo)
-
-        self.performSelector(onMainThread: #selector(post(_:)), with: noti, waitUntilDone: true)
     }
 }

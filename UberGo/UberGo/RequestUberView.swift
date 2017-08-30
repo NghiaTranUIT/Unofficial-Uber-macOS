@@ -30,7 +30,7 @@ class RequestUberView: NSView {
     @IBOutlet fileprivate weak var highFareLbl: NSTextField!
 
     // MARK: - Variable
-    public var viewModel: UberServiceViewModel! {
+    public var viewModel: UberServiceViewModelProtocol! {
         didSet {
             self.binding()
         }
@@ -186,7 +186,7 @@ class RequestUberView: NSView {
     }
 
     @IBAction func paymentMethodsOnTap(_ sender: Any) {
-        NotificationService.postNotificationOnMainThreadType(.showPaymentMethodsView)
+        NotificationCenter.postNotificationOnMainThreadType(.showPaymentMethodsView)
     }
 
 }

@@ -211,5 +211,20 @@ struct Constants {
             static let Fee = "fee"
             static let Name = "name"
         }
+
+        // MARK: - Receipt
+        struct Receipt {
+
+            static let RequestID = "request_id"
+            static let Subtotal = "subtotal"
+            static let TotalCharged = "subtotal"
+            static let TotalOwed = "total_owed"
+            static let TotalFare = "total_fare"
+            static let CurrencyCode = "currency_code"
+            static let ChargeAdjustments = "charge_adjustments"
+            static let Duration = "duration"
+            static let Distance = "distance"
+            static let DistanceLabel = "distance_label"
+        }
     }
 }

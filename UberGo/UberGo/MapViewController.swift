@@ -41,9 +41,9 @@ class MapViewController: BaseViewController {
     fileprivate lazy var searchController: SearchController = self.lazyInitSearchController()
 
     // MARK: - Variable
-    fileprivate let mapViewModel = MapViewModel()
-    fileprivate let searchViewModel = SearchViewModel()
-    fileprivate let uberViewModel = UberServiceViewModel()
+    fileprivate var mapViewModel: MapViewModelProtocol!
+    fileprivate var searchViewModel: SearchViewModelProtocol!
+    fileprivate var uberViewModel: UberServiceViewModelProtocol!
 
     fileprivate var isFirstTime = true
     fileprivate lazy var webController: WebViewController = self.lazyInitWebController()
@@ -67,6 +67,15 @@ class MapViewController: BaseViewController {
         }
     }
 
+    // MARK: - Init
+    public class func buildController(_ coordinator: ViewModelCoordinatorProtocol) -> MapViewController {
+        let controller = MapViewController(nibName: "MapViewController", bundle: nil)!
+        controller.mapViewModel = coordinator.mapViewModel
+        controller.uberViewModel = coordinator.uberViewModel
+        controller.searchViewModel = coordinator.searchViewModel
+        return controller
+    }
+
     // MARK: - View Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,11 +83,16 @@ class MapViewController: BaseViewController {
         // Common
         initCommon()
 
-        // View Model
         binding()
         searchController.configureContainerController(self, containerView: mapContainerView)
         mapView.setupViewModel(mapViewModel)
         notificationBinding()
+    }
+
+    public func configureBinding(coordinator: ViewModelCoordinator) {
+        uberViewModel = coordinator.uberViewModel
+        mapViewModel = coordinator.mapViewModel
+        searchViewModel = coordinator.searchViewModel
     }
 
     override func viewDidAppear() {
@@ -86,7 +100,7 @@ class MapViewController: BaseViewController {
     }
 
     deinit {
-        NotificationService.removeAllObserve(self)
+        NotificationCenter.removeAllObserve(self)
     }
 
     fileprivate func binding() {
@@ -105,7 +119,7 @@ class MapViewController: BaseViewController {
 
                 if let placeObj = placeObj {
                     // Request data (trip, estimation, route)
-                    guard let currentLocation = self.mapViewModel.currentLocationVariable.value else { return }
+                    guard let currentLocation = self.mapViewModel.output.currentLocationVar.value else { return }
                     let from = PlaceObj(coordinate: currentLocation.coordinate)
                     let data = UberRequestTripData(from: from, to: placeObj)
                     self.uberViewModel.input.requestEstimateTripPublish.onNext(data)
@@ -148,7 +162,7 @@ class MapViewController: BaseViewController {
                     self.selectUberView.updateAvailableGroupProducts(groups)
                 case .error(let error):
                     Logger.error("ERROR = \(error)")
-                    NotificationService.postNotificationOnMainThreadType(.showFriendlyErrorAlert,
+                    NotificationCenter.postNotificationOnMainThreadType(.showFriendlyErrorAlert,
                                                                          object: error,
                                                                          userInfo: nil)
                 }
@@ -197,34 +211,17 @@ class MapViewController: BaseViewController {
                     self.handleLayoutAndData(tripObj)
                 case .error(let error):
                     Logger.error(error)
+                    self.handleLayoutAndData(TripObj.invalidDummyTrip())
                 }
-
-            })
-            .addDisposableTo(disposeBag)
-
-        // Manually
-        uberViewModel.output.manuallyCurrentTripStatusDriver
-            .drive(onNext: {[weak self] result in
-                guard let `self` = self else { return }
-
-                // Update
-                switch result {
-                case .success(let tripObj):
-                    // Update
-                    self.handleLayoutAndData(tripObj)
-
-                    // Start Timer again
-                    if tripObj.isValidTrip {
-                        self.uberViewModel.input.triggerCurrentTripPublisher.onNext()
-                    }
-                case .error(let error):
-                    Logger.error(error)
-                }
+                }, onCompleted: {
+                    Logger.info("On Completed")
+            }, onDisposed: {
+                Logger.info("On Disposed")
             })
             .addDisposableTo(disposeBag)
 
         // Get first check Trip Status
-        uberViewModel.input.manuallyGetCurrentTripStatusPublisher.onNext()
+        uberViewModel.input.triggerCurrentTripPublisher.onNext()
 
         // Cancel
         uberViewModel.output.resetMapDriver
@@ -247,15 +244,15 @@ class MapViewController: BaseViewController {
     }
 
     fileprivate func notificationBinding() {
-        NotificationService.observeNotificationType(.showPaymentMethodsView,
+        NotificationCenter.observeNotificationType(.showPaymentMethodsView,
                                                     observer: self,
                                                     selector: #selector(showPaymentMethodView(noti:)),
                                                     object: nil)
-        NotificationService.observeNotificationType(.handleSurgeCallback,
+        NotificationCenter.observeNotificationType(.handleSurgeCallback,
                                                     observer: self,
                                                     selector: #selector(handleSurgeCallback(noti:)),
                                                     object: nil)
-        NotificationService.observeNotificationType(.showFriendlyErrorAlert,
+        NotificationCenter.observeNotificationType(.showFriendlyErrorAlert,
                                                     observer: self,
                                                     selector: #selector(showFriendlyErrorAlert(noti:)),
                                                     object: nil)

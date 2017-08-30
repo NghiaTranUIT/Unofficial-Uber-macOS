@@ -15,7 +15,7 @@ import UberGoCore
 class AppDelegate: NSObject, NSApplicationDelegate {
 
     // MARK: - Variable
-    fileprivate var viewModel = AppViewModel()
+    fileprivate lazy var coordinator: ViewModelCoordinatorProtocol = self.initLayzViewModelCoordinator()
     fileprivate var popover: UberPopover!
     fileprivate let disposeBag = DisposeBag()
 
@@ -28,7 +28,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                                                      forEventClass: AEEventClass(kInternetEventClass),
                                                      andEventID: AEEventID(kAEGetURL))
 
-        popover = UberPopover(appViewModel: viewModel)
+        popover = UberPopover(coordinator: coordinator)
         popover.binding()
     }
 
@@ -37,7 +37,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     deinit {
-        NotificationService.removeAllObserve(self)
+        NotificationCenter.removeAllObserve(self)
     }
 
     func handleGetURL(event: NSAppleEventDescriptor!, withReplyEvent: NSAppleEventDescriptor!) {
@@ -47,7 +47,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         // Uber Surge
         if url.contains("uber-surge") {
-            NotificationService.postNotificationOnMainThreadType(.handleSurgeCallback, object: event, userInfo: nil)
+            NotificationCenter.postNotificationOnMainThreadType(.handleSurgeCallback, object: event, userInfo: nil)
             return
         }
 
@@ -57,20 +57,27 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     // MARK: - Debug
     @IBAction func currentTripStatusOnTap(_ sender: Any) {
-        viewModel.input.currentTripStatusPublish.onNext()
+        coordinator.appViewModel.input.currentTripStatusPublish.onNext()
     }
 
     @IBAction func cancelCurrentTripOnTab(_ sender: Any) {
-        viewModel.input.cancelCurrentTripPublish.onNext()
+        coordinator.appViewModel.input.cancelCurrentTripPublish.onNext()
     }
 
     @IBAction func updateStateOnTap(_ sender: NSMenuItem) {
         let status = TripObjStatus.createTripStatus(rawValue: sender.title)
-        viewModel.input.updateStatusTripPublish.onNext(status)
+        coordinator.appViewModel.input.updateStatusTripPublish.onNext(status)
     }
 
     @IBAction func logoutUberOnTap(_ sender: NSMenuItem) {
         UberAuth.share.logout()
     }
 
+}
+
+// MARK: - Coordinator
+extension AppDelegate {
+    fileprivate func initLayzViewModelCoordinator() -> ViewModelCoordinator {
+        return ViewModelCoordinator.defaultUber()
+    }
 }

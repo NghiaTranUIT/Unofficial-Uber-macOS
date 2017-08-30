@@ -34,7 +34,7 @@ open class CreateTripObj: Unboxable {
     public var vehicleObj: VehicleObj?
     public var driverObj: DriverObj?
     public var locationObj: UberCoordinateObj?
-    public var eta: Float
+    public var eta: Float?
     public var surgeMultiplier: Float?
 
     // 409 Conflict code
@@ -57,7 +57,7 @@ open class CreateTripObj: Unboxable {
         vehicleObj = unboxer.unbox(key: "vehicle")
         driverObj = unboxer.unbox(key: "driver")
         locationObj = unboxer.unbox(key: "location")
-        eta = try unboxer.unbox(key: "eta")
+        eta = unboxer.unbox(key: "eta")
         surgeMultiplier = unboxer.unbox(key: "surge_multiplier")
 
         // 409
