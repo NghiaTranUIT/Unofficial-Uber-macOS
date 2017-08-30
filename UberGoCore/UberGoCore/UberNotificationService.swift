@@ -40,11 +40,11 @@ open class UberNotificationService {
 
         case .accepted:
             Logger.info("[Uber Notification] : notifyDriverComming ")
-            notifyDriverComming(driver: trip.driver!, vehicle: trip.vehicle!)
+            //notifyDriverComming(driver: trip.driver!, vehicle: trip.vehicle!)
 
         case .arriving:
             Logger.info("[Uber Notification] : notifyDriverAlready ")
-            notifyDriverAlready(driver: trip.driver!, vehicle: trip.vehicle!)
+            //notifyDriverAlready(driver: trip.driver!, vehicle: trip.vehicle!)
 
         default:
             break

@@ -56,6 +56,7 @@ open class UberNotificationViewModel: UberNotificationViewModelProtocol,
 
                 // New state
                 if old.isSucces && new.isSucces {
+                    print("COMPARE \(old.rawValue.status.rawValue) vs \(new.rawValue.status.rawValue)")
                     return old.rawValue.status != new.rawValue.status
                 }
 

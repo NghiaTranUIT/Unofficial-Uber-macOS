@@ -271,13 +271,6 @@
 			path = UberGoTests;
 			sourceTree = SOURCE_ROOT;
 		};
-		BA1A73131F4FE0B200FD9560 /* New Group */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "New Group";
-			sourceTree = "<group>";
-		};
 		BA1C3FB81EFAB1B5001FD50F /* Payment Account Cell */ = {
 			isa = PBXGroup;
 			children = (
@@ -438,7 +431,6 @@
 		BAB14AC71EF660030066267B /* Uber */ = {
 			isa = PBXGroup;
 			children = (
-				BA1A73131F4FE0B200FD9560 /* New Group */,
 				BA657DA51F149B46007E4821 /* Price Detail Cell */,
 				BACC07AF1F036C5A0092F2F4 /* Uber Popover */,
 				BAB7B8DE1EFF67BE00B508A1 /* Trip Activity */,
