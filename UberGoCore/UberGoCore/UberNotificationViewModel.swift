@@ -56,17 +56,16 @@ open class UberNotificationViewModel: UberNotificationViewModelProtocol,
 
                 // New state
                 if old.isSucces && new.isSucces {
-                    print("COMPARE \(old.rawValue.status.rawValue) vs \(new.rawValue.status.rawValue)")
-                    return old.rawValue.status != new.rawValue.status
+                    return old.rawValue.status == new.rawValue.status
                 }
 
                 // Both are error
                 if old.isError && new.isError {
-                    return false
+                    return true
                 }
 
                 // Different state
-                return true
+                return false
             }
             .drive(onNext: { (result) in
                 service.notifyUberNotification(result)
