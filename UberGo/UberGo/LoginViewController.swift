@@ -20,7 +20,7 @@ class LoginViewController: BaseViewController {
     fileprivate var viewModel: AuthenticationViewModelProtocol!
 
     // MARK: - Init
-    public class func buildController(_ coordinator: ViewModelCoordinator) -> LoginViewController {
+    public class func buildController(_ coordinator: ViewModelCoordinatorProtocol) -> LoginViewController {
         let login = LoginViewController(nibName: "LoginViewController", bundle: nil)!
         login.viewModel = coordinator.authenViewModel
         return login

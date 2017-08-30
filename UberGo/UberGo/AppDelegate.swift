@@ -15,7 +15,7 @@ import UberGoCore
 class AppDelegate: NSObject, NSApplicationDelegate {
 
     // MARK: - Variable
-    fileprivate lazy var coordinator: ViewModelCoordinator = self.initLayzViewModelCoordinator()
+    fileprivate lazy var coordinator: ViewModelCoordinatorProtocol = self.initLayzViewModelCoordinator()
     fileprivate var popover: UberPopover!
     fileprivate let disposeBag = DisposeBag()
 

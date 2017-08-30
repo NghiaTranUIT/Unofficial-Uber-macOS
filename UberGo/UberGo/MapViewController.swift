@@ -68,7 +68,7 @@ class MapViewController: BaseViewController {
     }
 
     // MARK: - Init
-    public class func buildController(_ coordinator: ViewModelCoordinator) -> MapViewController {
+    public class func buildController(_ coordinator: ViewModelCoordinatorProtocol) -> MapViewController {
         let controller = MapViewController(nibName: "MapViewController", bundle: nil)!
         controller.mapViewModel = coordinator.mapViewModel
         controller.uberViewModel = coordinator.uberViewModel

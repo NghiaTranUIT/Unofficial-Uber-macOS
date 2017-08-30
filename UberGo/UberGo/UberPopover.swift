@@ -17,7 +17,7 @@ class UberPopover: NSPopover {
     fileprivate let authenViewModel: AuthenticationViewModelProtocol
     fileprivate let viewModel: AppViewModelProtocol
     fileprivate let disposeBag = DisposeBag()
-    fileprivate let coordinator: ViewModelCoordinator
+    fileprivate let coordinator: ViewModelCoordinatorProtocol
 
     fileprivate lazy var webviewController: WebViewController = self.lazyInitWebviewController()
 
@@ -25,7 +25,7 @@ class UberPopover: NSPopover {
     fileprivate lazy var eventMonitor: EventMonitor = self.initEventMonitor()
 
     // MARK: - Init
-    init(coordinator: ViewModelCoordinator) {
+    init(coordinator: ViewModelCoordinatorProtocol) {
         self.coordinator = coordinator
         viewModel = coordinator.appViewModel
         authenViewModel = coordinator.authenViewModel
