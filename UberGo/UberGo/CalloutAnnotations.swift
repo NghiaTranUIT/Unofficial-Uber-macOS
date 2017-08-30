@@ -21,8 +21,8 @@ class CalloutAnnotations: NSViewController {
     @IBOutlet fileprivate weak var addressLbl: NSTextField!
 
     // MARK: - Variable
-    fileprivate var timeObj: TimeEstimateObj?
-    fileprivate var placeObj: PlaceObj?
+    fileprivate var timeETA: String?
+    fileprivate var calloutTitle: String?
     fileprivate var layoutMode: CalloutAnnotationsLayoutMode = .noTimeEstimation
 
     // MARK: - View
@@ -46,23 +46,18 @@ class CalloutAnnotations: NSViewController {
     }
 
     fileprivate func setupData() {
-
-        if let timeObj = timeObj {
-            timeEstimateLbl.stringValue = "\(timeObj.prettyEstimateTime)"
-        }
-
-        if let destObj = placeObj {
-            addressLbl.stringValue = destObj.name
-        }
+        timeEstimateLbl.stringValue = timeETA ?? "-"
+        addressLbl.stringValue = calloutTitle ?? "Unknown"
     }
 
     // MARK: - Public
-    public func setupCallout(mode: CalloutAnnotationsLayoutMode, timeObj: TimeEstimateObj?, placeObj: PlaceObj?) {
-        self.timeObj = timeObj
-        self.placeObj = placeObj
-        layoutMode = mode
+    public func setupCallout(mode: CalloutAnnotationsLayoutMode, timeETA: String?, calloutTitle: String?) {
+        self.timeETA = timeETA
+        self.calloutTitle = calloutTitle
 
-        if timeObj == nil {
+        // Layout mode
+        layoutMode = mode
+        if timeETA == nil {
             layoutMode = .noTimeEstimation
         }
 
@@ -71,6 +66,10 @@ class CalloutAnnotations: NSViewController {
             setupLayoutMode(layoutMode)
             setupData()
         }
+    }
+
+    public func setupPickupPointCallout(_ pickup: PickupPointObj) {
+        setupCallout(mode: .withTimeEstimation, timeETA: pickup.prettyETA, calloutTitle: pickup.name ?? "Pickup point")
     }
 }
 

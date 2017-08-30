@@ -62,8 +62,8 @@ open class TripObj: Unboxable {
     public var driver: DriverObj?
     public var vehicle: VehicleObj?
     public var location: UberCoordinateObj?
-    public var pickup: UberCoordinateObj?
-    public var destination: UberCoordinateObj?
+    public var pickup: PickupPointObj?
+    public var destination: PickupPointObj?
     public var waypoints: [WaypointObj]?
     public var riders: [RiderObj]?
 

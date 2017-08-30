@@ -163,7 +163,7 @@ class UberMapView: MGLMapView {
         addDriverPoint(tripObj.driver, location: tripObj.location)
     }
 
-    fileprivate func addPickupPoint(_ pickupObj: UberCoordinateObj?) {
+    fileprivate func addPickupPoint(_ pickupObj: PickupPointObj?) {
 
         // Remove if need
         if let pickupPoint = pickupPoint {
@@ -173,10 +173,7 @@ class UberMapView: MGLMapView {
 
         guard let pickupObj = pickupObj else { return }
 
-        pickupPoint = PickupAnnotation()
-        pickupPoint!.coordinate = CLLocationCoordinate2D(latitude: pickupObj.latitude.toDouble,
-                                                              longitude: pickupObj.longitude.toDouble)
-        pickupPoint!.title = "Pickup"
+        pickupPoint = PickupAnnotation(pickup: pickupObj)
         addAnnotation(pickupPoint!)
     }
 

@@ -226,5 +226,16 @@ struct Constants {
             static let Distance = "distance"
             static let DistanceLabel = "distance_label"
         }
+
+        // MARK: - Pickup Point
+        struct PickupPoint {
+
+            static let Alias = "alias"
+            static let Latitude = "latitude"
+            static let Longitude = "longitude"
+            static let Name = "name"
+            static let Address = "address"
+            static let Eta = "eta"
+        }
     }
 }

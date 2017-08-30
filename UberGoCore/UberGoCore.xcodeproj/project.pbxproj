@@ -49,6 +49,7 @@
 		BA4796B31EE3C93900620BB0 /* UUID+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4796B21EE3C93900620BB0 /* UUID+Helper.swift */; };
 		BA4796B51EE3D49300620BB0 /* UserObjTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4796B41EE3D49300620BB0 /* UserObjTests.swift */; };
 		BA48DCB11F416165007BA3B6 /* PersonalPlaceSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA48DCB01F416165007BA3B6 /* PersonalPlaceSearchViewModel.swift */; };
+		BA5960691F56EB050050D8D2 /* PickupPointObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5960681F56EB050050D8D2 /* PickupPointObj.swift */; };
 		BA657DA01F133A78007E4821 /* PriceDetailObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA657D9F1F133A78007E4821 /* PriceDetailObj.swift */; };
 		BA657DA21F133C14007E4821 /* ServiceFeeObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA657DA11F133C14007E4821 /* ServiceFeeObj.swift */; };
 		BA657DA41F133DFC007E4821 /* ProductDetailRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA657DA31F133DFC007E4821 /* ProductDetailRequest.swift */; };
@@ -164,6 +165,7 @@
 		BA4796B21EE3C93900620BB0 /* UUID+Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UUID+Helper.swift"; sourceTree = "<group>"; };
 		BA4796B41EE3D49300620BB0 /* UserObjTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserObjTests.swift; sourceTree = "<group>"; };
 		BA48DCB01F416165007BA3B6 /* PersonalPlaceSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalPlaceSearchViewModel.swift; sourceTree = "<group>"; };
+		BA5960681F56EB050050D8D2 /* PickupPointObj.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickupPointObj.swift; sourceTree = "<group>"; };
 		BA657D9F1F133A78007E4821 /* PriceDetailObj.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceDetailObj.swift; sourceTree = "<group>"; };
 		BA657DA11F133C14007E4821 /* ServiceFeeObj.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceFeeObj.swift; sourceTree = "<group>"; };
 		BA657DA31F133DFC007E4821 /* ProductDetailRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailRequest.swift; sourceTree = "<group>"; };
@@ -354,6 +356,7 @@
 				BAA157921F331E720020D5A6 /* GeocodingPlaceObj.swift */,
 				BA75A5521F39F00800EC7EC9 /* UberRequestTripData.swift */,
 				BA32A3911F45573900A9628E /* ReceiptObj.swift */,
+				BA5960681F56EB050050D8D2 /* PickupPointObj.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -881,6 +884,7 @@
 				BA48DCB11F416165007BA3B6 /* PersonalPlaceSearchViewModel.swift in Sources */,
 				BAF57FB51EE116D10013090E /* RouteCoordinator.swift in Sources */,
 				BAF7D2221F068D8000CC8BF6 /* AuthToken.swift in Sources */,
+				BA5960691F56EB050050D8D2 /* PickupPointObj.swift in Sources */,
 				BA22191C1EF6FBB100C766A1 /* PaymentObj.swift in Sources */,
 				BACCAADB1F4BEC260076C9D6 /* CloseNotificationSubAction.swift in Sources */,
 				BAF57FC51EE11AFF0013090E /* AuthenticationState.swift in Sources */,

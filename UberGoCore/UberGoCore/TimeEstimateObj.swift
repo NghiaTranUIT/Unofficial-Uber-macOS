@@ -18,8 +18,8 @@ open class TimeEstimateObj: Unboxable {
     public var productId: String
 
     // Time in minutes
-    public var prettyEstimateTime: Int {
-        return estimate / 60
+    public var prettyEstimateTime: String {
+        return "\(estimate / 60)"
     }
 
     // MARK: - Init
