@@ -12,32 +12,47 @@ import RxSwift
 open class UberNotificationService {
 
     // MARK: - Variable
-    public var handleTripResultObs: Observable<APIResult<TripObj>>!
     fileprivate let _service: UserNotificationServiceProtocol
-    fileprivate let appViewModel: AppViewModel
     fileprivate let disposeBag = DisposeBag()
 
     // MARK: - Init
-    init(service: UserNotificationServiceProtocol, appViewModel: AppViewModel) {
+    init(service: UserNotificationServiceProtocol = NotificationService()) {
         _service = service
-        self.appViewModel = appViewModel
     }
 
-    // MARK: - Public
-    public func binding(tripObs: Observable<APIResult<TripObj>>) {
-        handleTripResultObs = tripObs
+    public func notifyUberNotification(_ result: APIResult<TripObj>) {
 
-        // Notification
-        handleTripResultObs.subscribe(onNext: { (result) in
-            switch result {
-            case .success(let trip):
+        switch result {
+        case .success(let trip):
+            handleUberNotification(with: trip)
 
-                break
-            case .error(let error):
-                break
-            }
-        })
-        .addDisposableTo(disposeBag)
+        case .error(let error):
+            handleErrorNotification(with: error)
+        }
+    }
+
+    fileprivate func handleUberNotification(with trip: TripObj) {
+
+        switch trip.status {
+        case .driverCanceled:
+            Logger.info("[Uber Notification] : notifyCancelTrip ")
+            notifyCancelTrip()
+
+        case .accepted:
+            Logger.info("[Uber Notification] : notifyDriverComming ")
+            notifyDriverComming(driver: trip.driver!, vehicle: trip.vehicle!)
+
+        case .arriving:
+            Logger.info("[Uber Notification] : notifyDriverAlready ")
+            notifyDriverAlready(driver: trip.driver!, vehicle: trip.vehicle!)
+
+        default:
+            break
+        }
+    }
+
+    fileprivate func handleErrorNotification(with error: NSError) {
+
     }
 }
 

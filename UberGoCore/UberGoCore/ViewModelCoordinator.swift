@@ -8,7 +8,16 @@
 
 import Foundation
 
-open class ViewModelCoordinator {
+public protocol ViewModelCoordinatorProtocol {
+
+    var appViewModel: AppViewModelProtocol { get }
+    var uberViewModel: UberServiceViewModelProtocol { get }
+    var mapViewModel: MapViewModelProtocol { get }
+    var searchViewModel: SearchViewModelProtocol { get }
+    var authenViewModel: AuthenticationViewModelProtocol { get }
+}
+
+open class ViewModelCoordinator: ViewModelCoordinatorProtocol {
 
     // MARK: - View models
     public let appViewModel: AppViewModelProtocol
@@ -38,6 +47,7 @@ open class ViewModelCoordinator {
         let uberService = UberService()
         let directionService = DirectionService()
         let googleMapService = GoogleMapService()
+        let uberNotificationService = UberNotificationService()
 
         // View model
         let appViewModel = AppViewModel(uberService: uberService)
@@ -50,6 +60,11 @@ open class ViewModelCoordinator {
                                               mapService: mapService,
                                               googleMapService: googleMapService)
         let authenViewModel = AuthenticationViewModel()
+        let uberNotificationViewModel = UberNotificationViewModel(service: uberNotificationService,
+                                                                  appViewMode: appViewModel,
+                                                                  uberViewModel: uberViewModel)
+
+        // Init
         return ViewModelCoordinator(appViewModel: appViewModel,
                                     uberViewModel: uberViewModel,
                                     mapViewModel: mapViewModel,

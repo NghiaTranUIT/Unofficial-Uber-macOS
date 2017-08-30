@@ -44,6 +44,7 @@ public protocol UberServiceViewModelOutput {
 
     // Current Trip Status
     var currentTripStatusDriver: Driver<APIResult<TripObj>>! { get }
+    var currentTripStatusObs: Observable<APIResult<TripObj>>! { get }
 
     // Reset map
     var resetMapDriver: Driver<Void>! { get }
@@ -71,6 +72,7 @@ open class UberServiceViewModel: UberServiceViewModelProtocol,
     public var normalTripDriver: Driver<CreateTripObj>!
     public var requestUberWithSurgeIDPublisher = PublishSubject<String>()
     public var currentTripStatusDriver: Driver<APIResult<TripObj>>!
+    public var currentTripStatusObs: Observable<APIResult<TripObj>>!
     public var triggerCurrentTripPublisher = PublishSubject<Void>()
     public var manuallyGetCurrentTripStatusPublisher = PublishSubject<Void>()
     public var cancelCurrentTripPublisher = PublishSubject<Void>()
@@ -261,7 +263,7 @@ open class UberServiceViewModel: UberServiceViewModelProtocol,
             })
         .disposed(by: disposeBag)
 
-        let currentStatusObs = timerFirePublisher
+        currentTripStatusObs = timerFirePublisher
             .asObserver()
             .flatMapLatest { (_) -> Observable<APIResult<TripObj>> in
                 Logger.debug("$$$ tripTimerFire start")
@@ -289,7 +291,7 @@ open class UberServiceViewModel: UberServiceViewModelProtocol,
             })
 
         // Merge
-        currentTripStatusDriver = currentStatusObs
+        currentTripStatusDriver = currentTripStatusObs
             .asDriver { Driver.just(APIResult<TripObj>(errorValue: $0)) }
     }
 }
