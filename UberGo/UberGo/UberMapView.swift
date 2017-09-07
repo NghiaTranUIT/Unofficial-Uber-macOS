@@ -38,6 +38,7 @@ class UberMapView: MGLMapView {
 
     // Visible Route
     fileprivate var visibleRoute: MGLPolyline?
+    fileprivate var firstRouteCoordinate: CLLocationCoordinate2D?
     fileprivate var lastRouteCoordinate: CLLocationCoordinate2D?
 
     fileprivate var circleSource: MGLShapeSource?
@@ -157,8 +158,13 @@ class UberMapView: MGLMapView {
     func updateCurrentTripLayout(_ tripObj: TripObj) {
 
         // Pickup
-        addPickupPoint(tripObj.pickup)
-        drawPickupRoute(tripObj.pickup?.coordinate)
+        // Hack to make sure Pickup point is at the begining point of visible route
+        let pickup = tripObj.pickup
+        if let firstRouteCoordinate = firstRouteCoordinate {
+            pickup?.coordinate = firstRouteCoordinate
+        }
+        addPickupPoint(pickup)
+        drawPickupRoute(pickup?.coordinate)
 
         // Driver
         addDriverPoint(tripObj)
@@ -218,8 +224,10 @@ extension UberMapView {
         addAnnotation(routeLine)
         visibleRoute = routeLine
 
-        // Last
+        // Hack to guarantee the Driver Cars is at the end of Route
+        // Look natural
         lastRouteCoordinate = route.coordinates?.first
+        firstRouteCoordinate = route.coordinates?.last
 
         // Centerizal
         centralizeMap()
@@ -233,8 +241,7 @@ extension UberMapView {
         // Remove if need
         resetPickupDashedLine()
 
-        var coordinates = [originPoint.coordinate,
-                          pickup]
+        var coordinates = [originPoint.coordinate, pickup]
 
         // Source
         let polyline = MGLPolylineFeature(coordinates: &coordinates, count: UInt(coordinates.count))
@@ -271,11 +278,16 @@ extension UberMapView {
     }
 
     public func resetCurrentRoute() {
+
+        // Pick and Driver car
+        lastRouteCoordinate = nil
+        firstRouteCoordinate = nil
+
+        // Visible Route
         if let visibleRoute = visibleRoute {
             removeAnnotation(visibleRoute)
             self.visibleRoute = nil
         }
-        lastRouteCoordinate = nil
     }
 
     fileprivate func resetPickupDashedLine() {
