@@ -14,9 +14,9 @@ class DriverAnnotation: MGLPointAnnotation {
 
     // MARK: - Variable
     public lazy var image: MGLAnnotationImage = {
-        let image = NSImage(imageLiteralResourceName: "driver_big")
+        let image = NSImage(imageLiteralResourceName: "driver_mark")
         return MGLAnnotationImage(image: image,
-                                  reuseIdentifier: "driver_big")
+                                  reuseIdentifier: "driver_mark")
     }()
 
     // MARK: - Variable

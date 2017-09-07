@@ -38,6 +38,7 @@ class UberMapView: MGLMapView {
 
     // Visible Route
     fileprivate var visibleRoute: MGLPolyline?
+    fileprivate var lastRouteCoordinate: CLLocationCoordinate2D?
 
     fileprivate var circleSource: MGLShapeSource?
 
@@ -187,6 +188,10 @@ class UberMapView: MGLMapView {
 
         driverPoint = DriverAnnotation(tripObj: tripObj)
 
+        if let lastRouteCoordinate = lastRouteCoordinate {
+            driverPoint?.coordinate = lastRouteCoordinate
+        }
+
         // Add if available
         if let driverPoint = driverPoint {
             addAnnotation(driverPoint)
@@ -212,6 +217,9 @@ extension UberMapView {
         // Add the polyline to the map and fit the viewport to the polyline.
         addAnnotation(routeLine)
         visibleRoute = routeLine
+
+        // Last
+        lastRouteCoordinate = route.coordinates?.first
 
         // Centerizal
         centralizeMap()
@@ -267,6 +275,7 @@ extension UberMapView {
             removeAnnotation(visibleRoute)
             self.visibleRoute = nil
         }
+        lastRouteCoordinate = nil
     }
 
     fileprivate func resetPickupDashedLine() {
