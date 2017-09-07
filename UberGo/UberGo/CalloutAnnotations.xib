@@ -79,10 +79,10 @@
                     </subviews>
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="BN4-l2-pn8" secondAttribute="trailing" constant="8" id="28f-WA-B3u"/>
-                        <constraint firstAttribute="width" relation="lessThanOrEqual" constant="160" id="IFm-QY-lD3"/>
+                        <constraint firstAttribute="width" relation="lessThanOrEqual" constant="300" id="IFm-QY-lD3"/>
                         <constraint firstItem="BN4-l2-pn8" firstAttribute="top" relation="greaterThanOrEqual" secondItem="ibB-ch-U92" secondAttribute="top" priority="750" id="JCe-zP-kwY"/>
                         <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="BN4-l2-pn8" secondAttribute="bottom" priority="750" id="Xce-aE-vBB"/>
-                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="ZaD-Vx-Qkz"/>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="40" id="ZaD-Vx-Qkz"/>
                         <constraint firstItem="BN4-l2-pn8" firstAttribute="centerY" secondItem="ibB-ch-U92" secondAttribute="centerY" id="me5-tW-xbG"/>
                         <constraint firstItem="BN4-l2-pn8" firstAttribute="leading" secondItem="ibB-ch-U92" secondAttribute="leading" constant="8" id="swk-5L-Jdc"/>
                     </constraints>

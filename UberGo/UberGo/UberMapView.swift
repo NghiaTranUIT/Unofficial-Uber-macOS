@@ -34,7 +34,7 @@ class UberMapView: MGLMapView {
     fileprivate var pickupPointLine: PickupDashedLine?
 
     // Driver Place
-    fileprivate var driverPoint: MGLPointAnnotation?
+    fileprivate var driverPoint: DriverAnnotation?
 
     // Visible Route
     fileprivate var visibleRoute: MGLPolyline?
@@ -160,7 +160,7 @@ class UberMapView: MGLMapView {
         drawPickupRoute(tripObj.pickup?.coordinate)
 
         // Driver
-        addDriverPoint(tripObj.driver, location: tripObj.location)
+        addDriverPoint(tripObj)
     }
 
     fileprivate func addPickupPoint(_ pickupObj: PickupPointObj?) {
@@ -177,7 +177,7 @@ class UberMapView: MGLMapView {
         addAnnotation(pickupPoint!)
     }
 
-    fileprivate func addDriverPoint(_ driverObj: DriverObj?, location: UberCoordinateObj?) {
+    fileprivate func addDriverPoint(_ tripObj: TripObj) {
 
         // Remove if need
         if let driverPoint = driverPoint {
@@ -185,13 +185,12 @@ class UberMapView: MGLMapView {
             self.driverPoint = nil
         }
 
-        guard let location = location else { return }
+        driverPoint = DriverAnnotation(tripObj: tripObj)
 
-        driverPoint = MGLPointAnnotation()
-        driverPoint!.coordinate = CLLocationCoordinate2D(latitude: location.latitude.toDouble,
-                                                              longitude: location.longitude.toDouble)
-        driverPoint!.title = "Driver"
-        addAnnotation(driverPoint!)
+        // Add if available
+        if let driverPoint = driverPoint {
+            addAnnotation(driverPoint)
+        }
     }
 }
 
