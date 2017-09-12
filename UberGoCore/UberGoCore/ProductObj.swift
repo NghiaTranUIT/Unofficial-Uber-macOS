@@ -9,7 +9,7 @@
 import RxSwift
 import Unbox
 
-public class ProductObj: Unboxable {
+public final class ProductObj: Unboxable {
 
     // MARK: - Variable
     public var upfrontFareEnabled: Bool

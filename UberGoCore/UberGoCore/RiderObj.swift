@@ -9,7 +9,7 @@
 import Foundation
 import Unbox
 
-public class RiderObj: Unboxable {
+public final class RiderObj: Unboxable {
 
     // MARK: - Variable
     public var riderId: String?

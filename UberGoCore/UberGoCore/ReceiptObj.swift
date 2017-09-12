@@ -8,7 +8,7 @@
 
 import Unbox
 
-public class ReceiptObj: Unboxable {
+public final class ReceiptObj: Unboxable {
 
     // MARK: - Variable
     public let requestID: String

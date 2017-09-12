@@ -16,7 +16,7 @@ enum PlaceSearchRequestMode {
     case placeSearchByName
 }
 
-public struct PlaceSearchRequestParam: Parameter {
+struct PlaceSearchRequestParam: Parameter {
 
     var keyword: String = ""
     let location: CLLocationCoordinate2D
@@ -49,7 +49,7 @@ public struct PlaceSearchRequestParam: Parameter {
     }
 }
 
-public class PlaceSearchRequest: Requestable {
+final class PlaceSearchRequest: Requestable {
 
     // Type
     typealias Element = [PlaceObj]

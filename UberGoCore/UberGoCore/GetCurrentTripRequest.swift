@@ -11,7 +11,7 @@ import CoreLocation
 import Foundation
 import Unbox
 
-class GetCurrentTripRequest: Requestable {
+final class GetCurrentTripRequest: Requestable {
 
     // Type
     typealias Element = TripObj

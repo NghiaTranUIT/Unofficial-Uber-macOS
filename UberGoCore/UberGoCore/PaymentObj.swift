@@ -8,7 +8,7 @@
 
 import Unbox
 
-public class PaymentObj: Unboxable {
+public final class PaymentObj: Unboxable {
 
     // MARK: - Variable
     public var paymentAccountObjs: [PaymentAccountObj]

@@ -9,7 +9,7 @@
 import Foundation
 import Unbox
 
-public class TimeEstimateObj: Unboxable {
+public final class TimeEstimateObj: Unboxable {
 
     // MARK: - Variable
     public var localizedDisplayName: String

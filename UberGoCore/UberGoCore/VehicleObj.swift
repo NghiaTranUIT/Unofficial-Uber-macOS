@@ -9,7 +9,7 @@
 import Foundation
 import Unbox
 
-public class VehicleObj: Unboxable {
+public final class VehicleObj: Unboxable {
 
     // MARK: - Variable
     public var make: String

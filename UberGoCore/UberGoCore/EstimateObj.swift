@@ -8,7 +8,7 @@
 
 import Unbox
 
-public class UpFrontFareOb: Unboxable {
+public final class UpFrontFareOb: Unboxable {
 
     // MARK: - Variable
     public var value: Double
@@ -27,7 +27,7 @@ public class UpFrontFareOb: Unboxable {
     }
 }
 
-public class FareBreakdownObj: Unboxable {
+public final class FareBreakdownObj: Unboxable {
 
     // MARK: - Variable
     public var lowAmount: Double
@@ -43,7 +43,7 @@ public class FareBreakdownObj: Unboxable {
     }
 }
 
-public class SurgePriceObj: Unboxable {
+public final class SurgePriceObj: Unboxable {
 
     // MARK: - Variable
     public var surgeConfirmationHref: String? // Nil before sometime. It's nil for no reason (Tested on Sandbox)
@@ -106,7 +106,7 @@ public enum EstimateObjType {
     case unknown
 }
 
-public class EstimateObj: Unboxable {
+public final class EstimateObj: Unboxable {
 
     // MARK: - Variable
     public var distanceUnit: String

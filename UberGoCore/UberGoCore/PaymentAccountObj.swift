@@ -39,7 +39,7 @@ public enum PaymentAccountType: String {
     }
 }
 
-public class PaymentAccountObj: Unboxable {
+public final class PaymentAccountObj: Unboxable {
 
     // MARK: - Variable
     public var paymentMethodId: String

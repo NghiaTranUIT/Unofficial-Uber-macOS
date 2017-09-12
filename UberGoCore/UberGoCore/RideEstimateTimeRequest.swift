@@ -11,7 +11,7 @@ import CoreLocation
 import Foundation
 import Unbox
 
-public struct RideEstimateTimeRequestParam: Parameter {
+struct RideEstimateTimeRequestParam: Parameter {
 
     let from: PlaceObj
     let productID: String?
@@ -26,7 +26,7 @@ public struct RideEstimateTimeRequestParam: Parameter {
     }
 }
 
-class RideEstimateTimeRequest: Requestable {
+final class RideEstimateTimeRequest: Requestable {
 
     // Type
     typealias Element = [TimeEstimateObj]

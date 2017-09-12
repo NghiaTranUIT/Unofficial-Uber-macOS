@@ -11,7 +11,7 @@ import CoreLocation
 import Foundation
 import Unbox
 
-public struct RideEstimatePriceRequestParam: Parameter {
+struct RideEstimatePriceRequestParam: Parameter {
 
     let from: PlaceObj
     let to: PlaceObj
@@ -29,7 +29,7 @@ public struct RideEstimatePriceRequestParam: Parameter {
     }
 }
 
-class RideEstimatePriceRequest: Requestable {
+final class RideEstimatePriceRequest: Requestable {
 
     // Type
     typealias Element = [PriceObj]
