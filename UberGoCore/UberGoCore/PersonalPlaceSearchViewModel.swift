@@ -11,7 +11,7 @@ import Foundation
 import RxCocoa
 import RxSwift
 
-public class PersonalPlaceSearchViewModel: SearchViewModelProtocol, SearchViewModelInput, SearchViewModelOutput {
+public final class PersonalPlaceSearchViewModel: SearchViewModelProtocol, SearchViewModelInput, SearchViewModelOutput {
 
     // MARK: - View Model
     public var input: SearchViewModelInput { return self }

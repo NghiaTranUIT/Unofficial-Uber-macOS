@@ -50,7 +50,7 @@ public protocol UberServiceViewModelOutput {
     var resetMapDriver: Driver<Void>! { get }
 }
 
-public class UberServiceViewModel: UberServiceViewModelProtocol,
+public final class UberServiceViewModel: UberServiceViewModelProtocol,
                                  UberServiceViewModelInput,
                                  UberServiceViewModelOutput {
 

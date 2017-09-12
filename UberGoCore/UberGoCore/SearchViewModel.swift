@@ -34,7 +34,7 @@ public protocol SearchViewModelOutput {
 }
 
 // MARK: - SearchViewModel
-public class SearchViewModel: SearchViewModelProtocol, SearchViewModelInput, SearchViewModelOutput {
+public final class SearchViewModel: SearchViewModelProtocol, SearchViewModelInput, SearchViewModelOutput {
 
     // MARK: - View Model
     public var input: SearchViewModelInput { return self }
