@@ -14,7 +14,7 @@ protocol UserNotificationServiceProtocol {
     func publishAction(_ action: NotificationContent)
 }
 
-open class NotificationService: NSObject {
+public class NotificationService: NSObject {
 
     // MARK: - Variable
 

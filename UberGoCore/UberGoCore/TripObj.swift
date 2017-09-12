@@ -51,7 +51,7 @@ public enum TripObjStatus: String {
     }
 }
 
-open class TripObj: Unboxable {
+public class TripObj: Unboxable {
 
     // MARK: - Variable
     public var productId: String

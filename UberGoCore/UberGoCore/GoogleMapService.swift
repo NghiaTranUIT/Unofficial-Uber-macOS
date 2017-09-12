@@ -10,7 +10,7 @@ import CoreLocation
 import Foundation
 import RxSwift
 
-open class GoogleMapService {
+public class GoogleMapService {
 
     // MARK: - Pulbic
     public func searchPlaces(with name: String, currentLocation: CLLocationCoordinate2D) -> Observable<[PlaceObj]> {

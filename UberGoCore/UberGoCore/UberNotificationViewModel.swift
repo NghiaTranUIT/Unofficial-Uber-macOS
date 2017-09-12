@@ -24,7 +24,7 @@ public protocol UberNotificationViewModelOutput {
 
 }
 
-open class UberNotificationViewModel: UberNotificationViewModelProtocol,
+public class UberNotificationViewModel: UberNotificationViewModelProtocol,
                                      UberNotificationViewModelInput,
                                      UberNotificationViewModelOutput {
 

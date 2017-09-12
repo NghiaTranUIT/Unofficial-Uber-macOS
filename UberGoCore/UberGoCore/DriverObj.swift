@@ -9,7 +9,7 @@
 import Foundation
 import Unbox
 
-open class DriverObj: Unboxable {
+public class DriverObj: Unboxable {
 
     // MARK: - Variable
     public var phoneNumber: String

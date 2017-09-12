@@ -10,7 +10,7 @@ import Foundation
 import OAuthSwift
 import RxSwift
 
-open class UberAuth {
+public class UberAuth {
 
     // MARK: - Variable
     public var callbackObserverPublish = PublishSubject<NSAppleEventDescriptor>()

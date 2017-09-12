@@ -8,5 +8,5 @@
 
 import Foundation
 
-open class DatabaseService {
+public class DatabaseService {
 }

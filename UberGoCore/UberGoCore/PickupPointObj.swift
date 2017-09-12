@@ -9,7 +9,7 @@
 import CoreLocation
 import Unbox
 
-open class PickupPointObj: Unboxable {
+public class PickupPointObj: Unboxable {
 
     // MARK: - Variable
     public let alias: String?

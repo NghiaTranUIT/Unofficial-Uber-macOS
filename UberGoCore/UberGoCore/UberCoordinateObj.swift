@@ -9,7 +9,7 @@
 import CoreLocation
 import Unbox
 
-open class UberCoordinateObj: Unboxable {
+public class UberCoordinateObj: Unboxable {
 
     // MARK: - Variable
     public var latitude: Float

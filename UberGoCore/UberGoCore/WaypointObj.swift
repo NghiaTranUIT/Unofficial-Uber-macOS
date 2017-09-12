@@ -26,7 +26,7 @@ public enum WaypointType: String {
     }
 }
 
-open class WaypointObj: Unboxable {
+public class WaypointObj: Unboxable {
 
     // MARK: - Variable
     public var riderId: String?

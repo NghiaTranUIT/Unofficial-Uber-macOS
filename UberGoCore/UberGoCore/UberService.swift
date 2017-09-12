@@ -10,7 +10,7 @@ import CoreLocation
 import RxCocoa
 import RxSwift
 
-open class UberService {
+public class UberService {
 
     // MARK: - Variable
     public let reloadHistoryTrigger = PublishSubject<Void>()

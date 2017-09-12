@@ -20,7 +20,7 @@ public struct SandboxUpdateStatusTripRequestParam: Parameter {
     }
 }
 
-open class SandboxUpdateStatusTripRequest: Requestable {
+public class SandboxUpdateStatusTripRequest: Requestable {
 
     // Type
     typealias Element = Void

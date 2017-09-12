@@ -9,7 +9,7 @@
 import RxSwift
 import Unbox
 
-open class ProductObj: Unboxable {
+public class ProductObj: Unboxable {
 
     // MARK: - Variable
     public var upfrontFareEnabled: Bool
@@ -102,7 +102,7 @@ open class ProductObj: Unboxable {
     }
 }
 
-open class GroupProductObj {
+public class GroupProductObj {
 
     // MARK: - Variable
     public var productGroup: String

@@ -8,7 +8,7 @@
 
 import Unbox
 
-open class ServiceFeeObj: Unboxable {
+public class ServiceFeeObj: Unboxable {
 
     // MARK: - Variable
     public var fee: Float

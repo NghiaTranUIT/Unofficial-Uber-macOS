@@ -14,7 +14,7 @@ public protocol OauthWebViewHandlerDelegate: class {
     func oauthWebviewController(_ url: URL) -> NSViewController
 }
 
-open class OauthWebViewHandler: OAuthSwiftURLHandlerType {
+public class OauthWebViewHandler: OAuthSwiftURLHandlerType {
 
     fileprivate var visibleController: NSViewController {
         return self.delegate!.oauthVisibleController()

@@ -29,7 +29,7 @@ public protocol AuthenticationViewModelOutput {
 }
 
 // MARK: - View Model
-open class AuthenticationViewModel: AuthenticationViewModelProtocol,
+public class AuthenticationViewModel: AuthenticationViewModelProtocol,
                                     AuthenticationViewModelInput,
                                     AuthenticationViewModelOutput {
 

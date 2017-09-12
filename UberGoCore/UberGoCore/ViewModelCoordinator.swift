@@ -18,7 +18,7 @@ public protocol ViewModelCoordinatorProtocol {
     var uberNotificationViewModel: UberNotificationViewModelProtocol { get }
 }
 
-open class ViewModelCoordinator: ViewModelCoordinatorProtocol {
+public class ViewModelCoordinator: ViewModelCoordinatorProtocol {
 
     // MARK: - View models
     public let appViewModel: AppViewModelProtocol
