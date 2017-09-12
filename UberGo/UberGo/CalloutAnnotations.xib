@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13168.3" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13178.6" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13168.3"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13178.6"/>
         <capability name="box content view" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
         <capability name="system font weights other than Regular or Bold" minToolsVersion="7.0"/>
@@ -79,10 +79,10 @@
                     </subviews>
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="BN4-l2-pn8" secondAttribute="trailing" constant="8" id="28f-WA-B3u"/>
-                        <constraint firstAttribute="width" relation="lessThanOrEqual" constant="160" id="IFm-QY-lD3"/>
+                        <constraint firstAttribute="width" relation="lessThanOrEqual" constant="300" id="IFm-QY-lD3"/>
                         <constraint firstItem="BN4-l2-pn8" firstAttribute="top" relation="greaterThanOrEqual" secondItem="ibB-ch-U92" secondAttribute="top" priority="750" id="JCe-zP-kwY"/>
                         <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="BN4-l2-pn8" secondAttribute="bottom" priority="750" id="Xce-aE-vBB"/>
-                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="ZaD-Vx-Qkz"/>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="40" id="ZaD-Vx-Qkz"/>
                         <constraint firstItem="BN4-l2-pn8" firstAttribute="centerY" secondItem="ibB-ch-U92" secondAttribute="centerY" id="me5-tW-xbG"/>
                         <constraint firstItem="BN4-l2-pn8" firstAttribute="leading" secondItem="ibB-ch-U92" secondAttribute="leading" constant="8" id="swk-5L-Jdc"/>
                     </constraints>
@@ -97,7 +97,7 @@
                 <constraint firstAttribute="bottom" secondItem="j4Y-E9-jff" secondAttribute="bottom" id="Xfm-qp-heD"/>
                 <constraint firstItem="j4Y-E9-jff" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="flY-m4-FNn"/>
             </constraints>
-            <point key="canvasLocation" x="138.5" y="168"/>
+            <point key="canvasLocation" x="138" y="168"/>
         </customView>
     </objects>
 </document>

@@ -34,10 +34,12 @@ class UberMapView: MGLMapView {
     fileprivate var pickupPointLine: PickupDashedLine?
 
     // Driver Place
-    fileprivate var driverPoint: MGLPointAnnotation?
+    fileprivate var driverPoint: DriverAnnotation?
 
     // Visible Route
     fileprivate var visibleRoute: MGLPolyline?
+    fileprivate var firstRouteCoordinate: CLLocationCoordinate2D?
+    fileprivate var lastRouteCoordinate: CLLocationCoordinate2D?
 
     fileprivate var circleSource: MGLShapeSource?
 
@@ -156,14 +158,19 @@ class UberMapView: MGLMapView {
     func updateCurrentTripLayout(_ tripObj: TripObj) {
 
         // Pickup
-        addPickupPoint(tripObj.pickup)
-        drawPickupRoute(tripObj.pickup?.coordinate)
+        // Hack to make sure Pickup point is at the begining point of visible route
+        let pickup = tripObj.pickup
+        if let firstRouteCoordinate = firstRouteCoordinate {
+            pickup?.coordinate = firstRouteCoordinate
+        }
+        addPickupPoint(pickup)
+        drawPickupRoute(pickup?.coordinate)
 
         // Driver
-        addDriverPoint(tripObj.driver, location: tripObj.location)
+        addDriverPoint(tripObj)
     }
 
-    fileprivate func addPickupPoint(_ pickupObj: UberCoordinateObj?) {
+    fileprivate func addPickupPoint(_ pickupObj: PickupPointObj?) {
 
         // Remove if need
         if let pickupPoint = pickupPoint {
@@ -173,14 +180,11 @@ class UberMapView: MGLMapView {
 
         guard let pickupObj = pickupObj else { return }
 
-        pickupPoint = PickupAnnotation()
-        pickupPoint!.coordinate = CLLocationCoordinate2D(latitude: pickupObj.latitude.toDouble,
-                                                              longitude: pickupObj.longitude.toDouble)
-        pickupPoint!.title = "Pickup"
+        pickupPoint = PickupAnnotation(pickup: pickupObj)
         addAnnotation(pickupPoint!)
     }
 
-    fileprivate func addDriverPoint(_ driverObj: DriverObj?, location: UberCoordinateObj?) {
+    fileprivate func addDriverPoint(_ tripObj: TripObj) {
 
         // Remove if need
         if let driverPoint = driverPoint {
@@ -188,13 +192,16 @@ class UberMapView: MGLMapView {
             self.driverPoint = nil
         }
 
-        guard let location = location else { return }
+        driverPoint = DriverAnnotation(tripObj: tripObj)
 
-        driverPoint = MGLPointAnnotation()
-        driverPoint!.coordinate = CLLocationCoordinate2D(latitude: location.latitude.toDouble,
-                                                              longitude: location.longitude.toDouble)
-        driverPoint!.title = "Driver"
-        addAnnotation(driverPoint!)
+        if let lastRouteCoordinate = lastRouteCoordinate {
+            driverPoint?.coordinate = lastRouteCoordinate
+        }
+
+        // Add if available
+        if let driverPoint = driverPoint {
+            addAnnotation(driverPoint)
+        }
     }
 }
 
@@ -217,6 +224,11 @@ extension UberMapView {
         addAnnotation(routeLine)
         visibleRoute = routeLine
 
+        // Hack to guarantee the Driver Cars is at the end of Route
+        // Look natural
+        lastRouteCoordinate = route.coordinates?.first
+        firstRouteCoordinate = route.coordinates?.last
+
         // Centerizal
         centralizeMap()
     }
@@ -229,8 +241,7 @@ extension UberMapView {
         // Remove if need
         resetPickupDashedLine()
 
-        var coordinates = [originPoint.coordinate,
-                          pickup]
+        var coordinates = [originPoint.coordinate, pickup]
 
         // Source
         let polyline = MGLPolylineFeature(coordinates: &coordinates, count: UInt(coordinates.count))
@@ -267,6 +278,12 @@ extension UberMapView {
     }
 
     public func resetCurrentRoute() {
+
+        // Pick and Driver car
+        lastRouteCoordinate = nil
+        firstRouteCoordinate = nil
+
+        // Visible Route
         if let visibleRoute = visibleRoute {
             removeAnnotation(visibleRoute)
             self.visibleRoute = nil

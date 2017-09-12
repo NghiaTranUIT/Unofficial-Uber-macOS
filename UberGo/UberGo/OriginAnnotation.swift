@@ -23,13 +23,15 @@ class OriginAnnotation: MGLPointAnnotation {
 
     fileprivate lazy var _calloutController: NSViewController = {
         let controller = CalloutAnnotations(nibName: "CalloutAnnotations", bundle: nil)!
-        controller.setupCallout(mode: .withTimeEstimation, timeObj: nil, placeObj: self.placeObj)
+        controller.setupCallout(mode: .withTimeEstimation, timeETA: nil, calloutTitle: self.placeObj.name)
         return controller
     }()
 
     public func setupCallout(timeObj: TimeEstimateObj?) {
         guard let controller = self._calloutController as? CalloutAnnotations else { return }
-        controller.setupCallout(mode: .withTimeEstimation, timeObj: timeObj, placeObj: placeObj)
+        controller.setupCallout(mode: .withTimeEstimation,
+                                timeETA: timeObj?.prettyEstimateTime,
+                                calloutTitle: self.placeObj.name)
     }
 
     // MARK: - Init

@@ -23,7 +23,7 @@ class DestinationAnnotation: MGLPointAnnotation {
 
     fileprivate lazy var _calloutController: NSViewController = {
         let controller = CalloutAnnotations(nibName: "CalloutAnnotations", bundle: nil)!
-        controller.setupCallout(mode: .noTimeEstimation, timeObj: nil, placeObj: self.placeObj)
+        controller.setupCallout(mode: .noTimeEstimation, timeETA: nil, calloutTitle: self.placeObj.name)
         return controller
     }()
 
