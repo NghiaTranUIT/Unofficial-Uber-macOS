@@ -9,7 +9,7 @@
 import Foundation
 import RxSwift
 
-public class UberNotificationService {
+public final class UberNotificationService {
 
     // MARK: - Variable
     fileprivate let _service: UserNotificationServiceProtocol

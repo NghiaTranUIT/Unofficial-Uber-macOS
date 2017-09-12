@@ -7,6 +7,3 @@
 //
 
 import Foundation
-
-public class DatabaseService {
-}

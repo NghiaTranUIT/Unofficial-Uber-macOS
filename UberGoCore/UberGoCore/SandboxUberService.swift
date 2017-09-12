@@ -9,7 +9,7 @@
 import RxSwift
 import Unbox
 
-public class SandboxUberService {
+class SandboxUberService {
 
     // MARK: - Public
     public func modifySandboxProductObserver(productObj: ProductObj,

@@ -11,7 +11,7 @@ import MapboxDirections
 import RxCocoa
 import RxSwift
 
-public class DirectionService {
+public final class DirectionService {
 
     // MARK: - Public
     public func generateDirectionRoute(from originPlace: PlaceObj, to destinationPlace: PlaceObj)

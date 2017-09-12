@@ -28,7 +28,7 @@ protocol MapServiceOutput {
 }
 
 // MARK: - MapService
-public class MapService: NSObject, MapServiceViewModel, MapServiceInput, MapServiceOutput {
+public final class MapService: NSObject, MapServiceViewModel, MapServiceInput, MapServiceOutput {
 
     // MARK: - Input Output
     var input: MapServiceInput { return self }
