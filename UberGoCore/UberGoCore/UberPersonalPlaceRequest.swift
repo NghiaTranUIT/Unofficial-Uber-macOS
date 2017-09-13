@@ -20,7 +20,7 @@ struct UberPersonalPlaceRequestParam: Parameter {
     }
 }
 
-final class UberPersonalPlaceRequest: Requestable {
+final class UberPersonalPlaceRequest: Request {
 
     // Type
     typealias Element = UberPersonalPlaceObj

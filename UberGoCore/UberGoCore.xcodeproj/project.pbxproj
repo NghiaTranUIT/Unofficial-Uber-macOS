@@ -41,7 +41,7 @@
 		BA34FCE41F42B9A900B93D15 /* TripSuccessfulAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA34FCE31F42B9A900B93D15 /* TripSuccessfulAction.swift */; };
 		BA34FCE61F42BA7500B93D15 /* OpenTripHistorySubAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA34FCE51F42BA7500B93D15 /* OpenTripHistorySubAction.swift */; };
 		BA3EAB891F15E408003E3EF4 /* Float+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA3EAB881F15E408003E3EF4 /* Float+Helper.swift */; };
-		BA4796A01EE2BD3A00620BB0 /* Requestable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA47969F1EE2BD3A00620BB0 /* Requestable.swift */; };
+		BA4796A01EE2BD3A00620BB0 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA47969F1EE2BD3A00620BB0 /* Request.swift */; };
 		BA4796A31EE2BF0800620BB0 /* NSError+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4796A21EE2BF0800620BB0 /* NSError+Helper.swift */; };
 		BA4796A71EE2C0C700620BB0 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4796A61EE2C0C700620BB0 /* MapViewModel.swift */; };
 		BA4796AC1EE2D5BD00620BB0 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA4796AB1EE2D5BD00620BB0 /* BaseViewController.swift */; };
@@ -78,6 +78,9 @@
 		BAB7B8DD1EFD7E7F00B508A1 /* SandboxUpdateStatusTripRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB7B8DC1EFD7E7F00B508A1 /* SandboxUpdateStatusTripRequest.swift */; };
 		BAB97BC21F56632100571C79 /* UberNotificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB97BC11F56632100571C79 /* UberNotificationViewModel.swift */; };
 		BAB97BC41F56656B00571C79 /* Rx+PreviousValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB97BC31F56656B00571C79 /* Rx+PreviousValue.swift */; };
+		BAC372DA1F69809900C9CE51 /* Request+Alamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC372D91F69809900C9CE51 /* Request+Alamofire.swift */; };
+		BAC372DC1F6980DE00C9CE51 /* Request+Default.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC372DB1F6980DE00C9CE51 /* Request+Default.swift */; };
+		BAC372DE1F69810400C9CE51 /* Request+Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC372DD1F69810400C9CE51 /* Request+Error.swift */; };
 		BACCAAD51F4BE4AE0076C9D6 /* CancelTripAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACCAAD41F4BE4AE0076C9D6 /* CancelTripAction.swift */; };
 		BACCAAD91F4BE6080076C9D6 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACCAAD81F4BE6080076C9D6 /* NotificationService.swift */; };
 		BACCAADB1F4BEC260076C9D6 /* CloseNotificationSubAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACCAADA1F4BEC260076C9D6 /* CloseNotificationSubAction.swift */; };
@@ -157,7 +160,7 @@
 		BA34FCE31F42B9A900B93D15 /* TripSuccessfulAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripSuccessfulAction.swift; sourceTree = "<group>"; };
 		BA34FCE51F42BA7500B93D15 /* OpenTripHistorySubAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenTripHistorySubAction.swift; sourceTree = "<group>"; };
 		BA3EAB881F15E408003E3EF4 /* Float+Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Float+Helper.swift"; sourceTree = "<group>"; };
-		BA47969F1EE2BD3A00620BB0 /* Requestable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Requestable.swift; sourceTree = "<group>"; };
+		BA47969F1EE2BD3A00620BB0 /* Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
 		BA4796A21EE2BF0800620BB0 /* NSError+Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSError+Helper.swift"; sourceTree = "<group>"; };
 		BA4796A61EE2C0C700620BB0 /* MapViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
 		BA4796AB1EE2D5BD00620BB0 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
@@ -194,6 +197,9 @@
 		BAB7B8DC1EFD7E7F00B508A1 /* SandboxUpdateStatusTripRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SandboxUpdateStatusTripRequest.swift; sourceTree = "<group>"; };
 		BAB97BC11F56632100571C79 /* UberNotificationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UberNotificationViewModel.swift; sourceTree = "<group>"; };
 		BAB97BC31F56656B00571C79 /* Rx+PreviousValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Rx+PreviousValue.swift"; sourceTree = "<group>"; };
+		BAC372D91F69809900C9CE51 /* Request+Alamofire.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Request+Alamofire.swift"; sourceTree = "<group>"; };
+		BAC372DB1F6980DE00C9CE51 /* Request+Default.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Request+Default.swift"; sourceTree = "<group>"; };
+		BAC372DD1F69810400C9CE51 /* Request+Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Request+Error.swift"; sourceTree = "<group>"; };
 		BACCAAD41F4BE4AE0076C9D6 /* CancelTripAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelTripAction.swift; sourceTree = "<group>"; };
 		BACCAAD81F4BE6080076C9D6 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		BACCAADA1F4BEC260076C9D6 /* CloseNotificationSubAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloseNotificationSubAction.swift; sourceTree = "<group>"; };
@@ -364,9 +370,7 @@
 		BA32E7251EDFC83A0044C017 /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				BADB78681EE70CBB000536F7 /* Parameter.swift */,
-				BAB50B6B1F2484F1004A03DD /* APIResult.swift */,
-				BA47969F1EE2BD3A00620BB0 /* Requestable.swift */,
+				BAC372D41F697C9700C9CE51 /* Protocols */,
 				BAE6902E1EE513EF00A4D876 /* UberProductsRequest.swift */,
 				BADB78661EE70AB0000536F7 /* PlaceSearchRequest.swift */,
 				BAA157901F331C280020D5A6 /* GoogleGeocodingRequest.swift */,
@@ -493,6 +497,19 @@
 				BA7BA9801EE415D10056B0CF /* MapService.swift */,
 			);
 			name = "Map Service";
+			sourceTree = "<group>";
+		};
+		BAC372D41F697C9700C9CE51 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				BADB78681EE70CBB000536F7 /* Parameter.swift */,
+				BAB50B6B1F2484F1004A03DD /* APIResult.swift */,
+				BA47969F1EE2BD3A00620BB0 /* Request.swift */,
+				BAC372D91F69809900C9CE51 /* Request+Alamofire.swift */,
+				BAC372DB1F6980DE00C9CE51 /* Request+Default.swift */,
+				BAC372DD1F69810400C9CE51 /* Request+Error.swift */,
+			);
+			name = Protocols;
 			sourceTree = "<group>";
 		};
 		BAED39D31EE85DAE003D9BC3 /* Uber Service */ = {
@@ -819,7 +836,8 @@
 				BADB78711EE7BBA2000536F7 /* UberPersonalPlaceRequest.swift in Sources */,
 				BAA157931F331E720020D5A6 /* GeocodingPlaceObj.swift in Sources */,
 				BAF57FAA1EE1166A0013090E /* UserObj.swift in Sources */,
-				BA4796A01EE2BD3A00620BB0 /* Requestable.swift in Sources */,
+				BA4796A01EE2BD3A00620BB0 /* Request.swift in Sources */,
+				BAC372DA1F69809900C9CE51 /* Request+Alamofire.swift in Sources */,
 				BAB082281F05688F00A74665 /* RideEstimateTimeRequest.swift in Sources */,
 				BA32E7231EDFC8230044C017 /* AppViewModel.swift in Sources */,
 				BA0C91A61EF0499600BA8B4B /* VehicleObj.swift in Sources */,
@@ -841,6 +859,7 @@
 				BAF57FAE1EE116820013090E /* TripObj.swift in Sources */,
 				BA22191E1EF6FC6D00C766A1 /* PaymentAccountObj.swift in Sources */,
 				BA1A73151F4FE0C900FD9560 /* ViewModelCoordinator.swift in Sources */,
+				BAC372DE1F69810400C9CE51 /* Request+Error.swift in Sources */,
 				BADB784E1EE5AC07000536F7 /* SearchViewModel.swift in Sources */,
 				BADB78671EE70AB0000536F7 /* PlaceSearchRequest.swift in Sources */,
 				BA7460EC1F2EEA3600EC6BE1 /* GoogleMapService.swift in Sources */,
@@ -874,6 +893,7 @@
 				BAA157911F331C280020D5A6 /* GoogleGeocodingRequest.swift in Sources */,
 				BA67673A1EFA271F00805AC1 /* NotificationCenter.swift in Sources */,
 				BA4796B31EE3C93900620BB0 /* UUID+Helper.swift in Sources */,
+				BAC372DC1F6980DE00C9CE51 /* Request+Default.swift in Sources */,
 				BA10C9551F4D2B320046411E /* UberNotificationService.swift in Sources */,
 				BA32E71E1EDFC76A0044C017 /* AuthenticationViewModel.swift in Sources */,
 				BA4796A31EE2BF0800620BB0 /* NSError+Helper.swift in Sources */,

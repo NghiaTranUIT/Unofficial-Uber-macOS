@@ -28,7 +28,7 @@ struct SandboxUpdateProductRequestParam: Parameter {
     }
 }
 
-final class SandboxUpdateProductRequest: Requestable {
+final class SandboxUpdateProductRequest: Request {
 
     // Type
     typealias Element = Void

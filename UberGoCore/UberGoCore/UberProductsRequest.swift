@@ -21,7 +21,7 @@ struct UberProductsRequestParam: Parameter {
     }
 }
 
-final class UberProductsRequest: Requestable {
+final class UberProductsRequest: Request {
 
     // Type
     typealias Element = [ProductObj]
