@@ -8,7 +8,7 @@
 
 import Alamofire
 
-class CancelCurrentTripRequest: Requestable {
+final class CancelCurrentTripRequest: Requestable {
 
     // Type
     typealias Element = Void

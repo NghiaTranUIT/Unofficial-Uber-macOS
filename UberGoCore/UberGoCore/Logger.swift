@@ -49,7 +49,7 @@ class Log: NSObject {
 }
 
 // MARK: Helper
-open class Logger {
+public class Logger {
 
     // Helper
     // MARK: Public

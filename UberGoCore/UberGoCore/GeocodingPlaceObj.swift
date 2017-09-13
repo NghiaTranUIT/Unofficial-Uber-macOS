@@ -9,7 +9,7 @@
 import CoreLocation
 import Unbox
 
-open class GeocodingPlaceObj: NSObject, Unboxable {
+public final class GeocodingPlaceObj: NSObject, Unboxable {
 
     // MARK: - Variable
     public var address: String

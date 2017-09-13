@@ -39,7 +39,7 @@ public protocol AppViewModelOutput {
 }
 
 // MARK: - App ViewModel
-open class AppViewModel: AppViewModelProtocol,
+public final class AppViewModel: AppViewModelProtocol,
                          AppViewModelInput,
                          AppViewModelOutput {
 

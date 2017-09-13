@@ -10,7 +10,7 @@ import Alamofire
 import RxSwift
 import Unbox
 
-public struct SandboxUpdateStatusTripRequestParam: Parameter {
+struct SandboxUpdateStatusTripRequestParam: Parameter {
 
     var status: TripObjStatus
     var requestID: String
@@ -20,7 +20,7 @@ public struct SandboxUpdateStatusTripRequestParam: Parameter {
     }
 }
 
-open class SandboxUpdateStatusTripRequest: Requestable {
+final class SandboxUpdateStatusTripRequest: Requestable {
 
     // Type
     typealias Element = Void

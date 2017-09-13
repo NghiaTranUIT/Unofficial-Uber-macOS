@@ -11,7 +11,7 @@ import CoreLocation
 import Foundation
 import Unbox
 
-public struct UberProductsRequestParam: Parameter {
+struct UberProductsRequestParam: Parameter {
 
     let from: PlaceObj
 
@@ -21,7 +21,7 @@ public struct UberProductsRequestParam: Parameter {
     }
 }
 
-public class UberProductsRequest: Requestable {
+final class UberProductsRequest: Requestable {
 
     // Type
     typealias Element = [ProductObj]

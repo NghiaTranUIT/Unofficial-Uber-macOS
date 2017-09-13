@@ -11,7 +11,7 @@ import CoreLocation
 import Foundation
 import Unbox
 
-public struct UberPersonalPlaceRequestParam: Parameter {
+struct UberPersonalPlaceRequestParam: Parameter {
 
     let placeType: PlaceType
 
@@ -20,7 +20,7 @@ public struct UberPersonalPlaceRequestParam: Parameter {
     }
 }
 
-public class UberPersonalPlaceRequest: Requestable {
+final class UberPersonalPlaceRequest: Requestable {
 
     // Type
     typealias Element = UberPersonalPlaceObj

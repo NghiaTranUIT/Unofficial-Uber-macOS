@@ -21,7 +21,7 @@ def important_pods
     pod 'SwiftLint', '0.21.0'
     pod 'OAuthSwift', '1.1.2'
     pod 'SwiftyBeaver', '1.4.0'
-    pod 'MapboxDirections.swift', '0.10.1'
+    pod 'MapboxDirections.swift', '0.10.4'
 end
 
 # UberGo

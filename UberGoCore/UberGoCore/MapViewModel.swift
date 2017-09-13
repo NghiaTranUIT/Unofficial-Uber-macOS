@@ -45,7 +45,7 @@ public protocol MapViewModelOutput {
 }
 
 // MARK: - View Model
-open class MapViewModel:
+public final class MapViewModel:
                         MapViewModelProtocol,
                         MapViewModelInput,
                         MapViewModelOutput {

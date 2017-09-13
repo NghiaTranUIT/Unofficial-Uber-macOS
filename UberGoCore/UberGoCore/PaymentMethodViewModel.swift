@@ -23,7 +23,7 @@ public protocol PaymentMethodViewModelOutput {
     var paymentMethodObjVar: Variable<PaymentObj?> { get }
 }
 
-open class PaymentMethodViewModel: BaseViewModel,
+public final class PaymentMethodViewModel: BaseViewModel,
                                    PaymentMethodViewModelViewModel,
                                    PaymentMethodViewModelInput,
                                    PaymentMethodViewModelOutput {

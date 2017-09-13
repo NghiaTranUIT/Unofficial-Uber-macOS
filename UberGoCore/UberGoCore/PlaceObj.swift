@@ -17,7 +17,7 @@ public enum PlaceType: String {
 }
 
 // Google Place
-open class PlaceObj: NSObject, Unboxable, NSCoding {
+public final class PlaceObj: NSObject, Unboxable, NSCoding {
 
     // MARK: - Variable
     public var placeType = PlaceType.place

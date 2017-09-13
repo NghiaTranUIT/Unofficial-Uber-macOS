@@ -9,7 +9,7 @@
 import Foundation
 import Unbox
 
-open class UberPersonalPlaceObj: Unboxable {
+public final class UberPersonalPlaceObj: Unboxable {
 
     // MARK: - Variable
     public var placeType: PlaceType = .work

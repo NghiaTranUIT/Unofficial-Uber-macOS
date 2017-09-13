@@ -10,7 +10,7 @@ import Cocoa
 import RxSwift
 
 // MARK: - View Model
-open class BaseViewModel {
+public class BaseViewModel {
 
     // MARK: - Variable
     public let disposeBag = DisposeBag()

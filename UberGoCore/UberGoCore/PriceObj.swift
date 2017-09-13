@@ -8,7 +8,7 @@
 
 import Unbox
 
-open class PriceObj: Unboxable {
+public final class PriceObj: Unboxable {
 
     // MARK: - Variable
     public var localizedDisplayName: String

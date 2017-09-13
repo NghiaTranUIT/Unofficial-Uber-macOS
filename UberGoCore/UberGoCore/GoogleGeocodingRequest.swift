@@ -11,7 +11,7 @@ import CoreLocation
 import Foundation
 import Unbox
 
-public struct GoogleGeocodingRequestParam: Parameter {
+struct GoogleGeocodingRequestParam: Parameter {
 
     let personalPlaceObj: UberPersonalPlaceObj
 
@@ -25,7 +25,7 @@ public struct GoogleGeocodingRequestParam: Parameter {
     }
 }
 
-open class GoogleGeocodingRequest: Requestable {
+final class GoogleGeocodingRequest: Requestable {
 
     // Type
     typealias Element = GeocodingPlaceObj

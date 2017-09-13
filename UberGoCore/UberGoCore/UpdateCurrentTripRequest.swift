@@ -32,7 +32,7 @@ struct UpdateCurrentTripRequestParam: Parameter {
     }
 }
 
-class UpdateCurrentTripRequest: Requestable {
+final class UpdateCurrentTripRequest: Requestable {
 
     // Type
     typealias Element = Void

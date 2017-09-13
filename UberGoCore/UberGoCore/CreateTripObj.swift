@@ -8,7 +8,7 @@
 
 import Unbox
 
-open class SurgeConfirmationObj: Unboxable {
+public final class SurgeConfirmationObj: Unboxable {
 
     // MARK: - Variable
     public var href: String
@@ -25,7 +25,7 @@ open class SurgeConfirmationObj: Unboxable {
     }
 }
 
-open class CreateTripObj: Unboxable {
+public final class CreateTripObj: Unboxable {
 
     // MARK: - Variable
     public var requestId: String

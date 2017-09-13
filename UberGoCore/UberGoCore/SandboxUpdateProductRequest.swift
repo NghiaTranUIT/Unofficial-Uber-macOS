@@ -10,7 +10,7 @@ import Alamofire
 import RxSwift
 import Unbox
 
-public struct SandboxUpdateProductRequestParam: Parameter {
+struct SandboxUpdateProductRequestParam: Parameter {
 
     public var productID: String?
     public var surgeMultiplier: Float?
@@ -28,7 +28,7 @@ public struct SandboxUpdateProductRequestParam: Parameter {
     }
 }
 
-open class SandboxUpdateProductRequest: Requestable {
+final class SandboxUpdateProductRequest: Requestable {
 
     // Type
     typealias Element = Void

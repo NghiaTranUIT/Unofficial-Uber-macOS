@@ -11,7 +11,7 @@ import CoreLocation
 import Foundation
 import Unbox
 
-public struct PriceDetailRequestParam: Parameter {
+struct PriceDetailRequestParam: Parameter {
 
     public let productID: String
 
@@ -20,7 +20,7 @@ public struct PriceDetailRequestParam: Parameter {
     }
 }
 
-open class PriceDetailRequest: Requestable {
+final class PriceDetailRequest: Requestable {
 
     // Type
     typealias Element = ProductObj
