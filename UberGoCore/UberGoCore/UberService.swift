@@ -52,15 +52,19 @@ public final class UberService {
 
     fileprivate class func historyPlaceObserver() -> Observable<[PlaceObj]> {
 
-        return Observable<[PlaceObj]>.create({ (observer) -> Disposable in
+        guard let currentUser = UberAuth.share.currentUser else {
+            return Observable.empty()
+        }
 
-            let currentUser = UberAuth.share.currentUser!
-            let histories = currentUser.historyPlace()
+        return Observable<[PlaceObj]>
+            .create({ (observer) -> Disposable in
 
-            observer.onNext(histories)
-            observer.onCompleted()
+                let histories = currentUser.historyPlace()
 
-            return Disposables.create()
+                observer.onNext(histories)
+                observer.onCompleted()
+
+                return Disposables.create()
         })
     }
 
