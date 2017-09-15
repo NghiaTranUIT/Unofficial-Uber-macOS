@@ -80,7 +80,7 @@ public struct CreateTripRequestParam: Parameter {
     }
 }
 
-final class CreateTripRequest: Requestable {
+final class CreateTripRequest: Request {
 
     // Type
     typealias Element = CreateTripObj

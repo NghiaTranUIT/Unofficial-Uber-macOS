@@ -29,7 +29,7 @@ struct RideEstimatePriceRequestParam: Parameter {
     }
 }
 
-final class RideEstimatePriceRequest: Requestable {
+final class RideEstimatePriceRequest: Request {
 
     // Type
     typealias Element = [PriceObj]

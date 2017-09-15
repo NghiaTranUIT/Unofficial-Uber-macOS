@@ -20,7 +20,7 @@ struct PriceDetailRequestParam: Parameter {
     }
 }
 
-final class PriceDetailRequest: Requestable {
+final class PriceDetailRequest: Request {
 
     // Type
     typealias Element = ProductObj

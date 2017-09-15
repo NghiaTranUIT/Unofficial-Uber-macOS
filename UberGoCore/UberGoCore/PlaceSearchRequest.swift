@@ -49,7 +49,7 @@ struct PlaceSearchRequestParam: Parameter {
     }
 }
 
-final class PlaceSearchRequest: Requestable {
+final class PlaceSearchRequest: Request {
 
     // Type
     typealias Element = [PlaceObj]

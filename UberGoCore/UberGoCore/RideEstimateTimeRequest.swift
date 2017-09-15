@@ -26,7 +26,7 @@ struct RideEstimateTimeRequestParam: Parameter {
     }
 }
 
-final class RideEstimateTimeRequest: Requestable {
+final class RideEstimateTimeRequest: Request {
 
     // Type
     typealias Element = [TimeEstimateObj]

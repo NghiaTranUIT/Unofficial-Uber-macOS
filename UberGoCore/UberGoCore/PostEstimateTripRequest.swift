@@ -59,7 +59,7 @@ struct PostEstimateTripRequestParamter: Parameter {
 
 }
 
-final class PostEstimateTripRequest: Requestable {
+final class PostEstimateTripRequest: Request {
 
     // Type
     typealias Element = EstimateObj

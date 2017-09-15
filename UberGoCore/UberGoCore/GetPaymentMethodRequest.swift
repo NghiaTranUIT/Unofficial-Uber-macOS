@@ -11,7 +11,7 @@ import CoreLocation
 import Foundation
 import Unbox
 
-final class GetPaymentMethodRequest: Requestable {
+final class GetPaymentMethodRequest: Request {
 
     // Type
     typealias Element = PaymentObj

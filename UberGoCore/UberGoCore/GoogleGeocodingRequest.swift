@@ -25,7 +25,7 @@ struct GoogleGeocodingRequestParam: Parameter {
     }
 }
 
-final class GoogleGeocodingRequest: Requestable {
+final class GoogleGeocodingRequest: Request {
 
     // Type
     typealias Element = GeocodingPlaceObj
