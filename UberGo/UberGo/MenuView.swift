@@ -10,10 +10,30 @@ import Cocoa
 
 class MenuView: NSView {
 
-    override func draw(_ dirtyRect: NSRect) {
-        super.draw(dirtyRect)
+    // MARK: - OUTLET
+    @IBOutlet weak var avatarImageView: NSImageView!
+    @IBOutlet weak var usernameLbl: NSTextField!
+    @IBOutlet weak var startLbl: NSTextField!
 
-        // Drawing code here.
+    // MARK: - Action
+    @IBAction func paymentBtnOnTap(_ sender: NSButton) {
     }
-    
+
+    @IBAction func yourTripBtnOnTap(_ sender: NSButton) {
+    }
+
+    @IBAction func helpBtnOnTap(_ sender: NSButton) {
+    }
+
+    @IBAction func settingBtnOnTap(_ sender: NSButton) {
+    }
+
+    @IBAction func legalBtnOnTap(_ sender: NSButton) {
+    }
+
+    // MARK: - Public
+}
+
+extension MenuView: XIBInitializable {
+    typealias XibType = MenuView
 }

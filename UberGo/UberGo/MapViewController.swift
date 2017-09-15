@@ -36,6 +36,7 @@ class MapViewController: BaseViewController {
     fileprivate lazy var selectUberView: RequestUberView = self.lazyInitRequestUberView()
     fileprivate lazy var tripActivityView: TripActivityView = self.lazyInitTripActivityView()
     fileprivate lazy var errorAlertView: UberAlertView = self.lazyInitErrorAlertView()
+    fileprivate lazy var menuView: MenuView = self.lazyInitMenuView()
 
     // MARK: - Controller
     fileprivate lazy var searchController: SearchController = self.lazyInitSearchController()
@@ -317,7 +318,6 @@ extension MapViewController {
 
     fileprivate func lazyInitRequestUberView() -> RequestUberView {
         let uberView = RequestUberView.viewFromNib(with: BundleType.app)!
-        uberView.backgroundColor = NSColor.black
         uberView.delegate = self
         return uberView
     }
@@ -330,7 +330,6 @@ extension MapViewController {
 
     fileprivate func lazyInitTripActivityView() -> TripActivityView {
         let uberView = TripActivityView.viewFromNib(with: BundleType.app)!
-        uberView.backgroundColor = NSColor.black
         uberView.delegate = self
         return uberView
     }
@@ -341,6 +340,10 @@ extension MapViewController {
 
     fileprivate func lazyInitErrorAlertView() -> UberAlertView {
         return UberAlertView.viewFromNib(with: BundleType.app)!
+    }
+
+    fileprivate func lazyInitMenuView() -> MenuView {
+        return MenuView.viewFromNib(with: BundleType.app)!
     }
 }
 

@@ -107,6 +107,7 @@ class TripActivityView: NSView {
 extension TripActivityView {
 
     fileprivate func initCommon() {
+        backgroundColor = NSColor.black
 
         contactDriverBtn.wantsLayer = true
         contactDriverBtn.layer?.borderWidth = 1
