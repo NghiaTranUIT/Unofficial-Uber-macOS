@@ -11,7 +11,6 @@ import Cocoa
 protocol ActionSearchBarViewDelegate: class {
 
     func shouldOpenFullSearch()
-    func shouldOpenScheduler()
 }
 
 class ActionSearchBarView: NSView {
@@ -38,7 +37,7 @@ class ActionSearchBarView: NSView {
     }
 
     @IBAction func schedulerBtnOnTap(_ sender: Any) {
-        delegate?.shouldOpenScheduler()
+        NotificationCenter.postNotificationOnMainThreadType(.openCloseMenu)
     }
 
     func configureView(with parentView: NSView) {

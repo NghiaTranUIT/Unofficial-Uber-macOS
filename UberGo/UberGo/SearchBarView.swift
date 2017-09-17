@@ -261,9 +261,6 @@ extension SearchBarView {
 // MARK: - ActionSearchBarViewDelegate
 extension SearchBarView: ActionSearchBarViewDelegate {
 
-    func shouldOpenScheduler() {
-    }
-
     func shouldOpenFullSearch() {
         delegate?.searchBar(self, layoutStateDidChanged: .expand)
     }
