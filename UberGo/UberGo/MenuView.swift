@@ -32,6 +32,11 @@ class MenuView: NSView {
     }
 
     // MARK: - Public
+    public func configureLayout(_ parentView: NSView) {
+        translatesAutoresizingMaskIntoConstraints = false
+        parentView.addSubview(self)
+        edges(to: parentView)
+    }
 }
 
 extension MenuView: XIBInitializable {

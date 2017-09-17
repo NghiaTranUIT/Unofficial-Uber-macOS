@@ -38,6 +38,7 @@ struct Constants {
         static let CreateTripRequest = "/v1.2/requests"
         static let GetPaymentMethod = "/v1.2/payment-methods"
         static let ProductDetail = "/v1.2/products/:id"
+        static let Profile = "/v1.2/me"
 
         // Sandbox
         static let SandboxUpdateProduct = "/v1.2/sandbox/products/:id"
@@ -236,6 +237,19 @@ struct Constants {
             static let Name = "name"
             static let Address = "address"
             static let Eta = "eta"
+        }
+
+        // Uber User Profile
+        struct UserProfile {
+
+            static let Picture = "picture"
+            static let FirstName = "first_name"
+            static let LastName = "last_name"
+            static let UUID = "uuid"
+            static let RiderId = "rider_id"
+            static let Email = "email"
+            static let MobileVerified = "mobile_verified"
+            static let PromoCode = "promo_code"
         }
     }
 }

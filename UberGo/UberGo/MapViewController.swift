@@ -30,6 +30,8 @@ class MapViewController: BaseViewController {
     @IBOutlet fileprivate weak var mapContainerView: NSView!
     @IBOutlet fileprivate weak var bottomBarView: NSView!
     @IBOutlet fileprivate weak var containerViewHeight: NSLayoutConstraint!
+    @IBOutlet fileprivate weak var menuContainerView: NSView!
+    @IBOutlet fileprivate weak var menuContainerViewOffset: NSLayoutConstraint!
 
     // MARK: - View
     fileprivate lazy var mapView: UberMapView = self.lazyInitUberMapView()
@@ -47,6 +49,7 @@ class MapViewController: BaseViewController {
     fileprivate var uberViewModel: UberServiceViewModelProtocol!
 
     fileprivate var isFirstTime = true
+    fileprivate var isMenuOpened = false { didSet { self.handleMenuLayout() }}
     fileprivate lazy var webController: WebViewController = self.lazyInitWebController()
     fileprivate var paymentMethodController: PaymentMethodsController?
     fileprivate var productDetailController: ProductDetailController?
@@ -84,10 +87,12 @@ class MapViewController: BaseViewController {
         // Common
         initCommon()
 
+        // Binding
         binding()
-        searchController.configureContainerController(self, containerView: mapContainerView)
-        mapView.setupViewModel(mapViewModel)
         notificationBinding()
+
+        // Setup Layout
+        setupLayout()
     }
 
     public func configureBinding(coordinator: ViewModelCoordinator) {
@@ -102,6 +107,12 @@ class MapViewController: BaseViewController {
 
     deinit {
         NotificationCenter.removeAllObserve(self)
+    }
+
+    fileprivate func setupLayout() {
+        menuView.configureLayout(menuContainerView)
+        searchController.configureContainerController(self, containerView: mapContainerView)
+        mapView.setupViewModel(mapViewModel)
     }
 
     fileprivate func binding() {
@@ -257,6 +268,10 @@ class MapViewController: BaseViewController {
                                                     observer: self,
                                                     selector: #selector(showFriendlyErrorAlert(noti:)),
                                                     object: nil)
+        NotificationCenter.observeNotificationType(.openCloseMenu,
+                                                   observer: self,
+                                                   selector: #selector(handleMenuLayoutNotification),
+                                                   object: nil)
 
     }
 
@@ -288,6 +303,10 @@ class MapViewController: BaseViewController {
     @objc func showFriendlyErrorAlert(noti: Notification) {
         guard let error = noti.object as? NSError else { return }
         errorAlertView.showError(error, view: self.view)
+    }
+
+    @objc func handleMenuLayoutNotification() {
+        isMenuOpened = !isMenuOpened
     }
 
     @IBAction func exitNavigateBtnOnTapped(_ sender: Any) {
@@ -403,6 +422,11 @@ extension MapViewController {
             }
             return 480 + 70
         }
+    }
+
+    fileprivate func handleMenuLayout() {
+        menuContainerViewOffset.constant = isMenuOpened ? 0 : -282
+        menuContainerView.layoutSubtreeIfNeeded()
     }
 }
 

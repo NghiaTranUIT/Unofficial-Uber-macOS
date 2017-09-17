@@ -20,6 +20,7 @@ public enum NotificationType: String {
     case showFriendlyErrorAlert
     case windowWillClose
     case showPopover
+    case openCloseMenu
 
     // To String
     func toString() -> String {

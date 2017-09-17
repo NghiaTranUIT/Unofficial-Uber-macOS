@@ -73,6 +73,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         UberAuth.share.logout()
     }
 
+    @IBAction func profileBtnOnTap(_ sender: Any) {
+        NotificationCenter.postNotificationOnMainThreadType(.openCloseMenu)
+    }
 }
 
 // MARK: - Coordinator

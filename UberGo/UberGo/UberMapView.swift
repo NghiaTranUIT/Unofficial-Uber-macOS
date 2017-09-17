@@ -48,6 +48,9 @@ class UberMapView: MGLMapView {
         super.init(frame: frame)
 
         initCommon()
+
+        // Hide all redundant components
+        hideUnnecessaryUI()
     }
 
     required init?(coder: NSCoder) {

@@ -40,6 +40,7 @@
 		BAAC441B1EF3A4BE00A9F949 /* UberMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAC441A1EF3A4BE00A9F949 /* UberMapView.swift */; };
 		BAAD5DF01F6C2FF700B20018 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAD5DEF1F6C2FF700B20018 /* MenuView.swift */; };
 		BAAD5DF21F6C300700B20018 /* MenuView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BAAD5DF11F6C300700B20018 /* MenuView.xib */; };
+		BAAD5DF41F6C385700B20018 /* UberMapView+Hack.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAD5DF31F6C385700B20018 /* UberMapView+Hack.swift */; };
 		BAB082171F04B7A300A74665 /* OriginAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB082161F04B7A300A74665 /* OriginAnnotation.swift */; };
 		BAB0821A1F04C35900A74665 /* DestinationAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB082191F04C35900A74665 /* DestinationAnnotation.swift */; };
 		BAB0821C1F05569100A74665 /* PickupAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB0821B1F05569100A74665 /* PickupAnnotation.swift */; };
@@ -153,6 +154,7 @@
 		BAAD5DEB1F6BF86200B20018 /* IMG_7180@2x.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IMG_7180@2x.PNG"; sourceTree = "<group>"; };
 		BAAD5DEF1F6C2FF700B20018 /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 		BAAD5DF11F6C300700B20018 /* MenuView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MenuView.xib; sourceTree = "<group>"; };
+		BAAD5DF31F6C385700B20018 /* UberMapView+Hack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UberMapView+Hack.swift"; sourceTree = "<group>"; };
 		BAB082161F04B7A300A74665 /* OriginAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OriginAnnotation.swift; sourceTree = "<group>"; };
 		BAB082191F04C35900A74665 /* DestinationAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DestinationAnnotation.swift; sourceTree = "<group>"; };
 		BAB0821B1F05569100A74665 /* PickupAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickupAnnotation.swift; sourceTree = "<group>"; };
@@ -378,6 +380,7 @@
 				BAB0821E1F05596C00A74665 /* Callout Annotations */,
 				BAB082181F04C1A200A74665 /* Markers */,
 				BAAC441A1EF3A4BE00A9F949 /* UberMapView.swift */,
+				BAAD5DF31F6C385700B20018 /* UberMapView+Hack.swift */,
 			);
 			name = "Uber Map View";
 			sourceTree = "<group>";
@@ -903,6 +906,7 @@
 				BACC07AE1F0367300092F2F4 /* TinyConstraints.swift in Sources */,
 				BA1C3FBB1EFAB1D6001FD50F /* PaymentAccountCell.swift in Sources */,
 				BAB14ACB1EF668290066267B /* UberGroupButton.swift in Sources */,
+				BAAD5DF41F6C385700B20018 /* UberMapView+Hack.swift in Sources */,
 				BAA157951F33446C0020D5A6 /* SearchController.swift in Sources */,
 				BADB785B1EE5B93D000536F7 /* NSColor+Hex.swift in Sources */,
 				BAB14AC31EF65FA80066267B /* CenterHorizontalFlowLayout.swift in Sources */,
