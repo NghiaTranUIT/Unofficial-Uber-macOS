@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13122.19" systemVersion="16F73" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13196" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13122.19"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13196"/>
         <capability name="box content view" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
         <capability name="stacking Non-gravity area distributions on NSStackView" minToolsVersion="7.0" minSystemVersion="10.11"/>
@@ -35,7 +35,7 @@
                             <color key="fillColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         </box>
                         <button focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="cah-bd-8xm" customClass="UberButton" customModule="UberGo" customModuleProvider="target">
-                            <rect key="frame" x="25" y="68" width="16" height="16"/>
+                            <rect key="frame" x="25" y="64" width="16" height="16"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="16" id="GKk-aY-S7g"/>
                                 <constraint firstAttribute="width" constant="16" id="KDb-hv-1lQ"/>
@@ -49,7 +49,7 @@
                             </connections>
                         </button>
                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="i2c-I6-PUj" customClass="UberTextField" customModule="UberGo" customModuleProvider="target">
-                            <rect key="frame" x="24" y="18" width="173" height="30"/>
+                            <rect key="frame" x="24" y="17" width="173" height="30"/>
                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Fare Breakdown" id="wAH-Vn-w61">
                                 <font key="font" metaFont="systemThin" size="25"/>
                                 <color key="textColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -58,7 +58,8 @@
                         </textField>
                     </subviews>
                     <constraints>
-                        <constraint firstItem="i2c-I6-PUj" firstAttribute="top" secondItem="cah-bd-8xm" secondAttribute="bottom" constant="20" id="AqP-zR-Kwu"/>
+                        <constraint firstItem="cah-bd-8xm" firstAttribute="top" secondItem="ipm-Vi-CVC" secondAttribute="top" constant="20" id="4dd-QS-NK2"/>
+                        <constraint firstItem="i2c-I6-PUj" firstAttribute="top" secondItem="cah-bd-8xm" secondAttribute="bottom" constant="17" id="AqP-zR-Kwu"/>
                         <constraint firstItem="cah-bd-8xm" firstAttribute="leading" secondItem="ipm-Vi-CVC" secondAttribute="leading" constant="25" id="Dhg-Hc-Nzc"/>
                         <constraint firstItem="lIU-In-qkQ" firstAttribute="leading" secondItem="ipm-Vi-CVC" secondAttribute="leading" id="K08-lW-J39"/>
                         <constraint firstAttribute="trailing" secondItem="lIU-In-qkQ" secondAttribute="trailing" id="TiS-GG-68D"/>
@@ -66,7 +67,6 @@
                         <constraint firstItem="i2c-I6-PUj" firstAttribute="leading" secondItem="ipm-Vi-CVC" secondAttribute="leading" constant="26" id="bCJ-dM-ZF2"/>
                         <constraint firstAttribute="height" constant="100" id="dZd-LE-SoU"/>
                         <constraint firstAttribute="bottom" secondItem="lIU-In-qkQ" secondAttribute="bottom" id="gLM-sZ-9TP"/>
-                        <constraint firstAttribute="bottom" secondItem="i2c-I6-PUj" secondAttribute="bottom" constant="18" id="hZa-Xw-lNT"/>
                     </constraints>
                 </customView>
                 <customView translatesAutoresizingMaskIntoConstraints="NO" id="NFp-Aa-Yoa">

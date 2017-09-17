@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13196" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13196"/>
+        <capability name="box content view" minToolsVersion="7.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="ProfileInfoCell" customModule="UberGo" customModuleProvider="target">
+            <connections>
+                <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="Hz6-mo-xeY">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="168"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <box boxType="custom" borderType="none" borderWidth="0.0" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="6Ob-JF-9HC">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="168"/>
+                    <view key="contentView" id="L1G-EQ-Y7C">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="168"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    </view>
+                    <color key="fillColor" red="0.97647058823529409" green="0.97647058823529409" blue="0.97647058823529409" alpha="1" colorSpace="calibratedRGB"/>
+                </box>
+                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Vvz-Q6-sVF">
+                    <rect key="frame" x="24" y="32" width="104" height="104"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="104" id="LR0-sD-g0k"/>
+                        <constraint firstAttribute="height" constant="104" id="epl-FH-bX3"/>
+                    </constraints>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="driver_placeholder" id="fjo-2o-Wyx"/>
+                </imageView>
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="iDO-PZ-UHo">
+                    <rect key="frame" x="24" y="32" width="30" height="32"/>
+                    <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="profile-edit" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="fG1-Iu-9rR">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                </button>
+            </subviews>
+            <constraints>
+                <constraint firstItem="Vvz-Q6-sVF" firstAttribute="centerY" secondItem="Hz6-mo-xeY" secondAttribute="centerY" id="1dz-QE-I1T"/>
+                <constraint firstItem="6Ob-JF-9HC" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="9dK-Gh-OtU"/>
+                <constraint firstItem="6Ob-JF-9HC" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" id="CIZ-pS-qrT"/>
+                <constraint firstAttribute="trailing" secondItem="6Ob-JF-9HC" secondAttribute="trailing" id="H1N-PY-1Se"/>
+                <constraint firstAttribute="bottom" secondItem="6Ob-JF-9HC" secondAttribute="bottom" id="OPX-ft-Dav"/>
+                <constraint firstItem="iDO-PZ-UHo" firstAttribute="leading" secondItem="Vvz-Q6-sVF" secondAttribute="leading" id="P2o-XH-Eeg"/>
+                <constraint firstItem="iDO-PZ-UHo" firstAttribute="bottom" secondItem="Vvz-Q6-sVF" secondAttribute="bottom" id="VMR-MX-8Hf"/>
+                <constraint firstItem="Vvz-Q6-sVF" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="24" id="W7f-IW-y3Y"/>
+            </constraints>
+            <point key="canvasLocation" x="-43.5" y="23"/>
+        </customView>
+        <collectionViewItem id="6SF-eE-Dho" customClass="ProfileInfoCell" customModule="UberGo" customModuleProvider="target">
+            <connections>
+                <outlet property="view" destination="Hz6-mo-xeY" id="6gB-RC-MUl"/>
+            </connections>
+        </collectionViewItem>
+    </objects>
+    <resources>
+        <image name="driver_placeholder" width="50" height="50"/>
+        <image name="profile-edit" width="30" height="30"/>
+    </resources>
+</document>
