@@ -35,33 +35,23 @@
                                                         <constraint firstAttribute="width" constant="64" id="Y60-Uj-Ui5"/>
                                                         <constraint firstAttribute="height" constant="64" id="yDb-cA-ZdO"/>
                                                     </constraints>
-                                                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="7VD-Jr-tdC"/>
+                                                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="driver_placeholder" id="7VD-Jr-tdC"/>
                                                 </imageView>
                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Dnc-l9-quE">
-                                                    <rect key="frame" x="110" y="64" width="102" height="29"/>
+                                                    <rect key="frame" x="110" y="52" width="102" height="29"/>
                                                     <textFieldCell key="cell" allowsUndo="NO" sendsActionOnEndEditing="YES" alignment="left" title="Nghia Tran" id="7Bs-fL-MLx">
                                                         <font key="font" size="19" name="SFUIText-Regular"/>
                                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                 </textField>
-                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="wYU-xI-HeM">
-                                                    <rect key="frame" x="110" y="36" width="36" height="23"/>
-                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="4.76" id="aLS-Pd-dRG">
-                                                        <font key="font" size="15" name="SFUIText-Regular"/>
-                                                        <color key="textColor" red="0.64313725489999995" green="0.64313725489999995" blue="0.67450980390000004" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                    </textFieldCell>
-                                                </textField>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Dnc-l9-quE" secondAttribute="trailing" constant="24" id="2aG-ER-fPx"/>
-                                                <constraint firstItem="wYU-xI-HeM" firstAttribute="top" secondItem="Dnc-l9-quE" secondAttribute="bottom" constant="5" id="IMq-MJ-4oG"/>
                                                 <constraint firstItem="P3A-0O-qkb" firstAttribute="leading" secondItem="qQv-So-qzs" secondAttribute="leading" constant="24" id="STm-ls-7vu"/>
-                                                <constraint firstItem="wYU-xI-HeM" firstAttribute="leading" secondItem="Dnc-l9-quE" secondAttribute="leading" id="TA9-1C-60F"/>
                                                 <constraint firstItem="P3A-0O-qkb" firstAttribute="top" secondItem="qQv-So-qzs" secondAttribute="top" constant="32" id="VSi-th-3cy"/>
                                                 <constraint firstItem="Dnc-l9-quE" firstAttribute="leading" secondItem="P3A-0O-qkb" secondAttribute="trailing" constant="24" id="WmZ-eq-NtD"/>
-                                                <constraint firstItem="Dnc-l9-quE" firstAttribute="top" secondItem="qQv-So-qzs" secondAttribute="top" constant="35" id="mO7-wa-nr9"/>
+                                                <constraint firstItem="Dnc-l9-quE" firstAttribute="centerY" secondItem="P3A-0O-qkb" secondAttribute="centerY" constant="-2" id="rDY-3c-0oB"/>
                                             </constraints>
                                         </view>
                                         <color key="fillColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -78,9 +68,9 @@
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="14p-fQ-Lq6">
                                 <rect key="frame" x="0.0" y="0.0" width="282" height="539"/>
                                 <subviews>
-                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="tWE-6R-6Wv">
+                                    <button focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="tWE-6R-6Wv">
                                         <rect key="frame" x="22" y="478" width="82" height="32"/>
-                                        <buttonCell key="cell" type="bevel" title="Payment" bezelStyle="rounded" alignment="left" imageScaling="proportionallyDown" inset="2" id="Mfc-OV-l7W">
+                                        <buttonCell key="cell" type="bevel" title="Payment" bezelStyle="rounded" alignment="left" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="Mfc-OV-l7W">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" size="19" name="SFUIText-Regular"/>
                                         </buttonCell>
@@ -88,9 +78,9 @@
                                             <action selector="paymentBtnOnTap:" target="vYg-xI-ARO" id="Sih-ev-bMW"/>
                                         </connections>
                                     </button>
-                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="CHc-tJ-bnU">
+                                    <button focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="CHc-tJ-bnU">
                                         <rect key="frame" x="22" y="431" width="95" height="32"/>
-                                        <buttonCell key="cell" type="bevel" title="Your Trips" bezelStyle="rounded" alignment="left" imageScaling="proportionallyDown" inset="2" id="JuW-sf-JAA">
+                                        <buttonCell key="cell" type="bevel" title="Your Trips" bezelStyle="rounded" alignment="left" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="JuW-sf-JAA">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" size="19" name="SFUIText-Regular"/>
                                         </buttonCell>
@@ -98,9 +88,9 @@
                                             <action selector="yourTripBtnOnTap:" target="vYg-xI-ARO" id="7e0-fE-a0Z"/>
                                         </connections>
                                     </button>
-                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5s0-OM-PF5">
+                                    <button focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5s0-OM-PF5">
                                         <rect key="frame" x="22" y="384" width="46" height="32"/>
-                                        <buttonCell key="cell" type="bevel" title="Help" bezelStyle="rounded" alignment="left" imageScaling="proportionallyDown" inset="2" id="Sfn-zL-eTB">
+                                        <buttonCell key="cell" type="bevel" title="Help" bezelStyle="rounded" alignment="left" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="Sfn-zL-eTB">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" size="19" name="SFUIText-Regular"/>
                                         </buttonCell>
@@ -108,9 +98,9 @@
                                             <action selector="helpBtnOnTap:" target="vYg-xI-ARO" id="MuM-yW-unX"/>
                                         </connections>
                                     </button>
-                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Quu-Qa-lO8">
+                                    <button focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Quu-Qa-lO8">
                                         <rect key="frame" x="22" y="336" width="69" height="32"/>
-                                        <buttonCell key="cell" type="bevel" title="Setting" bezelStyle="rounded" alignment="left" imageScaling="proportionallyDown" inset="2" id="3zw-hR-qoY">
+                                        <buttonCell key="cell" type="bevel" title="Setting" bezelStyle="rounded" alignment="left" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="3zw-hR-qoY">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" size="19" name="SFUIText-Regular"/>
                                         </buttonCell>
@@ -118,9 +108,9 @@
                                             <action selector="settingBtnOnTap:" target="vYg-xI-ARO" id="ECD-jI-OGS"/>
                                         </connections>
                                     </button>
-                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="GfA-Ny-dSy">
+                                    <button focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="GfA-Ny-dSy">
                                         <rect key="frame" x="22" y="13" width="40" height="32"/>
-                                        <buttonCell key="cell" type="bevel" title="Legal" bezelStyle="rounded" alignment="left" imageScaling="proportionallyDown" inset="2" id="BLo-nu-UkY">
+                                        <buttonCell key="cell" type="bevel" title="Legal" bezelStyle="rounded" alignment="left" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="BLo-nu-UkY">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" size="14" name="SFUIText-Regular"/>
                                         </buttonCell>
@@ -164,10 +154,12 @@
             </constraints>
             <connections>
                 <outlet property="avatarImageView" destination="P3A-0O-qkb" id="xhT-oq-v49"/>
-                <outlet property="startLbl" destination="wYU-xI-HeM" id="5pn-xn-Swb"/>
                 <outlet property="usernameLbl" destination="Dnc-l9-quE" id="aI3-84-vhx"/>
             </connections>
             <point key="canvasLocation" x="-15" y="71.5"/>
         </customView>
     </objects>
+    <resources>
+        <image name="driver_placeholder" width="50" height="50"/>
+    </resources>
 </document>

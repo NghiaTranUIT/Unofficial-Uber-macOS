@@ -187,14 +187,7 @@ extension TripActivityView {
         driverRatingLbl.stringValue = "\(driver.rating) ★"
 
         // Avatar
-        DispatchQueue.global(qos: DispatchQoS.QoSClass.background)
-            .async { [weak self] in
-                guard let url = URL(string: driver.pictureUrl) else { return }
-                let image = NSImage(contentsOf: url)
-                DispatchQueue.main.async { [weak self] in
-                    self?.driverAvatarImageView.image = image
-                }
-            }
+        driverAvatarImageView.asyncDownloadImage(driver.pictureUrl)
     }
 
     fileprivate func updateVehicle(_ tripObj: TripObj) {

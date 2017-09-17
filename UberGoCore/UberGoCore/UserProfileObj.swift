@@ -21,6 +21,10 @@ public final class UserProfileObj: Unboxable {
     public let mobileVerified: Bool
     public let promoCode: String
 
+    public lazy var fullName: String = {
+        return "\(self.firstName) \(self.lastName)"
+    }()
+
     // MARK: - Init
     public required init(unboxer: Unboxer) throws {
         picture = try unboxer.unbox(key: Constants.Object.UserProfile.Picture)

@@ -72,6 +72,7 @@
 		BADB785B1EE5B93D000536F7 /* NSColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB785A1EE5B93D000536F7 /* NSColor+Hex.swift */; };
 		BADB785E1EE5BA0C000536F7 /* UberButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB785D1EE5BA0C000536F7 /* UberButton.swift */; };
 		BADB78611EE661A8000536F7 /* UberTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADB78601EE661A8000536F7 /* UberTextField.swift */; };
+		BADF5A371F6E2CC500B99E2B /* ImageView+Downloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADF5A361F6E2CC500B99E2B /* ImageView+Downloader.swift */; };
 		BAE3CCEF1EF5812E00F264CA /* RequestUberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE3CCEE1EF5812E00F264CA /* RequestUberView.swift */; };
 		BAE3CCF21EF5815600F264CA /* RequestUberView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BAE3CCF11EF5815600F264CA /* RequestUberView.xib */; };
 		BAE690271EE4346700A4D876 /* Mapbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BAE690261EE4346700A4D876 /* Mapbox.framework */; };
@@ -186,6 +187,7 @@
 		BADB785A1EE5B93D000536F7 /* NSColor+Hex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSColor+Hex.swift"; sourceTree = "<group>"; };
 		BADB785D1EE5BA0C000536F7 /* UberButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UberButton.swift; sourceTree = "<group>"; };
 		BADB78601EE661A8000536F7 /* UberTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UberTextField.swift; sourceTree = "<group>"; };
+		BADF5A361F6E2CC500B99E2B /* ImageView+Downloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImageView+Downloader.swift"; sourceTree = "<group>"; };
 		BAE3CCEE1EF5812E00F264CA /* RequestUberView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestUberView.swift; sourceTree = "<group>"; };
 		BAE3CCF11EF5815600F264CA /* RequestUberView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RequestUberView.xib; sourceTree = "<group>"; };
 		BAE690261EE4346700A4D876 /* Mapbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Mapbox.framework; sourceTree = "<group>"; };
@@ -487,6 +489,7 @@
 				BADB78581EE5B92B000536F7 /* NSView+BackgroundColor.swift */,
 				BADB785A1EE5B93D000536F7 /* NSColor+Hex.swift */,
 				BAE7171D1EF51D0B00E0EFFA /* NSAnimationContext+Helper.swift */,
+				BADF5A361F6E2CC500B99E2B /* ImageView+Downloader.swift */,
 			);
 			name = Helper;
 			sourceTree = "<group>";
@@ -921,6 +924,7 @@
 				BAB082171F04B7A300A74665 /* OriginAnnotation.swift in Sources */,
 				BA1C3FB41EFA6852001FD50F /* PaymentMethodsController.swift in Sources */,
 				BA2A3A861EED430D002A0343 /* SearchCollectionView.swift in Sources */,
+				BADF5A371F6E2CC500B99E2B /* ImageView+Downloader.swift in Sources */,
 				BA037F371EDD61F800945C1D /* AppDelegate.swift in Sources */,
 				BACC07AC1F0367300092F2F4 /* Constraints.swift in Sources */,
 				BAB0821A1F04C35900A74665 /* DestinationAnnotation.swift in Sources */,

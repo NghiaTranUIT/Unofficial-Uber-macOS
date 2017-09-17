@@ -7,6 +7,9 @@
 //
 
 import Cocoa
+import RxCocoa
+import RxSwift
+import UberGoCore
 
 class MenuView: NSView {
 
@@ -14,6 +17,16 @@ class MenuView: NSView {
     @IBOutlet weak var avatarImageView: NSImageView!
     @IBOutlet weak var usernameLbl: NSTextField!
     @IBOutlet weak var startLbl: NSTextField!
+
+    // MARK: - Variable
+    fileprivate let disposeBag = DisposeBag()
+
+    override func awakeFromNib() {
+        super.awakeFromNib()
+
+        initCommon()
+        binding()
+    }
 
     // MARK: - Action
     @IBAction func paymentBtnOnTap(_ sender: NSButton) {
@@ -39,6 +52,32 @@ class MenuView: NSView {
     }
 }
 
+// MARK: - Binding
+extension MenuView {
+
+    fileprivate func initCommon() {
+        // Border
+        avatarImageView.wantsLayer = true
+        avatarImageView.layer?.cornerRadius = 32
+        avatarImageView.layer?.contentsGravity = kCAGravityResizeAspect
+    }
+
+    fileprivate func binding() {
+        guard let user = UberAuth.share.currentUser else { return }
+
+        // Profile
+        user.requestUserProfile()
+        user.userProfileObjVar
+            .asDriver()
+            .filterNil()
+            .drive(onNext: {[weak self] profile in
+                guard let `self` = self else { return }
+                self.usernameLbl.stringValue = profile.fullName
+                self.avatarImageView.asyncDownloadImage(profile.picture)
+            })
+            .addDisposableTo(disposeBag)
+    }
+}
 extension MenuView: XIBInitializable {
     typealias XibType = MenuView
 }

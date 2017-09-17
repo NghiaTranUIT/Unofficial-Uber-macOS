@@ -22,6 +22,8 @@ public final class UserObj: NSObject, NSCoding {
     public let paymentMethodObjVar = Variable<PaymentObj?>(nil)
     public var selectedNewPaymentObjVar = Variable<PaymentAccountObj?>(nil)
     public var currentPaymentAccountObjVar = Variable<PaymentAccountObj?>(nil)
+    public var userProfileObjVar = Variable<UserProfileObj?>(nil)
+
     fileprivate let disposeBag = DisposeBag()
 
     // MARK: - Init
@@ -84,9 +86,10 @@ public final class UserObj: NSObject, NSCoding {
             .filterNil()
 
         // Combine
-        Observable.merge([lastUsed, newSelectAccount])
-        .bind(to: currentPaymentAccountObjVar)
-        .addDisposableTo(disposeBag)
+        Observable
+            .merge([lastUsed, newSelectAccount])
+            .bind(to: currentPaymentAccountObjVar)
+            .addDisposableTo(disposeBag)
     }
 
     //TODO: Don't use UserDefault
@@ -120,5 +123,16 @@ public final class UserObj: NSObject, NSCoding {
         let userDefault = UserDefaults.standard
         userDefault.set(data, forKey: "PlaceHistories")
         userDefault.synchronize()
+    }
+}
+
+extension UserObj {
+
+    public func requestUserProfile() {
+        // Get user
+        ProfileRequest()
+            .toObservable()
+            .bind(to: userProfileObjVar)
+            .addDisposableTo(disposeBag)
     }
 }
