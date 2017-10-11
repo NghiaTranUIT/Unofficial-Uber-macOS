@@ -32,7 +32,7 @@ struct PlaceSearchRequestParam: Parameter {
         self.location = location
     }
 
-    func toDictionary() -> [String : Any] {
+    func toDictionary() -> [String: Any] {
 
         switch self.mode {
         case .nearestPlace:

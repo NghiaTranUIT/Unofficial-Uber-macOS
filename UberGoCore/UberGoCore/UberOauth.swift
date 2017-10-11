@@ -92,11 +92,11 @@ extension UberAuth {
 
     fileprivate func lazyOauthUber() -> OAuth2Swift {
         return OAuth2Swift(
-            consumerKey:    Constants.UberApp.ClientID,
+            consumerKey: Constants.UberApp.ClientID,
             consumerSecret: Constants.UberApp.SecretID,
-            authorizeUrl:   Constants.UberApp.AuthorizeUrl,
+            authorizeUrl: Constants.UberApp.AuthorizeUrl,
             accessTokenUrl: Constants.UberApp.AccessTokenUrl,
-            responseType:   Constants.UberApp.ResponseType
+            responseType: Constants.UberApp.ResponseType
         )
     }
 

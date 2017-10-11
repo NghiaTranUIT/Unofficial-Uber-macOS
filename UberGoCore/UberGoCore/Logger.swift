@@ -27,23 +27,23 @@ class Log: NSObject {
     }
 
     // MARK: Public
-    func error(_ error:Any, fileName: String, functionName: String, line: Int) {
+    func error(_ error: Any, fileName: String, functionName: String, line: Int) {
         self.log.error(error, fileName, functionName, line: line)
     }
 
-    func warning(_ warning:Any, _ file: String, _ function: String, _ line: Int) {
+    func warning(_ warning: Any, _ file: String, _ function: String, _ line: Int) {
         self.log.warning(warning)
     }
 
-    func debug(_ debug:Any, _ file: String, _ function: String, _ line: Int) {
+    func debug(_ debug: Any, _ file: String, _ function: String, _ line: Int) {
         self.log.debug(debug)
     }
 
-    func info(_ info:Any, _ file: String, _ function: String, _ line: Int) {
+    func info(_ info: Any, _ file: String, _ function: String, _ line: Int) {
         self.log.info(info, file, function, line: line)
     }
 
-    func verbose(_ verbose:Any, _ file: String, _ function: String, _ line: Int) {
+    func verbose(_ verbose: Any, _ file: String, _ function: String, _ line: Int) {
         self.log.verbose(verbose)
     }
 }

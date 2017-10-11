@@ -47,7 +47,7 @@ class UberTextField: NSTextField {
         // Attribute
         var attributes = [NSForegroundColorAttributeName: color,
                           NSFontAttributeName: font,
-                          NSParagraphStyleAttributeName: style] as [String : Any]
+                          NSParagraphStyleAttributeName: style] as [String: Any]
 
         // Kern
         attributes[NSKernAttributeName] = kern

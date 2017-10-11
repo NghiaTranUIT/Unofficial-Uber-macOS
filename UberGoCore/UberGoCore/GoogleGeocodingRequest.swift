@@ -19,7 +19,7 @@ struct GoogleGeocodingRequestParam: Parameter {
         self.personalPlaceObj = personalPlaceObj
     }
 
-    func toDictionary() -> [String : Any] {
+    func toDictionary() -> [String: Any] {
         return ["address": personalPlaceObj.address,
                 "key": Constants.GoogleApp.Key]
     }

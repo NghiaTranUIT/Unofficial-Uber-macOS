@@ -15,7 +15,7 @@ struct UberPersonalPlaceRequestParam: Parameter {
 
     let placeType: PlaceType
 
-    func toDictionary() -> [String : Any] {
+    func toDictionary() -> [String: Any] {
         return [:]
     }
 }

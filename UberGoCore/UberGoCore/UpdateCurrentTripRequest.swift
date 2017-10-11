@@ -14,7 +14,7 @@ struct UpdateCurrentTripRequestParam: Parameter {
     let destinationLocation: CLLocationCoordinate2D?
     let placeType: PlaceType?
 
-    func toDictionary() -> [String : Any] {
+    func toDictionary() -> [String: Any] {
 
         // Place Type
         if let placeType = self.placeType {

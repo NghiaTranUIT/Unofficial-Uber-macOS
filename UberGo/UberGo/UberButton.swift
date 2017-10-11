@@ -30,7 +30,7 @@ class UberButton: NSButton {
         // Attribute
         var attributes = [NSForegroundColorAttributeName: color,
                           NSFontAttributeName: font,
-                          NSParagraphStyleAttributeName: style] as [String : Any]
+                          NSParagraphStyleAttributeName: style] as [String: Any]
 
         // Kern
         if let kern = kern {

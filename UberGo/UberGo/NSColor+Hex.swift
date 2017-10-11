@@ -74,6 +74,6 @@ public extension DynamicColor {
         let green = CGFloat(g) / 255
         let blue = CGFloat(b) / 255
 
-        self.init(red:red, green:green, blue:blue, alpha:1)
+        self.init(red: red, green: green, blue: blue, alpha: 1)
     }
 }

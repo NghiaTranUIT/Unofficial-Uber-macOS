@@ -16,7 +16,7 @@ struct RideEstimateTimeRequestParam: Parameter {
     let from: PlaceObj
     let productID: String?
 
-    func toDictionary() -> [String : Any] {
+    func toDictionary() -> [String: Any] {
         var dict: [String: Any] =  ["start_latitude": self.from.coordinate2D.latitude,
                                     "start_longitude": self.from.coordinate2D.longitude]
         if let productID = self.productID {

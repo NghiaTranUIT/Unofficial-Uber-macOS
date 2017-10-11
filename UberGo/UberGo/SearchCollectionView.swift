@@ -95,9 +95,7 @@ extension SearchCollectionView {
 
     public func layoutStateChanged(_ newState: MapViewLayoutState) {
         switch newState {
-        case .searchFullScreen:
-            fallthrough
-        case .expand:
+        case .searchFullScreen, .expand:
             isHidden = false
             alphaValue = 0
 
@@ -105,13 +103,7 @@ extension SearchCollectionView {
             NSAnimationContext.defaultAnimate({ _ in
                 self.alphaValue = 1
             })
-        case .minimal:
-            fallthrough
-        case .tripMinimunActivity:
-            fallthrough
-        case .tripFullActivity:
-            fallthrough
-        case .productSelection:
+        case .minimal, .tripMinimunActivity, .tripFullActivity, .productSelection:
             isHidden = false
             alphaValue = 1
 

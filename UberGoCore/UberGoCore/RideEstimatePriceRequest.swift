@@ -21,7 +21,7 @@ struct RideEstimatePriceRequestParam: Parameter {
         self.to = data.to
     }
 
-    func toDictionary() -> [String : Any] {
+    func toDictionary() -> [String: Any] {
         return ["start_latitude": self.from.coordinate2D.latitude,
                 "start_longitude": self.from.coordinate2D.longitude,
                 "end_latitude": self.to.coordinate2D.latitude,

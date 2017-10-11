@@ -15,7 +15,7 @@ struct SandboxUpdateStatusTripRequestParam: Parameter {
     var status: TripObjStatus
     var requestID: String
 
-    func toDictionary() -> [String : Any] {
+    func toDictionary() -> [String: Any] {
         return ["status": self.status.rawValue]
     }
 }

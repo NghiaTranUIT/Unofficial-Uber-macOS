@@ -15,7 +15,7 @@ struct UberProductsRequestParam: Parameter {
 
     let from: PlaceObj
 
-    func toDictionary() -> [String : Any] {
+    func toDictionary() -> [String: Any] {
         return ["latitude": "\(self.from.coordinate2D.latitude)",
                 "longitude": "\(self.from.coordinate2D.longitude)"]
     }

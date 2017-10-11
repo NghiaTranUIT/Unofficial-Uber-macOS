@@ -27,7 +27,7 @@ struct PostEstimateTripRequestParamter: Parameter {
     }
 
     // Build param
-    func toDictionary() -> [String : Any] {
+    func toDictionary() -> [String: Any] {
 
         // Param
         var param: [String: Any] = ["product_id": self.productId]
@@ -37,9 +37,7 @@ struct PostEstimateTripRequestParamter: Parameter {
         case .place:
             param["start_latitude"] = from.coordinate2D.latitude
             param["start_longitude"] = from.coordinate2D.longitude
-        case .work:
-            fallthrough
-        case .home:
+        case .work, .home:
             param["start_place_id"] = from.placeType.rawValue
         }
 
@@ -48,9 +46,7 @@ struct PostEstimateTripRequestParamter: Parameter {
         case .place:
             param["end_latitude"] = to.coordinate2D.latitude
             param["end_longitude"] = to.coordinate2D.longitude
-        case .work:
-            fallthrough
-        case .home:
+        case .work, .home:
             param["end_place_id"] = to.placeType.rawValue
         }
 

@@ -371,11 +371,7 @@ extension MapViewController {
 
     fileprivate func preferredHeight(_ state: MapViewLayoutState) -> CGFloat {
         switch state {
-        case .searchFullScreen:
-            fallthrough
-        case .expand:
-            fallthrough
-        case .minimal:
+        case .searchFullScreen, .expand, .minimal:
             return 480
 
         case .productSelection:

@@ -32,4 +32,3 @@ protocol Request: URLRequestConvertible {
 
     func decode(data: Any) throws -> Element?
 }
-

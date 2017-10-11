@@ -16,7 +16,7 @@ struct SandboxUpdateProductRequestParam: Parameter {
     public var surgeMultiplier: Float?
     public var driversAvailable: Bool?
 
-    func toDictionary() -> [String : Any] {
+    func toDictionary() -> [String: Any] {
         var dict: [String: Any] = [:]
         if let surgeMultiplier = self.surgeMultiplier {
             dict["surge_multiplier"] = surgeMultiplier

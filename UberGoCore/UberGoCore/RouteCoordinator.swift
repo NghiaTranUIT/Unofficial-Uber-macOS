@@ -8,6 +8,13 @@
 
 import Cocoa
 
-class RouteCoordinator: NSObject {
+struct RouteCoordinator {
 
+    func route() {
+
+    }
+
+    func reRoute() {
+
+    }
 }
