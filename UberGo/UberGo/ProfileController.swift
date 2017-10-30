@@ -11,7 +11,7 @@ import Cocoa
 class ProfileController: NSViewController {
 
     // MARK: - OUTLET
-    @IBOutlet weak var collectionView: UberCollectionView!
+    @IBOutlet fileprivate weak var collectionView: UberCollectionView!
 
     // MARK: - Variable
 
@@ -20,7 +20,7 @@ class ProfileController: NSViewController {
         super.viewDidLoad()
         // Do view setup here.
     }
-    
+
     @IBAction func exitBtnOnTap(_ sender: Any) {
 
     }

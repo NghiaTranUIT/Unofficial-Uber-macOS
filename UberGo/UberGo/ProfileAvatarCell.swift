@@ -14,5 +14,4 @@ class ProfileAvatarCell: NSCollectionViewItem {
         super.viewDidLoad()
         // Do view setup here.
     }
-    
 }

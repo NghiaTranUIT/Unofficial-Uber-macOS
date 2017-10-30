@@ -14,5 +14,4 @@ class ProfileInfoCell: NSCollectionViewItem {
         super.viewDidLoad()
         // Do view setup here.
     }
-    
 }

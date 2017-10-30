@@ -172,11 +172,9 @@ extension SearchBarView {
             minimalAnimation()
         case .searchFullScreen:
             searchFullScreenAnimation()
-        case .tripMinimunActivity:
-            fallthrough
-        case .tripFullActivity:
-            fallthrough
-        case .productSelection:
+        case .tripMinimunActivity,
+             .tripFullActivity,
+             .productSelection:
             hideAllAnimation()
         }
     }

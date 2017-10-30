@@ -49,7 +49,11 @@ class MapViewController: BaseViewController {
     fileprivate var uberViewModel: UberServiceViewModelProtocol!
 
     fileprivate var isFirstTime = true
-    fileprivate var isMenuOpened = false { didSet { self.handleMenuLayout() }}
+    fileprivate var isMenuOpened = false {
+        didSet {
+            self.handleMenuLayout()
+        }
+    }
     fileprivate lazy var webController: WebViewController = self.lazyInitWebController()
     fileprivate var paymentMethodController: PaymentMethodsController?
     fileprivate var productDetailController: ProductDetailController?

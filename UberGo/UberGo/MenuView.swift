@@ -14,9 +14,9 @@ import UberGoCore
 class MenuView: NSView {
 
     // MARK: - OUTLET
-    @IBOutlet weak var avatarImageView: NSImageView!
-    @IBOutlet weak var usernameLbl: NSTextField!
-    @IBOutlet weak var startLbl: NSTextField!
+    @IBOutlet fileprivate weak var avatarImageView: NSImageView!
+    @IBOutlet fileprivate weak var usernameLbl: NSTextField!
+    @IBOutlet fileprivate weak var startLbl: NSTextField!
 
     // MARK: - Variable
     fileprivate let disposeBag = DisposeBag()
