@@ -101,9 +101,9 @@ class UberMapView: MGLMapView {
     }
 
     // MARK: - Public
-    func configureLayout(_ parentView: NSView, exitBtn: NSButton) {
+    func configureLayout(_ parentView: NSView) {
         translatesAutoresizingMaskIntoConstraints = false
-        parentView.addSubview(self, positioned: .below, relativeTo: exitBtn)
+        parentView.addSubview(self)
         edges(to: parentView)
     }
 

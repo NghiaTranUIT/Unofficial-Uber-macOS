@@ -32,6 +32,8 @@
 		BA67673E1EFA295D00805AC1 /* WebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA67673C1EFA295D00805AC1 /* WebViewController.xib */; };
 		BA7BA9831EE42C060056B0CF /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA7BA9821EE42C060056B0CF /* CoreLocation.framework */; };
 		BA86A36C1F60F8F6001E4358 /* DriverAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA86A36B1F60F8F6001E4358 /* DriverAnnotation.swift */; };
+		BA8BD1D81FA81D870039AA49 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8BD1D61FA81D870039AA49 /* MainViewController.swift */; };
+		BA8BD1D91FA81D870039AA49 /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA8BD1D71FA81D870039AA49 /* MainViewController.xib */; };
 		BA8E05F01F298D38008D9CB8 /* UberAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8E05EF1F298D38008D9CB8 /* UberAlertView.swift */; };
 		BA8E05F21F298D41008D9CB8 /* UberAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA8E05F11F298D41008D9CB8 /* UberAlertView.xib */; };
 		BAA157951F33446C0020D5A6 /* SearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA157941F33446C0020D5A6 /* SearchController.swift */; };
@@ -152,6 +154,8 @@
 		BA67673C1EFA295D00805AC1 /* WebViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WebViewController.xib; sourceTree = "<group>"; };
 		BA7BA9821EE42C060056B0CF /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		BA86A36B1F60F8F6001E4358 /* DriverAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriverAnnotation.swift; sourceTree = "<group>"; };
+		BA8BD1D61FA81D870039AA49 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		BA8BD1D71FA81D870039AA49 /* MainViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainViewController.xib; sourceTree = "<group>"; };
 		BA8E05EF1F298D38008D9CB8 /* UberAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UberAlertView.swift; sourceTree = "<group>"; };
 		BA8E05F11F298D41008D9CB8 /* UberAlertView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UberAlertView.xib; sourceTree = "<group>"; };
 		BAA157941F33446C0020D5A6 /* SearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchController.swift; sourceTree = "<group>"; };
@@ -334,7 +338,6 @@
 			isa = PBXGroup;
 			children = (
 				BAF57FB71EE116FB0013090E /* LoginViewController.swift */,
-				BAF57FBD1EE117300013090E /* MapViewController.swift */,
 				BAA157941F33446C0020D5A6 /* SearchController.swift */,
 				BA48DCAE1F415FCE007BA3B6 /* PersonalPlaceSearchController.swift */,
 				BA67673B1EFA295D00805AC1 /* WebViewController.swift */,
@@ -342,6 +345,8 @@
 				BABAC5BA1F08F3FF000DACEC /* ProductDetailController.swift */,
 				BA5895D21F1287C300235041 /* BreakdownPriceController.swift */,
 				BADF5A381F6E6BC200B99E2B /* ProfileController.swift */,
+				BAF57FBD1EE117300013090E /* MapViewController.swift */,
+				BA8BD1D61FA81D870039AA49 /* MainViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -654,6 +659,7 @@
 				BA037F3C1EDD61F800945C1D /* Main.storyboard */,
 				BAA157961F3374020020D5A6 /* SearchController.xib */,
 				BADF5A3D1F6E6C3100B99E2B /* ProfileController.xib */,
+				BA8BD1D71FA81D870039AA49 /* MainViewController.xib */,
 			);
 			name = "Storyboards Xibs";
 			sourceTree = "<group>";
@@ -783,6 +789,7 @@
 				BABAC5BD1F08F3FF000DACEC /* ProductDetailController.xib in Resources */,
 				BADB784C1EE5ABDE000536F7 /* SearchBarView.xib in Resources */,
 				BADF5A441F6E702A00B99E2B /* ProfileAvatarCell.xib in Resources */,
+				BA8BD1D91FA81D870039AA49 /* MainViewController.xib in Resources */,
 				BADB78571EE5B7FB000536F7 /* ActionSearchBarView.xib in Resources */,
 				BA037F3E1EDD61F800945C1D /* Main.storyboard in Resources */,
 				BAA157971F3374020020D5A6 /* SearchController.xib in Resources */,
@@ -987,6 +994,7 @@
 				BAA157991F3376CC0020D5A6 /* TransparentView.swift in Sources */,
 				BADF5A491F6E704300B99E2B /* ProfileInfoCell.swift in Sources */,
 				BAE6902C1EE460EB00A4D876 /* EventMonitor.swift in Sources */,
+				BA8BD1D81FA81D870039AA49 /* MainViewController.swift in Sources */,
 				BAB082211F0559FB00A74665 /* CalloutAnnotations.swift in Sources */,
 				BADF5A391F6E6BC200B99E2B /* ProfileController.swift in Sources */,
 			);

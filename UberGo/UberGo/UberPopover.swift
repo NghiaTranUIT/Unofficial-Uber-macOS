@@ -69,7 +69,7 @@ class UberPopover: NSPopover {
 
         switch state {
         case .authenticated:
-            contentViewController = MapViewController.buildController(coordinator)
+            contentViewController = MainViewController.buildController(coordinator)
         case .unAuthenticated:
             contentViewController = LoginViewController.buildController(coordinator)
         }
