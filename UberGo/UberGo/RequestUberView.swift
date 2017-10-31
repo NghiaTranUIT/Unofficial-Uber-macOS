@@ -101,7 +101,6 @@ class RequestUberView: NSView {
     public func configureLayout(_ parentView: NSView) {
         translatesAutoresizingMaskIntoConstraints = false
         parentView.addSubview(self)
-
         edges(to: parentView)
     }
 

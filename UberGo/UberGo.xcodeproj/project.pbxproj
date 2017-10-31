@@ -13,6 +13,8 @@
 		BA037F3B1EDD61F800945C1D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BA037F3A1EDD61F800945C1D /* Assets.xcassets */; };
 		BA037F3E1EDD61F800945C1D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA037F3C1EDD61F800945C1D /* Main.storyboard */; };
 		BA037F491EDD61F800945C1D /* UberGoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA037F481EDD61F800945C1D /* UberGoTests.swift */; };
+		BA1183121FA85DC40018473D /* TripActivityController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1183101FA85DC40018473D /* TripActivityController.swift */; };
+		BA1183131FA85DC40018473D /* TripActivityController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA1183111FA85DC40018473D /* TripActivityController.xib */; };
 		BA1C3FB41EFA6852001FD50F /* PaymentMethodsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1C3FB21EFA6852001FD50F /* PaymentMethodsController.swift */; };
 		BA1C3FB51EFA6852001FD50F /* PaymentMethodsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA1C3FB31EFA6852001FD50F /* PaymentMethodsController.xib */; };
 		BA1C3FBB1EFAB1D6001FD50F /* PaymentAccountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1C3FB91EFAB1D6001FD50F /* PaymentAccountCell.swift */; };
@@ -137,6 +139,8 @@
 		BA037F441EDD61F800945C1D /* UberGoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UberGoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA037F481EDD61F800945C1D /* UberGoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UberGoTests.swift; sourceTree = "<group>"; };
 		BA037F4A1EDD61F800945C1D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BA1183101FA85DC40018473D /* TripActivityController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripActivityController.swift; sourceTree = "<group>"; };
+		BA1183111FA85DC40018473D /* TripActivityController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TripActivityController.xib; sourceTree = "<group>"; };
 		BA1C3FB21EFA6852001FD50F /* PaymentMethodsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentMethodsController.swift; sourceTree = "<group>"; };
 		BA1C3FB31EFA6852001FD50F /* PaymentMethodsController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PaymentMethodsController.xib; sourceTree = "<group>"; };
 		BA1C3FB91EFAB1D6001FD50F /* PaymentAccountCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentAccountCell.swift; sourceTree = "<group>"; };
@@ -352,8 +356,9 @@
 				BA5895D21F1287C300235041 /* BreakdownPriceController.swift */,
 				BADF5A381F6E6BC200B99E2B /* ProfileController.swift */,
 				BAF57FBD1EE117300013090E /* MapViewController.swift */,
-				BA8BD1D61FA81D870039AA49 /* MainViewController.swift */,
 				BA8BD1DA1FA82BA60039AA49 /* UberController.swift */,
+				BA1183101FA85DC40018473D /* TripActivityController.swift */,
+				BA8BD1D61FA81D870039AA49 /* MainViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -669,6 +674,7 @@
 				BADF5A3D1F6E6C3100B99E2B /* ProfileController.xib */,
 				BA8BD1D71FA81D870039AA49 /* MainViewController.xib */,
 				BA8BD1DB1FA82BA60039AA49 /* UberController.xib */,
+				BA1183111FA85DC40018473D /* TripActivityController.xib */,
 			);
 			name = "Storyboards Xibs";
 			sourceTree = "<group>";
@@ -818,6 +824,7 @@
 				BAE3CCF21EF5815600F264CA /* RequestUberView.xib in Resources */,
 				BA657DA91F149B7A007E4821 /* PriceDetailCell.xib in Resources */,
 				BAF57FC01EE117300013090E /* MapViewController.xib in Resources */,
+				BA1183131FA85DC40018473D /* TripActivityController.xib in Resources */,
 				BA67673E1EFA295D00805AC1 /* WebViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1025,6 +1032,7 @@
 				BADB785B1EE5B93D000536F7 /* NSColor+Hex.swift in Sources */,
 				BAB14AC31EF65FA80066267B /* CenterHorizontalFlowLayout.swift in Sources */,
 				BADB78611EE661A8000536F7 /* UberTextField.swift in Sources */,
+				BA1183121FA85DC40018473D /* TripActivityController.swift in Sources */,
 				BAB082261F05626100A74665 /* UberAnnotation.swift in Sources */,
 				BA8BD1E01FA857440039AA49 /* TinyConstraints+superview.swift in Sources */,
 				BACC07B11F036C6E0092F2F4 /* UberPopover.swift in Sources */,

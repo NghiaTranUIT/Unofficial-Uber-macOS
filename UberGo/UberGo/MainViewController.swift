@@ -34,7 +34,6 @@ class MainViewController: BaseViewController {
     @IBOutlet fileprivate weak var menuContainerViewOffset: NSLayoutConstraint!
 
     // MARK: - View
-    fileprivate lazy var tripActivityView: TripActivityView = self.lazyInitTripActivityView()
     fileprivate lazy var errorAlertView: UberAlertView = self.lazyInitErrorAlertView()
     fileprivate lazy var menuView: MenuView = self.lazyInitMenuView()
 
@@ -42,6 +41,7 @@ class MainViewController: BaseViewController {
     fileprivate lazy var mapController: MapViewController = self.lazyInitMapViewController()
     fileprivate lazy var searchController: SearchController = self.lazyInitSearchController()
     fileprivate lazy var uberController: UberController = self.lazyInitUberController()
+    fileprivate lazy var activityController: TripActivityController = self.lazyInitActivityController()
 
     // MARK: - Variable
     fileprivate var coordinator: ViewModelCoordinatorProtocol!
@@ -109,6 +109,7 @@ class MainViewController: BaseViewController {
         menuView.configureLayout(menuContainerView)
         mapController.configureContainerController(self, containerView: mapContainerView)
         searchController.configureContainerController(self, containerView: mapContainerView)
+        let _ = uberController.view
     }
 
     fileprivate func binding() {
@@ -200,10 +201,10 @@ extension MainViewController {
         return controller
     }
 
-    fileprivate func lazyInitTripActivityView() -> TripActivityView {
-        let uberView = TripActivityView.viewFromNib(with: BundleType.app)!
-        uberView.delegate = self
-        return uberView
+    fileprivate func lazyInitActivityController() -> TripActivityController {
+        let controller = TripActivityController.buildController()
+        controller.delegate = self
+        return controller
     }
 
     fileprivate func lazyInitWebController() -> WebViewController {
@@ -240,7 +241,7 @@ extension MainViewController {
         searchController.updateState(state)
 
         // Remove if need
-        tripActivityView.removeFromSuperview()
+        activityController.removeFromSuperview()
         uberController.removeFromSuperview()
 
         // Layout
@@ -262,19 +263,15 @@ extension MainViewController {
             return 480
 
         case .productSelection:
-            uberController.configureLayout(bottomBarView)
+            uberController.configureChildController(bottomBarView, parent: self)
             return 804
 
         case .tripFullActivity:
-            if tripActivityView.superview == nil {
-                tripActivityView.configureLayout(bottomBarView)
-            }
+            activityController.configureChildController(bottomBarView, parent: self)
             return 480 + 324
 
         case .tripMinimunActivity:
-            if tripActivityView.superview == nil {
-                tripActivityView.configureLayout(bottomBarView)
-            }
+            activityController.configureChildController(bottomBarView, parent: self)
             return 480 + 70
         }
     }
@@ -319,7 +316,7 @@ extension MainViewController {
         guard tripObj.status != .unknown else { return }
 
         // Update
-        tripActivityView.updateData(tripObj)
+        activityController.update(tripObj)
 
         // Remove destination
         if isShouldUpdateActivityLayout {
@@ -344,13 +341,6 @@ extension MainViewController: PaymentMethodsControllerDelegate {
     }
 }
 
-extension MainViewController: TripActivityViewDelegate {
-
-    func tripActivityViewShouldCancelCurrentTrip(_ sender: TripActivityView) {
-        uberController.cancelCurrentTrip()
-    }
-}
-
 extension MainViewController: ProductDetailControllerDelegate {
 
     func productDetailControllerShouldDimiss() {
@@ -368,6 +358,13 @@ extension MainViewController: SearchControllerDelegate {
 
     func didSelectPlace(_ placeObj: PlaceObj) {
         mapController.selectPlace(placeObj)
+    }
+}
+
+extension MainViewController: TripActivityControllerDelegate {
+
+    func tripActivityShouldCancelTrip() {
+        uberController.cancelCurrentTrip()
     }
 }
 

@@ -42,6 +42,8 @@ class UberController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        initCommon()
+        selectUberView.configureLayout(view)
         binding()
     }
 
@@ -148,10 +150,13 @@ class UberController: NSViewController {
         view.removeFromSuperview()
     }
 
-    public func configureLayout(_ parentView: NSView) {
-        if selectUberView.superview == nil {
-            selectUberView.configureLayout(parentView)
+    public func configureChildController(_ container: NSView, parent: NSViewController) {
+        guard view.superview == nil else {
+            return
         }
+        parent.addChildViewController(self)
+        container.addSubview(view)
+        view.edges(to: container)
     }
 
     public func cancelCurrentTrip() {
@@ -165,6 +170,10 @@ class UberController: NSViewController {
 
 // MARK: - Common
 extension UberController {
+
+    fileprivate func initCommon() {
+        view.translatesAutoresizingMaskIntoConstraints = false
+    }
 
     fileprivate func lazyInitRequestUberView() -> RequestUberView {
         let uberView = RequestUberView.viewFromNib(with: BundleType.app)!
