@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13196" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13196"/>
+        <capability name="box content view" minToolsVersion="7.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+        <capability name="system font weights other than Regular or Bold" minToolsVersion="7.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="ProfileController" customModule="UberGo" customModuleProvider="target">
+            <connections>
+                <outlet property="collectionView" destination="rbZ-rN-hEY" id="wia-1p-LCK"/>
+                <outlet property="view" destination="iON-E5-apH" id="kPO-7N-0N6"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="iON-E5-apH">
+            <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="xHc-EJ-9iR">
+                    <rect key="frame" x="0.0" y="380" width="480" height="100"/>
+                    <subviews>
+                        <box boxType="custom" borderType="none" borderWidth="0.0" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="f8v-ej-Vkr">
+                            <rect key="frame" x="0.0" y="0.0" width="480" height="100"/>
+                            <view key="contentView" id="wCs-ew-HKL">
+                                <rect key="frame" x="0.0" y="0.0" width="480" height="100"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </view>
+                            <color key="fillColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        </box>
+                        <button focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8Q3-Jg-5lK" customClass="UberButton" customModule="UberGo" customModuleProvider="target">
+                            <rect key="frame" x="25" y="64" width="16" height="16"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="16" id="7Ic-W7-8xQ"/>
+                                <constraint firstAttribute="height" constant="16" id="cY4-xX-j66"/>
+                            </constraints>
+                            <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="close_btn" imagePosition="only" alignment="center" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="U39-2z-FcA">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <action selector="exitBtnOnTap:" target="-2" id="mNW-8I-6Qp"/>
+                            </connections>
+                        </button>
+                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="pkx-rj-JOl" customClass="UberTextField" customModule="UberGo" customModuleProvider="target">
+                            <rect key="frame" x="24" y="17" width="93" height="30"/>
+                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="Account" id="0GI-0d-XNq">
+                                <font key="font" metaFont="systemThin" size="25"/>
+                                <color key="textColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            </textFieldCell>
+                        </textField>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="8Q3-Jg-5lK" firstAttribute="top" secondItem="xHc-EJ-9iR" secondAttribute="top" constant="20" id="0Zj-bL-mUR"/>
+                        <constraint firstAttribute="trailing" secondItem="f8v-ej-Vkr" secondAttribute="trailing" id="3mb-pE-eta"/>
+                        <constraint firstItem="8Q3-Jg-5lK" firstAttribute="leading" secondItem="xHc-EJ-9iR" secondAttribute="leading" constant="25" id="CYA-Ml-AwV"/>
+                        <constraint firstItem="f8v-ej-Vkr" firstAttribute="leading" secondItem="xHc-EJ-9iR" secondAttribute="leading" id="Ec9-r4-1AQ"/>
+                        <constraint firstAttribute="bottom" secondItem="f8v-ej-Vkr" secondAttribute="bottom" id="PAe-2f-04e"/>
+                        <constraint firstItem="pkx-rj-JOl" firstAttribute="top" secondItem="8Q3-Jg-5lK" secondAttribute="bottom" constant="17" id="XRu-60-rq5"/>
+                        <constraint firstAttribute="height" constant="100" id="bCU-L7-Jpk"/>
+                        <constraint firstItem="pkx-rj-JOl" firstAttribute="leading" secondItem="xHc-EJ-9iR" secondAttribute="leading" constant="26" id="gF5-FM-343"/>
+                        <constraint firstItem="f8v-ej-Vkr" firstAttribute="top" secondItem="xHc-EJ-9iR" secondAttribute="top" id="zdJ-jx-Pvh"/>
+                    </constraints>
+                </customView>
+                <scrollView wantsLayer="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sRb-kd-IbA">
+                    <rect key="frame" x="0.0" y="0.0" width="480" height="380"/>
+                    <clipView key="contentView" drawsBackground="NO" id="HYe-Yy-Ppg">
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="380"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView selectable="YES" allowsEmptySelection="NO" id="rbZ-rN-hEY" customClass="UberCollectionView" customModule="UberGo" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="480" height="380"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumInteritemSpacing="10" minimumLineSpacing="10" id="EBv-C7-Jey">
+                                    <size key="itemSize" width="50" height="50"/>
+                                </collectionViewFlowLayout>
+                                <color key="primaryBackgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                            </collectionView>
+                        </subviews>
+                    </clipView>
+                    <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="sT1-WC-cLg">
+                        <rect key="frame" x="-100" y="-100" width="233" height="15"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </scroller>
+                    <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="opo-EW-6Z4">
+                        <rect key="frame" x="-100" y="-100" width="16" height="377"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </scroller>
+                </scrollView>
+            </subviews>
+            <constraints>
+                <constraint firstItem="xHc-EJ-9iR" firstAttribute="top" secondItem="iON-E5-apH" secondAttribute="top" id="4dq-DL-LMG"/>
+                <constraint firstItem="xHc-EJ-9iR" firstAttribute="leading" secondItem="iON-E5-apH" secondAttribute="leading" id="6fh-0q-WOb"/>
+                <constraint firstAttribute="bottom" secondItem="sRb-kd-IbA" secondAttribute="bottom" id="WOJ-1u-aqL"/>
+                <constraint firstAttribute="trailing" secondItem="xHc-EJ-9iR" secondAttribute="trailing" id="Y30-tJ-TsU"/>
+                <constraint firstItem="sRb-kd-IbA" firstAttribute="top" secondItem="xHc-EJ-9iR" secondAttribute="bottom" id="hdF-Kc-NJT"/>
+                <constraint firstItem="sRb-kd-IbA" firstAttribute="leading" secondItem="iON-E5-apH" secondAttribute="leading" id="iMe-CF-rbw"/>
+                <constraint firstAttribute="trailing" secondItem="sRb-kd-IbA" secondAttribute="trailing" id="iVK-fP-0oZ"/>
+            </constraints>
+            <point key="canvasLocation" x="76" y="191"/>
+        </customView>
+    </objects>
+    <resources>
+        <image name="close_btn" width="16" height="16"/>
+    </resources>
+</document>

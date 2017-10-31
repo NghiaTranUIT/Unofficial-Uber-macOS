@@ -30,12 +30,15 @@ class MapViewController: BaseViewController {
     @IBOutlet fileprivate weak var mapContainerView: NSView!
     @IBOutlet fileprivate weak var bottomBarView: NSView!
     @IBOutlet fileprivate weak var containerViewHeight: NSLayoutConstraint!
+    @IBOutlet fileprivate weak var menuContainerView: NSView!
+    @IBOutlet fileprivate weak var menuContainerViewOffset: NSLayoutConstraint!
 
     // MARK: - View
     fileprivate lazy var mapView: UberMapView = self.lazyInitUberMapView()
     fileprivate lazy var selectUberView: RequestUberView = self.lazyInitRequestUberView()
     fileprivate lazy var tripActivityView: TripActivityView = self.lazyInitTripActivityView()
     fileprivate lazy var errorAlertView: UberAlertView = self.lazyInitErrorAlertView()
+    fileprivate lazy var menuView: MenuView = self.lazyInitMenuView()
 
     // MARK: - Controller
     fileprivate lazy var searchController: SearchController = self.lazyInitSearchController()
@@ -46,6 +49,11 @@ class MapViewController: BaseViewController {
     fileprivate var uberViewModel: UberServiceViewModelProtocol!
 
     fileprivate var isFirstTime = true
+    fileprivate var isMenuOpened = false {
+        didSet {
+            self.handleMenuLayout()
+        }
+    }
     fileprivate lazy var webController: WebViewController = self.lazyInitWebController()
     fileprivate var paymentMethodController: PaymentMethodsController?
     fileprivate var productDetailController: ProductDetailController?
@@ -83,10 +91,12 @@ class MapViewController: BaseViewController {
         // Common
         initCommon()
 
+        // Binding
         binding()
-        searchController.configureContainerController(self, containerView: mapContainerView)
-        mapView.setupViewModel(mapViewModel)
         notificationBinding()
+
+        // Setup Layout
+        setupLayout()
     }
 
     public func configureBinding(coordinator: ViewModelCoordinator) {
@@ -101,6 +111,12 @@ class MapViewController: BaseViewController {
 
     deinit {
         NotificationCenter.removeAllObserve(self)
+    }
+
+    fileprivate func setupLayout() {
+        menuView.configureLayout(menuContainerView)
+        searchController.configureContainerController(self, containerView: mapContainerView)
+        mapView.setupViewModel(mapViewModel)
     }
 
     fileprivate func binding() {
@@ -256,6 +272,10 @@ class MapViewController: BaseViewController {
                                                     observer: self,
                                                     selector: #selector(showFriendlyErrorAlert(noti:)),
                                                     object: nil)
+        NotificationCenter.observeNotificationType(.openCloseMenu,
+                                                   observer: self,
+                                                   selector: #selector(handleMenuLayoutNotification),
+                                                   object: nil)
 
     }
 
@@ -289,6 +309,10 @@ class MapViewController: BaseViewController {
         errorAlertView.showError(error, view: self.view)
     }
 
+    @objc func handleMenuLayoutNotification() {
+        isMenuOpened = !isMenuOpened
+    }
+
     @IBAction func exitNavigateBtnOnTapped(_ sender: Any) {
 
         // Minimal
@@ -317,7 +341,6 @@ extension MapViewController {
 
     fileprivate func lazyInitRequestUberView() -> RequestUberView {
         let uberView = RequestUberView.viewFromNib(with: BundleType.app)!
-        uberView.backgroundColor = NSColor.black
         uberView.delegate = self
         return uberView
     }
@@ -330,7 +353,6 @@ extension MapViewController {
 
     fileprivate func lazyInitTripActivityView() -> TripActivityView {
         let uberView = TripActivityView.viewFromNib(with: BundleType.app)!
-        uberView.backgroundColor = NSColor.black
         uberView.delegate = self
         return uberView
     }
@@ -341,6 +363,10 @@ extension MapViewController {
 
     fileprivate func lazyInitErrorAlertView() -> UberAlertView {
         return UberAlertView.viewFromNib(with: BundleType.app)!
+    }
+
+    fileprivate func lazyInitMenuView() -> MenuView {
+        return MenuView.viewFromNib(with: BundleType.app)!
     }
 }
 
@@ -400,6 +426,11 @@ extension MapViewController {
             }
             return 480 + 70
         }
+    }
+
+    fileprivate func handleMenuLayout() {
+        menuContainerViewOffset.constant = isMenuOpened ? 0 : -282
+        menuContainerView.layoutSubtreeIfNeeded()
     }
 }
 

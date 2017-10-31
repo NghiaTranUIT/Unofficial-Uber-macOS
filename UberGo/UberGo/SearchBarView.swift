@@ -172,11 +172,9 @@ extension SearchBarView {
             minimalAnimation()
         case .searchFullScreen:
             searchFullScreenAnimation()
-        case .tripMinimunActivity:
-            fallthrough
-        case .tripFullActivity:
-            fallthrough
-        case .productSelection:
+        case .tripMinimunActivity,
+             .tripFullActivity,
+             .productSelection:
             hideAllAnimation()
         }
     }
@@ -260,9 +258,6 @@ extension SearchBarView {
 
 // MARK: - ActionSearchBarViewDelegate
 extension SearchBarView: ActionSearchBarViewDelegate {
-
-    func shouldOpenScheduler() {
-    }
 
     func shouldOpenFullSearch() {
         delegate?.searchBar(self, layoutStateDidChanged: .expand)

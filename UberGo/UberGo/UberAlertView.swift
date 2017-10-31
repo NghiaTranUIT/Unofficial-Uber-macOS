@@ -50,8 +50,7 @@ extension UberAlertView {
 
         NSAnimationContext.defaultAnimate({ _ in
             self.alphaValue = 1
-        })
-        {
+        }) {
             self.fadeOutAnimation()
         }
     }

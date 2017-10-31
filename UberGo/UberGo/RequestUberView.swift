@@ -195,6 +195,8 @@ class RequestUberView: NSView {
 extension RequestUberView {
 
     fileprivate func initCommon() {
+        backgroundColor = NSColor.black
+
         requestUberBtn.setTitleColor(NSColor.white, kern: 2)
         cardNumberLbl.textColor = NSColor.black
         seatNumberLnl.textColor = NSColor(hexString: "#989898")

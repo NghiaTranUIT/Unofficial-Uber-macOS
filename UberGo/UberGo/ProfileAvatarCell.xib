@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13196" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13196"/>
+        <capability name="box content view" minToolsVersion="7.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="ProfileAvatarCell" customModule="UberGo" customModuleProvider="target">
+            <connections>
+                <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="Hz6-mo-xeY">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="68"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <box boxType="custom" borderType="none" borderWidth="0.0" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="42j-Rl-yFx">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="68"/>
+                    <view key="contentView" id="FcK-R6-od5">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="68"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    </view>
+                    <color key="fillColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                </box>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="neG-jK-xUQ">
+                    <rect key="frame" x="20" y="37" width="83" height="19"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="left" title="First Name" id="Cgf-dk-nBb">
+                        <font key="font" metaFont="system" size="16"/>
+                        <color key="textColor" red="0.64313725490196072" green="0.64313725490196072" blue="0.67450980392156867" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="KRo-av-q3q">
+                    <rect key="frame" x="20" y="13" width="357" height="24"/>
+                    <textFieldCell key="cell" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" alignment="left" title="Nghĩa" id="kH8-R5-JAd">
+                        <font key="font" metaFont="system" size="20"/>
+                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+            </subviews>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="42j-Rl-yFx" secondAttribute="bottom" id="BqP-fh-gsz"/>
+                <constraint firstAttribute="trailing" secondItem="KRo-av-q3q" secondAttribute="trailing" id="D9X-hP-aJg"/>
+                <constraint firstItem="KRo-av-q3q" firstAttribute="top" secondItem="neG-jK-xUQ" secondAttribute="bottom" id="Qx1-Ko-1wO"/>
+                <constraint firstItem="42j-Rl-yFx" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" id="Ssv-vP-1ue"/>
+                <constraint firstItem="42j-Rl-yFx" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="TtN-m1-2ew"/>
+                <constraint firstItem="KRo-av-q3q" firstAttribute="leading" secondItem="neG-jK-xUQ" secondAttribute="leading" id="dkb-wM-d8g"/>
+                <constraint firstItem="neG-jK-xUQ" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" constant="22" id="i77-EK-IMz"/>
+                <constraint firstItem="neG-jK-xUQ" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="12" id="oJW-ae-96M"/>
+                <constraint firstAttribute="trailing" secondItem="42j-Rl-yFx" secondAttribute="trailing" id="vXT-hs-qyz"/>
+            </constraints>
+            <point key="canvasLocation" x="86.5" y="72"/>
+        </customView>
+        <collectionViewItem id="zg7-y7-dht" customClass="ProfileAvatarCell" customModule="UberGo" customModuleProvider="target"/>
+    </objects>
+</document>

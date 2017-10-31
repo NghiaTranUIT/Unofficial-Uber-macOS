@@ -99,7 +99,7 @@ class UberServiceTests: XCTestCase {
         UberService().estimateTimeObserver(from: data.from)
             .subscribe(onNext: { timeObj in
                 promise.fulfill()
-            }, onError: { error in
+                }, onError: { error in
                 XCTFail(error.localizedDescription)
             })
             .addDisposableTo(self.disposeBag)
