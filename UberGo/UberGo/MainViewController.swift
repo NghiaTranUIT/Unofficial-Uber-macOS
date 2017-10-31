@@ -146,7 +146,8 @@ class MainViewController: BaseViewController {
     }
 
     @objc func showPaymentMethodView(noti: Notification) {
-        let controller = PaymentMethodsController(nibName: NSNib.Name(rawValue: "PaymentMethodsController"), bundle: nil)
+        let controller = PaymentMethodsController(nibName: NSNib.Name(rawValue: "PaymentMethodsController"),
+                                                  bundle: nil)
         controller.delegate = self
         presentViewControllerAsSheet(controller)
         paymentMethodController = controller
@@ -380,6 +381,10 @@ extension MainViewController: MapViewControllerDelegate {
             self.searchController.resetTextSearch()
         }
     }
+
+    func currentTimeEstimate() -> TimeEstimateObj? {
+        return coordinator.uberViewModel.output.selectedProduct.value?.estimateTime
+    }
 }
 
 // MARK: - UberControllerDelegate
@@ -388,7 +393,8 @@ extension MainViewController: UberControllerDelegate {
     func presentProductDetailController(_ product: ProductObj) {
 
         if productDetailController == nil {
-            let controller = ProductDetailController(nibName: NSNib.Name(rawValue: "ProductDetailController"), bundle: nil)
+            let controller = ProductDetailController(nibName: NSNib.Name(rawValue: "ProductDetailController"),
+                                                     bundle: nil)
             controller.delegate = self
             controller.configureController(with: product)
             productDetailController = controller

@@ -17,6 +17,7 @@ import UberGoCore
 protocol MapViewControllerDelegate: class {
 
     func shouldRequestEstimateTrip(to data: UberRequestTripData?)
+    func currentTimeEstimate() -> TimeEstimateObj?
 }
 
 class MapViewController: BaseViewController {
@@ -113,7 +114,7 @@ extension MapViewController {
 
     public func configureContainerController(_ controller: NSViewController, containerView: NSView) {
         controller.addChildViewController(self)
-        containerView.addSubview(self.view, positioned: .below, relativeTo: nil)
+        containerView.addSubview(view, positioned: .below, relativeTo: nil)
         containerView.edges(to: view)
     }
 }
@@ -128,7 +129,7 @@ extension MapViewController {
     fileprivate func lazyInitUberMapView() -> UberMapView {
         let map = UberMapView(frame: CGRect.zero)
         map.uberMapDelegate = self
-        map.configureLayout(self.view)
+        map.configureLayout(view)
         return map
     }
 
@@ -139,7 +140,6 @@ extension MapViewController {
 
 extension MapViewController: UberMapViewDelegate {
     func uberMapViewTimeEstimateForOriginAnnotation() -> TimeEstimateObj? {
-//        return uberViewModel.output.selectedProduct.value?.estimateTime
-        return nil
+        return delegate?.currentTimeEstimate()
     }
 }
