@@ -8,6 +8,12 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="MainViewController" customModule="UberGo" customModuleProvider="target">
             <connections>
+                <outlet property="bottomBarView" destination="29a-0j-Jz2" id="3xe-gF-aGB"/>
+                <outlet property="containerViewHeight" destination="rBs-LV-BDb" id="vyg-Jl-qGw"/>
+                <outlet property="exitNavigateBtn" destination="GIt-RB-Xq9" id="lmA-1h-Hqx"/>
+                <outlet property="mapContainerView" destination="lNj-ZK-t4H" id="z4P-Mg-8XN"/>
+                <outlet property="menuContainerView" destination="nem-zU-Bll" id="DQf-Uq-Ife"/>
+                <outlet property="menuContainerViewOffset" destination="e9S-0c-RmP" id="Pw6-Zv-oLy"/>
                 <outlet property="view" destination="lOh-mL-nP6" id="wFx-TA-mrO"/>
             </connections>
         </customObject>
