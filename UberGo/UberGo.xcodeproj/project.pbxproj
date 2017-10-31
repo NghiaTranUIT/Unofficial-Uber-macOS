@@ -34,6 +34,8 @@
 		BA86A36C1F60F8F6001E4358 /* DriverAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA86A36B1F60F8F6001E4358 /* DriverAnnotation.swift */; };
 		BA8BD1D81FA81D870039AA49 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8BD1D61FA81D870039AA49 /* MainViewController.swift */; };
 		BA8BD1D91FA81D870039AA49 /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA8BD1D71FA81D870039AA49 /* MainViewController.xib */; };
+		BA8BD1DC1FA82BA60039AA49 /* UberController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8BD1DA1FA82BA60039AA49 /* UberController.swift */; };
+		BA8BD1DD1FA82BA60039AA49 /* UberController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA8BD1DB1FA82BA60039AA49 /* UberController.xib */; };
 		BA8E05F01F298D38008D9CB8 /* UberAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8E05EF1F298D38008D9CB8 /* UberAlertView.swift */; };
 		BA8E05F21F298D41008D9CB8 /* UberAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA8E05F11F298D41008D9CB8 /* UberAlertView.xib */; };
 		BAA157951F33446C0020D5A6 /* SearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA157941F33446C0020D5A6 /* SearchController.swift */; };
@@ -156,6 +158,8 @@
 		BA86A36B1F60F8F6001E4358 /* DriverAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriverAnnotation.swift; sourceTree = "<group>"; };
 		BA8BD1D61FA81D870039AA49 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		BA8BD1D71FA81D870039AA49 /* MainViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainViewController.xib; sourceTree = "<group>"; };
+		BA8BD1DA1FA82BA60039AA49 /* UberController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UberController.swift; sourceTree = "<group>"; };
+		BA8BD1DB1FA82BA60039AA49 /* UberController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UberController.xib; sourceTree = "<group>"; };
 		BA8E05EF1F298D38008D9CB8 /* UberAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UberAlertView.swift; sourceTree = "<group>"; };
 		BA8E05F11F298D41008D9CB8 /* UberAlertView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UberAlertView.xib; sourceTree = "<group>"; };
 		BAA157941F33446C0020D5A6 /* SearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchController.swift; sourceTree = "<group>"; };
@@ -347,6 +351,7 @@
 				BADF5A381F6E6BC200B99E2B /* ProfileController.swift */,
 				BAF57FBD1EE117300013090E /* MapViewController.swift */,
 				BA8BD1D61FA81D870039AA49 /* MainViewController.swift */,
+				BA8BD1DA1FA82BA60039AA49 /* UberController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -660,6 +665,7 @@
 				BAA157961F3374020020D5A6 /* SearchController.xib */,
 				BADF5A3D1F6E6C3100B99E2B /* ProfileController.xib */,
 				BA8BD1D71FA81D870039AA49 /* MainViewController.xib */,
+				BA8BD1DB1FA82BA60039AA49 /* UberController.xib */,
 			);
 			name = "Storyboards Xibs";
 			sourceTree = "<group>";
@@ -793,6 +799,7 @@
 				BADB78571EE5B7FB000536F7 /* ActionSearchBarView.xib in Resources */,
 				BA037F3E1EDD61F800945C1D /* Main.storyboard in Resources */,
 				BAA157971F3374020020D5A6 /* SearchController.xib in Resources */,
+				BA8BD1DD1FA82BA60039AA49 /* UberController.xib in Resources */,
 				BA2A3A831EED4298002A0343 /* SearchCollectionView.xib in Resources */,
 				BAF57FBA1EE116FB0013090E /* LoginViewController.xib in Resources */,
 				BA1C3FB51EFA6852001FD50F /* PaymentMethodsController.xib in Resources */,
@@ -948,6 +955,7 @@
 				BADB78501EE5AC6A000536F7 /* NSView+Xib.swift in Sources */,
 				BAB14AC01EF62DB40066267B /* UberProductCell.swift in Sources */,
 				BABAC5BC1F08F3FF000DACEC /* ProductDetailController.swift in Sources */,
+				BA8BD1DC1FA82BA60039AA49 /* UberController.swift in Sources */,
 				BA8E05F01F298D38008D9CB8 /* UberAlertView.swift in Sources */,
 				BA5895D41F1287C300235041 /* BreakdownPriceController.swift in Sources */,
 				BAAD5DF01F6C2FF700B20018 /* MenuView.swift in Sources */,

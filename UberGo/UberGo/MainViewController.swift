@@ -34,7 +34,6 @@ class MainViewController: BaseViewController {
     @IBOutlet fileprivate weak var menuContainerViewOffset: NSLayoutConstraint!
 
     // MARK: - View
-    fileprivate lazy var selectUberView: RequestUberView = self.lazyInitRequestUberView()
     fileprivate lazy var tripActivityView: TripActivityView = self.lazyInitTripActivityView()
     fileprivate lazy var errorAlertView: UberAlertView = self.lazyInitErrorAlertView()
     fileprivate lazy var menuView: MenuView = self.lazyInitMenuView()
@@ -42,11 +41,11 @@ class MainViewController: BaseViewController {
     // MARK: - Controller
     fileprivate lazy var mapViewController: MapViewController = self.lazyInitMapViewController()
     fileprivate lazy var searchController: SearchController = self.lazyInitSearchController()
+    fileprivate lazy var uberController: UberController = self.lazyInitUberController()
 
     // MARK: - Variable
     fileprivate var coordinator: ViewModelCoordinatorProtocol!
     fileprivate var searchViewModel: SearchViewModelProtocol!
-    fileprivate var uberViewModel: UberServiceViewModelProtocol!
 
     fileprivate var isFirstTime = true
     fileprivate var isMenuOpened = false {
@@ -79,7 +78,6 @@ class MainViewController: BaseViewController {
     public class func buildController(_ coordinator: ViewModelCoordinatorProtocol) -> MainViewController {
         let controller = MainViewController(nibName: "MainViewController", bundle: nil)!
         controller.coordinator = coordinator
-        controller.uberViewModel = coordinator.uberViewModel
         controller.searchViewModel = coordinator.searchViewModel
         return controller
     }
@@ -114,123 +112,12 @@ class MainViewController: BaseViewController {
     }
 
     fileprivate func binding() {
-        selectUberView.viewModel = uberViewModel
 
         // Trigger Get location
         mapViewController.startUpdateLocation()
 
         // Force load Uber data
         UberAuth.share.currentUser?.reloadUberDataPublisher.onNext()
-
-        // Fetch route navigation
-        uberViewModel.output.requestUberEstimationSuccessDriver
-            .drive(onNext: { [weak self] result in
-                guard let `self` = self else { return }
-
-                // Handle result
-                switch result {
-                case .success(let data):
-                    let place = data.to
-                    self.mapViewController.addDestination(place)
-                    self.mapViewController.requestRoute(to: place)
-                default:
-                    break
-                }
-
-            })
-            .addDisposableTo(disposeBag)
-
-        // Request Uber service
-        uberViewModel.output.availableGroupProductsDriver
-            .drive(onNext: {[weak self] (result) in
-                guard let `self` = self else { return }
-
-                // Stop loader
-
-                // Handle result
-                switch result {
-                case .success(let groups):
-                    self.layoutState = .productSelection
-                    self.selectUberView.updateAvailableGroupProducts(groups)
-                case .error(let error):
-                    Logger.error("ERROR = \(error)")
-                    NotificationCenter.postNotificationOnMainThreadType(.showFriendlyErrorAlert,
-                                                                        object: error,
-                                                                        userInfo: nil)
-                }
-            })
-            .addDisposableTo(disposeBag)
-
-        // Show or hide Bottom bar
-        uberViewModel.output.isLoadingDriver
-            .drive(onNext: { isLoading in
-                Logger.info("isLoading Available Products = \(isLoading)")
-            })
-            .addDisposableTo(disposeBag)
-
-        // Show href
-        uberViewModel.output.showSurgeHrefDriver
-            .drive(onNext: {[weak self] surgeObj in
-                guard let `self` = self else { return }
-                Logger.info("SHOW CONFIRMATION = \(surgeObj.surgeConfirmationHref ?? "")")
-                self.showSurgeHrefView(surgeObj)
-            })
-            .addDisposableTo(disposeBag)
-
-        // Trip
-        uberViewModel.output.normalTripDriver
-            .drive(onNext: {[weak self] (createTripObj) in
-                guard let `self` = self else { return }
-
-                Logger.info("Start Request Normal TRIP = \(createTripObj)")
-
-                // Update layout
-                self.layoutState = .tripMinimunActivity
-
-                // Trigger to start Timer
-                self.uberViewModel.input.triggerCurrentTripPublisher.onNext()
-            })
-            .addDisposableTo(disposeBag)
-
-        // Current Trip Status
-        uberViewModel.output.currentTripStatusDriver
-            .drive(onNext: {[weak self] result in
-                guard let `self` = self else { return }
-
-                // Update
-                switch result {
-                case .success(let tripObj):
-                    self.handleLayoutAndData(tripObj)
-                case .error(let error):
-                    Logger.error(error)
-                    self.handleLayoutAndData(TripObj.invalidDummyTrip())
-                }
-                }, onCompleted: {
-                    Logger.info("On Completed")
-            }, onDisposed: {
-                Logger.info("On Disposed")
-            })
-            .addDisposableTo(disposeBag)
-
-        // Get first check Trip Status
-        uberViewModel.input.triggerCurrentTripPublisher.onNext()
-
-        // Cancel
-        uberViewModel.output.resetMapDriver
-            .drive(onNext: {[weak self] _ in
-                guard let `self` = self else { return }
-
-                self.layoutState = .minimal
-
-                // Reset
-                self.mapViewController.selectPlace(nil)
-                self.uberViewModel.input.requestEstimateTripPublish.onNext(nil)
-                self.mapViewController.resetAllData()
-
-                // Trigger location
-                self.mapViewController.startUpdateLocation()
-            })
-            .addDisposableTo(disposeBag)
     }
 
     fileprivate func notificationBinding() {
@@ -275,7 +162,7 @@ class MainViewController: BaseViewController {
         dismissViewController(webController)
 
         // Get
-        uberViewModel.input.requestUberWithSurgeIDPublisher.onNext(url)
+        uberController.requestSurgeUber(with: url)
     }
 
     @objc func showFriendlyErrorAlert(noti: Notification) {
@@ -304,12 +191,6 @@ extension MainViewController {
         view.backgroundColor = NSColor.white
         exitNavigateBtn.alphaValue = 0
         bottomBarView.backgroundColor = NSColor.black
-    }
-
-    fileprivate func lazyInitRequestUberView() -> RequestUberView {
-        let uberView = RequestUberView.viewFromNib(with: BundleType.app)!
-        uberView.delegate = self
-        return uberView
     }
 
     fileprivate func lazyInitSearchController() -> SearchController {
@@ -341,6 +222,12 @@ extension MainViewController {
         controller.delegate = self
         return controller
     }
+
+    fileprivate func lazyInitUberController() -> UberController {
+        let controller = UberController.buildController(coordinator.uberViewModel)
+        controller.delegate = self
+        return controller
+    }
 }
 
 // MARK: - Layout
@@ -353,7 +240,7 @@ extension MainViewController {
 
         // Remove if need
         tripActivityView.removeFromSuperview()
-        selectUberView.removeFromSuperview()
+        uberController.removeFromSuperview()
 
         // Layout
         let newHeight = preferredHeight(state)
@@ -376,9 +263,7 @@ extension MainViewController {
         case .productSelection:
 
             // Add
-            if selectUberView.superview == nil {
-                selectUberView.configureLayout(bottomBarView)
-            }
+            uberController.configureLayout(bottomBarView)
 
             return 804
 
@@ -431,7 +316,7 @@ extension MainViewController {
         }
     }
 
-    fileprivate func handleLayoutAndData(_ tripObj: TripObj) {
+    fileprivate func updateLayoutForTrip(_ tripObj: TripObj) {
 
         // Layout
         updateLayoutWithTrip(tripObj)
@@ -476,22 +361,7 @@ extension MainViewController: PaymentMethodsControllerDelegate {
 extension MainViewController: TripActivityViewDelegate {
 
     func tripActivityViewShouldCancelCurrentTrip(_ sender: TripActivityView) {
-        uberViewModel.input.cancelCurrentTripPublisher.onNext()
-    }
-}
-
-extension MainViewController: RequestUberViewDelegate {
-
-    func requestUberViewShouldShowProductDetail(_ productObj: ProductObj) {
-        if productDetailController == nil {
-            let controller = ProductDetailController(nibName: "ProductDetailController", bundle: nil)!
-            controller.delegate = self
-            controller.configureController(with: productObj)
-            productDetailController = controller
-        }
-
-        // Present
-        presentViewControllerAsSheet(productDetailController!)
+        uberController.cancelCurrentTrip()
     }
 }
 
@@ -518,11 +388,52 @@ extension MainViewController: SearchControllerDelegate {
 extension MainViewController: MapViewControllerDelegate {
 
     func shouldRequestEstimateTrip(to data: UberRequestTripData?) {
-        if let data = data {
-            self.uberViewModel.input.requestEstimateTripPublish.onNext(data)
-        } else {
-            self.uberViewModel.input.requestEstimateTripPublish.onNext(nil)
+        uberController.requestEstimateTrip(data)
+
+        // Reset if need
+        if data == nil {
             self.searchController.resetTextSearch()
         }
+    }
+}
+
+// MARK: - UberControllerDelegate
+extension MainViewController: UberControllerDelegate {
+
+    func presentProductDetailController(_ product: ProductObj) {
+
+        if productDetailController == nil {
+            let controller = ProductDetailController(nibName: "ProductDetailController", bundle: nil)!
+            controller.delegate = self
+            controller.configureController(with: product)
+            productDetailController = controller
+        }
+
+        // Present
+        presentViewControllerAsSheet(productDetailController!)
+    }
+
+    func updateLayout(_ layout: MapViewLayoutState) {
+        layoutState = layout
+    }
+
+    func presentSurgeHrefController(_ surge: SurgePriceObj) {
+        Logger.info("SHOW CONFIRMATION = \(surge.surgeConfirmationHref ?? "")")
+        showSurgeHrefView(surge)
+    }
+
+    func updateTripLayout(_ tripObj: TripObj) {
+        updateLayoutForTrip(tripObj)
+    }
+
+    func resetMap() {
+        mapViewController.selectPlace(nil)
+        mapViewController.resetAllData()
+        mapViewController.startUpdateLocation()
+    }
+
+    func drawRoute(with placeObj: PlaceObj) {
+        mapViewController.addDestination(placeObj)
+        mapViewController.requestRoute(to: placeObj)
     }
 }
