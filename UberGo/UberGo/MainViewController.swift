@@ -34,7 +34,6 @@ class MainViewController: BaseViewController {
     @IBOutlet fileprivate weak var menuContainerViewOffset: NSLayoutConstraint!
 
     // MARK: - View
-    fileprivate lazy var mapView: UberMapView = self.lazyInitUberMapView()
     fileprivate lazy var selectUberView: RequestUberView = self.lazyInitRequestUberView()
     fileprivate lazy var tripActivityView: TripActivityView = self.lazyInitTripActivityView()
     fileprivate lazy var errorAlertView: UberAlertView = self.lazyInitErrorAlertView()
@@ -45,7 +44,7 @@ class MainViewController: BaseViewController {
     fileprivate lazy var searchController: SearchController = self.lazyInitSearchController()
 
     // MARK: - Variable
-    fileprivate var mapViewModel: MapViewModelProtocol!
+    fileprivate var coordinator: ViewModelCoordinatorProtocol!
     fileprivate var searchViewModel: SearchViewModelProtocol!
     fileprivate var uberViewModel: UberServiceViewModelProtocol!
 
@@ -79,7 +78,7 @@ class MainViewController: BaseViewController {
     // MARK: - Init
     public class func buildController(_ coordinator: ViewModelCoordinatorProtocol) -> MainViewController {
         let controller = MainViewController(nibName: "MainViewController", bundle: nil)!
-        controller.mapViewModel = coordinator.mapViewModel
+        controller.coordinator = coordinator
         controller.uberViewModel = coordinator.uberViewModel
         controller.searchViewModel = coordinator.searchViewModel
         return controller
@@ -100,12 +99,6 @@ class MainViewController: BaseViewController {
         setupLayout()
     }
 
-    public func configureBinding(coordinator: ViewModelCoordinator) {
-        uberViewModel = coordinator.uberViewModel
-        mapViewModel = coordinator.mapViewModel
-        searchViewModel = coordinator.searchViewModel
-    }
-
     override func viewDidAppear() {
         super.viewDidAppear()
     }
@@ -117,36 +110,16 @@ class MainViewController: BaseViewController {
     fileprivate func setupLayout() {
         menuView.configureLayout(menuContainerView)
         searchController.configureContainerController(self, containerView: mapContainerView)
-        mapView.setupViewModel(mapViewModel)
     }
 
     fileprivate func binding() {
         selectUberView.viewModel = uberViewModel
 
         // Trigger Get location
-        mapViewModel.input.startUpdateLocationTriggerPublisher.onNext(true)
+        mapViewController.startUpdateLocation()
 
         // Force load Uber data
         UberAuth.share.currentUser?.reloadUberDataPublisher.onNext()
-
-        // Selected Place
-        mapViewModel.output.selectedPlaceObjDriver
-            .drive(onNext: {[weak self] placeObj in
-                guard let `self` = self else { return }
-
-                if let placeObj = placeObj {
-                    // Request data (trip, estimation, route)
-                    guard let currentLocation = self.mapViewModel.output.currentLocationVar.value else { return }
-                    let from = PlaceObj(coordinate: currentLocation.coordinate)
-                    let data = UberRequestTripData(from: from, to: placeObj)
-                    self.uberViewModel.input.requestEstimateTripPublish.onNext(data)
-                } else {
-                    self.uberViewModel.input.requestEstimateTripPublish.onNext(nil)
-                    self.searchController.resetTextSearch()
-                    self.mapView.addDestinationPlaceObj(nil)
-                }
-            })
-            .addDisposableTo(disposeBag)
 
         // Fetch route navigation
         uberViewModel.output.requestUberEstimationSuccessDriver
@@ -156,8 +129,9 @@ class MainViewController: BaseViewController {
                 // Handle result
                 switch result {
                 case .success(let data):
-                    self.mapView.addDestinationPlaceObj(data.to)
-                    self.mapViewModel.input.routeToDestinationPublisher.onNext(data.to)
+                    let place = data.to
+                    self.mapViewController.addDestination(place)
+                    self.mapViewController.requestRoute(to: place)
                 default:
                     break
                 }
@@ -248,14 +222,12 @@ class MainViewController: BaseViewController {
                 self.layoutState = .minimal
 
                 // Reset
-                self.mapViewModel.input.selectPlaceObjPublisher.onNext(nil)
+                self.mapViewController.selectPlace(nil)
                 self.uberViewModel.input.requestEstimateTripPublish.onNext(nil)
-
-                // Reset data
-                self.mapView.resetAllData()
+                self.mapViewController.resetAllData()
 
                 // Trigger location
-                self.mapViewModel.input.startUpdateLocationTriggerPublisher.onNext(true)
+                self.mapViewController.startUpdateLocation()
             })
             .addDisposableTo(disposeBag)
     }
@@ -320,7 +292,7 @@ class MainViewController: BaseViewController {
         layoutState = .minimal
 
         // Remove current
-        mapViewModel.input.selectPlaceObjPublisher.onNext(nil)
+        mapViewController.selectPlace(nil)
     }
 }
 
@@ -331,13 +303,6 @@ extension MainViewController {
         view.backgroundColor = NSColor.white
         exitNavigateBtn.alphaValue = 0
         bottomBarView.backgroundColor = NSColor.black
-    }
-
-    fileprivate func lazyInitUberMapView() -> UberMapView {
-        let map = UberMapView(frame: mapContainerView.bounds)
-        map.uberMapDelegate = self
-        map.configureLayout(mapContainerView)
-        return map
     }
 
     fileprivate func lazyInitRequestUberView() -> RequestUberView {
@@ -371,7 +336,7 @@ extension MainViewController {
     }
 
     fileprivate func lazyInitMapViewController() -> MapViewController {
-        return MapViewController.buildController(mapViewModel)
+        return MapViewController.buildController(coordinator.mapViewModel)
     }
 }
 
@@ -456,10 +421,10 @@ extension MainViewController {
             layoutState = .minimal
 
             // Reset data
-            mapView.resetAllData()
+            mapViewController.resetAllData()
 
             // Trigger location
-            mapViewModel.input.startUpdateLocationTriggerPublisher.onNext(true)
+            mapViewController.startUpdateLocation()
         }
     }
 
@@ -485,14 +450,14 @@ extension MainViewController {
         // Remove destination
         if isShouldUpdateActivityLayout {
             isShouldUpdateActivityLayout = false
-            mapViewModel.input.selectPlaceObjPublisher.onNext(nil)
+            mapViewController.selectPlace(nil)
         }
 
         // Update map
-        mapView.updateCurrentTripLayout(tripObj)
+        mapViewController.updateCurrentTripLayout(tripObj)
 
         // Get Route
-        mapViewModel.input.routeForCurrentTripPublisher.onNext(tripObj)
+        mapViewController.requestRoute(for: tripObj)
     }
 }
 
@@ -509,12 +474,6 @@ extension MainViewController: TripActivityViewDelegate {
 
     func tripActivityViewShouldCancelCurrentTrip(_ sender: TripActivityView) {
         uberViewModel.input.cancelCurrentTripPublisher.onNext()
-    }
-}
-
-extension MainViewController: UberMapViewDelegate {
-    func uberMapViewTimeEstimateForOriginAnnotation() -> TimeEstimateObj? {
-        return uberViewModel.output.selectedProduct.value?.estimateTime
     }
 }
 
@@ -549,6 +508,6 @@ extension MainViewController: SearchControllerDelegate {
     }
 
     func didSelectPlace(_ placeObj: PlaceObj) {
-        mapViewModel.input.selectPlaceObjPublisher.onNext(placeObj)
+        mapViewController.selectPlace(placeObj)
     }
 }

@@ -77,6 +77,35 @@ class MapViewController: BaseViewController {
             })
             .addDisposableTo(disposeBag)
     }
+
+    // MARK: - Public
+    public func resetAllData() {
+        mapView.resetAllData()
+    }
+
+    public func updateCurrentTripLayout(_ tripObj: TripObj) {
+        mapView.updateCurrentTripLayout(tripObj)
+    }
+
+    public func addDestination(_ placeObj: PlaceObj?) {
+        mapView.addDestinationPlaceObj(placeObj)
+    }
+
+    public func startUpdateLocation() {
+        mapViewModel.input.startUpdateLocationTriggerPublisher.onNext(true)
+    }
+
+    public func selectPlace(_ placeObj: PlaceObj?) {
+        mapViewModel.input.selectPlaceObjPublisher.onNext(placeObj)
+    }
+
+    public func requestRoute(to placeObj: PlaceObj) {
+        mapViewModel.input.routeToDestinationPublisher.onNext(placeObj)
+    }
+
+    public func requestRoute(for tripObj: TripObj) {
+        mapViewModel.input.routeForCurrentTripPublisher.onNext(tripObj)
+    }
 }
 
 // MARK: - Private
