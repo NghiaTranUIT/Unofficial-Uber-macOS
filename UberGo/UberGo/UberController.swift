@@ -15,7 +15,7 @@ protocol UberControllerDelegate: class {
 
     func presentProductDetailController(_ product: ProductObj)
     func presentSurgeHrefController(_ surge: SurgePriceObj)
-    func updateLayout(_ layout: MapViewLayoutState)
+    func updateLayout(_ layout: MainLayoutState)
     func updateTripLayout(_ tripObj: TripObj)
     func resetMap()
     func drawRoute(with placeObj: PlaceObj)

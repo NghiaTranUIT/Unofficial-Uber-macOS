@@ -93,7 +93,7 @@ extension SearchCollectionView {
         bottom(to: parenView)
     }
 
-    public func layoutStateChanged(_ newState: MapViewLayoutState) {
+    public func layoutStateChanged(_ newState: MainLayoutState) {
         switch newState {
         case .searchFullScreen, .expand:
             isHidden = false

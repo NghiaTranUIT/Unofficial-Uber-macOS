@@ -12,7 +12,7 @@ import RxSwift
 import UberGoCore
 
 protocol SearchBarViewDelegate: class {
-    func searchBar(_ sender: SearchBarView, layoutStateDidChanged state: MapViewLayoutState)
+    func searchBar(_ sender: SearchBarView, layoutStateDidChanged state: MainLayoutState)
 }
 
 class SearchBarView: NSView {
@@ -34,7 +34,7 @@ class SearchBarView: NSView {
 
     // MARK: - Variable
     weak var delegate: SearchBarViewDelegate?
-    var layoutState = MapViewLayoutState.minimal {
+    var layoutState = MainLayoutState.minimal {
         didSet {
             animateSearchBarState()
         }

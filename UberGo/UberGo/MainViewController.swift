@@ -14,7 +14,7 @@ import RxCocoa
 import RxSwift
 import UberGoCore
 
-enum MapViewLayoutState {
+enum MainLayoutState {
     case expand
     case minimal
     case searchFullScreen
@@ -39,7 +39,7 @@ class MainViewController: BaseViewController {
     fileprivate lazy var menuView: MenuView = self.lazyInitMenuView()
 
     // MARK: - Controller
-    fileprivate lazy var mapViewController: MapViewController = self.lazyInitMapViewController()
+    fileprivate lazy var mapController: MapViewController = self.lazyInitMapViewController()
     fileprivate lazy var searchController: SearchController = self.lazyInitSearchController()
     fileprivate lazy var uberController: UberController = self.lazyInitUberController()
 
@@ -59,12 +59,12 @@ class MainViewController: BaseViewController {
     fileprivate var isShouldUpdateActivityLayout = true
 
     // Layout State
-    fileprivate var _layoutState: MapViewLayoutState = .minimal {
+    fileprivate var _layoutState: MainLayoutState = .minimal {
         didSet {
             updateLayoutState(_layoutState)
         }
     }
-    public fileprivate(set) var layoutState: MapViewLayoutState {
+    public fileprivate(set) var layoutState: MainLayoutState {
         get {
             return _layoutState
         }
@@ -107,14 +107,14 @@ class MainViewController: BaseViewController {
 
     fileprivate func setupLayout() {
         menuView.configureLayout(menuContainerView)
-        mapViewController.configureContainerController(self, containerView: mapContainerView)
+        mapController.configureContainerController(self, containerView: mapContainerView)
         searchController.configureContainerController(self, containerView: mapContainerView)
     }
 
     fileprivate func binding() {
 
         // Trigger Get location
-        mapViewController.startUpdateLocation()
+        mapController.startUpdateLocation()
 
         // Force load Uber data
         UberAuth.share.currentUser?.reloadUberDataPublisher.onNext()
@@ -180,7 +180,7 @@ class MainViewController: BaseViewController {
         layoutState = .minimal
 
         // Remove current
-        mapViewController.selectPlace(nil)
+        mapController.selectPlace(nil)
     }
 }
 
@@ -233,7 +233,7 @@ extension MainViewController {
 // MARK: - Layout
 extension MainViewController {
 
-    fileprivate func updateLayoutState(_ state: MapViewLayoutState) {
+    fileprivate func updateLayoutState(_ state: MainLayoutState) {
 
         // Update state to sub-views
         searchController.updateState(state)
@@ -255,30 +255,22 @@ extension MainViewController {
         })
     }
 
-    fileprivate func preferredHeight(_ state: MapViewLayoutState) -> CGFloat {
+    fileprivate func preferredHeight(_ state: MainLayoutState) -> CGFloat {
         switch state {
         case .searchFullScreen, .expand, .minimal:
             return 480
 
         case .productSelection:
-
-            // Add
             uberController.configureLayout(bottomBarView)
-
             return 804
 
         case .tripFullActivity:
-
-            // Add
             if tripActivityView.superview == nil {
                 tripActivityView.configureLayout(bottomBarView)
             }
-
             return 480 + 324
 
         case .tripMinimunActivity:
-
-            // Add
             if tripActivityView.superview == nil {
                 tripActivityView.configureLayout(bottomBarView)
             }
@@ -296,32 +288,25 @@ extension MainViewController {
 extension MainViewController {
 
     fileprivate func updateLayoutWithTrip(_ tripObj: TripObj) {
+        tripObj.isValidTrip ?
+            updateLayoutWithValidTrip(tripObj) : updateLayoutWithInvalidTrip()
+    }
 
-        // Reset layout if there is no trip
-        if tripObj.isValidTrip {
-            if tripObj.status == .processing {
-                layoutState = .tripMinimunActivity
-            } else {
-                layoutState = .tripFullActivity
-            }
-        } else {
-            isShouldUpdateActivityLayout = true
-            layoutState = .minimal
+    private func updateLayoutWithValidTrip(_ tripObj: TripObj) {
+        layoutState = tripObj.status == .processing ? .tripMinimunActivity : .tripFullActivity
+    }
 
-            // Reset data
-            mapViewController.resetAllData()
-
-            // Trigger location
-            mapViewController.startUpdateLocation()
-        }
+    private func updateLayoutWithInvalidTrip() {
+        isShouldUpdateActivityLayout = true
+        layoutState = .minimal
+        mapController.resetAllData()
+        mapController.startUpdateLocation()
     }
 
     fileprivate func updateLayoutForTrip(_ tripObj: TripObj) {
 
         // Layout
         updateLayoutWithTrip(tripObj)
-
-        // Trip
         updateTripActivityView(tripObj)
     }
 
@@ -338,14 +323,14 @@ extension MainViewController {
         // Remove destination
         if isShouldUpdateActivityLayout {
             isShouldUpdateActivityLayout = false
-            mapViewController.selectPlace(nil)
+            mapController.selectPlace(nil)
         }
 
         // Update map
-        mapViewController.updateCurrentTripLayout(tripObj)
+        mapController.updateCurrentTripLayout(tripObj)
 
         // Get Route
-        mapViewController.requestRoute(for: tripObj)
+        mapController.requestRoute(for: tripObj)
     }
 }
 
@@ -376,12 +361,12 @@ extension MainViewController: ProductDetailControllerDelegate {
 // MARK: - SearchControllerDelegate
 extension MainViewController: SearchControllerDelegate {
 
-    func shouldUpdateLayoutState(_ newState: MapViewLayoutState) {
+    func shouldUpdateLayoutState(_ newState: MainLayoutState) {
         layoutState = newState
     }
 
     func didSelectPlace(_ placeObj: PlaceObj) {
-        mapViewController.selectPlace(placeObj)
+        mapController.selectPlace(placeObj)
     }
 }
 
@@ -413,7 +398,7 @@ extension MainViewController: UberControllerDelegate {
         presentViewControllerAsSheet(productDetailController!)
     }
 
-    func updateLayout(_ layout: MapViewLayoutState) {
+    func updateLayout(_ layout: MainLayoutState) {
         layoutState = layout
     }
 
@@ -427,13 +412,13 @@ extension MainViewController: UberControllerDelegate {
     }
 
     func resetMap() {
-        mapViewController.selectPlace(nil)
-        mapViewController.resetAllData()
-        mapViewController.startUpdateLocation()
+        mapController.selectPlace(nil)
+        mapController.resetAllData()
+        mapController.startUpdateLocation()
     }
 
     func drawRoute(with placeObj: PlaceObj) {
-        mapViewController.addDestination(placeObj)
-        mapViewController.requestRoute(to: placeObj)
+        mapController.addDestination(placeObj)
+        mapController.requestRoute(to: placeObj)
     }
 }
