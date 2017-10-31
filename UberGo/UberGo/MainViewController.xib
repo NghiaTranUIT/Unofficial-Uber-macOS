@@ -49,6 +49,9 @@
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
+                                    <connections>
+                                        <action selector="exitNavigateBtnOnTapped:" target="-2" id="6OQ-Ds-Rgc"/>
+                                    </connections>
                                 </button>
                             </subviews>
                             <constraints>

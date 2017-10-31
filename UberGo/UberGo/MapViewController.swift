@@ -108,6 +108,16 @@ class MapViewController: BaseViewController {
     }
 }
 
+// MARK: - Layout
+extension MapViewController {
+
+    public func configureContainerController(_ controller: NSViewController, containerView: NSView) {
+        controller.addChildViewController(self)
+        containerView.addSubview(self.view, positioned: .below, relativeTo: nil)
+        containerView.edges(to: view)
+    }
+}
+
 // MARK: - Private
 extension MapViewController {
 

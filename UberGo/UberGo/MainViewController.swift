@@ -109,6 +109,7 @@ class MainViewController: BaseViewController {
 
     fileprivate func setupLayout() {
         menuView.configureLayout(menuContainerView)
+        mapViewController.configureContainerController(self, containerView: mapContainerView)
         searchController.configureContainerController(self, containerView: mapContainerView)
     }
 
@@ -336,7 +337,9 @@ extension MainViewController {
     }
 
     fileprivate func lazyInitMapViewController() -> MapViewController {
-        return MapViewController.buildController(coordinator.mapViewModel)
+        let controller = MapViewController.buildController(coordinator.mapViewModel)
+        controller.delegate = self
+        return controller
     }
 }
 
@@ -509,5 +512,17 @@ extension MainViewController: SearchControllerDelegate {
 
     func didSelectPlace(_ placeObj: PlaceObj) {
         mapViewController.selectPlace(placeObj)
+    }
+}
+
+extension MainViewController: MapViewControllerDelegate {
+
+    func shouldRequestEstimateTrip(to data: UberRequestTripData?) {
+        if let data = data {
+            self.uberViewModel.input.requestEstimateTripPublish.onNext(data)
+        } else {
+            self.uberViewModel.input.requestEstimateTripPublish.onNext(nil)
+            self.searchController.resetTextSearch()
+        }
     }
 }
