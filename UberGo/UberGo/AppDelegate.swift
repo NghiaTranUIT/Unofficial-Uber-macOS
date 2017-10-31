@@ -40,7 +40,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         NotificationCenter.removeAllObserve(self)
     }
 
-    func handleGetURL(event: NSAppleEventDescriptor!, withReplyEvent: NSAppleEventDescriptor!) {
+    @objc func handleGetURL(event: NSAppleEventDescriptor!, withReplyEvent: NSAppleEventDescriptor!) {
         guard let url = event.paramDescriptor(forKeyword: AEKeyword(keyDirectObject))?.stringValue else {
             return
         }
@@ -57,11 +57,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     // MARK: - Debug
     @IBAction func currentTripStatusOnTap(_ sender: Any) {
-        coordinator.appViewModel.input.currentTripStatusPublish.onNext()
+        coordinator.appViewModel.input.currentTripStatusPublish.onNext(())
     }
 
     @IBAction func cancelCurrentTripOnTab(_ sender: Any) {
-        coordinator.appViewModel.input.cancelCurrentTripPublish.onNext()
+        coordinator.appViewModel.input.cancelCurrentTripPublish.onNext(())
     }
 
     @IBAction func updateStateOnTap(_ sender: NSMenuItem) {

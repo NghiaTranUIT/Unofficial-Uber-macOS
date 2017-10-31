@@ -74,10 +74,10 @@ public final class SearchViewModel: SearchViewModelProtocol, SearchViewModelInpu
         Observable.combineLatest([personalPlace, historyPlace])
             .map { $0.first! + $0.last! }
             .bind(to: personalOrHistoryPlacesVar)
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
 
         // Trigger
-        uberService.reloadHistoryTrigger.onNext()
+        uberService.reloadHistoryTrigger.onNext(())
 
         // Text Search
         let textPubShare = textSearchPublish
@@ -129,7 +129,7 @@ public final class SearchViewModel: SearchViewModelProtocol, SearchViewModelInpu
 
         searchFinishOb
             .bind(to: searchPlacesVar)
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
 
         // Loader
         let stopLoadingOb = Observable.merge([searchPlaceData]).map { _ in false }
@@ -149,8 +149,8 @@ public final class SearchViewModel: SearchViewModelProtocol, SearchViewModelInpu
                 currentUser.saveHistoryPlace(placeObj)
 
                 // Load again
-                uberService.reloadHistoryTrigger.onNext()
+                uberService.reloadHistoryTrigger.onNext(())
             })
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
     }
 }

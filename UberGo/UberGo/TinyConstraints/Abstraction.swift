@@ -22,13 +22,27 @@
 //    THE SOFTWARE.
 
 import Foundation
-import AppKit
 
-public typealias View = NSView
-public typealias LayoutGuide = NSLayoutGuide
-public typealias ConstraintAxis = NSLayoutConstraintOrientation
-public typealias LayoutPriority = NSLayoutPriority
+#if os(OSX)
+    import AppKit
+    
+    public typealias View = NSView
+    public typealias LayoutGuide = NSLayoutGuide
+    public typealias ConstraintAxis = NSLayoutConstraint.Orientation
+    public typealias LayoutPriority = NSLayoutConstraint.Priority
+    public typealias TinyEdgeInsets = NSEdgeInsets
+    
+    public extension NSEdgeInsets {
+        static var zero = NSEdgeInsetsZero
+    }
+#else
+    import UIKit
+    
+    public typealias View = UIView
+    public typealias LayoutGuide = UILayoutGuide
+    public typealias ConstraintAxis = UILayoutConstraintAxis
+    public typealias LayoutPriority = UILayoutPriority
+    
+    public typealias TinyEdgeInsets = UIEdgeInsets
+#endif
 
-extension EdgeInsets {
-    static var zero = NSEdgeInsetsZero
-}

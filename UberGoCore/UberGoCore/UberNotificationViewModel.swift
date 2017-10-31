@@ -70,7 +70,7 @@ public final class UberNotificationViewModel: UberNotificationViewModelProtocol,
             .drive(onNext: { (result) in
                 service.notifyUberNotification(result)
             })
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
 
     }
 }

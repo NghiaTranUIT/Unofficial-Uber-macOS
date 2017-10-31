@@ -57,7 +57,7 @@ class PaymentMethodsController: NSViewController {
             break
         }
         let set = Set<IndexPath>([IndexPath(item: index, section: 0)])
-        collectionView.selectItems(at: set, scrollPosition: .top)
+        collectionView.selectItems(at: set, scrollPosition: NSCollectionView.ScrollPosition.top)
     }
 
     @IBAction func exitBtnOnTap(_ sender: Any) {
@@ -81,8 +81,8 @@ extension PaymentMethodsController {
         collectionView.allowsEmptySelection = false
 
         // Register
-        let nib = NSNib(nibNamed: "PaymentAccountCell", bundle: nil)
-        collectionView.register(nib, forItemWithIdentifier: "PaymentAccountCell")
+        let nib = NSNib(nibNamed: NSNib.Name(rawValue: "PaymentAccountCell"), bundle: nil)
+        collectionView.register(nib, forItemWithIdentifier: NSUserInterfaceItemIdentifier("PaymentAccountCell"))
 
         // Flow
         let flow = SearchCollectionViewFlowLayout()
@@ -104,7 +104,7 @@ extension PaymentMethodsController: NSCollectionViewDataSource {
     func collectionView(_ collectionView: NSCollectionView, itemForRepresentedObjectAt indexPath: IndexPath)
         -> NSCollectionViewItem {
         // Guard
-        guard let cell = collectionView.makeItem(withIdentifier: "PaymentAccountCell", for: indexPath)
+        guard let cell = collectionView.makeItem(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "PaymentAccountCell"), for: indexPath)
             as? PaymentAccountCell else {
                 return NSCollectionViewItem()
         }

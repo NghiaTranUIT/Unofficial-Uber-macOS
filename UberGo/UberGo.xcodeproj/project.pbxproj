@@ -36,6 +36,7 @@
 		BA8BD1D91FA81D870039AA49 /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA8BD1D71FA81D870039AA49 /* MainViewController.xib */; };
 		BA8BD1DC1FA82BA60039AA49 /* UberController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8BD1DA1FA82BA60039AA49 /* UberController.swift */; };
 		BA8BD1DD1FA82BA60039AA49 /* UberController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA8BD1DB1FA82BA60039AA49 /* UberController.xib */; };
+		BA8BD1E01FA857440039AA49 /* TinyConstraints+superview.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8BD1DF1FA857440039AA49 /* TinyConstraints+superview.swift */; };
 		BA8E05F01F298D38008D9CB8 /* UberAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA8E05EF1F298D38008D9CB8 /* UberAlertView.swift */; };
 		BA8E05F21F298D41008D9CB8 /* UberAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA8E05F11F298D41008D9CB8 /* UberAlertView.xib */; };
 		BAA157951F33446C0020D5A6 /* SearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAA157941F33446C0020D5A6 /* SearchController.swift */; };
@@ -160,6 +161,7 @@
 		BA8BD1D71FA81D870039AA49 /* MainViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainViewController.xib; sourceTree = "<group>"; };
 		BA8BD1DA1FA82BA60039AA49 /* UberController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UberController.swift; sourceTree = "<group>"; };
 		BA8BD1DB1FA82BA60039AA49 /* UberController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UberController.xib; sourceTree = "<group>"; };
+		BA8BD1DF1FA857440039AA49 /* TinyConstraints+superview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TinyConstraints+superview.swift"; sourceTree = "<group>"; };
 		BA8E05EF1F298D38008D9CB8 /* UberAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UberAlertView.swift; sourceTree = "<group>"; };
 		BA8E05F11F298D41008D9CB8 /* UberAlertView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UberAlertView.xib; sourceTree = "<group>"; };
 		BAA157941F33446C0020D5A6 /* SearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchController.swift; sourceTree = "<group>"; };
@@ -542,6 +544,7 @@
 		BACC07A41F03672F0092F2F4 /* TinyConstraints */ = {
 			isa = PBXGroup;
 			children = (
+				BA8BD1DF1FA857440039AA49 /* TinyConstraints+superview.swift */,
 				BACC07A51F0367300092F2F4 /* Abstraction.swift */,
 				BACC07A61F0367300092F2F4 /* Constrainable.swift */,
 				BACC07A71F0367300092F2F4 /* Constraints.swift */,
@@ -749,6 +752,7 @@
 					BA037F321EDD61F800945C1D = {
 						CreatedOnToolsVersion = 8.3.2;
 						DevelopmentTeam = D54Y88Y9CY;
+						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Sandbox = {
@@ -759,6 +763,7 @@
 					BA037F431EDD61F800945C1D = {
 						CreatedOnToolsVersion = 8.3.2;
 						DevelopmentTeam = D54Y88Y9CY;
+						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 						TestTargetID = BA037F321EDD61F800945C1D;
 					};
@@ -833,13 +838,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-UberGoTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		380D650E56A7BE06FC10BF61 /* [CP] Check Pods Manifest.lock */ = {
@@ -848,13 +856,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-UberGo-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		702D69811002A3516F5DB060 /* [CP] Copy Pods Resources */ = {
@@ -919,9 +930,28 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/../Pods/Target Support Files/Pods-UberGoTests/Pods-UberGoTests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/MapboxDirections.swift/MapboxDirections.framework",
+				"${BUILT_PRODUCTS_DIR}/OAuthSwift/OAuthSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/Polyline/Polyline.framework",
+				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
+				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyBeaver/SwiftyBeaver.framework",
+				"${BUILT_PRODUCTS_DIR}/Unbox/Unbox.framework",
+				"${BUILT_PRODUCTS_DIR}/Wrap/Wrap.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MapboxDirections.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OAuthSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Polyline.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyBeaver.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Unbox.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Wrap.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -934,9 +964,28 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/../Pods/Target Support Files/Pods-UberGo/Pods-UberGo-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/MapboxDirections.swift/MapboxDirections.framework",
+				"${BUILT_PRODUCTS_DIR}/OAuthSwift/OAuthSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/Polyline/Polyline.framework",
+				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
+				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyBeaver/SwiftyBeaver.framework",
+				"${BUILT_PRODUCTS_DIR}/Unbox/Unbox.framework",
+				"${BUILT_PRODUCTS_DIR}/Wrap/Wrap.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MapboxDirections.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OAuthSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Polyline.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyBeaver.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Unbox.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Wrap.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -977,6 +1026,7 @@
 				BAB14AC31EF65FA80066267B /* CenterHorizontalFlowLayout.swift in Sources */,
 				BADB78611EE661A8000536F7 /* UberTextField.swift in Sources */,
 				BAB082261F05626100A74665 /* UberAnnotation.swift in Sources */,
+				BA8BD1E01FA857440039AA49 /* TinyConstraints+superview.swift in Sources */,
 				BACC07B11F036C6E0092F2F4 /* UberPopover.swift in Sources */,
 				BA48DCAF1F415FCE007BA3B6 /* PersonalPlaceSearchController.swift in Sources */,
 				BACC07AB1F0367300092F2F4 /* Constrainable.swift in Sources */,
@@ -1161,7 +1211,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.fe.UberGo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -1184,7 +1235,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.fe.UberGo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
@@ -1200,7 +1252,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.fe.UberGoTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/UberGo.app/Contents/MacOS/UberGo";
 			};
 			name = Debug;
@@ -1217,7 +1270,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.fe.UberGoTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/UberGo.app/Contents/MacOS/UberGo";
 			};
 			name = Release;

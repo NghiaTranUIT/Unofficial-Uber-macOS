@@ -26,7 +26,7 @@ extension NSAlert {
         alert.alertStyle = .warning
 
         alert.beginSheetModal(for: window, completionHandler: { (modalResponse) -> Void in
-            if modalResponse == NSAlertFirstButtonReturn {
+            if modalResponse == NSApplication.ModalResponse.alertFirstButtonReturn {
                 okBlock?()
             } else {
                 cancelBlock?()

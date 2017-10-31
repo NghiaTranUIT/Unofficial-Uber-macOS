@@ -30,7 +30,7 @@ class MapViewController: BaseViewController {
 
     // MARK: - Init
     public class func buildController(_ mapViewModel: MapViewModelProtocol) -> MapViewController {
-        let controller = MapViewController(nibName: "MapViewController", bundle: nil)!
+        let controller = MapViewController(nibName: NSNib.Name("MapViewController"), bundle: nil)
         controller.mapViewModel = mapViewModel
         return controller
     }
@@ -57,7 +57,7 @@ class MapViewController: BaseViewController {
         mapViewModel.input.startUpdateLocationTriggerPublisher.onNext(true)
 
         // Force load Uber data
-        UberAuth.share.currentUser?.reloadUberDataPublisher.onNext()
+        UberAuth.share.currentUser?.reloadUberDataPublisher.onNext(())
 
         // Selected Place
         mapViewModel.output.selectedPlaceObjDriver
@@ -75,7 +75,7 @@ class MapViewController: BaseViewController {
                     self.mapView.addDestinationPlaceObj(nil)
                 }
             })
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
     }
 
     // MARK: - Public

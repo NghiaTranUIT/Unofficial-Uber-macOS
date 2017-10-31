@@ -99,7 +99,7 @@ public final class MapViewModel:
                     mapService.stopUpdatingLocation()
                 }
             })
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
 
         // Selected
         let selectedPlaceObserve = selectPlaceObjPublisher

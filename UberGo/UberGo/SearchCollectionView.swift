@@ -51,7 +51,7 @@ class SearchCollectionView: NSView {
                 Logger.info("Place Search FOUND = \(placeObjs.count)")
                 self.collectionView.reloadData()
             })
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
     }
 }
 
@@ -72,8 +72,8 @@ extension SearchCollectionView {
         collectionView.allowsEmptySelection = false
 
         // Register
-        let nib = NSNib(nibNamed: "SearchPlaceCell", bundle: nil)
-        collectionView.register(nib, forItemWithIdentifier: "SearchPlaceCell")
+        let nib = NSNib(nibNamed: NSNib.Name(rawValue: "SearchPlaceCell"), bundle: nil)
+        collectionView.register(nib, forItemWithIdentifier: NSUserInterfaceItemIdentifier("SearchPlaceCell"))
 
         // Flow
         let flow = SearchCollectionViewFlowLayout()
@@ -141,7 +141,7 @@ extension SearchCollectionView: NSCollectionViewDataSource {
         -> NSCollectionViewItem {
 
             // Guard
-            guard let cell = collectionView.makeItem(withIdentifier: "SearchPlaceCell", for: indexPath)
+            guard let cell = collectionView.makeItem(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "SearchPlaceCell"), for: indexPath)
                 as? SearchPlaceCell else {
                     return NSCollectionViewItem()
             }

@@ -22,27 +22,33 @@
 //    THE SOFTWARE.
 //
 
-import AppKit
+#if os(OSX)
+    import AppKit
+#else
+    import UIKit
+#endif
 
 public extension View {
-
+    
     @discardableResult
     public func stack(_ views: [View], axis: ConstraintAxis = .vertical, width: CGFloat? = nil, height: CGFloat? = nil, spacing: CGFloat = 0) -> Constraints {
+        
+        translatesAutoresizingMaskIntoConstraints = false
         
         var offset: CGFloat = 0
         var previous: View?
         var constraints: Constraints = []
-
+        
         for view in views {
             view.translatesAutoresizingMaskIntoConstraints = false
             addSubview(view)
-
+            
             switch axis {
             case .vertical:
                 constraints.append(view.top(to: previous ?? self, previous?.bottomAnchor ?? topAnchor, offset: offset))
                 constraints.append(view.left(to: self))
                 constraints.append(view.right(to: self))
-
+                
                 if let lastView = views.last, view == lastView {
                     constraints.append(view.bottom(to: self))
                 }
@@ -50,24 +56,24 @@ public extension View {
                 constraints.append(view.top(to: self))
                 constraints.append(view.bottom(to: self))
                 constraints.append(view.left(to: previous ?? self, previous?.rightAnchor ?? leftAnchor, offset: offset))
-
+                
                 if let lastView = views.last, view == lastView {
                     constraints.append(view.right(to: self))
                 }
             }
-
+            
             if let width = width {
                 constraints.append(view.width(width))
             }
-
+            
             if let height = height {
                 constraints.append(view.height(height))
             }
-
+			
             offset = spacing
             previous = view
         }
-
+        
         return constraints
     }
 }

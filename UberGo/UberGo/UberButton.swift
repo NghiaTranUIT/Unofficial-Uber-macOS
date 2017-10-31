@@ -28,13 +28,14 @@ class UberButton: NSButton {
         style.alignment = self.alignment
 
         // Attribute
-        var attributes = [NSForegroundColorAttributeName: color,
-                          NSFontAttributeName: font,
-                          NSParagraphStyleAttributeName: style] as [String: Any]
+        var attributes: [NSAttributedStringKey: Any] =
+            [NSAttributedStringKey.foregroundColor: color,
+                          NSAttributedStringKey.font: font,
+                          NSAttributedStringKey.paragraphStyle: style]
 
         // Kern
         if let kern = kern {
-            attributes[NSKernAttributeName] = kern
+            attributes[NSAttributedStringKey.kern] = kern
         }
 
         // Override

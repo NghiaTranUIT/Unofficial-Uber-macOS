@@ -69,7 +69,7 @@ public final class UserObj: NSObject, NSCoding {
                 Logger.info("Curent PaymentMethods count = \(paymentObj.paymentAccountObjs.count)")
             })
             .bind(to: paymentMethodObjVar)
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
 
         // Last User or select
         let lastUsed = paymentMethodObjVar.asObservable()
@@ -89,7 +89,7 @@ public final class UserObj: NSObject, NSCoding {
         Observable
             .merge([lastUsed, newSelectAccount])
             .bind(to: currentPaymentAccountObjVar)
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
     }
 
     //TODO: Don't use UserDefault
@@ -133,6 +133,6 @@ extension UserObj {
         ProfileRequest()
             .toObservable()
             .bind(to: userProfileObjVar)
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
     }
 }

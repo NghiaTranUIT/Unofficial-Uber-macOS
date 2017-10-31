@@ -27,7 +27,7 @@ class SearchController: NSViewController {
     // MARK: - Init
     init?(viewModel: SearchViewModelProtocol) {
         self.viewModel = viewModel
-        super.init(nibName: "SearchController", bundle: nil)
+        super.init(nibName: NSNib.Name(rawValue: "SearchController"), bundle: nil)
     }
 
     required init?(coder: NSCoder) {

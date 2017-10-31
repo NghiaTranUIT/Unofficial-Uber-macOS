@@ -13,7 +13,7 @@ import UberGoCore
 class UberPopover: NSPopover {
 
     // MARK: - Variable
-    fileprivate let statusItem = NSStatusBar.system().statusItem(withLength: NSVariableStatusItemLength)
+    fileprivate let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
     fileprivate let authenViewModel: AuthenticationViewModelProtocol
     fileprivate let viewModel: AppViewModelProtocol
     fileprivate let disposeBag = DisposeBag()
@@ -50,7 +50,7 @@ class UberPopover: NSPopover {
                 // Setup
                 self.setupContentController(with: state)
             })
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
 
         viewModel.output.popoverStateVariable.asDriver()
             .skip(1)
@@ -62,7 +62,7 @@ class UberPopover: NSPopover {
                 case .open:
                     self.handleShow()
                 }
-            }).addDisposableTo(disposeBag)
+            }).disposed(by: disposeBag)
     }
 
     fileprivate func setupContentController(with state: AuthenticationState) {
@@ -96,7 +96,7 @@ extension UberPopover {
             button.target = self
         }
 
-        appearance = NSAppearance(named: NSAppearanceNameAqua)
+        appearance = NSAppearance(named: NSAppearance.Name.aqua)
         animates = false
         behavior = .applicationDefined
     }
@@ -106,8 +106,8 @@ extension UberPopover {
     }
 
     fileprivate func initEventMonitor() -> EventMonitor {
-        return EventMonitor(mask: [NSEventMask.leftMouseDown,
-                            NSEventMask.rightMouseDown]) { [weak self] _ in
+        return EventMonitor(mask: [NSEvent.EventTypeMask.leftMouseDown,
+                            NSEvent.EventTypeMask.rightMouseDown]) { [weak self] _ in
                                 guard let `self` = self else { return }
                                 Logger.info("Event Monitor fired")
                                 if self.isShown {
@@ -124,7 +124,7 @@ extension UberPopover {
 
     fileprivate func handleShow() {
 
-        NSRunningApplication.current().activate(options: NSApplicationActivationOptions.activateIgnoringOtherApps)
+        NSRunningApplication.current.activate(options: NSApplication.ActivationOptions.activateIgnoringOtherApps)
 
         guard let button = statusItem.button else {
             return

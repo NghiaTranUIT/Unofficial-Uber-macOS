@@ -33,7 +33,7 @@ class UberController: NSViewController {
 
     // MARK: - Init
     public class func buildController(_ uberViewModel: UberServiceViewModelProtocol) -> UberController {
-        let controller = UberController(nibName: "UberController", bundle: nil)!
+        let controller = UberController(nibName: NSNib.Name(rawValue: "UberController"), bundle: nil)
         controller.uberViewModel = uberViewModel
         return controller
     }
@@ -58,7 +58,7 @@ class UberController: NSViewController {
                 // Draw Route
                 self.delegate?.drawRoute(with: place)
             })
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
 
         // Request Uber service
         uberViewModel.output.availableGroupProductsDriver
@@ -76,14 +76,14 @@ class UberController: NSViewController {
                                                                         userInfo: nil)
                 }
             })
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
 
         // Show or hide Bottom bar
         uberViewModel.output.isLoadingDriver
             .drive(onNext: { isLoading in
                 Logger.info("isLoading Available Products = \(isLoading)")
             })
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
 
         // Show href
         uberViewModel.output.showSurgeHrefDriver
@@ -91,7 +91,7 @@ class UberController: NSViewController {
                 guard let `self` = self else { return }
                 self.delegate?.presentSurgeHrefController(surgeObj)
             })
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
 
         // Trip
         uberViewModel.output.normalTripDriver
@@ -104,9 +104,9 @@ class UberController: NSViewController {
                 self.delegate?.updateLayout(.tripMinimunActivity)
 
                 // Trigger to start Timer
-                self.uberViewModel.input.triggerCurrentTripPublisher.onNext()
+                self.uberViewModel.input.triggerCurrentTripPublisher.onNext(())
             })
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
 
         // Current Trip Status
         uberViewModel.output.currentTripStatusDriver
@@ -121,10 +121,10 @@ class UberController: NSViewController {
                     self.delegate?.updateTripLayout(TripObj.invalidDummyTrip())
                 }
             })
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
 
         // Get first check Trip Status
-        uberViewModel.input.triggerCurrentTripPublisher.onNext()
+        uberViewModel.input.triggerCurrentTripPublisher.onNext(())
 
         // Cancel
         uberViewModel.output.resetMapDriver
@@ -135,7 +135,7 @@ class UberController: NSViewController {
                 self.delegate?.updateLayout(.minimal)
                 self.delegate?.resetMap()
             })
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
     }
 
     // MARK: - Public
@@ -155,7 +155,7 @@ class UberController: NSViewController {
     }
 
     public func cancelCurrentTrip() {
-        uberViewModel.input.cancelCurrentTripPublisher.onNext()
+        uberViewModel.input.cancelCurrentTripPublisher.onNext(())
     }
 
     public func requestSurgeUber(with surgeURL: String) {

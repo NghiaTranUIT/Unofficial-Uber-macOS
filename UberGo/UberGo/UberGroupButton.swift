@@ -19,12 +19,13 @@ class UberGroupButton: UberButton {
     public fileprivate(set) weak var groupObj: GroupProductObj?
     weak var delegate: UberGroupButtonDelegate?
 
-    override var state: Int {
+    override var state: NSControl.StateValue {
         didSet {
-            if state == NSOnState {
+            switch state {
+            case .on:
                 self.font = NSFont.boldSystemFont(ofSize: 15)
                 self.setTitleColor(NSColor.black, kern: 2)
-            } else {
+            default:
                 self.font = NSFont.systemFont(ofSize: 13)
                 self.setTitleColor(NSColor.darkGray, kern: 2)
             }
@@ -55,7 +56,7 @@ extension UberGroupButton {
     fileprivate func initCommon() {
         self.font = NSFont.systemFont(ofSize: 13)
         self.isBordered = false
-        self.state = NSOffState
+        self.state = .off
 
         // Targe
         self.target = self

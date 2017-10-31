@@ -21,7 +21,7 @@ class LoginViewController: BaseViewController {
 
     // MARK: - Init
     public class func buildController(_ coordinator: ViewModelCoordinatorProtocol) -> LoginViewController {
-        let login = LoginViewController(nibName: "LoginViewController", bundle: nil)!
+        let login = LoginViewController(nibName: NSNib.Name("LoginViewController"), bundle: nil)
         login.viewModel = coordinator.authenViewModel
         return login
     }
@@ -34,7 +34,7 @@ class LoginViewController: BaseViewController {
 
         // Bind
         loginBtn.rx.tap.bind(to: viewModel.input.loginBtnOnTabPublish)
-        .addDisposableTo(disposeBag)
+        .disposed(by: disposeBag)
     }
 }
 

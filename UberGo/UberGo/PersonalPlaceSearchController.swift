@@ -20,7 +20,7 @@ class PersonalPlaceSearchController: NSViewController {
     // MARK: - Init
     init?(viewModel: PersonalPlaceSearchViewModel) {
         self.viewModel = viewModel
-        super.init(nibName: "SearchController", bundle: nil)
+        super.init(nibName: NSNib.Name(rawValue: "SearchController"), bundle: nil)
     }
 
     required init?(coder: NSCoder) {

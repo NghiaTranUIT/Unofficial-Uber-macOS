@@ -75,7 +75,7 @@ class SearchBarView: NSView {
                 guard let `self` = self else { return }
                 self.updateOriginPlace(nearestPlaceObj)
             })
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
 
         // Input search
         textSearchDidChangedDriver
@@ -83,14 +83,14 @@ class SearchBarView: NSView {
                 guard let `self` = self else { return }
                 self.viewModel.input.textSearchPublish.onNext(text)
             })
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
 
         // Loader
         viewModel.output.loadingDriver
             .drive(onNext: {[weak self] (isLoading) in
                 guard let `self` = self else { return }
                 self.loaderIndicatorView(isLoading)
-            }).addDisposableTo(disposeBag)
+            }).disposed(by: disposeBag)
     }
 
     public func setupViewModel(_ viewModel: SearchViewModelProtocol) {

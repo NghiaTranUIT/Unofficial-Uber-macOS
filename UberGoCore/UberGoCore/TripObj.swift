@@ -73,17 +73,17 @@ public final class TripObj: Unboxable {
 
     public var isValidTrip: Bool {
         switch status {
-            case .unknown,
-                 .completed,
-                 .driverCanceled,
-                 .riderCanceled,
-                 .noDriversAvailable:
-                return false
-            case .accepted,
-                 .arriving,
-                 .inProgress,
-                 .processing:
-                return true
+        case .unknown,
+             .completed,
+             .driverCanceled,
+             .riderCanceled,
+             .noDriversAvailable:
+            return false
+        case .accepted,
+             .arriving,
+             .inProgress,
+             .processing:
+            return true
         }
     }
 

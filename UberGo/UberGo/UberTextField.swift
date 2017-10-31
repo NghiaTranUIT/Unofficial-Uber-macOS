@@ -45,12 +45,13 @@ class UberTextField: NSTextField {
         style.alignment = self.alignment
 
         // Attribute
-        var attributes = [NSForegroundColorAttributeName: color,
-                          NSFontAttributeName: font,
-                          NSParagraphStyleAttributeName: style] as [String: Any]
+        var attributes: [NSAttributedStringKey: Any] =
+                        [NSAttributedStringKey.foregroundColor: color,
+                          NSAttributedStringKey.font: font,
+                          NSAttributedStringKey.paragraphStyle: style]
 
         // Kern
-        attributes[NSKernAttributeName] = kern
+        attributes[NSAttributedStringKey.kern] = kern
 
         // Override
         let attributedTitle = NSAttributedString(string: self.stringValue, attributes: attributes)

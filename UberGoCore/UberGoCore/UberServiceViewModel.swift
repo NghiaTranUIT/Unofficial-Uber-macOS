@@ -131,7 +131,7 @@ public final class UberServiceViewModel: UberServiceViewModelProtocol,
         groupProductSharedNoError
             .map { return $0.first }
             .bind(to: selectedGroupProduct)
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
 
         // Nil
         let productNil = requestEstimateTripShare
@@ -147,7 +147,7 @@ public final class UberServiceViewModel: UberServiceViewModelProtocol,
 
         Observable.merge([productNil, defaultFirstObj])
             .bind(to: selectedProduct)
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
 
         // Request Uber service
         let shareRequest = requestUberPublisher
@@ -324,6 +324,6 @@ extension UberServiceViewModel {
     }
 
     @objc fileprivate func tripTimerFire() {
-        timerFirePublisher.onNext()
+        timerFirePublisher.onNext(())
     }
 }

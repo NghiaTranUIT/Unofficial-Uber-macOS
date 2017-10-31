@@ -76,7 +76,7 @@ class MainViewController: BaseViewController {
 
     // MARK: - Init
     public class func buildController(_ coordinator: ViewModelCoordinatorProtocol) -> MainViewController {
-        let controller = MainViewController(nibName: "MainViewController", bundle: nil)!
+        let controller = MainViewController(nibName: NSNib.Name("MainViewController"), bundle: nil)
         controller.coordinator = coordinator
         controller.searchViewModel = coordinator.searchViewModel
         return controller
@@ -117,7 +117,7 @@ class MainViewController: BaseViewController {
         mapController.startUpdateLocation()
 
         // Force load Uber data
-        UberAuth.share.currentUser?.reloadUberDataPublisher.onNext()
+        UberAuth.share.currentUser?.reloadUberDataPublisher.onNext(())
     }
 
     fileprivate func notificationBinding() {
@@ -146,7 +146,7 @@ class MainViewController: BaseViewController {
     }
 
     @objc func showPaymentMethodView(noti: Notification) {
-        let controller = PaymentMethodsController(nibName: "PaymentMethodsController", bundle: nil)!
+        let controller = PaymentMethodsController(nibName: NSNib.Name(rawValue: "PaymentMethodsController"), bundle: nil)
         controller.delegate = self
         presentViewControllerAsSheet(controller)
         paymentMethodController = controller
@@ -388,7 +388,7 @@ extension MainViewController: UberControllerDelegate {
     func presentProductDetailController(_ product: ProductObj) {
 
         if productDetailController == nil {
-            let controller = ProductDetailController(nibName: "ProductDetailController", bundle: nil)!
+            let controller = ProductDetailController(nibName: NSNib.Name(rawValue: "ProductDetailController"), bundle: nil)
             controller.delegate = self
             controller.configureController(with: product)
             productDetailController = controller
