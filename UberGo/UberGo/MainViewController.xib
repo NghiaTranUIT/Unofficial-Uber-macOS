@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13196" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13196"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="MainViewController" customModule="UberGo" customModuleProvider="target">
+            <connections>
+                <outlet property="view" destination="q9q-mn-Zux" id="id4-uS-gWG"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView wantsLayer="YES" id="q9q-mn-Zux">
+            <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="Ck8-MA-cGE">
+                    <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
+                    <subviews>
+                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="dOS-nu-gM8">
+                            <rect key="frame" x="-282" y="0.0" width="282" height="480"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="282" id="viQ-a1-dn9"/>
+                            </constraints>
+                        </customView>
+                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="cXl-WS-SK4">
+                            <rect key="frame" x="0.0" y="-324" width="480" height="324"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="480" id="2Rk-31-REN"/>
+                                <constraint firstAttribute="height" constant="324" id="44o-c7-hJT"/>
+                            </constraints>
+                        </customView>
+                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="0DT-XC-qkr">
+                            <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
+                            <subviews>
+                                <button focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vlF-Xq-WMX">
+                                    <rect key="frame" x="20" y="433" width="22" height="32"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="back-black-btn" imagePosition="only" alignment="center" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="sce-eq-eUq">
+                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                        <font key="font" metaFont="system"/>
+                                    </buttonCell>
+                                </button>
+                            </subviews>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="480" id="0M2-hz-kLt"/>
+                            </constraints>
+                        </customView>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="dOS-nu-gM8" firstAttribute="top" secondItem="Ck8-MA-cGE" secondAttribute="top" id="Doo-ZZ-lL3"/>
+                        <constraint firstItem="cXl-WS-SK4" firstAttribute="leading" secondItem="dOS-nu-gM8" secondAttribute="trailing" id="ECN-Ao-xmA"/>
+                        <constraint firstItem="0DT-XC-qkr" firstAttribute="top" secondItem="Ck8-MA-cGE" secondAttribute="top" id="ORx-CZ-lN1"/>
+                        <constraint firstAttribute="trailing" secondItem="0DT-XC-qkr" secondAttribute="trailing" id="Pbd-4w-SNC"/>
+                        <constraint firstAttribute="bottom" secondItem="dOS-nu-gM8" secondAttribute="bottom" id="RhY-xM-eua"/>
+                        <constraint firstAttribute="height" constant="480" id="b9D-vX-yOh"/>
+                        <constraint firstItem="0DT-XC-qkr" firstAttribute="leading" secondItem="dOS-nu-gM8" secondAttribute="trailing" id="bJZ-w5-dMc"/>
+                        <constraint firstItem="dOS-nu-gM8" firstAttribute="leading" secondItem="Ck8-MA-cGE" secondAttribute="leading" constant="-282" id="dVf-dW-glS"/>
+                        <constraint firstItem="cXl-WS-SK4" firstAttribute="top" secondItem="0DT-XC-qkr" secondAttribute="bottom" id="ecT-3d-1lu"/>
+                        <constraint firstAttribute="trailing" secondItem="cXl-WS-SK4" secondAttribute="trailing" id="gBG-th-GwL"/>
+                    </constraints>
+                </customView>
+            </subviews>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="Ck8-MA-cGE" secondAttribute="trailing" id="Ubh-Nv-lbm"/>
+                <constraint firstItem="Ck8-MA-cGE" firstAttribute="top" secondItem="q9q-mn-Zux" secondAttribute="top" id="ecW-MO-7qu"/>
+                <constraint firstItem="Ck8-MA-cGE" firstAttribute="leading" secondItem="q9q-mn-Zux" secondAttribute="leading" id="gM2-c0-VRR"/>
+                <constraint firstAttribute="bottom" secondItem="Ck8-MA-cGE" secondAttribute="bottom" id="ysd-3y-REX"/>
+            </constraints>
+            <point key="canvasLocation" x="146" y="432"/>
+        </customView>
+    </objects>
+    <resources>
+        <image name="back-black-btn" width="22" height="16"/>
+    </resources>
+</document>
