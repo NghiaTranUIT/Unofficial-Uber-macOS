@@ -22,6 +22,6 @@ class ProfileController: NSViewController {
     }
 
     @IBAction func exitBtnOnTap(_ sender: Any) {
-        print("Hi 3")
+        print("Hi 4")
     }
 }
