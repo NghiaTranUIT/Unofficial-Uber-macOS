@@ -17,6 +17,9 @@ DerivedData/
 !default.perspectivev3
 xcuserdata/
 
+# Mac OS X
+*.DS_Store
+
 ## Workspace
 *.xcworkspace/xcuserdata/**
 
