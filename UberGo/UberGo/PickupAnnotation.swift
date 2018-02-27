@@ -23,7 +23,7 @@ class PickupAnnotation: MGLPointAnnotation {
     fileprivate var pickup: PickupPointObj!
 
     fileprivate lazy var _calloutController: NSViewController = {
-        let controller = CalloutAnnotations(nibName: "CalloutAnnotations", bundle: nil)!
+        let controller = CalloutAnnotations(nibName: NSNib.Name(rawValue: "CalloutAnnotations"), bundle: nil)
         controller.setupPickupPointCallout(self.pickup)
         return controller
     }()

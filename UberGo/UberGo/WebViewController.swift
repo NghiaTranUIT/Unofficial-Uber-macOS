@@ -37,7 +37,7 @@ class WebViewController: NSViewController {
 
     // MARK: - Public
     public class func webviewControllerWith(_ mode: WebViewMode) -> WebViewController {
-        let controller = WebViewController(nibName: "WebViewController", bundle: nil)!
+        let controller = WebViewController(nibName: NSNib.Name(rawValue: "WebViewController"), bundle: nil)
         controller.mode = mode
         return controller
     }
@@ -76,6 +76,6 @@ extension WebViewController: WKNavigationDelegate, WKUIDelegate {
     }
 
     func openSafari(link: URL) {
-        NSWorkspace.shared().open(link)
+        NSWorkspace.shared.open(link)
     }
 }

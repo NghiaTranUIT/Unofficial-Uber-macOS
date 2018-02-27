@@ -40,7 +40,7 @@ class UberUserProfileRequest: XCTestCase {
             }, onError: { error in
                 XCTFail(error.localizedDescription)
             })
-        .addDisposableTo(disposeBag)
+        .disposed(by: disposeBag)
 
         // Expect
         waitForExpectations(timeout: 10, handler: nil)

@@ -75,13 +75,13 @@ class RequestUberView: NSView {
                     guard let obj = btn.groupObj else { return }
                     // Select
                     if obj === groupObj {
-                        btn.state = NSOnState
+                        btn.state = .on
                     } else {
-                        btn.state = NSOffState
+                        btn.state = .off
                     }
                 })
             })
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
 
         // Select specific product
         viewModel.output.selectedProduct.asObservable()
@@ -94,14 +94,13 @@ class RequestUberView: NSView {
                 // Stuffs
                 self.updatePersonalStuffs(productObj)
             })
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
     }
 
     // MARK: - Public
     public func configureLayout(_ parentView: NSView) {
         translatesAutoresizingMaskIntoConstraints = false
         parentView.addSubview(self)
-
         edges(to: parentView)
     }
 
@@ -116,7 +115,7 @@ class RequestUberView: NSView {
         // Manually selection
         if groupProductObjs.isEmpty == false {
             collectionView.selectItems(at: Set<IndexPath>(arrayLiteral: IndexPath(item: 0, section: 0)),
-                                            scrollPosition: .top)
+                                            scrollPosition: NSCollectionView.ScrollPosition.top)
         }
     }
 
@@ -138,7 +137,7 @@ class RequestUberView: NSView {
 
         // Default selection at first obj
         if let firstGroup = groupViews.first {
-            firstGroup.state = NSOnState
+            firstGroup.state = .on
         }
     }
 
@@ -158,7 +157,7 @@ class RequestUberView: NSView {
             self.cardNumberLbl.stringValue = accountObj.betterAccountDescription
             self.cardNumberLbl.setKern(1.2)
         })
-        .addDisposableTo(disposeBag)
+        .disposed(by: disposeBag)
     }
 
     // MARK: - Stuffs
@@ -182,7 +181,7 @@ class RequestUberView: NSView {
     }
 
     @IBAction func requestBtnOnTapped(_ sender: Any) {
-        viewModel.input.requestUberPublisher.onNext()
+        viewModel.input.requestUberPublisher.onNext(())
     }
 
     @IBAction func paymentMethodsOnTap(_ sender: Any) {
@@ -219,8 +218,8 @@ extension RequestUberView {
         collectionView.delegate = self
 
         // Cell
-        let nib = NSNib(nibNamed: "UberProductCell", bundle: nil)
-        collectionView.register(nib, forItemWithIdentifier: "UberProductCell")
+        let nib = NSNib(nibNamed: NSNib.Name(rawValue: "UberProductCell"), bundle: nil)
+        collectionView.register(nib, forItemWithIdentifier: NSUserInterfaceItemIdentifier("UberProductCell"))
 
         // Flow
         let flow = CenterHorizontalFlowLayout()
@@ -248,7 +247,7 @@ extension RequestUberView: NSCollectionViewDataSource {
         }
 
         let productObj = group.productObjs[indexPath.item]
-        guard let cell = collectionView.makeItem(withIdentifier: "UberProductCell", for: indexPath)
+        guard let cell = collectionView.makeItem(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "UberProductCell"), for: indexPath)
             as? UberProductCell else {
             return NSCollectionViewItem()
         }
@@ -286,7 +285,7 @@ extension RequestUberView: UberGroupButtonDelegate {
         selectedProduct.value = groupObj.productObjs.first!
         collectionView.reloadData()
         collectionView.selectItems(at: Set<IndexPath>(arrayLiteral: IndexPath(item: 0, section: 0)),
-                                        scrollPosition: .top)
+                                        scrollPosition: NSCollectionView.ScrollPosition.top)
     }
 }
 

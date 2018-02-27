@@ -8,12 +8,6 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="MapViewController" customModule="UberGo" customModuleProvider="target">
             <connections>
-                <outlet property="bottomBarView" destination="lC3-Vn-oNQ" id="Chf-ts-kQc"/>
-                <outlet property="containerViewHeight" destination="vsq-P1-q1e" id="HpB-Er-eRh"/>
-                <outlet property="exitNavigateBtn" destination="R7e-uc-ZRU" id="eRD-dF-TvI"/>
-                <outlet property="mapContainerView" destination="vPW-kc-2X8" id="9qX-lW-K1q"/>
-                <outlet property="menuContainerView" destination="3hZ-L9-0HO" id="RX0-S5-QS7"/>
-                <outlet property="menuContainerViewOffset" destination="5tQ-mY-Qgr" id="Vkb-HB-Jfd"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
         </customObject>
@@ -22,67 +16,7 @@
         <customView wantsLayer="YES" id="Hz6-mo-xeY">
             <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-            <subviews>
-                <customView translatesAutoresizingMaskIntoConstraints="NO" id="d62-3U-cvd">
-                    <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
-                    <subviews>
-                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="3hZ-L9-0HO">
-                            <rect key="frame" x="-282" y="0.0" width="282" height="480"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="282" id="p4U-ET-6Oq"/>
-                            </constraints>
-                        </customView>
-                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="lC3-Vn-oNQ">
-                            <rect key="frame" x="0.0" y="-324" width="480" height="324"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="324" id="Wzt-my-f1t"/>
-                                <constraint firstAttribute="width" constant="480" id="YmV-ZD-1oc"/>
-                            </constraints>
-                        </customView>
-                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="vPW-kc-2X8">
-                            <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
-                            <subviews>
-                                <button focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="R7e-uc-ZRU">
-                                    <rect key="frame" x="20" y="433" width="22" height="32"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="back-black-btn" imagePosition="only" alignment="center" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="H1D-il-Kj2">
-                                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                        <font key="font" metaFont="system"/>
-                                    </buttonCell>
-                                    <connections>
-                                        <action selector="exitNavigateBtnOnTapped:" target="-2" id="8L0-ZA-TdP"/>
-                                    </connections>
-                                </button>
-                            </subviews>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="480" id="QWT-Vi-c6X"/>
-                            </constraints>
-                        </customView>
-                    </subviews>
-                    <constraints>
-                        <constraint firstItem="3hZ-L9-0HO" firstAttribute="leading" secondItem="d62-3U-cvd" secondAttribute="leading" constant="-282" id="5tQ-mY-Qgr"/>
-                        <constraint firstAttribute="trailing" secondItem="lC3-Vn-oNQ" secondAttribute="trailing" id="HzT-W9-09H"/>
-                        <constraint firstAttribute="trailing" secondItem="vPW-kc-2X8" secondAttribute="trailing" id="LKD-t9-bxB"/>
-                        <constraint firstAttribute="bottom" secondItem="3hZ-L9-0HO" secondAttribute="bottom" id="U9o-Io-kew"/>
-                        <constraint firstItem="3hZ-L9-0HO" firstAttribute="top" secondItem="d62-3U-cvd" secondAttribute="top" id="d9g-vQ-qaM"/>
-                        <constraint firstItem="lC3-Vn-oNQ" firstAttribute="top" secondItem="vPW-kc-2X8" secondAttribute="bottom" id="jcM-2F-h6A"/>
-                        <constraint firstItem="vPW-kc-2X8" firstAttribute="leading" secondItem="3hZ-L9-0HO" secondAttribute="trailing" id="nd5-sf-B5n"/>
-                        <constraint firstItem="vPW-kc-2X8" firstAttribute="top" secondItem="d62-3U-cvd" secondAttribute="top" id="oNL-MO-UFN"/>
-                        <constraint firstAttribute="height" constant="480" id="vsq-P1-q1e"/>
-                        <constraint firstItem="lC3-Vn-oNQ" firstAttribute="leading" secondItem="3hZ-L9-0HO" secondAttribute="trailing" id="ykV-CV-S3W"/>
-                    </constraints>
-                </customView>
-            </subviews>
-            <constraints>
-                <constraint firstAttribute="trailing" secondItem="d62-3U-cvd" secondAttribute="trailing" id="3aB-oX-alA"/>
-                <constraint firstAttribute="bottom" secondItem="d62-3U-cvd" secondAttribute="bottom" id="Fkd-Co-iWH"/>
-                <constraint firstItem="d62-3U-cvd" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" id="rU5-8K-aTa"/>
-                <constraint firstItem="d62-3U-cvd" firstAttribute="leading" secondItem="Hz6-mo-xeY" secondAttribute="leading" id="s2t-ZD-eHr"/>
-            </constraints>
             <point key="canvasLocation" x="146" y="432"/>
         </customView>
     </objects>
-    <resources>
-        <image name="back-black-btn" width="22" height="16"/>
-    </resources>
 </document>

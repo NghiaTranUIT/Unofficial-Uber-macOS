@@ -1,40 +1,50 @@
 PODS:
-  - Alamofire (4.5.0)
-  - MapboxDirections.swift (0.10.4):
-    - Polyline (~> 4.1)
-  - OAuthSwift (1.1.2)
+  - Alamofire (4.5.1)
+  - MapboxDirections.swift (0.11.2):
+    - Polyline (~> 4.2)
+  - OAuthSwift (1.2.0)
   - Polyline (4.2.0)
-  - RxCocoa (3.6.1):
-    - RxSwift (~> 3.6)
-  - RxSwift (3.6.1)
-  - SwiftLint (0.21.0)
-  - SwiftyBeaver (1.4.0)
+  - RxCocoa (4.0.0):
+    - RxSwift (~> 4.0)
+  - RxSwift (4.0.0)
+  - SwiftLint (0.23.1)
+  - SwiftyBeaver (1.4.2)
   - Unbox (2.5.0)
   - Wrap (2.1.1)
 
 DEPENDENCIES:
-  - Alamofire (= 4.5)
-  - MapboxDirections.swift (= 0.10.4)
-  - OAuthSwift (= 1.1.2)
-  - RxCocoa (= 3.6.1)
-  - RxSwift (= 3.6.1)
-  - SwiftLint (= 0.21.0)
-  - SwiftyBeaver (= 1.4.0)
-  - Unbox (= 2.5)
-  - Wrap (= 2.1.1)
+  - Alamofire
+  - MapboxDirections.swift (from `https://github.com/NghiaTranUIT/MapboxDirections.swift`, branch `swift4`)
+  - OAuthSwift
+  - RxCocoa
+  - RxSwift
+  - SwiftLint
+  - SwiftyBeaver
+  - Unbox
+  - Wrap
+
+EXTERNAL SOURCES:
+  MapboxDirections.swift:
+    :branch: swift4
+    :git: https://github.com/NghiaTranUIT/MapboxDirections.swift
+
+CHECKOUT OPTIONS:
+  MapboxDirections.swift:
+    :commit: 2bece12989f5b883190099c90b0dea7a1b75e3dc
+    :git: https://github.com/NghiaTranUIT/MapboxDirections.swift
 
 SPEC CHECKSUMS:
-  Alamofire: f28cdffd29de33a7bfa022cbd63ae95a27fae140
-  MapboxDirections.swift: 7924bcfd50a8851c6972f7cf2f1abaa8acfacb19
-  OAuthSwift: 5aa5659984d3ca3206ba636a9e7a9c6626b2e8bd
+  Alamofire: 2d95912bf4c34f164fdfc335872e8c312acaea4a
+  MapboxDirections.swift: ddb21663192d99f7a5e73f3910f2c066e2b35f74
+  OAuthSwift: 7fd6855b8e4d58eb5a30d156ea9bed7a8aecd1ca
   Polyline: 3d69f75bb136357e27291d439d0436c6ebda57a4
-  RxCocoa: 84a08739ab186248c7f31ce4ee92d6f8a947d690
-  RxSwift: f9de85ea20cd2f7716ee5409fc13523dc638e4e4
-  SwiftLint: 6de8b2d15f43c482bdec2953b8cfd696faa876e8
-  SwiftyBeaver: 78d9186ce7595b4400ce01e5fd750d263e72dd7b
+  RxCocoa: d62846ca96495d862fa4c59ea7d87e5031d7340e
+  RxSwift: fd680d75283beb5e2559486f3c0ff852f0d35334
+  SwiftLint: 1b670ce79284c76520f84060e87d645078fd32fa
+  SwiftyBeaver: 91057725648ee4980308f1650af077d04b3654a0
   Unbox: 30e437e6151a6de16139375fd4e8dd9a664cfbf7
   Wrap: 9cc7da7551bb81d0846cb3df9fb624c6c32d267d
 
-PODFILE CHECKSUM: 72ee892d24bf26980c44117fc841d96aaf102536
+PODFILE CHECKSUM: 32079e2b4af057f49ac8da80316ebaa645372e42
 
 COCOAPODS: 1.3.1

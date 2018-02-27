@@ -44,7 +44,7 @@ class SandboxUberServiceTests: XCTestCase {
             }, onError: { error in
                 XCTFail(error.localizedDescription)
             })
-            .addDisposableTo(self.disposeBag)
+            .disposed(by: self.disposeBag)
 
         // Expect
         waitForExpectations(timeout: 10, handler: nil)

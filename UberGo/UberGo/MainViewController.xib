@@ -8,67 +8,76 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="MainViewController" customModule="UberGo" customModuleProvider="target">
             <connections>
-                <outlet property="view" destination="q9q-mn-Zux" id="id4-uS-gWG"/>
+                <outlet property="bottomBarView" destination="29a-0j-Jz2" id="3xe-gF-aGB"/>
+                <outlet property="containerViewHeight" destination="rBs-LV-BDb" id="vyg-Jl-qGw"/>
+                <outlet property="exitNavigateBtn" destination="GIt-RB-Xq9" id="lmA-1h-Hqx"/>
+                <outlet property="mapContainerView" destination="lNj-ZK-t4H" id="z4P-Mg-8XN"/>
+                <outlet property="menuContainerView" destination="nem-zU-Bll" id="DQf-Uq-Ife"/>
+                <outlet property="menuContainerViewOffset" destination="e9S-0c-RmP" id="Pw6-Zv-oLy"/>
+                <outlet property="view" destination="lOh-mL-nP6" id="wFx-TA-mrO"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <customView wantsLayer="YES" id="q9q-mn-Zux">
+        <customView wantsLayer="YES" id="lOh-mL-nP6">
             <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <customView translatesAutoresizingMaskIntoConstraints="NO" id="Ck8-MA-cGE">
+                <customView translatesAutoresizingMaskIntoConstraints="NO" id="gHF-iN-jPW">
                     <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
                     <subviews>
-                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="dOS-nu-gM8">
+                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="nem-zU-Bll">
                             <rect key="frame" x="-282" y="0.0" width="282" height="480"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="282" id="viQ-a1-dn9"/>
+                                <constraint firstAttribute="width" constant="282" id="fJq-41-3zQ"/>
                             </constraints>
                         </customView>
-                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="cXl-WS-SK4">
+                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="29a-0j-Jz2">
                             <rect key="frame" x="0.0" y="-324" width="480" height="324"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="480" id="2Rk-31-REN"/>
-                                <constraint firstAttribute="height" constant="324" id="44o-c7-hJT"/>
+                                <constraint firstAttribute="height" constant="324" id="0hy-fU-nlY"/>
+                                <constraint firstAttribute="width" constant="480" id="fm1-RH-xF0"/>
                             </constraints>
                         </customView>
-                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="0DT-XC-qkr">
+                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="lNj-ZK-t4H">
                             <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
                             <subviews>
-                                <button focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vlF-Xq-WMX">
+                                <button focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GIt-RB-Xq9">
                                     <rect key="frame" x="20" y="433" width="22" height="32"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                    <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="back-black-btn" imagePosition="only" alignment="center" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="sce-eq-eUq">
+                                    <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="back-black-btn" imagePosition="only" alignment="center" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="3BW-GM-4NG">
                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                         <font key="font" metaFont="system"/>
                                     </buttonCell>
+                                    <connections>
+                                        <action selector="exitNavigateBtnOnTapped:" target="-2" id="6OQ-Ds-Rgc"/>
+                                    </connections>
                                 </button>
                             </subviews>
                             <constraints>
-                                <constraint firstAttribute="height" constant="480" id="0M2-hz-kLt"/>
+                                <constraint firstAttribute="height" constant="480" id="pUw-Kf-4Ba"/>
                             </constraints>
                         </customView>
                     </subviews>
                     <constraints>
-                        <constraint firstItem="dOS-nu-gM8" firstAttribute="top" secondItem="Ck8-MA-cGE" secondAttribute="top" id="Doo-ZZ-lL3"/>
-                        <constraint firstItem="cXl-WS-SK4" firstAttribute="leading" secondItem="dOS-nu-gM8" secondAttribute="trailing" id="ECN-Ao-xmA"/>
-                        <constraint firstItem="0DT-XC-qkr" firstAttribute="top" secondItem="Ck8-MA-cGE" secondAttribute="top" id="ORx-CZ-lN1"/>
-                        <constraint firstAttribute="trailing" secondItem="0DT-XC-qkr" secondAttribute="trailing" id="Pbd-4w-SNC"/>
-                        <constraint firstAttribute="bottom" secondItem="dOS-nu-gM8" secondAttribute="bottom" id="RhY-xM-eua"/>
-                        <constraint firstAttribute="height" constant="480" id="b9D-vX-yOh"/>
-                        <constraint firstItem="0DT-XC-qkr" firstAttribute="leading" secondItem="dOS-nu-gM8" secondAttribute="trailing" id="bJZ-w5-dMc"/>
-                        <constraint firstItem="dOS-nu-gM8" firstAttribute="leading" secondItem="Ck8-MA-cGE" secondAttribute="leading" constant="-282" id="dVf-dW-glS"/>
-                        <constraint firstItem="cXl-WS-SK4" firstAttribute="top" secondItem="0DT-XC-qkr" secondAttribute="bottom" id="ecT-3d-1lu"/>
-                        <constraint firstAttribute="trailing" secondItem="cXl-WS-SK4" secondAttribute="trailing" id="gBG-th-GwL"/>
+                        <constraint firstAttribute="trailing" secondItem="29a-0j-Jz2" secondAttribute="trailing" id="Afl-Ef-WHT"/>
+                        <constraint firstItem="29a-0j-Jz2" firstAttribute="leading" secondItem="nem-zU-Bll" secondAttribute="trailing" id="NAC-8s-12K"/>
+                        <constraint firstItem="lNj-ZK-t4H" firstAttribute="leading" secondItem="nem-zU-Bll" secondAttribute="trailing" id="Vmz-hD-A4I"/>
+                        <constraint firstItem="29a-0j-Jz2" firstAttribute="top" secondItem="lNj-ZK-t4H" secondAttribute="bottom" id="WCa-dA-Ch3"/>
+                        <constraint firstItem="nem-zU-Bll" firstAttribute="leading" secondItem="gHF-iN-jPW" secondAttribute="leading" constant="-282" id="e9S-0c-RmP"/>
+                        <constraint firstAttribute="bottom" secondItem="nem-zU-Bll" secondAttribute="bottom" id="mX8-fD-Vj5"/>
+                        <constraint firstItem="lNj-ZK-t4H" firstAttribute="top" secondItem="gHF-iN-jPW" secondAttribute="top" id="mym-0w-dpS"/>
+                        <constraint firstAttribute="trailing" secondItem="lNj-ZK-t4H" secondAttribute="trailing" id="ngP-dB-erU"/>
+                        <constraint firstAttribute="height" constant="480" id="rBs-LV-BDb"/>
+                        <constraint firstItem="nem-zU-Bll" firstAttribute="top" secondItem="gHF-iN-jPW" secondAttribute="top" id="tCh-25-QMx"/>
                     </constraints>
                 </customView>
             </subviews>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="Ck8-MA-cGE" secondAttribute="trailing" id="Ubh-Nv-lbm"/>
-                <constraint firstItem="Ck8-MA-cGE" firstAttribute="top" secondItem="q9q-mn-Zux" secondAttribute="top" id="ecW-MO-7qu"/>
-                <constraint firstItem="Ck8-MA-cGE" firstAttribute="leading" secondItem="q9q-mn-Zux" secondAttribute="leading" id="gM2-c0-VRR"/>
-                <constraint firstAttribute="bottom" secondItem="Ck8-MA-cGE" secondAttribute="bottom" id="ysd-3y-REX"/>
+                <constraint firstAttribute="trailing" secondItem="gHF-iN-jPW" secondAttribute="trailing" id="7U4-o7-CgN"/>
+                <constraint firstAttribute="bottom" secondItem="gHF-iN-jPW" secondAttribute="bottom" id="8H7-qA-LTz"/>
+                <constraint firstItem="gHF-iN-jPW" firstAttribute="top" secondItem="lOh-mL-nP6" secondAttribute="top" id="QtP-tO-Gf2"/>
+                <constraint firstItem="gHF-iN-jPW" firstAttribute="leading" secondItem="lOh-mL-nP6" secondAttribute="leading" id="vdX-vB-YyN"/>
             </constraints>
             <point key="canvasLocation" x="146" y="432"/>
         </customView>

@@ -12,7 +12,7 @@ import RxSwift
 import UberGoCore
 
 protocol SearchBarViewDelegate: class {
-    func searchBar(_ sender: SearchBarView, layoutStateDidChanged state: MapViewLayoutState)
+    func searchBar(_ sender: SearchBarView, layoutStateDidChanged state: MainLayoutState)
 }
 
 class SearchBarView: NSView {
@@ -34,7 +34,7 @@ class SearchBarView: NSView {
 
     // MARK: - Variable
     weak var delegate: SearchBarViewDelegate?
-    var layoutState = MapViewLayoutState.minimal {
+    var layoutState = MainLayoutState.minimal {
         didSet {
             animateSearchBarState()
         }
@@ -75,7 +75,7 @@ class SearchBarView: NSView {
                 guard let `self` = self else { return }
                 self.updateOriginPlace(nearestPlaceObj)
             })
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
 
         // Input search
         textSearchDidChangedDriver
@@ -83,14 +83,14 @@ class SearchBarView: NSView {
                 guard let `self` = self else { return }
                 self.viewModel.input.textSearchPublish.onNext(text)
             })
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
 
         // Loader
         viewModel.output.loadingDriver
             .drive(onNext: {[weak self] (isLoading) in
                 guard let `self` = self else { return }
                 self.loaderIndicatorView(isLoading)
-            }).addDisposableTo(disposeBag)
+            }).disposed(by: disposeBag)
     }
 
     public func setupViewModel(_ viewModel: SearchViewModelProtocol) {

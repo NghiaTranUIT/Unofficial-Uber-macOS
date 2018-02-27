@@ -21,10 +21,25 @@
 //    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //    THE SOFTWARE.
 
-import AppKit
+#if os(OSX)
+    import AppKit
+#else
+    import UIKit
+#endif
 
-extension View: Constrainable {}
-extension LayoutGuide: Constrainable {}
+extension View: Constrainable {
+    
+    @discardableResult
+    public func prepareForLayout() -> Self {
+        translatesAutoresizingMaskIntoConstraints = false
+        return self
+    }
+}
+
+extension LayoutGuide: Constrainable {
+    @discardableResult
+    public func prepareForLayout() -> Self { return self }
+}
 
 public protocol Constrainable {
     var topAnchor: NSLayoutYAxisAnchor { get }
@@ -39,4 +54,7 @@ public protocol Constrainable {
     
     var widthAnchor: NSLayoutDimension { get }
     var heightAnchor: NSLayoutDimension { get }
+
+    @discardableResult
+    func prepareForLayout() -> Self
 }

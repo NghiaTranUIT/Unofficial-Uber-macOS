@@ -62,9 +62,9 @@ extension SearchPlaceCell {
     fileprivate func createTrackingAreaIfNeeded() {
         if trackingArea == nil {
                 trackingArea = NSTrackingArea(rect: CGRect.zero,
-                                              options: [NSTrackingAreaOptions.inVisibleRect,
-                                                       NSTrackingAreaOptions.mouseEnteredAndExited,
-                                                       NSTrackingAreaOptions.activeAlways],
+                                              options: [NSTrackingArea.Options.inVisibleRect,
+                                                       NSTrackingArea.Options.mouseEnteredAndExited,
+                                                       NSTrackingArea.Options.activeAlways],
                                               owner: self,
                                               userInfo: nil)
         }

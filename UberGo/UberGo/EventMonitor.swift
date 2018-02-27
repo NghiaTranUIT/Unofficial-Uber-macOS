@@ -15,12 +15,12 @@ class EventMonitor {
 
     // MARK: - Variable
     private var monitor: Any?
-    private let mask: NSEventMask
+    private let mask: NSEvent.EventTypeMask
     private let handler: EventMonitorHandler
     private var isMonitoring = false
     fileprivate let lock = NSLock()
 
-    public init(mask: NSEventMask, handler: @escaping EventMonitorHandler) {
+    public init(mask: NSEvent.EventTypeMask, handler: @escaping EventMonitorHandler) {
         self.mask = mask
         self.handler = handler
     }

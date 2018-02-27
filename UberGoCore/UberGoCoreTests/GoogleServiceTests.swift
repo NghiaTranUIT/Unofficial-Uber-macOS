@@ -42,7 +42,7 @@ class GoogleServiceTests: XCTestCase {
         }, onError: { error in
             XCTFail(error.localizedDescription)
         })
-        .addDisposableTo(self.disposeBag)
+        .disposed(by: self.disposeBag)
 
         // Expect
         waitForExpectations(timeout: 5, handler: nil)
@@ -64,7 +64,7 @@ class GoogleServiceTests: XCTestCase {
             }, onError: { error in
                 XCTFail(error.localizedDescription)
             })
-            .addDisposableTo(self.disposeBag)
+            .disposed(by: self.disposeBag)
 
         // Expect
         waitForExpectations(timeout: 5, handler: nil)

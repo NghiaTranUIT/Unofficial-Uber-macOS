@@ -20,7 +20,7 @@ class PersonalPlaceSearchController: NSViewController {
     // MARK: - Init
     init?(viewModel: PersonalPlaceSearchViewModel) {
         self.viewModel = viewModel
-        super.init(nibName: "SearchController", bundle: nil)
+        super.init(nibName: NSNib.Name(rawValue: "SearchController"), bundle: nil)
     }
 
     required init?(coder: NSCoder) {
@@ -80,7 +80,7 @@ extension PersonalPlaceSearchController {
         containerView.edges(to: view)
     }
 
-    public func updateState(_ state: MapViewLayoutState) {
+    public func updateState(_ state: MainLayoutState) {
         searchBarView.layoutState = state
         collectionView.layoutStateChanged(state)
     }
@@ -89,7 +89,7 @@ extension PersonalPlaceSearchController {
 // MARK: - SearchBarViewDelegate
 extension PersonalPlaceSearchController: SearchBarViewDelegate {
 
-    func searchBar(_ sender: SearchBarView, layoutStateDidChanged state: MapViewLayoutState) {
+    func searchBar(_ sender: SearchBarView, layoutStateDidChanged state: MainLayoutState) {
 //        delegate?.shouldUpdateLayoutState(state)
     }
 }

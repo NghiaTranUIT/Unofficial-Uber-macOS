@@ -25,7 +25,7 @@ public enum NotificationType: String {
     // To String
     func toString() -> String {
         if self.rawValue == NotificationType.windowWillClose.rawValue {
-            return Notification.Name.NSWindowWillClose.rawValue
+            return NSWindow.willCloseNotification.rawValue
         }
         return NotificationType.NotificationPrefix + self.rawValue
     }

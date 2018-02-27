@@ -64,7 +64,7 @@ extension BreakdownPriceController {
                 guard let `self` = self else { return }
                 self.setupStackView(priceObj)
             })
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
     }
 
     fileprivate func setupStackView(_ priceObj: PriceDetailObj) {

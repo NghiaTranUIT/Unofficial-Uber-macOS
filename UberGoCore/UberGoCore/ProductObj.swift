@@ -98,7 +98,7 @@ public final class ProductObj: Unboxable {
             .map { $0.priceDetail }
             .filterNil()
             .bind(to: priceDetailVariable)
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
     }
 }
 

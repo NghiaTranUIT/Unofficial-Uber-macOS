@@ -46,7 +46,7 @@ public extension Identifier {
     // XIB
     static func xib(with bundleType: BundleType) -> NSNib? {
         let bundle = Bundle(identifier: bundleType.bundleName)
-        return NSNib(nibNamed: self.identifierView, bundle: bundle)
+        return NSNib(nibNamed: NSNib.Name(rawValue: self.identifierView), bundle: bundle)
     }
 }
 

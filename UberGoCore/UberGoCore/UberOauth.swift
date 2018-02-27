@@ -48,7 +48,7 @@ public class UberAuth {
             .subscribe(onNext: {[unowned self] (userObj) in
                 self.savePersistantUser(userObj)
             })
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
 
         loginPublisher.asObservable()
             .flatMapLatest { [unowned self] _ -> Observable<OAuthSwiftCredential?> in
@@ -58,7 +58,7 @@ public class UberAuth {
                 guard let credential = credential else { return }
                 self.convertToCurrentUser(credential)
             })
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
 
         callbackObserverPublish
             .subscribe(onNext: { (event) in
@@ -67,7 +67,7 @@ public class UberAuth {
                     UberAuth.applicationHandle(url: url)
                 }
             })
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
     }
 
     // MARK: - Public

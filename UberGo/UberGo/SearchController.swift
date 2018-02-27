@@ -11,7 +11,7 @@ import UberGoCore
 protocol SearchControllerDelegate: class {
 
     func didSelectPlace(_ placeObj: PlaceObj)
-    func shouldUpdateLayoutState(_ newState: MapViewLayoutState)
+    func shouldUpdateLayoutState(_ newState: MainLayoutState)
 }
 
 class SearchController: NSViewController {
@@ -27,7 +27,7 @@ class SearchController: NSViewController {
     // MARK: - Init
     init?(viewModel: SearchViewModelProtocol) {
         self.viewModel = viewModel
-        super.init(nibName: "SearchController", bundle: nil)
+        super.init(nibName: NSNib.Name(rawValue: "SearchController"), bundle: nil)
     }
 
     required init?(coder: NSCoder) {
@@ -84,7 +84,7 @@ extension SearchController {
         containerView.edges(to: view)
     }
 
-    public func updateState(_ state: MapViewLayoutState) {
+    public func updateState(_ state: MainLayoutState) {
         searchBarView.layoutState = state
         collectionView.layoutStateChanged(state)
     }
@@ -93,7 +93,7 @@ extension SearchController {
 // MARK: - SearchBarViewDelegate
 extension SearchController: SearchBarViewDelegate {
 
-    func searchBar(_ sender: SearchBarView, layoutStateDidChanged state: MapViewLayoutState) {
+    func searchBar(_ sender: SearchBarView, layoutStateDidChanged state: MainLayoutState) {
         delegate?.shouldUpdateLayoutState(state)
     }
 }

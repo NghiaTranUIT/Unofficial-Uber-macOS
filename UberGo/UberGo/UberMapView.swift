@@ -82,7 +82,7 @@ class UberMapView: MGLMapView {
                     self.drawPickupRoute(pickupPoint.coordinate)
                 }
             })
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
 
         // Draw map
         viewModel.output.selectedDirectionRouteObserver
@@ -90,20 +90,20 @@ class UberMapView: MGLMapView {
                 guard let `self` = self else { return }
                 self.drawTripRoute(route)
             })
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
 
         viewModel.output.routeCurrentTrip
             .drive(onNext: {[weak self] (route) in
                 guard let `self` = self else { return }
                 self.drawTripRoute(route)
             })
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
     }
 
     // MARK: - Public
-    func configureLayout(_ parentView: NSView, exitBtn: NSButton) {
+    func configureLayout(_ parentView: NSView) {
         translatesAutoresizingMaskIntoConstraints = false
-        parentView.addSubview(self, positioned: .below, relativeTo: exitBtn)
+        parentView.addSubview(self)
         edges(to: parentView)
     }
 
@@ -154,7 +154,7 @@ class UberMapView: MGLMapView {
         }
 
         // Centeralize all visible annotations
-        let edge = EdgeInsets(top: 200, left: 70, bottom: 70, right: 70)
+        let edge = NSEdgeInsets(top: 200, left: 70, bottom: 70, right: 70)
         showAnnotations(annotations, edgePadding: edge, animated: true)
     }
 

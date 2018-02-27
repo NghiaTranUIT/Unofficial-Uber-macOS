@@ -70,12 +70,12 @@ public final class AppViewModel: AppViewModelProtocol,
             .withLatestFrom(popoverStateVariable.asObservable())
             .map({ return $0 == .open ? .close : .open })
             .bind(to: popoverStateVariable)
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
 
         // Map
         actionPopoverPublish
             .bind(to: popoverStateVariable)
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
 
         // Debug Current Trip
         currentTripStatusPublish
@@ -83,7 +83,7 @@ public final class AppViewModel: AppViewModelProtocol,
             .subscribe(onNext: { (tripObj) in
                 Logger.info("[DEBUG] CURRENT TRIP = \(tripObj)")
             })
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
 
         // Debug Cancel
         cancelCurrentTripPublish
@@ -91,7 +91,7 @@ public final class AppViewModel: AppViewModelProtocol,
             .subscribe(onNext: { _ in
                 Logger.info("[DEBUG] CANCEL TRIP OK")
             })
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
 
         // Debug Update status
         updateStatusTripPublish
@@ -108,7 +108,7 @@ public final class AppViewModel: AppViewModelProtocol,
             .subscribe(onNext: {[unowned self] _ in
                 Logger.info("[DEBUG] UPDATE TRIP = \(self.sandboxStatus.rawValue)")
             })
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
 
         // Notification
         NotificationCenter.observeNotificationType(.showPopover,

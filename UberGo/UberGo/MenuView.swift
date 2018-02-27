@@ -75,7 +75,7 @@ extension MenuView {
                 self.usernameLbl.stringValue = profile.fullName
                 self.avatarImageView.asyncDownloadImage(profile.picture)
             })
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
     }
 }
 extension MenuView: XIBInitializable {
